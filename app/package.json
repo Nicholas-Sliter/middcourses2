@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nivo/bar": "^0.73.1",
+    "@nivo/core": "^0.73.0",
     "@types/react": "^17.0.27",
     "next": "11.1.2",
     "react": "17.0.2",
