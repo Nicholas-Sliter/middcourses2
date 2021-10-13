@@ -1,0 +1,15 @@
+ { "course": {
+    "department": {
+      "csci": {
+        "num150": {
+          "title": "intro",
+          "reviews": 0
+        },
+        "num312": {
+          "title": "software development",
+          "reviews": 0
+        }
+      }
+    }
+  }
+}

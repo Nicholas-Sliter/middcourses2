@@ -1,4 +1,17 @@
 import { NextRouter, useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // ...
+  console.log();
+  
+
+    return {
+      props: {}, // will be passed to the page component as props
+    };
+};
+
+
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
