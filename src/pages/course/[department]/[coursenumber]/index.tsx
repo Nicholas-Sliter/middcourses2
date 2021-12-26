@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // ...
   console.log();
-  
+
 
     return {
       props: {}, // will be passed to the page component as props
@@ -20,11 +20,11 @@ export default function CoursePage() {
   console.log(coursenumber);
 
   //do page api logic here, and check if course exists, else display 404
-
+  
 
   return (
     <div>
-      <h1>{department + " " + coursenumber}</h1>
+      <h1>{department.toUpperCase() + " " + coursenumber}</h1>
     </div>
   );
 }
