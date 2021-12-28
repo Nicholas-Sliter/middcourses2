@@ -1,0 +1,51 @@
+/* File Imports */
+@import "../common/_mixins.scss";
+@import "../common/_variables.scss";
+
+
+/* Component: Header */
+
+.header {
+  background-color: $offwhite;
+  color: $black;
+  height: 4rem;
+  padding: 0.2rem;
+  padding-top: 0rem;
+  vertical-align: middle;
+  box-shadow: 1px 1px 1px 1px $grey-light;
+  
+  .logo {
+    height: 2rem;
+    padding: 0.2rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+
+  .nav_bar {
+    @include horizontal_list;
+    @include float(right);
+    height: 100%;
+    margin-top: 0.8rem;
+
+    li {
+
+      a {
+        color: $black;
+        display: inline-block;
+        text-decoration: none;
+        font-size: $font-size-medium;
+        padding: 0.5rem;
+        font-weight: medium;
+        transition: all 0.2s ease-in-out;
+        vertical-align: middle;
+
+        &:hover {
+          color: $midd-blue-light;
+
+        }
+      }
+    }
+  }
+}

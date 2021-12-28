@@ -3,14 +3,13 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 type HeaderFooterLayoutProps = {
-  pageTitle?: string;
   children?: React.ReactNode;
 };
 
-export default function HeaderFooterLayout({ pageTitle, children }) {
+export default function HeaderFooterLayout({children}) {
   return (
     <>
-      <CustomHead pageTitle={pageTitle} />
+      <CustomHead />
       <Header />
       <main>{children}</main>
       <Footer />

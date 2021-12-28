@@ -1,0 +1,42 @@
+/* File Imports */
+@import "../../common/_mixins.scss";
+@import "../../common/_variables.scss";
+
+
+/* Component: LoginButton */
+
+.button {
+   color: $black;
+   background-color: $white;
+   outline: none;
+   border: $border-light;
+   border-radius: $border-radius-small;
+   padding: 0.3rem;
+   margin: 0.1rem;
+
+
+   @include hover();
+   
+   // &:hover {
+   //    background-color: $hover-grey;
+   //    color: $midd-blue-light;
+   //    cursor: pointer;
+   // }
+
+
+
+}
+
+.header {
+   position: relative;
+   border-radius: 0 0 $border-radius-small $border-radius-small;
+   font-size: $font-size-medium;
+   vertical-align: middle;
+   margin-right: 1rem;
+   padding-top: 2rem;
+   margin-top: -1.5rem;
+   padding-bottom: 0.4rem;
+
+
+
+}

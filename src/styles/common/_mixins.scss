@@ -1,0 +1,74 @@
+@mixin reset_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin horizontal_list {
+  @include reset_list;
+
+  li {
+    display: inline-block;
+    margin: {
+      left: -2px;
+      right: 2rem;
+    }
+  }
+}
+
+@mixin float($direction) {
+  float: $direction;
+}
+
+/* Flex */
+@mixin flex {
+  display: flex;
+}
+
+@mixin flex_column {
+  @include flex;
+  flex-direction: column;
+}
+
+@mixin flex_row {
+  @include flex;
+  flex-direction: row;
+}
+
+@mixin flex_row_nowrap {
+  @include flex_row;
+  flex-wrap: nowrap;
+}
+
+@mixin grid($flex) {
+  @if $flex {
+    @include flex;
+  } @else {
+    display: block;
+  }
+}
+
+/* Headings */
+@mixin headings {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @content;
+  }
+}
+
+/* Buttons */
+@mixin hover($color:"") {
+  &:hover {
+    background-color: $hover-grey;
+    color: $midd-blue-light;
+    cursor: pointer;
+
+    @if $color != "" {
+      color: $color;
+    }
+  }
+}

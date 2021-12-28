@@ -1,15 +1,26 @@
+/**
+ * React component that inserts custom configuration info to the page head.
+ * @file add configuration info to head.
+ * @author Nicholas Sliter
+ *
+ */
+
 import Head from "next/head";
 
-type CustomHeadProps = {
-  pageTitle?: string;
-};
-
-export default function CustomHead({ pageTitle }: CustomHeadProps) {
-  const title: string = pageTitle ? `${pageTitle} | MiddCourses` : "MiddCourses";
+export default function CustomHead() {
+  const title: string = "MiddCourses";
 
   return (
     <Head>
       <title>{title}</title>
+      <link
+        href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600"
+        rel="stylesheet"
+      ></link>
+      <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:400"
+        rel="stylesheet"
+      ></link>
     </Head>
   );
 }
