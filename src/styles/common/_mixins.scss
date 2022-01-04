@@ -72,3 +72,15 @@
     }
   }
 }
+
+
+
+/* Gradients */
+@mixin gradient($color1, $color2, $angle:135deg) {
+  background: $color1;
+  background: linear-gradient($angle, $color1 10%, $color2 90%);
+  background: -webkit-linear-gradient($angle, $color1, $color2);
+  background: -o-linear-gradient($angle, $color1, $color2);
+  background: -moz-linear-gradient($angle, $color1, $color2);
+  background: -ms-linear-gradient($angle, $color1, $color2);
+}

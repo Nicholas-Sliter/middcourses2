@@ -8,6 +8,12 @@ body {
   background-color: $offwhite;
   font-family: $font-family-main;
 }
+main {
+  padding: 0;
+  margin: 0;
+
+
+}
 
 @include headings {
   font-family: $font-family-heading;

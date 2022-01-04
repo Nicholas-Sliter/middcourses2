@@ -1,0 +1,59 @@
+@import "../../common/variables.scss";
+
+.error {
+  position: relative;
+  width: 20rem;
+  display: inline-block;
+  margin: 1px;
+  text-align: center;
+  padding: 0.2rem;
+  margin-left: 1rem;
+  color: $error-main;
+  background-color: $error-background;
+  border-radius: $border-radius-small;
+}
+
+.warn {
+  position: relative;
+  width: 20rem;
+  display: inline-block;
+    margin: 1px;
+  text-align: center;
+  padding: 0.2rem;
+  margin-left: 1rem;
+  color: $warn-main;
+  background-color: $warn-background;
+  border-radius: $border-radius-small;
+}
+
+.info {
+  position: relative;
+  width: 20rem;
+  display: inline-block;
+    margin: 1px;
+  text-align: center;
+  padding: 0.2rem;
+  margin-left: 1rem;
+  color: $info-main;
+  background-color: $info-background;
+  border-radius: $border-radius-small;
+}
+
+.success {
+  position: relative;
+  width: 20rem;
+  display: inline-block;
+    margin: 1px;
+  text-align: center;
+  padding: 0.2rem;
+  margin-left: 1rem;
+  color: $success-main;
+  background-color: $success-background;
+  border-radius: $border-radius-small;
+}
+
+.icon {
+    vertical-align: middle;
+    float: left;
+    height: 1.2rem;
+  }
