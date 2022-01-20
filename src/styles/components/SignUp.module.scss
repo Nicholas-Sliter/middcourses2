@@ -1,0 +1,33 @@
+@import "../common/variables.scss";
+
+.container {
+  margin: 1rem;
+  margin-right: 5rem;
+  padding: 1rem;
+  float: right;
+  //outline: 1px solid $grey-light;
+  border-radius: $border-radius-medium;
+  display: flex;
+  flex-direction: column;
+  width: 45rem;
+  align-items: center;
+  //background-color: $offwhite;
+
+  form {
+    div {
+      margin: 2rem;
+
+      label {
+        display: inline-block !important;
+        margin-right: 1rem !important;
+      }
+      input {
+        display: inline;
+        float: right;
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+        width: 20rem !important;
+      }
+    }
+  }
+}

@@ -7,8 +7,8 @@ export default function ReviewPage() {
    
 
   return (
-    <div>
+    <>
       <p>{router.query.id}</p>
-    </div>
+    </>
   );
 }

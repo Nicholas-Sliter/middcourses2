@@ -10,7 +10,8 @@ type TextInputProps = {
    type?: string,
    placeholder?: string,
    disabled?: boolean,
-   required?: boolean
+   required?: boolean,
+   password?: boolean,
 
 };
 
@@ -24,17 +25,18 @@ export default function TextInput({
    type="",
    placeholder="",
    disabled=false,
-   required=false
+   required=false,
+   password=false
 }){
 
 
 
 return(
-   <>
+   <div className={styles.container}>
       {(label) ? <label htmlFor={label}>{label}</label> : null}
-      <input className={styles.textInput} type="text" placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)} disabled={disabled} required={required}/>
+      <input className={styles.textInput} type={password ? "password" : "text"} placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)} disabled={disabled} required={required}/>
 
-   </>
+   </div>
 
 
 

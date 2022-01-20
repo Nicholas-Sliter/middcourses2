@@ -1,0 +1,54 @@
+@import "../../common/variables.scss";
+
+
+.feature {
+   align-items: center;
+   width: 34vw;
+   display: inline-block;
+   padding: 0.2rem;
+   margin: 0.5rem;
+   margin-bottom: 2rem;
+
+   svg {
+      display: block;
+      margin: auto;
+      width: 2rem;
+      height: 2rem;
+      padding: 1.2rem;
+      outline: 1px solid $grey-dark;
+      border-radius: $border-radius-circle;
+      overflow: visible;
+      color: $grey-dark;
+
+      &:hover {
+         background-color: $hover-grey;
+      }
+
+
+   }
+
+   h3 {
+      text-align: center;
+      margin: auto;
+      padding: 0;
+      padding-top: 1rem;
+      font-size: $font-size-medium;
+      font-weight: bolder;
+      color: $grey-dark;
+   }
+
+
+   p {
+      text-align: center;
+      width: 26rem;
+      margin: auto;
+      padding: 0;
+      padding-top: 1rem;
+      font-size: $font-size-normal;
+      color: $grey-dark;
+
+
+   }
+
+
+}

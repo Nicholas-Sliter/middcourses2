@@ -1,0 +1,42 @@
+@import "../../common/variables.scss";
+
+.group {
+    padding: 1rem;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 2rem;
+    outline: solid 1px #e6e6e6;
+    border-radius: 8px;
+    min-height: 12rem;
+}
+
+
+.flexGroup {
+    justify-content: center;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 2rem;
+    outline: solid 1px #e6e6e6;
+    border-radius: 8px;
+    min-height: 12rem;
+
+}
+
+
+
+.center {
+   margin: auto;
+   align-items: center;
+   justify-content: center;
+   
+}
+
+.outline {
+   outline: solid 1px #e6e6e6;
+   border-radius: $border-radius-medium;
+   min-height: 12rem;
+}
