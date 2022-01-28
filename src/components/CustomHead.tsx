@@ -13,6 +13,7 @@ export default function CustomHead() {
   return (
     <Head>
       <title>{title}</title>
+      <link rel="icon" href="/favicon.svg" />
       <link
         href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600"
         rel="stylesheet"

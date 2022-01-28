@@ -22,7 +22,6 @@ const handler = nc({
 })
 
 .post((req: NextApiRequest, res: NextApiResponse) => {
-
    
 
 

@@ -16,9 +16,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function CoursePage() {
   const router: NextRouter = useRouter();
   //const {dept,number}: any = router.query;
-  const { department, coursenumber }: any = router.query;
+  const { department, coursenumber, semester, instructor }: any = router.query;
   console.log(coursenumber);
-
+  console.log("semester: " + semester);
+  console.log("instructor: " + instructor);
   //do page api logic here, and check if course exists, else display 404
   
 
