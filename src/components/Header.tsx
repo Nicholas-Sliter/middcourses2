@@ -7,14 +7,15 @@
 
 import Link from "next/link";
 import LoginButton from "./common/LoginButton";
+import Image from "next/image";
 
 import styles from "../styles/components/Header.module.scss";
 
 export default function Header() {
   return (
     <header className={styles.header}>
-      <Link href="/">
-        <img
+      <Link href="/" passHref>
+        <Image
           src="/middcourses_logo.svg"
           alt="middCourses"
           draggable="false"

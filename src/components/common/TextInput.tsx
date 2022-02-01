@@ -1,5 +1,8 @@
-import { DEFAULT_VALIDATOR } from "../../lib/utils.ts";
+//import { DEFAULT_VALIDATOR } from "../../lib/utils.js";
 import styles from '../../styles/components/common/TextInput.module.scss';
+
+const DEFAULT_VALIDATOR = ()=>{};
+
 
 type TextInputProps = {
    value: string,

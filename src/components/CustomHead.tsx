@@ -14,14 +14,16 @@ export default function CustomHead() {
     <Head>
       <title>{title}</title>
       <link rel="icon" href="/favicon.svg" />
-      <link
-        href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600"
-        rel="stylesheet"
-      ></link>
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:400"
-        rel="stylesheet"
-      ></link>
     </Head>
   );
 }
+
+
+      // <link
+      //   href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600"
+      //   rel="stylesheet"
+      // ></link>
+      // <link
+      //   href="https://fonts.googleapis.com/css?family=Open+Sans:400"
+      //   rel="stylesheet"
+      // ></link>

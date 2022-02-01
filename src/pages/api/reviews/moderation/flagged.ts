@@ -10,3 +10,6 @@
 
 
 //need to record who is flagging incase someone is malicious
+
+import nc from "next-connect";
+import { NextApiRequest, NextApiResponse } from "next";
