@@ -1,7 +1,7 @@
 // Update with your config settings.
 
 //fix TS error considering files without import/export as legacy scripts
-export{};
+//export{};
 
 module.exports = {
 
