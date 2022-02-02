@@ -1,3 +1,4 @@
+import { table } from "console";
 import { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
@@ -6,17 +7,38 @@ export async function up(knex: Knex): Promise<void> {
       .string("courseID")
       .notNullable(); /* Course ID: 4-digit department identifier followed by course number, eg. CSCI0201  */
     table
-      .string("courseCRN")
-      .notNullable(); /* Course CRN: Course registration number */
-    table
+			.string("courseDepartmentID")
+			.notNullable(); /* Course Department: Department abbreviation */
+      table
       .string("courseName")
       .notNullable(); /* Course Name: Course name */
 		table
 			.text("courseDescription")
 			.notNullable(); /* Course Description: Course description */
-		table
-			.string("courseDepartment")
-			.notNullable(); /* Course Department: Department abbreviation */
+  })
+  .createTable("Instructor", (table) => {
+    table
+      .string("name")
+      .notNullable();
+    table
+      .string("instructorID")
+      .notNullable();
+  })
+  .createTable("CourseInstructor", (table) => {
+    table
+      .string("courseID")
+      .notNullable();
+      table
+      .string("instructorID")
+      .notNullable();
+    table
+      .foreign("courseID")
+      .references("Course.courseID")
+      .onDelete("CASCADE");
+    table
+      .foreign("instructorID")
+      .references("Instructor.instructorID")
+      .onDelete("CASCADE");
   })
 	.createTable("Department", (table) => {
 		table
@@ -26,9 +48,6 @@ export async function up(knex: Knex): Promise<void> {
 		table
 			.string("departmentName")
 			.notNullable(); /* Department Name: Department name */
-		table
-			.string("departmentDescription")
-			.notNullable(); /* Department Description: Department description */
 	});
 }
 
