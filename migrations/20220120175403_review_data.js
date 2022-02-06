@@ -1,7 +1,5 @@
-import { Knex } from "knex";
 
-
-export async function up(knex: Knex): Promise<void> {
+exports.up = function(knex) {
   return knex.schema.createTable("Review", (table) => {
     table
       .uuid("reviewID")
@@ -44,6 +42,6 @@ export async function up(knex: Knex): Promise<void> {
 };
 
 
-export async function down(knex: Knex): Promise<void> {
+exports.down = function(knex) {
 }
 
