@@ -1,0 +1,10 @@
+[
+   {
+      "courseId": "CSCI0101",
+      "courseName": "Introduction to Computer Science",
+      "courseDescription": "In this course we will provide a broad introductory overview of the discipline of computer science, with no prerequisites or assumed prior knowledge of computers or programming. A significant component of the course is an introduction to algorithmic concepts and to programming using Python; programming assignments will explore algorithmic strategies such as selection, iteration, divide-and-conquer, and recursion, as well as introducing the Python programming language. Additional topics will include: the structure and organization of computers, the Internet and World Wide Web, abstraction as a means of managing complexity, social and ethical computing issues."
+
+   }
+
+
+]

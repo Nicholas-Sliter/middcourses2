@@ -6,7 +6,7 @@ exports.up = function (knex) {
         .notNullable(); /* Course ID: 4-digit department identifier followed by course number, eg. CSCI0201  */
       table
         .string("courseDepartmentID")
-        .notNullable(); /* Course Department: Department abbreviation */
+        .notNullable(); /* Department ID: Department abbreviation (eg. CSCI) */  //TODO: we don't need this as we can parse it from courseID
       table.string("courseName").notNullable(); /* Course Name: Course name */
       table
         .text("courseDescription")
@@ -20,6 +20,7 @@ exports.up = function (knex) {
     .createTable("CourseInstructor", (table) => {
       table.string("courseID").notNullable();
       table.string("instructorID").notNullable();
+      table.string("term", 3).notNullable();
       table
         .foreign("courseID")
         .references("Course.courseID")
