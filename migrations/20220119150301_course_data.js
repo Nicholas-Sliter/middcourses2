@@ -4,9 +4,9 @@ exports.up = function (knex) {
       table
         .string("courseID")
         .notNullable(); /* Course ID: 4-digit department identifier followed by course number, eg. CSCI0201  */
-      table
-        .string("courseDepartmentID")
-        .notNullable(); /* Department ID: Department abbreviation (eg. CSCI) */  //TODO: we don't need this as we can parse it from courseID
+      //table
+      //  .string("courseDepartmentID")
+      //  .notNullable(); /* Department ID: Department abbreviation (eg. CSCI) */  //TODO: we don't need this as we can parse it from courseID
       table.string("courseName").notNullable(); /* Course Name: Course name */
       table
         .text("courseDescription")

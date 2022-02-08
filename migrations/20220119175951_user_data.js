@@ -29,9 +29,7 @@ exports.up = function(knex)  {
       .boolean("canReadReviews")
       .notNullable()
       .defaultTo(false); /* Can Read Reviews: Whether the user can read reviews, true if numReviews > 2 or is first semester firstyear */
-    table
-      .date("creationDate")
-      .notNullable();
+    table.date("createdAt").notNullable();
   });
 }
 
