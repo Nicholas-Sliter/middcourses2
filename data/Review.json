@@ -1,0 +1,18 @@
+[
+   {
+      "reveiwID": "12a7b537-638f-42f2-a6b9-70eb5420bd5a",
+      "reviewerID": "9fc4850b-f3fd-43ef-9d1a-f35596af7f36",
+      "courseID": "CSCI0101",
+      "semester": "S22",
+      "instructorID": "4347EFF33F703A17CBF34CE12E14464A",
+      "content": "This course is very interesting and I would recommend it to anyone who is interested in learning more about computer science.",
+      "rating": 9,
+      "reviewDate": "2022-06-01T00:00:00.000Z",
+      "approved": true,
+      "flagCount": 0
+
+   }
+
+
+
+]

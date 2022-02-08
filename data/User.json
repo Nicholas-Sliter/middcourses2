@@ -1,0 +1,13 @@
+[
+   {
+      "userID": "9fc4850b-f3fd-43ef-9d1a-f35596af7f36",
+      "userEmail": "exampletest@middlebury.edu",
+      "userType": "student",
+      "graduationYear": "2026",
+      "createdAt": "2022-04-01T00:00:00.000Z",
+      "numReviews": 1,
+      "canReadReviews": true,
+      "admin": false,
+      "banned": false
+   }
+]
