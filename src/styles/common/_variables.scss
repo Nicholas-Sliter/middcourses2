@@ -55,6 +55,15 @@ $font-size-large : 1.6rem;
 
 
 
+/* Paddding */
+$padding-small : 0.4rem;
+$padding-half: 0.5rem;
+$padding-medium : 0.8rem;
+$padding-normal : 1rem;
+$padding-large : 1.2rem;
+$padding-huge : 1.6rem;
+
+
 
 /* Borders */
 $border-light : 1px solid $grey-light;
@@ -68,7 +77,8 @@ $border-radius-huge : 64px;
 $border-radius-circle : 50%;
 
 /* Shadows */
-
+$shadow-small-light : 1px 1px 10px 0px rgba(0,0,0,0.12);
+$shadow-medium-light : 2px 2px 10px 0px rgba(0,0,0,0.12);
 
 
 /* Spacing */

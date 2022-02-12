@@ -1,0 +1,44 @@
+@import "../../common/variables.scss";
+
+
+
+.container{
+      margin: 1rem;
+      width: 600px;
+      display: inline-block;
+
+
+
+   input {
+      width: 100%;
+      height: 1.2rem;
+      outline: none;
+      border: $border-light;
+      border-radius: $border-radius-large;
+      padding: $padding-half;
+      padding-left: $padding-medium;
+      padding-right: $padding-medium;
+      font-size: $font-size-medium;
+      box-shadow: $shadow-small-light;
+
+
+      &:focus {
+         
+
+
+      }
+
+
+   }
+
+
+   .dropdown{
+
+      
+
+
+
+   }
+
+}
+

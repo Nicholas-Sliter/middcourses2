@@ -34,7 +34,7 @@ const handler = nc({
 
   //JSON.stringify(review)
   res.status(200).json({
-    message: review.rating,
+    message: review,
   });
 });
 

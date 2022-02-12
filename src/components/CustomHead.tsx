@@ -13,7 +13,7 @@ export default function CustomHead() {
   return (
     <Head>
       <title>{title}</title>
-      <link rel="icon" href="/favicon.svg" />
+      <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
     </Head>
   );
 }

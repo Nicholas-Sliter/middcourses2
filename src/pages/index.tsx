@@ -12,18 +12,23 @@ import { FiBook, FiEdit2, FiThumbsUp, FiUser } from "react-icons/fi";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import SearchBar from "../components/common/SearchBox";
+
+import Review from "../components/Review";
 
 export default function Home() {
   return (
     <>
       <PageTitle pageTitle="Home" />
       <div className={styles.pageTop}>
-        <Message type="error" message="Error message" />
+        {/*<Message type="error" message="Error message" />
         <Message type="info" message="Info message" />
         <Message type="success" message="Success message" />
-        <Message type="warning" message="Warning message" />
-        <SignUp />
-        <Skeleton></Skeleton>
+  <Message type="warning" message="Warning message" /> */}
+        {/*<SignUp />*/}
+        {/*<Skeleton></Skeleton>*/}
+        <Review review={{rating:1}} />
+        <SearchBar />
       </div>
       <FlexGroup center>
         <Feature>

@@ -8,8 +8,9 @@ exports.up = function(knex)  {
       .string("userEmail")
       .notNullable(); /* User Email: User email */
     table
-      .string("userType")
+      .enum("userType", ["student", "instructor"])
       .notNullable(); /* User Type: One of { student, professor } */
+    table.string("major"); /* Major: Major of the student */
     table
       .boolean("admin")
       .notNullable()

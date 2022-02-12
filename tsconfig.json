@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "knexfile.js"  ],
+, "knexfile.js" ],
   "exclude": [
     "node_modules"
   ]

@@ -7,6 +7,30 @@ export const knex = knexInitializer(
   knexConfig[process.env.NODE_ENV || "development"]
 );
 
+
+const reviewInfo = [
+  "reviewID",
+  "courseID",
+  "instructorID",
+  "semester",
+  "reviewDate",
+  "rating",
+  "content",
+  "voteCount",
+
+  "difficulty",
+  "value",
+  "hours",
+  "again",
+  "primaryComponent",
+
+  "instructorEffectiveness",
+  "instructorAccommodationLevel",
+  "instructorEnthusiasm",
+  "instructorAgain",
+];
+
+
 /**
  * A function that gets an approved review from the database by its id.
  * @param reviewId The id of the review to get.
@@ -18,9 +42,11 @@ export async function getReviewByID(id: string): Promise<any> {
     .where({
       reviewID: id,
       approved: true,
+      //deleted: false,
+      //archived: false,
     })
     .first()
-    .select(["reviewID", "semester", "courseID", "reviewDate", "instructorID", "rating", "content"]);
+    .select(reviewInfo);
 
   if (!review) {
     return null;
@@ -53,27 +79,14 @@ async function __getFullReviewByID(id: string): Promise<any> {
 
 //get all review for a course
 export async function getReviewsByCourseID(courseID: string): Promise<any> {
-  const reviews = await knex("reviews")
+  const reviews = await knex("Review")
     .where({
       courseID: courseID,
+      approved: true,
+      //deleted: false,
+      //archived: false,
     })
-    .select(["id", "title", "content", "rating", "created_at", "updated_at"]);
-
-  if (!reviews) {
-    return null;
-  }
-
-  return reviews;
-}
-
-export async function getReviewsByInstructorID(
-  instructorID: string
-): Promise<any> {
-  const reviews = await knex("reviews")
-    .where({
-      instructorID: instructorID,
-    })
-    .select(["id", "title", "content", "rating", "created_at", "updated_at"]);
+    .select(reviewInfo);
 
   if (!reviews) {
     return null;
@@ -83,9 +96,33 @@ export async function getReviewsByInstructorID(
 }
 
 /**
+ * A function that gets all active reviews associated with an instructor.
+ * @authentication {instructors: self-only, students: canReadReviews true}
+ * @param instructorID 
+ * @returns a list of all reviews for a given instructor
+ */
+export async function getReviewsByInstructorID(
+  instructorID: string
+): Promise<any> {
+  const reviews = await knex("reviews")
+    .where({
+      instructorID: instructorID,
+    })
+    .select(reviewInfo);
+
+  if (!reviews) {
+    return null;
+  }
+
+  return reviews;
+}
+
+
+/**
  * A function that gets a review from the database by its reviewer's id.
  * WARNING: do not call this function without authentication. Only allow a user
  * to access their own reviews.
+ * @authentication This function requires authentication.
  * @param id the id of a reviewer
  * @returns A promise that resolves to the reviews or an empty array
  */
@@ -94,11 +131,83 @@ export async function getReviewsByUserID(id: string): Promise<any> {
     .where({
       reviewerID: id,
     })
-    .select(["reviewID", "semester", "rating", "content"]); //decide how to return  
+    .select(["reviewID", "semester", "rating", "content"]); //decide how to return
 
   if (!reviews) {
     return [];
   }
 
   return reviews;
+}
+
+/**
+ * A function that gets an instructor by their id.
+ * Usage: Public
+ * @param id 
+ * @returns A promise that resolves to an instructor object or null if it doesn't exist.
+ * 
+ */
+export async function getInstructorByID(id: string): Promise<any>{
+
+  const instructor = await knex("Instructor")
+    .where({
+      instructorID: id,
+    })
+    .first()
+    .select(["name", "instructorID", "slug"]);
+
+    if (!instructor) {
+      return null;
+    }
+
+    return instructor;
+
+
+}
+
+
+/**
+ * A function that gets an instructor by their slug.
+ * @authentication {public}
+ * @param id 
+ * @returns A promise that resolves to an instructor object or null if it doesn't exist.
+ * 
+ */
+export async function getInstructorBySlug(slug: string): Promise<any>{
+
+  const instructor = await knex("Instructor")
+    .where({
+      slug: slug,
+    })
+    .first()
+    .select(["name", "instructorID", "slug"]);
+
+    if (!instructor) {
+      return null;
+    }
+
+    return instructor;
+
+
+}
+
+
+
+export async function getCourseByID(id:string): Promise<any>{
+  const course = await knex("Course")
+    .where({
+      courseID: id,
+    })
+    .first()
+    .select(["courseID", "courseName", "courseDescription"]);
+
+  if (!course) {
+    return null;
+  }
+
+  return course;
+
+
+
+
 }

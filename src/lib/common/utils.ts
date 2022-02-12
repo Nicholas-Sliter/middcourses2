@@ -12,6 +12,7 @@ export function getFirstSemesterGraduationYear(): string {
 
 }
 
+export const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export function isUUIDv4(id: string){
    if (id.length !== 36) {
