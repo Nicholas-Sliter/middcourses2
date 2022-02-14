@@ -53,7 +53,7 @@
 
       &:hover {
          svg {
-            stroke: $error-main;
+            stroke: #0c46b1; //#048204
             transform: scale(1.4);
             transition: ease-in-out 0.3s;
          }
