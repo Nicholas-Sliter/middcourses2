@@ -18,7 +18,7 @@ export default function CoursePage() {
   const course = useCourse(department, courseNumber);
 
   const reviews = useCourseReviews(department, courseNumber)?.reviews as
-    | public_review[]
+    public_review[];
 
   const [instructorIDs, setInstructorIDs] = useState<string[]>([]);
   const [instructors, setInstructors] = useState<public_instructor[]>([]);
@@ -59,7 +59,7 @@ export default function CoursePage() {
       )}
       <div>
         <h2>Reviews</h2>
-        <ReviewList reviews={reviews} instructors={instructors} />
+        {(reviews?.length) ? <ReviewList reviews={reviews} instructors={instructors} /> : null}
       </div>
     </div>
   );

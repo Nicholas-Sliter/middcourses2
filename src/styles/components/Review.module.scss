@@ -23,6 +23,12 @@
       // }
    }
 
+   span{
+      a:any-link{
+      color: #000;
+      }
+   }
+
 
    .flagButton {
       outline: none;
@@ -69,6 +75,7 @@
       background-color: transparent;
       cursor: pointer;
       float: right;
+      margin-right: 0.8rem;
 
 
       &:hover {

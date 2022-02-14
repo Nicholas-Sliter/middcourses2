@@ -2,6 +2,8 @@ import styles from "../styles/components/Review.module.scss";
 import DateString from "./common/DateString";
 import { FiFlag, FiChevronUp, FiChevronDown } from "react-icons/fi";
 import { public_review, public_instructor } from "../lib/common/types";
+import Link from "next/link";
+
 
 import {
   FaRegLaughBeam,
@@ -11,6 +13,7 @@ import {
   FaRegFrown,
   FaRegTired,
 } from "react-icons/fa";
+import { ResponsiveWrapper } from "@nivo/core";
 
 
 interface ReviewProps {
@@ -46,6 +49,7 @@ const ratingColorMapping = {
 };
 
 export default function Review({ review, instructor }: ReviewProps) {
+  //review.rating = Math.floor(Math.random() * 10) + 1;
   return (
     <div key={review.reviewID} className={styles.container}>
       <span
@@ -56,15 +60,27 @@ export default function Review({ review, instructor }: ReviewProps) {
       >
         {ratingIconMapping[review.rating]}
       </span>
-      <span> with {instructor?.name}</span>
+      <span> with {<Link href={`/instructor/${instructor?.slug}`}><a>{instructor?.name}</a></Link>}</span>
       <DateString date={review.reviewDate} />
-      <button aria-label="Flag Review" title="Flag harmful review" className={styles.flagButton}>
+      <button
+        aria-label="Flag Review"
+        title="Flag harmful review"
+        className={styles.flagButton}
+      >
         <FiFlag />
       </button>
-      <button aria-label="Downvote" title="Not helpful" className={styles.downvoteButton}>
+      <button
+        aria-label="Downvote"
+        title="Not helpful"
+        className={styles.downvoteButton}
+      >
         <FiChevronDown />
       </button>
-      <button aria-label="Upvote" title="Helpful" className={styles.upvoteButton}>
+      <button
+        aria-label="Upvote"
+        title="Helpful"
+        className={styles.upvoteButton}
+      >
         <FiChevronUp />
       </button>
       <br />
