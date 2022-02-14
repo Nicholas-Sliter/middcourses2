@@ -1,6 +1,6 @@
 import styles from "../../styles/components/common/SearchBar.module.scss";
 import { useState, useEffect } from "react";
-import useCourseSearchResults from "../../hooks/useCourseSearchResults.js";
+//import useCourseSearchResults from "../../hooks/useCourseSearchResults.js";
 
 export default function SearchBar({showResultDropdown=false}){
    const [value, setValue] = useState("");
