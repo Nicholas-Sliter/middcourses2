@@ -3,6 +3,7 @@ exports.up = function (knex) {
     .createTable("Course", (table) => {
       table
         .string("courseID")
+        .unique() //should be unique?????
         .notNullable(); /* Course ID: 4-digit department identifier followed by course number, eg. CSCI0201  */
       //table
       //  .string("courseDepartmentID")
