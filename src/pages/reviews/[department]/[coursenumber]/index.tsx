@@ -19,7 +19,6 @@ export default function CoursePage() {
 
   const reviews = useCourseReviews(department, courseNumber)?.reviews as
     | public_review[]
-    | null;
 
   const [instructorIDs, setInstructorIDs] = useState<string[]>([]);
   const [instructors, setInstructors] = useState<public_instructor[]>([]);
@@ -27,7 +26,7 @@ export default function CoursePage() {
   useEffect(() => {
     const arr = reviews.map((review) => review.instructorID);
     setInstructorIDs(arr);
-  }, [reviews.length, department, courseNumber]);
+  }, [reviews.length, department, courseNumber]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     async function fetchInstructors() {
