@@ -43,6 +43,44 @@
 
    }
 
+      .upvoteButton {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      float: right;
+
+
+      &:hover {
+         svg {
+            stroke: $error-main;
+            transform: scale(1.4);
+            transition: ease-in-out 0.3s;
+         }
+      }
+
+
+   }
+
+
+      .downvoteButton {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      float: right;
+
+
+      &:hover {
+         svg {
+            stroke: #7f38ec;
+            transform: scale(1.4);
+            transition: ease-in-out 0.3s;
+         }
+      }
+
+
+   }
 
 }
 

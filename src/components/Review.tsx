@@ -1,6 +1,6 @@
 import styles from "../styles/components/Review.module.scss";
 import DateString from "./common/DateString";
-import { FiFlag } from "react-icons/fi";
+import { FiFlag, FiChevronUp, FiChevronDown } from "react-icons/fi";
 import { public_review, public_instructor } from "../lib/common/types";
 
 import {
@@ -11,6 +11,7 @@ import {
   FaRegFrown,
   FaRegTired,
 } from "react-icons/fa";
+
 
 interface ReviewProps {
   review: public_review;
@@ -57,8 +58,14 @@ export default function Review({ review, instructor }: ReviewProps) {
       </span>
       <span> with {instructor?.name}</span>
       <DateString date={review.reviewDate} />
-      <button aria-label="Flag Review" className={styles.flagButton}>
+      <button aria-label="Flag Review" title="Flag harmful review" className={styles.flagButton}>
         <FiFlag />
+      </button>
+      <button aria-label="Downvote" title="Not helpful" className={styles.downvoteButton}>
+        <FiChevronDown />
+      </button>
+      <button aria-label="Upvote" title="Helpful" className={styles.upvoteButton}>
+        <FiChevronUp />
       </button>
       <br />
       <p>{review.content}</p>
