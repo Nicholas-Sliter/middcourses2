@@ -1,14 +1,106 @@
+@import "../common/_variables.scss";
+
 .container {
 
    margin: 1rem;
-   width: 600px;
+   width: 80%;
+   max-width: 600px;
    display: inline-block;
+   padding: 1rem;
+   border-radius: $border-radius-medium;
+   outline: $border-light;
+   background-color: #fcfcfc;
+   box-shadow: $shadow-medium-light;
 
-   div {
-      background-color: #fafafa;
+   span:first-of-type {
+      font-size: $font-size-large;
+      vertical-align: middle;
+      //border: $border-light;
+      //border-radius: $border-radius-small;
+      padding: 2px;
+      // &::after{
+      //    content: "/10";
+      // }
+   }
 
+
+   .flagButton {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      float: right;
+
+
+      &:hover {
+         svg {
+            stroke: $error-main;
+            transform: scale(1.4);
+            transition: ease-in-out 0.3s;
+         }
+      }
 
 
    }
 
+
 }
+
+.green {
+   $color: #048204;
+   svg {
+      fill: $white;
+      background-color: $color;
+      border-radius: 50%;
+      border: 1px solid $color;
+   }
+}
+
+.light-green {
+   $color: #a6d785;
+   svg {
+      fill: $white;
+      background-color: $color;
+      border-radius: 50%;
+      border: 1px solid $color;
+   }
+}
+
+.yellow {
+   $color: #ffc718;
+   svg {
+      fill: $white;
+      background-color: $color;
+      border-radius: 50%;
+      border: 1px solid $color;
+   }
+}
+
+.orange {
+   $color: #ffa500; //#ff6600
+   svg {
+      fill: $white;
+      background-color: $color;
+      border-radius: 50%;
+      border: 1px solid $color;
+   }
+}
+
+.red {
+   $color: #cc0404;
+   svg {
+      fill: $white;
+      background-color: $color;
+      border-radius: 50%;
+      border: 1px solid $color;
+   }
+}
+
+
+
+.largeReview {
+
+
+
+}
+

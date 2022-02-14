@@ -14,7 +14,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import SearchBar from "../components/common/SearchBox";
 
-import Review from "../components/Review";
 
 export default function Home() {
   return (
@@ -26,8 +25,6 @@ export default function Home() {
         <Message type="success" message="Success message" />
   <Message type="warning" message="Warning message" /> */}
         {/*<SignUp />*/}
-        {/*<Skeleton></Skeleton>*/}
-        <Review review={{rating:1}} />
         <SearchBar />
       </div>
       <FlexGroup center>

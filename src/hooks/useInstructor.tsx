@@ -17,5 +17,5 @@ export default function useInstructor(id:string) {
       fetchInstructor();
    }, [id]);
 
-  return { instructor: instructor };
+  return instructor;
 }

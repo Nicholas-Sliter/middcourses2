@@ -9,5 +9,16 @@
       "canReadReviews": true,
       "admin": false,
       "banned": false
+   },
+   {
+      "userID": "ad209b1f-64aa-4317-b11f-bbb80da5df2b",
+      "userEmail": "exampletest2@middlebury.edu",
+      "userType": "student",
+      "graduationYear": "2025",
+      "createdAt": "2022-04-02T00:00:00.000Z",
+      "numReviews": 1,
+      "canReadReviews": true,
+      "admin": false,
+      "banned": false
    }
 ]

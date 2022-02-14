@@ -1,0 +1,51 @@
+
+@import "../common/_variables.scss";
+
+.container {
+
+   margin: 0.1rem;
+   padding: 0.1rem;
+   display: inline-block;
+
+}
+
+.badge {
+
+   display: inline-block;
+   padding: 0.3rem;
+   margin: 0.1rem;
+   border-radius: $border-radius-small;
+   background-color: #f5f5f5;
+   color: #333;
+   border: none;
+   outline: $border-light;
+   font-size: 0.8rem;
+   font-weight: bold;
+   text-align: center;
+   text-transform: uppercase;
+   box-shadow: $shadow-small-light;
+   cursor: pointer;
+
+   &:hover{
+      outline: $border-dark;
+   }
+
+}
+
+.selected {
+   background-color: $logo-blue;
+   color: #fff;
+
+   &:hover{
+      outline: $border-blue;
+   }
+}
+
+@media screen and (max-width: $screen-small){
+   .badge{
+      font-size: 1rem;
+   }
+
+}
+
+

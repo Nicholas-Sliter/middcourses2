@@ -1,12 +1,19 @@
+
 import { NextRouter, useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import InstructorBadge from "../../../../components/InstructorBadge";
 import useCourse from "../../../../hooks/useCourse";
 import useCourseReviews from "../../../../hooks/useCourseReviews";
-import { public_review } from "../../../../lib/common/types";
+import useInstructors from "../../../../hooks/useInstructors";
+import { public_review, public_instructor } from "../../../../lib/common/types";
+import { lastNameInstructorSort } from "../../../../lib/frontend/utils";
+import ReviewList from "../../../../components/ReviewList";
+import CourseCard from "../../../../components/CourseCard";
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
-  const { department, courseNumber, semester, instructor }: any = router.query;
+  const { department, courseNumber }: any = router.query;
+  //useState<public_instructor[]>([]);
 
   const course = useCourse(department, courseNumber);
 
@@ -14,44 +21,46 @@ export default function CoursePage() {
     | public_review[]
     | null;
 
+  const [instructorIDs, setInstructorIDs] = useState<string[]>([]);
+  const [instructors, setInstructors] = useState<public_instructor[]>([]);
+  
   useEffect(() => {
-    if (!reviews?.length) {
-      return null;
-    }
-    const instructorIDs = [
-      ...new Set(reviews.map((review) => review.instructorID)),
-    ];
-    const instructors = instructorIDs.map(async (id) => {
-      const res = await fetch(`/api/instructor/id/${id}`);
+    const arr = reviews.map((review) => review.instructorID);
+    setInstructorIDs(arr);
+  }, [reviews.length, department, courseNumber]);
+
+  useEffect(() => {
+    async function fetchInstructors() {
+      //this set actually doesn't do anything since the instructors are objects
+    const instructorSet = new Set<public_instructor>();
+    instructorIDs.forEach(async (id) => {
+      const res = await fetch (`/api/instructor/id/${id}`);
       if (!res.ok) {
-        return null;
+        return;
       }
-      const data = await res.json();
-      return data.instructor;
+      const instructor = (await res.json())?.instructor as public_instructor;
+      instructorSet.add(instructor);
+      setInstructors([...instructorSet]);
     });
-  }, [reviews]);
+  }
+  fetchInstructors();
+  }, [instructorIDs]);
+
+
+  //const instructors = useInstructors(instructorIDs);
 
   return (
     <div>
-      {course ? (
-        <>
-          <h1>{course?.courseName}</h1>
-          <span>{`${course?.courseID.substring(0, 4)}`}</span>
-          <span> </span>
-          <span>{`${course?.courseID.substring(4)}`}</span>
-          <p>{course?.courseDescription}</p>{" "}
-        </>
-      ) : null}
+      <CourseCard course={course} />
       <hr />
+     {instructorIDs.map((id) => (
+       //note: this only shows the instructors who have reviews
+       //use the CourseIntructors table to get all instructors
+        <InstructorBadge key={id} id={id} />)
+      )}
       <div>
         <h2>Reviews</h2>
-        {reviews?.map((review) => (
-          <div key={review.reviewID}>
-            <span>{review.rating}</span>
-            <br />
-            <p>{review.content}</p>
-          </div>
-        ))}
+        <ReviewList reviews={reviews} instructors={instructors} />
       </div>
     </div>
   );

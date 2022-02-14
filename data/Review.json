@@ -11,26 +11,36 @@
       "approved": true,
       "flaggedCount": 0,
       "voteCount": 0,
-      
-
       "difficulty": 5,
       "value": 8,
       "hours": 10,
       "again": true,
       "primaryComponent": "exam",
-
       "instructorEffectiveness": 8,
       "instructorAccommodationLevel": 9,
       "instructorEnthusiasm": 7,
       "instructorAgain": true
-
-
-
-
-
-
+   },
+   {
+      "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb4",
+      "reviewerID": "ad209b1f-64aa-4317-b11f-bbb80da5df2b",
+      "courseID": "CSCI0101",
+      "semester": "S22",
+      "instructorID": "ED3B22D73836EA86F9127C0691477535",
+      "content": "This course is supa interesting. Yeah.",
+      "rating": 10,
+      "reviewDate": "2022-06-01T00:00:00.000Z",
+      "approved": true,
+      "flaggedCount": 0,
+      "voteCount": 0,
+      "difficulty": 3,
+      "value": 9,
+      "hours": 12,
+      "again": true,
+      "primaryComponent": "exam",
+      "instructorEffectiveness": 7,
+      "instructorAccommodationLevel": 10,
+      "instructorEnthusiasm": 8,
+      "instructorAgain": true
    }
-
-
-
 ]

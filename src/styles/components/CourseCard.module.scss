@@ -1,0 +1,40 @@
+
+@import "../common/_variables.scss";
+
+.container {
+
+   margin: 1rem;
+   margin-left: 2rem;
+   margin-right: 2rem;
+
+
+   h1 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #333;
+      margin-bottom: 0;
+   }
+
+   span {
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #333; //8c8c8c
+      border: $border-light;
+      border-radius: $border-radius-small;
+
+      a:any-link {
+         color: #333;
+         text-decoration: none;
+      }
+
+   }
+
+
+
+
+
+
+
+}

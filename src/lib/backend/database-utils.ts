@@ -192,7 +192,11 @@ export async function getInstructorBySlug(slug: string): Promise<any>{
 }
 
 
-
+/**
+ * Get a course by its id.
+ * @param id the course id in DEPTCODE format (eg. CSCI0101)
+ * @returns 
+ */
 export async function getCourseByID(id:string): Promise<any>{
   const course = await knex("Course")
     .where({
@@ -208,6 +212,43 @@ export async function getCourseByID(id:string): Promise<any>{
   return course;
 
 
+}
 
+
+/** */
+export async function getInstructorsByCourseID(id:string){
+  //search through the CourseInstructor table for all instructors associated with a course
+  const instructors = await knex("CourseInstructor")
+    .where({
+      courseID: id,
+    })
+    .select(["instructorID"]);
+
+  if (!instructors || instructors.length == 0) {
+    return null;
+  }
+
+  return instructors;
+
+}
+
+
+/**
+ * A function that gets all courses associated with an instructor.
+ * 
+ */
+export async function getCoursesByInstructorID(id:string){
+  //search through the CourseInstructor table for all instructors associated with a course
+  const courses = await knex("CourseInstructor")
+    .where({
+      instructorID: id,
+    })
+    .select(["courseID"]);
+
+  if (!courses || courses.length == 0) {
+    return null;
+  }
+
+  return courses;
 
 }

@@ -66,6 +66,7 @@ $padding-huge : 1.6rem;
 
 
 /* Borders */
+$border-blue: 1px solid $focus-blue;
 $border-light : 1px solid $grey-light;
 $border-dark : 1px solid $grey-dark;
 $border-dark-large : 2px solid $grey-dark;
@@ -88,3 +89,5 @@ $shadow-medium-light : 2px 2px 10px 0px rgba(0,0,0,0.12);
 
 /* Media Queries */
 $screen-small : 480px;
+$screen-medium : 768px;
+$screen-large : 1024px;
