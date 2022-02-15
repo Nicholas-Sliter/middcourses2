@@ -1,18 +1,20 @@
 @import "../common/_variables.scss";
 
 .container {
+  margin: 1rem;
+  width: 80%;
+  max-width: 600px;
+  display: inline-block;
+  //padding: 1rem;
+  border-radius: $border-radius-medium;
+  outline: $border-light;
+  background-color: #fcfcfc;
+  box-shadow: $shadow-medium-light;
 
-   margin: 1rem;
-   width: 80%;
-   max-width: 600px;
-   display: inline-block;
-   padding: 1rem;
-   border-radius: $border-radius-medium;
-   outline: $border-light;
-   background-color: #fcfcfc;
-   box-shadow: $shadow-medium-light;
-
-   span:first-of-type {
+  .reviewMain {
+    padding: 1rem;
+    padding-bottom: 0;
+    & > span:first-of-type {
       font-size: $font-size-large;
       vertical-align: middle;
       //border: $border-light;
@@ -21,131 +23,114 @@
       // &::after{
       //    content: "/10";
       // }
-   }
+    }
 
-   span{
-      a:any-link{
-      color: #000;
+    span {
+      a:any-link {
+        color: #000;
       }
-   }
+    }
 
-
-   .flagButton {
+    .flagButton {
       outline: none;
       border: none;
       background-color: transparent;
       cursor: pointer;
       float: right;
 
-
       &:hover {
-         svg {
-            stroke: $error-main;
-            transform: scale(1.4);
-            transition: ease-in-out 0.3s;
-         }
+        svg {
+          stroke: $error-main;
+          transform: scale(1.4);
+          transition: ease-in-out 0.3s;
+        }
       }
+    }
+  }
 
+  .upvoteButton {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    float: right;
 
-   }
-
-      .upvoteButton {
-      outline: none;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-      float: right;
-
-
-      &:hover {
-         svg {
-            stroke: #0c46b1; //#048204
-            transform: scale(1.4);
-            transition: ease-in-out 0.3s;
-         }
+    &:hover {
+      svg {
+        stroke: #0c46b1; //#048204
+        transform: scale(1.4);
+        transition: ease-in-out 0.3s;
       }
+    }
+  }
 
+  .downvoteButton {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    float: right;
+    margin-right: 0.8rem;
 
-   }
-
-
-      .downvoteButton {
-      outline: none;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-      float: right;
-      margin-right: 0.8rem;
-
-
-      &:hover {
-         svg {
-            stroke: #7f38ec;
-            transform: scale(1.4);
-            transition: ease-in-out 0.3s;
-         }
+    &:hover {
+      svg {
+        stroke: #7f38ec;
+        transform: scale(1.4);
+        transition: ease-in-out 0.3s;
       }
-
-
-   }
-
+    }
+  }
 }
 
 .green {
-   $color: #048204;
-   svg {
-      fill: $white;
-      background-color: $color;
-      border-radius: 50%;
-      border: 1px solid $color;
-   }
+  $color: #048204;
+  svg {
+    fill: $white;
+    background-color: $color;
+    border-radius: 50%;
+    border: 1px solid $color;
+  }
 }
 
 .light-green {
-   $color: #a6d785;
-   svg {
-      fill: $white;
-      background-color: $color;
-      border-radius: 50%;
-      border: 1px solid $color;
-   }
+  $color: #a6d785;
+  svg {
+    fill: $white;
+    background-color: $color;
+    border-radius: 50%;
+    border: 1px solid $color;
+  }
 }
 
 .yellow {
-   $color: #ffc718;
-   svg {
-      fill: $white;
-      background-color: $color;
-      border-radius: 50%;
-      border: 1px solid $color;
-   }
+  $color: #ffc718;
+  svg {
+    fill: $white;
+    background-color: $color;
+    border-radius: 50%;
+    border: 1px solid $color;
+  }
 }
 
 .orange {
-   $color: #ffa500; //#ff6600
-   svg {
-      fill: $white;
-      background-color: $color;
-      border-radius: 50%;
-      border: 1px solid $color;
-   }
+  $color: #ffa500; //#ff6600
+  svg {
+    fill: $white;
+    background-color: $color;
+    border-radius: 50%;
+    border: 1px solid $color;
+  }
 }
 
 .red {
-   $color: #cc0404;
-   svg {
-      fill: $white;
-      background-color: $color;
-      border-radius: 50%;
-      border: 1px solid $color;
-   }
+  $color: #cc0404;
+  svg {
+    fill: $white;
+    background-color: $color;
+    border-radius: 50%;
+    border: 1px solid $color;
+  }
 }
-
-
 
 .largeReview {
-
-
-
 }
-

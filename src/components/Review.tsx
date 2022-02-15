@@ -13,7 +13,8 @@ import {
   FaRegFrown,
   FaRegTired,
 } from "react-icons/fa";
-import { ResponsiveWrapper } from "@nivo/core";
+
+import ReviewDetail from "./ReviewDetail";
 
 
 interface ReviewProps {
@@ -49,42 +50,53 @@ const ratingColorMapping = {
 };
 
 export default function Review({ review, instructor }: ReviewProps) {
-  //review.rating = Math.floor(Math.random() * 10) + 1;
+  review.rating = Math.floor(Math.random() * 10) + 1;
   return (
     <div key={review.reviewID} className={styles.container}>
-      <span
-        className={styles[ratingColorMapping[review.rating]]}
-        aria-label="Rating"
-        aria-valuetext={`${review.rating} out of 10`}
-        title={`${review.rating} out of 10`}
-      >
-        {ratingIconMapping[review.rating]}
-      </span>
-      <span> with {<Link href={`/instructor/${instructor?.slug}`}><a>{instructor?.name}</a></Link>}</span>
-      <DateString date={review.reviewDate} />
-      <button
-        aria-label="Flag Review"
-        title="Flag harmful review"
-        className={styles.flagButton}
-      >
-        <FiFlag />
-      </button>
-      <button
-        aria-label="Downvote"
-        title="Not helpful"
-        className={styles.downvoteButton}
-      >
-        <FiChevronDown />
-      </button>
-      <button
-        aria-label="Upvote"
-        title="Helpful"
-        className={styles.upvoteButton}
-      >
-        <FiChevronUp />
-      </button>
-      <br />
-      <p>{review.content}</p>
+      <div className={styles.reviewMain}>
+        <span
+          className={styles[ratingColorMapping[review.rating]]}
+          aria-label="Rating"
+          aria-valuetext={`${review.rating} out of 10`}
+          title={`${review.rating} out of 10`}
+        >
+          {ratingIconMapping[review.rating]}
+        </span>
+        <span>
+          {" "}
+          with{" "}
+          {
+            <Link href={`/instructor/${instructor?.slug}`}>
+              <a>{instructor?.name}</a>
+            </Link>
+          }
+        </span>
+        <DateString date={review.reviewDate} />
+        <button
+          aria-label="Flag Review"
+          title="Flag harmful review"
+          className={styles.flagButton}
+        >
+          <FiFlag />
+        </button>
+        <button
+          aria-label="Downvote"
+          title="Not helpful"
+          className={styles.downvoteButton}
+        >
+          <FiChevronDown />
+        </button>
+        <button
+          aria-label="Upvote"
+          title="Helpful"
+          className={styles.upvoteButton}
+        >
+          <FiChevronUp />
+        </button>
+        <br />
+        <p>{review.content}</p>
+      </div>
+      <ReviewDetail review={review} />
     </div>
   );
 }
