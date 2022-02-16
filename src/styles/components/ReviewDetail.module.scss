@@ -1,13 +1,11 @@
 @import "../common/_variables.scss";
 
-.container{
-   width: 100%;
-   margin: 0;
-   padding: 0;
-   overflow-x: hidden;
+.container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
-
-
 
 .bar {
   width: 90%;
@@ -41,74 +39,82 @@
     }
   }
 }
+.openButton {
+  float: right;
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: 1.35rem;
+  height: 1rem;
+  width: 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+
+  svg {
+    font-size: 1rem;
+    transform: scale(1.3);
+    //increase the size of the icon
+    position: relative;
+    top: -22px;
+    vertical-align: top;
+
+    &:hover {
+      transform: scale(1.6);
+      transition: ease-in-out 0.3s;
+    }
+  }
+}
+
+.full {
+  width: 100%;
+  height: 10rem;
+
+  .difference {
+    font-size: 0.7rem;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    border-radius: $border-radius-small;
+    background-color: #333;
+    padding: 1px;
+  }
+
+  div {
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    b {
+      font-weight: bold;
+      color: #333;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.separator {
+  padding: 0;
+  width: 100%;
+
+  border-top: 1px solid $grey-light;
+  font-size: 0.7rem;
+  position: relative;
+  padding: -1rem;
+  //top: -12px;
+  //border-top: 1px dashed #333;
+}
+
+@media screen and (max-width: $screen-small) {
+  .bar {
+    //min-height: 2.8rem;
+  }
+
   .openButton {
-    float: right;
-    display: inline-flex;
-    margin-left: auto;
-    margin-right: 1.35rem;
-    height: 1rem;
-    width: 1rem;
-    border: none;
-    background-color: transparent;
-   cursor: pointer;
-   padding: 0;
-   position: relative;
-      
-
-    svg {
-      font-size: 1rem;
-      transform: scale(1.3);
-      //increase the size of the icon 
-      position: relative;
-      top: -22px;
-      vertical-align: top;
-
-      &:hover {
-        transform: scale(1.6);
-        transition: ease-in-out 0.3s;
-      }
-    }
+    height: 2rem;
+    width: 2rem;
+    display: none;
   }
-
-
-  .full {
-      width: 100% ;
-      height: 10rem;
-
-    .difference {
-      font-size: 0.7rem;
-      vertical-align: middle;
-      position: relative;
-      top: -1px;
-      border-radius: $border-radius-small;
-      background-color: #333;
-      padding: 1px;
-    }
-    
-    div {
-      margin-bottom: 1rem;
-      display: inline-block;
-      padding-left: 1rem;
-      padding-right: 1rem;
-
-      b {
-        font-weight: bold;
-        color: #333;
-        font-size: 0.9rem;
-      }
-    }
-
-  }
-
-  .separator {
-     padding: 0;
-     width: 100%;
-
-      border-top : 1px solid $grey-light;
-       font-size: 0.7rem;
-       position: relative;
-       padding: -1rem;
-       //top: -12px;
-       //border-top: 1px dashed #333;
-      
-  }
+}
