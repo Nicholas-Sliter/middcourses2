@@ -59,3 +59,74 @@ export function relativeTimeFromElapsed(elapsed: number): string {
   }
   return "";
 }
+
+/**
+ * A mapping of values (1-10) and corresponding human-understandable strings.
+ */
+export const valueMapping = {
+  1: "Extremely low",
+  2: "Very low",
+  3: "Low",
+  4: "Low",
+  5: "Average",
+  6: "Somewhat high",
+  7: "Very high",
+  8: "Extremely high",
+  9: "Extremely high",
+  10: "Extremely high",
+};
+
+/**
+ * A mapping of difficulties (1-10) and corresponding human-understandable strings.
+ */
+export const difficultyMapping = {
+  1: "Extremely low",
+  2: "Very low",
+  3: "Low",
+  4: "Low",
+  5: "Average",
+  6: "Some",
+  7: "Very ",
+  8: "Extremely",
+  9: "Hardcore",
+  10: "Impossible",
+};
+
+
+export function relativeDifference(a:number, b:number) {
+  return Math.round(100 * ((a - b) / ((a + b) / 2)));
+}
+
+export function getRelativeDifferenceText(a:number,b:number){
+  const diff = relativeDifference(a,b);
+  const relativeLocation = diff > 0 ? "above" : "below";
+  const absDiff = Math.abs(diff);
+  if (!absDiff){
+    return "";
+  }
+    return `${absDiff}% ${relativeLocation} average`;
+}
+
+//map a value from 0-200 to a color from light green to dark green
+export function getPositiveColor(value:number){
+  const val = Math.min(200, value);
+  const color = Math.round(255 * (val / 200));
+  return `rgb(${color}, 255, ${color})`;
+}
+
+//map a value from -200-0 to a color from light red to dark red
+export function getNegativeColor(value:number){
+  const val = Math.min(200,-value);
+  const color = Math.round(255 * (val / 200));
+  return `rgb(255, ${color}, ${color})`;
+}
+
+export function getRelativeDifferenceColor(value:number, positiveGood:boolean){
+  //TODO: this is buggy as we pass the negative value into getPositiveColor in both cases
+  //consider removing this code and just hardcoding the colors and thresholds
+  const sameSign = value > 0 === positiveGood;
+  if (sameSign){
+    return getPositiveColor(value);
+  }
+  return getNegativeColor(value);
+}

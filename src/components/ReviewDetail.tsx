@@ -9,45 +9,89 @@ import {
   FiChevronsUp,
 } from "react-icons/fi";
 import { FaRegGem } from "react-icons/fa";
+import { valueMapping, difficultyMapping, getRelativeDifferenceText, getRelativeDifferenceColor, relativeDifference } from "../lib/frontend/utils";
+
 import styles from "../styles/components/ReviewDetail.module.scss";
 
 interface ReviewDetailProps {
   review: public_review;
+  averages?: {
+    hours: number;
+    difficulty: number;
+    value: number;
+    
+    instructorEffectiveness: number;
+    instructorAccomodationLevel: number;
+    instructorEnthusiasm: number;
+  }
 }
 
-const difficultyMapping = {
-  1: "Extremely low",
-  2: "Very low",
-  3: "Low",
-  4: "Low",
-  5: "Average",
-  6: "Some",
-  7: "Very ",
-  8: "Extremely",
-  9: "Hardcore",
-  10: "Impossible",
-};
 
-const valueMapping = {
-  1: "Extremely low",
-  2: "Very low",
-  3: "Low",
-  4: "Low",
-  5: "Average",
-  6: "Somewhat high",
-  7: "Very high",
-  8: "Extremely high",
-  9: "Extremely high",
-  10: "Extremely high",
-};
+interface ReviewDetailNumericalElementProps {
+  title: string;
+  value: number;
+  average: number;
+  positiveGood?: boolean;
+  outOf?: number | null;
+}
 
-function ReviewDetailFull({ review }) {
+function ReviewDetailNumericalElement({text, value, average, positiveGood=true, outOf=null}){
+  const relativeDiff = relativeDifference(value, average);
+  const relativeDiffText = getRelativeDifferenceText(value, average);
+  const relativeDiffColor = getRelativeDifferenceColor(relativeDiff, positiveGood);
+
+  const outOfString = outOf ? `/${outOf} ` : " ";
+
+  //if value or average is undefined, return null, but dont return null if 0
+  if(value === undefined || average === undefined){
+    return null;
+  }
+
+  return(
+ <div key={text}>
+   <b>{text}: </b>
+   {value}{outOfString}
+   <span
+     className={styles.difference}
+     style={{
+       backgroundColor: relativeDiffColor,
+     }}
+     title={`${relativeDiffText}`}
+   >
+     {`${relativeDiff}%`}
+   </span>
+ </div>);
+}
+
+
+function ReviewDetailFull({ review, averages }) {
   return (
-  <>
-  <hr className={styles.separator} />
-  <div className={styles.full}>
-  </div>
-  </>);
+    <>
+      <hr className={styles.separator} />
+      <div className={styles.full}>
+        <ReviewDetailNumericalElement
+          text="Hours per week"
+          value={review?.hours}
+          average={averages?.hours}
+          positiveGood={false}
+        />
+        <ReviewDetailNumericalElement
+          text={difficultyMapping[review?.difficulty] + " difficulty"}
+          value={review?.difficulty}
+          average={averages?.difficulty}
+          positiveGood={false}
+          outOf={10}
+        />
+        <ReviewDetailNumericalElement
+          text={valueMapping[review?.value] + " value"}
+          value={review?.value}
+          average={averages?.value}
+          positiveGood={true}
+          outOf={10}
+        />
+      </div>
+    </>
+  );
 }
 
 function ReviewDetailBar({ review }) {
@@ -76,7 +120,7 @@ function ReviewDetailBar({ review }) {
   );
 }
 
-export default function ReviewDetail({ review }: ReviewDetailProps) {
+export default function ReviewDetail({ review, averages }: ReviewDetailProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const expandButton = (
@@ -100,7 +144,7 @@ export default function ReviewDetail({ review }: ReviewDetailProps) {
         <ReviewDetailBar review={review} />
       )}
       {expandButton}
-      {isOpen ? <ReviewDetailFull review={review} /> : <></>}
+      {isOpen ? <ReviewDetailFull review={review} averages={{hours: 14, difficulty: 8, value: 7}} /> : <></>}
     </div>
   );
 }

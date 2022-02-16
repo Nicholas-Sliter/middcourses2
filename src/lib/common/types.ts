@@ -15,6 +15,7 @@ export interface public_review {
 
   instructorEffectiveness: number;
   instructorAccomodationLevel: number;
+  //swithc to understanding
   instructorEnthusiam: number;
   instructorAgain: boolean;
 }
