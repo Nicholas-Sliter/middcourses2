@@ -71,7 +71,7 @@ export default function Review({ review, instructor }: ReviewProps) {
             </Link>
           }
         </span>
-        <DateString date={review.reviewDate} />
+        <DateString date={review.reviewDate}  titlePrefix="Posted on"/>
         <button
           aria-label="Flag Review"
           title="Flag harmful review"

@@ -51,13 +51,12 @@
   cursor: pointer;
   padding: 0;
   position: relative;
+  top: -22px;
 
   svg {
     font-size: 1rem;
     transform: scale(1.3);
-    //increase the size of the icon
     position: relative;
-    top: -22px;
     vertical-align: top;
 
     &:hover {
