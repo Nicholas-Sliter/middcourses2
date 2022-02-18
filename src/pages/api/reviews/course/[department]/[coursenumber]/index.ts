@@ -22,6 +22,7 @@ const handler = nc({
   
    const department = req.query.department as string;
    const courseNumber = req.query.coursenumber as string;
+   //changed to lowercase
   
    const courseID = `${department.toUpperCase()}${courseNumber.trim()}`;
 
