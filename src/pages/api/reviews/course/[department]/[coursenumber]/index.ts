@@ -18,9 +18,11 @@ const handler = nc({
 
 
 .get(async (req: NextApiRequest, res: NextApiResponse) => {
+
   
    const department = req.query.department as string;
-   const courseNumber = req.query.courseNumber as string;
+   const courseNumber = req.query.coursenumber as string;
+  
    const courseID = `${department.toUpperCase()}${courseNumber.trim()}`;
 
    if (!courseID || !department || !courseNumber) {
