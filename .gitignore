@@ -3,4 +3,4 @@ node_modules
 .next
 .local.env
 dev.sqlite3
-**/.DS_Stores
+**/.DS_Store
