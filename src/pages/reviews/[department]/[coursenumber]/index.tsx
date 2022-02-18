@@ -59,7 +59,7 @@ export default function CoursePage() {
       )}
       <div>
         <h2>Reviews</h2>
-        {(reviews?.length) ? <ReviewList reviews={reviews} instructors={instructors} /> : null}
+        <ReviewList reviews={reviews} instructors={instructors} />
       </div>
     </div>
   );
