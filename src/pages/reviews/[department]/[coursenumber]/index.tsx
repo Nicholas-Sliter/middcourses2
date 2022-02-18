@@ -12,8 +12,8 @@ import CourseCard from "../../../../components/CourseCard";
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
-  const { department, courseNumber }: any = router.query;
-  //useState<public_instructor[]>([]);
+  const department = router.query.department as string;
+  const courseNumber = router.query.coursenumber as string;
 
   const course = useCourse(department, courseNumber);
 

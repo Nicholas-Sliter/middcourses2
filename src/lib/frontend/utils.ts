@@ -130,3 +130,27 @@ export function getRelativeDifferenceColor(value:number, positiveGood:boolean){
   }
   return getNegativeColor(value);
 }
+
+
+
+
+//based on current year return a list of valid grad years 
+export function getGradYears(){
+
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+    const validYears: string[] = [];
+    
+
+    const bound = (currentMonth < 7) ? 4 :5;
+    
+    for(let i=0; i<bound; i++){
+
+      validYears.push(`${currentYear+i}`);
+      validYears.push(`${currentYear+i}.5`);
+
+    }
+
+ return (validYears)
+    
+}
