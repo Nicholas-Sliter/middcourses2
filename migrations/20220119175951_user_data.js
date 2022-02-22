@@ -6,10 +6,13 @@ exports.up = function(knex)  {
       .notNullable(); /* User ID: Unique ID for each user */
     table
       .string("userEmail")
+      .unique()
       .notNullable(); /* User Email: User email */
     table
-      .enum("userType", ["student", "instructor"])
-      .notNullable(); /* User Type: One of { student, professor } */
+    .string("refreshToken")  /* Refresh Token: Refresh token for each user */
+    table
+      .enum("userType", ["student", "faculty"])
+      .notNullable(); /* User Type: One of { student, faculty } */
     table.string("major"); /* Major: Major of the student */
     table
       .boolean("admin")
@@ -24,8 +27,7 @@ exports.up = function(knex)  {
       .notNullable()
       .defaultTo(0); /* Num Reviews: Number of reviews the user has written */
     table
-      .string("graduationYear")
-      .notNullable(); /* Graduation Year: Graduation year of the user */
+      .string("graduationYear") /* Graduation Year: Graduation year of the user, null when user is an instructor */
     table
       .boolean("canReadReviews")
       .notNullable()

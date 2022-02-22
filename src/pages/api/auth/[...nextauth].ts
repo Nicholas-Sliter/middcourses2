@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 //import Auth0Provider from "next-auth/providers/auth0";
 import GoogleProvider from "next-auth/providers/google";
 
-
+import {getUserByEmail} from "../../../lib/backend/database-utils";
 
 
 
@@ -20,19 +20,36 @@ async function signIn({profile, user, account}) {
   }
 
   //check that the user is registered in the db and get role and id
+  const u = await getUserByEmail(user.email);
 
+  if(!u){
+    //do signup stuff
+    
 
-
-
-
+  }
 
   return true;
 }
 
 
 
-async function session({session, token, user}){
+async function session({session, user}){
 
+  //session.user.id = user.id;
+  //session.user.role = user.role;
+  //session.user.email = user.email;
+
+  //add userid to session 
+
+  console.log("session user", session.user);
+  const u = await getUserByEmail(session.user.email);
+  console.log(u);
+
+  session.user.id = u.userID;
+  session.user.role = u.userType;
+  session.user.authorized = u.canReadReviews as boolean;
+
+  return session;
 
 
 }
@@ -40,7 +57,7 @@ async function session({session, token, user}){
 
 
 
-const options = {
+export default NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -52,13 +69,10 @@ const options = {
     signIn: signIn,
     session: session,
   },
-  database: process.env.DATABASE_URL,
   pages: {
-    newUser: "/",
+    newUser: "/auth/signup",
     signIn: "/auth/signin",
     signOut: "/auth/signout",
   },
-};
+});
 
-
-export default (req, res) => NextAuth(req, res, options);

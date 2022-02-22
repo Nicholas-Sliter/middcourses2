@@ -54,3 +54,9 @@ export function getCurrentSemester(){
    return semester;
 
 }
+
+
+export const departmentNameMapping = {
+   "Computer Science": "CSCI"
+
+}

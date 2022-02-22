@@ -17,6 +17,7 @@ exports.up = function (knex) {
       table.string("name").notNullable();
       table.string("slug").unique().notNullable();
       table.string("instructorID").unique().notNullable();
+      table.string("departmentID");
     })
     .createTable("CourseInstructor", (table) => {
       table.string("courseID").notNullable();

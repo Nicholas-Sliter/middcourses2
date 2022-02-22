@@ -2,11 +2,13 @@
    {
       "name": "Andrea Vaccari",
       "slug": "andrea-vaccari",
-      "instructorID": "4347EFF33F703A17CBF34CE12E14464A"
+      "instructorID": "4347EFF33F703A17CBF34CE12E14464A",
+      "departmentID": "CSCI"
    },
    {
       "name": "Philip Caplan",
       "slug": "philip-caplan",
-      "instructorID": "ED3B22D73836EA86F9127C0691477535"
+      "instructorID": "ED3B22D73836EA86F9127C0691477535",
+      "departmentID": "CSCI"
    }
 ]
