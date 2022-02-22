@@ -1,5 +1,6 @@
 exports.up = function(knex)  {
   return knex.schema.createTable("User", (table) => {
+    //add middID here and consider replacing uuid with it
     table
       .uuid("userID")
       .unique()

@@ -28,7 +28,7 @@ const handler = nc({
    }
 
    if (!session.user.authorized){
-      return res.status(403).end("Forbidden: You must submit 2 reviews to view this page");
+      return res.status(403).end("You must submit 2 reviews to view this page");
    }
   
    const department = req.query.department as string;

@@ -320,6 +320,10 @@ export async function generateUser(email:string){
 
   user.canReadReviews = (checkIfFirstSemester(user.graduationYear)) ? true : false;
 
+  if (user.userType === "faculty") {
+    user.canReadReviews = true;
+  }
+
   console.log(user);
 
   const result = await knex("User")
