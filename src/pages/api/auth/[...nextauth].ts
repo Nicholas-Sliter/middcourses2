@@ -41,13 +41,14 @@ async function session({session, user}){
 
   //add userid to session 
 
-  console.log("session user", session.user);
+  //console.log("session user", session.user);
   const u = await getUserByEmail(session.user.email);
-  console.log(u);
+  //console.log(u);
 
   session.user.id = u.userID;
   session.user.role = u.userType;
   session.user.authorized = u.canReadReviews as boolean;
+  console.log(session.user);
 
   return session;
 

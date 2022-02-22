@@ -1,6 +1,7 @@
 import nc from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getReviewsByCourseID } from "../../../../../../lib/backend/database-utils";
+import { getSession } from "next-auth/react";
 
 /**
  * Get all course reviews for a specific course
@@ -19,6 +20,16 @@ const handler = nc({
 
 .get(async (req: NextApiRequest, res: NextApiResponse) => {
 
+   const session = await getSession({req}) as any;
+
+
+   if (!session) {
+      return res.status(401).end("Unauthorized: You must be logged in to view this page");
+   }
+
+   if (!session.user.authorized){
+      return res.status(403).end("Forbidden: You must submit 2 reviews to view this page");
+   }
   
    const department = req.query.department as string;
    const courseNumber = req.query.coursenumber as string;
