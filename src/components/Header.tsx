@@ -10,6 +10,12 @@ import LoginButton from "./common/LoginButton";
 
 import styles from "../styles/components/Header.module.scss";
 
+
+
+//TODO: login button should render the button if the user is not logged in
+// else it should render a user icon with a dropdown menu
+
+
 export default function Header() {
   return (
     <header className={styles.header}>
@@ -21,7 +27,7 @@ export default function Header() {
           className={styles.logo}
         />
       </Link>
-      <div className={styles.nav_bar}>
+      {/**<div className={styles.nav_bar}>
         <li>
           <Link href="/">
             <a>Home</a>
@@ -31,7 +37,7 @@ export default function Header() {
           </Link>
         </li>
         <LoginButton header />
-      </div>
+  </div>*/}
     </header>
   );
 }

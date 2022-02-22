@@ -1,4 +1,4 @@
-import process from "process";
+import process, { env } from "process";
 
 import knexConfig from "../../../knexfile";
 import knexInitializer from "knex";
@@ -281,6 +281,60 @@ export async function getUserByEmail(email:string){
 
 }
 
+
+/**
+ * Return the user associated with a user id
+ * @authentication {self or admin}
+ * @param id a user id
+ * @returns 
+ */
+
+export async function getUserByID(id:string){
+
+    const user = await knex("User")
+    .where({
+      userID: id,
+    })
+    .first()
+    .select(["userID",
+     "userEmail",
+     "userType",
+     "canReadReviews"]);
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
+
+}
+
+
+/**
+ * Return the full user associated with a user id
+ * @authentication {backend only}
+ * @param id a user id
+ * @returns 
+ */
+
+export async function __getFullUserByID(id:string){
+
+    const user = await knex("User")
+    .where({
+      userID: id,
+    })
+    .first()
+    .select("*");
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
+
+}
+
+
 /**
  * Check if a user has already been created.
  * @param email 
@@ -344,6 +398,55 @@ export async function generateUser(email:string){
 
 //dev tools for testing ****REMOVE BEFORE RELEASE****
 export async function getAllUsers(){
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("This function is only for development purposes.");
+  }
+
   return await knex("User")
     .select(["userID", "userEmail", "userType", "canReadReviews", "graduationYear"]);
+
+}
+
+/**
+ * Run after a user has been modified or on a schedule to update relevant values in the database.
+ * 
+ */
+export async function updateUserCheck(id:string){
+
+  //recheck if the user can read reviews
+  const user = await __getFullUserByID(id);
+  if (!user) {
+    throw new Error("User does not exist");
+  }
+
+
+
+  if (user.numReviews >= 2){
+    user.canReadReviews = true;
+  }
+  else {
+    user.canReadReviews = false;
+  }
+
+
+  if (user.userType === "faculty") {
+    user.canReadReviews = true;
+  }
+
+  if (checkIfFirstSemester(user.graduationYear)) {
+    user.canReadReviews = true;
+  }
+
+
+  const result = await knex("User").where({userID: user.userID}).update({
+    canReadReviews: user.canReadReviews,
+  })
+
+
+  if (!result) {
+    throw new Error("Failed to update user");
+  }
+
+
 }
