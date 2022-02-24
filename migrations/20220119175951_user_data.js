@@ -24,6 +24,10 @@ exports.up = function(knex)  {
       .notNullable()
       .defaultTo(false); /* Banned: Whether the user is banned */
     table
+      .boolean("archived")
+      .notNullable()
+      .defaultTo(false); /* Archived: Whether the user is archived */
+    table
       .integer("numReviews")
       .notNullable()
       .defaultTo(0); /* Num Reviews: Number of reviews the user has written */

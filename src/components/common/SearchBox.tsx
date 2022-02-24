@@ -1,23 +1,49 @@
 import styles from "../../styles/components/common/SearchBar.module.scss";
 import { useState, useEffect } from "react";
+import useSearch from "../../hooks/useSearch";
+import useDebounce from "../../hooks/useDebounce";
+import { FiSearch } from "react-icons/fi";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+} from "@chakra-ui/react";
 //import useCourseSearchResults from "../../hooks/useCourseSearchResults.js";
 
-export default function SearchBar({showResultDropdown=false}){
-   const [value, setValue] = useState("");
+export default function SearchBar({ showResultDropdown = false }) {
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 300);
+
+  const results = useSearch(debouncedQuery) as any;
 
 
 
-   const resultDropdown = (
-      <div className={styles.dropdown}>
-      </div>
-   );
+  const resultDropdown = (
+    <div className={styles.dropdown}>
+      <Menu>
+        <MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  );
 
-
-
-   return(
-      <div className={styles.container}>
-         <input type="text" placeholder="Search..." value={value} onChange={(e) => {setValue(e.target.value)}}/>
-         {showResultDropdown && value.length ? <div className={styles.resultDropdown} /> : null}
-      </div>
-   );
+  return (
+    <div className={styles.container}>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
+      <FiSearch className={styles.searchIcon} />
+      {showResultDropdown && results.length ? resultDropdown : null}
+    </div>
+  );
 }

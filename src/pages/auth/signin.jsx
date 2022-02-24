@@ -1,6 +1,14 @@
-import { getProviders, signIn } from "next-auth/react";
+import { getProviders, signIn, useSession } from "next-auth/react";
+import Router from "next/router";
 
 export default function SignIn({ providers }) {
+
+  const { data: session, status } = useSession()
+  if (status === "authenticated") {
+    Router.push("/");
+  }
+
+
   return (
     <>
       {Object.values(providers).map((provider) => (
@@ -17,6 +25,7 @@ export default function SignIn({ providers }) {
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();
+  console.log(providers);
   return {
     props: { providers },
   };

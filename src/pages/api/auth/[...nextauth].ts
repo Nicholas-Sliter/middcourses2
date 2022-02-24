@@ -48,7 +48,10 @@ async function session({session, user}){
   session.user.id = u.userID;
   session.user.role = u.userType;
   session.user.authorized = u.canReadReviews as boolean;
-  console.log(session.user);
+  session.user.admin = u.admin;
+  //console.log(session.user);
+  console.log(session);
+
 
   return session;
 

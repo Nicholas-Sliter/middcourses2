@@ -33,7 +33,7 @@ export default function Home() {
         {/*<SignUp />*/}
         <SearchBar />
       </section>
-      <section>
+      <section className={styles.details}>
         <FlexGroup center>
           <Feature>
             <FiBook />

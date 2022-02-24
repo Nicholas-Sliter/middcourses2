@@ -9,6 +9,8 @@ import Link from "next/link";
 import LoginButton from "./common/LoginButton";
 
 import styles from "../styles/components/Header.module.scss";
+import ProfileButton from "./common/ProfileButton";
+import LoginProfileComponent from "./common/LoginProfileComponent";
 
 
 
@@ -38,6 +40,8 @@ export default function Header() {
         </li>
         <LoginButton header />
   </div>*/}
+  {/**<ProfileButton />*/}
+  <LoginProfileComponent/>
     </header>
   );
 }

@@ -4,13 +4,21 @@
 
 .container{
       margin: 1rem;
-      width: 600px;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%; //600px
+      //max-width: 600px;
       display: inline-block;
 
 
 
    input {
-      width: 100%;
+     display: block;
+      width: 80%;
+      max-width: 600px;
+      margin: 0;
+      margin-left: auto;
+      margin-right: auto;
       height: 1.2rem;
       outline: none;
       border: $border-light;

@@ -1,0 +1,85 @@
+@import "../../common/_variables.scss";
+@import "../../common/_mixins.scss";
+
+
+.containerButton {
+  float: right;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
+  margin-top: 1.3rem;
+  vertical-align: middle;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+
+
+  & + div {
+    //border: $border-light;
+    border-radius: $border-radius-medium;
+    overflow: hidden;
+    transition: ease-in-out;
+    box-shadow: $shadow-small-light;
+
+    &:focus-within{
+      border: $border-light;
+    }
+  }
+
+  
+  span > svg {
+    font-size: 1.5rem;
+    color: #333333;
+  }
+
+  &:hover{
+    span > svg {
+      transform: scale(1.1);
+      transition: ease-in-out 0.2s;
+    }
+  }
+
+
+
+}
+
+
+.dropdownMenu {
+
+  button {
+    background-color: transparent;
+    border: none;
+    border-bottom: $border-light;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:focus {
+      background-color: $hover-grey;
+      transition: ease-in-out 0.2s;
+      padding-left: 0.4rem;
+    }
+
+
+    &:last-child {
+      border: none;
+    }
+
+  }
+
+  p {
+    font-size: 1rem;
+    padding: 0.2rem;
+    padding-left: 0.8rem;
+    padding-bottom: 0.4rem;
+    margin: 0;
+    color: $grey-dark;
+    border-bottom: $border-light;
+    //text-align: center;
+
+    @include noselect;
+  }
+
+
+
+}
