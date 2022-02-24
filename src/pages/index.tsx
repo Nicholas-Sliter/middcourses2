@@ -31,7 +31,7 @@ export default function Home() {
         <Message type="success" message="Success message" />
   <Message type="warning" message="Warning message" /> */}
         {/*<SignUp />*/}
-        <SearchBar />
+        <SearchBar showResultDropdown />
       </section>
       <section className={styles.details}>
         <FlexGroup center>

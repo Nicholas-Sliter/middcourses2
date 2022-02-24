@@ -21,6 +21,7 @@
     overflow: hidden;
     transition: ease-in-out;
     box-shadow: $shadow-small-light;
+    z-index: 999;
 
     &:focus-within{
       border: $border-light;
