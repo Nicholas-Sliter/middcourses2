@@ -10,6 +10,15 @@
       //max-width: 600px;
       display: inline-block;
 
+      &:focus-within {
+
+        & > div {
+          display: block;
+          z-index: 1;
+        }
+        
+      }
+
 
 
    input {
@@ -32,16 +41,14 @@
       z-index: 10;
 
 
-      &:focus-within {
+      // &:focus-within {
 
-        & + div {
-          display: block;
-          z-index: 1;
-        }
-         
-
-
-      }
+      //   & + div {
+      //     display: block;
+      //     z-index: 1;
+      //   }
+        
+      // }
 
 
    }
@@ -76,6 +83,7 @@
         background-color: transparent;
         border: none;
         border-bottom: $border-light;
+        border-radius: $border-radius-small;
         font-size: 0.8rem;
         cursor: pointer;
 
@@ -83,11 +91,30 @@
           border: none;
         }
 
+        &:hover {
+          background-color: $hover-grey;
+          transition: ease-in-out 0.2s;
+          padding-left: 0.4rem;
+        }
+
+
         &:focus {
           background-color: $hover-grey;
           transition: ease-in-out 0.2s;
           padding-left: 0.4rem;
         }
+
+        span {
+          margin-right: 0.4rem;
+
+        svg {
+          font-size: 1rem;
+          color: #333333;
+        }
+
+      }
+
+
       }
 
 

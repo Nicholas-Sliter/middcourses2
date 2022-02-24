@@ -485,9 +485,10 @@ export async function searchCourses(query:string){
 export async function searchInstructors(query:string){
     
       const instructors = await knex("Instructor")
-        .whereRaw("instructorName LIKE ?", `%${query}%`)
+        .whereRaw("name LIKE ?", `%${query}%`)
+        .orWhereRaw("departmentID LIKE ?", `%${query}%`)
         .limit(10)
-        .select(["instructorName", "slug"]);
+        .select(["name", "slug"]);
     
       if (!instructors || instructors.length == 0) {
         return [];

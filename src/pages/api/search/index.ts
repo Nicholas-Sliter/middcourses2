@@ -28,7 +28,7 @@ const handler = nc({
   console.log(query);
 
   const courses = await searchCourses(query);
-  const instructors = []//wait searchInstructors(query);
+  const instructors = await searchInstructors(query);
 
   res.status(200).json([...courses, ...instructors]);
 

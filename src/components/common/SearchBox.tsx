@@ -4,25 +4,34 @@ import useSearch from "../../hooks/useSearch";
 import useDebounce from "../../hooks/useDebounce";
 import { FiSearch } from "react-icons/fi";
 import CourseSearchResult from "./CourseSearchResult";
-import { Menu } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList } from "@chakra-ui/react";
+import InstructorSearchResult from "./InstructorSearchResult";
 //import useCourseSearchResults from "../../hooks/useCourseSearchResults.js";
 
 export default function SearchBar({ showResultDropdown = false }) {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
 
-  const {results} = useSearch(debouncedQuery) as any;
+  const { results } = useSearch(debouncedQuery) as any;
 
   const resultDropdown = (
     <div className={styles.dropdown}>
       <Menu>
-      {(Array.isArray(results)) ? results.map((result) => (
-        <CourseSearchResult course={result} key={result.courseId} />
-      )): null}
+          {Array.isArray(results)
+            ? results.map((result) =>
+                result?.courseID ? (
+                  <CourseSearchResult course={result} key={result.courseID} />
+                ) : (
+                  <InstructorSearchResult
+                    instructor={result}
+                    key={result.instructorId}
+                  />
+                )
+              )
+            : null}
       </Menu>
     </div>
   );
-
 
   return (
     <div className={styles.container}>
@@ -35,11 +44,8 @@ export default function SearchBar({ showResultDropdown = false }) {
         }}
       />
       {showResultDropdown && results.length ? resultDropdown : null}
-
     </div>
   );
 }
-
-
 
 // <FiSearch className={styles.searchIcon} />
