@@ -3,11 +3,7 @@ exports.up = function (knex) {
     .createTable("Course", (table) => {
       table
         .string("courseID")
-        .unique() //should be unique?????
-        .notNullable(); /* Course ID: 4-digit department identifier followed by course number, eg. CSCI0201  */
-      //table
-      //  .string("courseDepartmentID")
-      //  .notNullable(); /* Department ID: Department abbreviation (eg. CSCI) */  //TODO: we don't need this as we can parse it from courseID
+        .primary() /* Course ID: 4-digit department identifier followed by course number, eg. CSCI0201  */
       table.string("courseName").notNullable(); /* Course Name: Course name */
       table
         .text("courseDescription")
@@ -16,7 +12,7 @@ exports.up = function (knex) {
     .createTable("Instructor", (table) => {
       table.string("name").notNullable();
       table.string("slug").unique().notNullable();
-      table.string("instructorID").unique().notNullable();
+      table.string("instructorID").primary();
       table.string("departmentID");
     })
     .createTable("CourseInstructor", (table) => {

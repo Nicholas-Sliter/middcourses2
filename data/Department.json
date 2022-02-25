@@ -1,6 +1,38 @@
 [
-   {
-      "departmentID": "CSCI",
-      "departmentName": "Computer Science"
-   }
+  {
+    "departmentID": "CSCI",
+    "departmentName": "Computer Science"
+  },
+  {
+    "departmentID": "MATH",
+    "departmentName": "Mathematics"
+  },
+  {
+    "departmentID": "ANTH",
+    "departmentName": "Anthropology"
+  },
+  {
+    "departmentID": "PHYS",
+    "departmentName": "Physics"
+  },
+  {
+    "departmentID": "CHEM",
+    "departmentName": "Chemistry and Biochemistry"
+  },
+  {
+    "departmentID": "BIOL",
+    "departmentName": "Biology"
+  },
+  {
+    "departmentID": "ECON",
+    "departmentName": "Economics"
+  },
+  {
+    "departmentID": "ENAM",
+    "departmentName": "English & American Literatures"
+  },
+  {
+    "departmentID": "HIST",
+    "departmentName": "History"
+  }
 ]
