@@ -17,7 +17,7 @@ try {
 
   const r = await generateUser(email);
   const users = await getAllUsers();
-  res.status(200).json(users);
+  res.status(200).end(JSON.stringify(users));
 } catch (e) {
   console.log(e);
   res.status(500).end("Something went wrong");
