@@ -20,8 +20,8 @@ exports.up = function (knex) {
       table.string("departmentID");
     })
     .createTable("CourseInstructor", (table) => {
-      table.string("courseID").notNullable();
-      table.string("instructorID").notNullable();
+      table.string("courseID");
+      table.string("instructorID");
       table.string("term", 3).notNullable();
       table
         .foreign("courseID")
