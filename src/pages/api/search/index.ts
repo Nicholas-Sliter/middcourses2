@@ -24,7 +24,8 @@ const handler = nc({
     return;
   }
 
-  const query = cleanString(q);
+  //clean the query and take only the first 24 characters
+  const query = cleanString(q).substring(0, 24);
   console.log(query);
 
   const courses = await searchCourses(query);

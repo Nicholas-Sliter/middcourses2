@@ -10,7 +10,6 @@ export const knex = knexInitializer(
   knexConfig[process.env.NODE_ENV || "development"]
 );
 
-
 const reviewInfo = [
   "reviewID",
   "courseID",
@@ -32,7 +31,6 @@ const reviewInfo = [
   "instructorEnthusiasm",
   "instructorAgain",
 ];
-
 
 /**
  * A function that gets an approved review from the database by its id.
@@ -101,7 +99,7 @@ export async function getReviewsByCourseID(courseID: string): Promise<any> {
 /**
  * A function that gets all active reviews associated with an instructor.
  * @authentication {instructors: self-only, students: canReadReviews true}
- * @param instructorID 
+ * @param instructorID
  * @returns a list of all reviews for a given instructor
  */
 export async function getReviewsByInstructorID(
@@ -119,7 +117,6 @@ export async function getReviewsByInstructorID(
 
   return reviews;
 }
-
 
 /**
  * A function that gets a review from the database by its reviewer's id.
@@ -146,12 +143,11 @@ export async function getReviewsByUserID(id: string): Promise<any> {
 /**
  * A function that gets an instructor by their id.
  * Usage: Public
- * @param id 
+ * @param id
  * @returns A promise that resolves to an instructor object or null if it doesn't exist.
- * 
+ *
  */
-export async function getInstructorByID(id: string): Promise<any>{
-
+export async function getInstructorByID(id: string): Promise<any> {
   const instructor = await knex("Instructor")
     .where({
       instructorID: id,
@@ -159,25 +155,21 @@ export async function getInstructorByID(id: string): Promise<any>{
     .first()
     .select(["name", "instructorID", "slug"]);
 
-    if (!instructor) {
-      return null;
-    }
+  if (!instructor) {
+    return null;
+  }
 
-    return instructor;
-
-
+  return instructor;
 }
-
 
 /**
  * A function that gets an instructor by their slug.
  * @authentication {public}
- * @param id 
+ * @param id
  * @returns A promise that resolves to an instructor object or null if it doesn't exist.
- * 
+ *
  */
-export async function getInstructorBySlug(slug: string): Promise<any>{
-
+export async function getInstructorBySlug(slug: string): Promise<any> {
   const instructor = await knex("Instructor")
     .where({
       slug: slug,
@@ -185,22 +177,19 @@ export async function getInstructorBySlug(slug: string): Promise<any>{
     .first()
     .select(["name", "instructorID", "slug"]);
 
-    if (!instructor) {
-      return null;
-    }
+  if (!instructor) {
+    return null;
+  }
 
-    return instructor;
-
-
+  return instructor;
 }
-
 
 /**
  * Get a course by its id.
  * @param id the course id in DEPTCODE format (eg. CSCI0101)
- * @returns 
+ * @returns
  */
-export async function getCourseByID(id:string): Promise<any>{
+export async function getCourseByID(id: string): Promise<any> {
   const course = await knex("Course")
     .where({
       courseID: id,
@@ -213,13 +202,10 @@ export async function getCourseByID(id:string): Promise<any>{
   }
 
   return course;
-
-
 }
 
-
 /** */
-export async function getInstructorsByCourseID(id:string){
+export async function getInstructorsByCourseID(id: string) {
   //search through the CourseInstructor table for all instructors associated with a course
   const instructors = await knex("CourseInstructor")
     .where({
@@ -232,15 +218,13 @@ export async function getInstructorsByCourseID(id:string){
   }
 
   return instructors;
-
 }
-
 
 /**
  * A function that gets all courses associated with an instructor.
- * 
+ *
  */
-export async function getCoursesByInstructorID(id:string){
+export async function getCoursesByInstructorID(id: string) {
   //search through the CourseInstructor table for all instructors associated with a course
   const courses = await knex("CourseInstructor")
     .where({
@@ -253,109 +237,86 @@ export async function getCoursesByInstructorID(id:string){
   }
 
   return courses;
-
 }
-
-
 
 /**
  * @authentication {self only}
  * */
-export async function getUserByEmail(email:string){
-
-    const user = await knex("User")
+export async function getUserByEmail(email: string) {
+  const user = await knex("User")
     .where({
       userEmail: email,
     })
     .first()
-    .select(["userID",
-     "userEmail",
-     "userType",
-     "canReadReviews",
-     "admin"]);
+    .select(["userID", "userEmail", "userType", "canReadReviews", "admin"]);
 
-    if (!user) {
-      return null;
-    }
+  if (!user) {
+    return null;
+  }
 
-    return user;
-
+  return user;
 }
-
 
 /**
  * Return the user associated with a user id
  * @authentication {self or admin}
  * @param id a user id
- * @returns 
+ * @returns
  */
 
-export async function getUserByID(id:string){
-
-    const user = await knex("User")
+export async function getUserByID(id: string) {
+  const user = await knex("User")
     .where({
       userID: id,
     })
     .first()
-    .select(["userID",
-     "userEmail",
-     "userType",
-     "canReadReviews"]);
+    .select(["userID", "userEmail", "userType", "canReadReviews"]);
 
-    if (!user) {
-      return null;
-    }
+  if (!user) {
+    return null;
+  }
 
-    return user;
-
+  return user;
 }
-
 
 /**
  * Return the full user associated with a user id
  * @authentication {backend only}
  * @param id a user id
- * @returns 
+ * @returns
  */
 
-export async function __getFullUserByID(id:string){
-
-    const user = await knex("User")
+export async function __getFullUserByID(id: string) {
+  const user = await knex("User")
     .where({
       userID: id,
     })
     .first()
     .select("*");
 
-    if (!user) {
-      return null;
-    }
+  if (!user) {
+    return null;
+  }
 
-    return user;
-
+  return user;
 }
-
 
 /**
  * Check if a user has already been created.
- * @param email 
+ * @param email
  * @returns boolean if the user exists
  */
-export async function checkIfUserExists(email:string){
+export async function checkIfUserExists(email: string) {
+  const user = await getUserByEmail(email);
+  if (!user) {
+    return false;
+  }
 
-    const user = await getUserByEmail(email);
-    if (!user) {
-      return false;
-    }
-
-    return true;
-
+  return true;
 }
 
-
 /** */
-export async function generateUser(email:string){
-
+export async function generateUser(email: string) {
   const user = {
     userEmail: email,
     userID: uuidv4(),
@@ -368,12 +329,14 @@ export async function generateUser(email:string){
   //get verified user info from the Middlebury directory
   const S = new Scraper(email);
   await S.init();
-  
+
   user.userType = S.person.type.toLowerCase();
   user.graduationYear = S.person?.gradYear ?? null;
   //user.departmentID = departmentNameMapping[S.person?.department] ?? null;
 
-  user.canReadReviews = (checkIfFirstSemester(user.graduationYear)) ? true : false;
+  user.canReadReviews = checkIfFirstSemester(user.graduationYear)
+    ? true
+    : false;
 
   if (user.userType === "faculty") {
     user.canReadReviews = true;
@@ -381,53 +344,46 @@ export async function generateUser(email:string){
 
   console.log(user);
 
-  const result = await knex("User")
-    .insert(user)
-    .returning("*");
+  const result = await knex("User").insert(user).returning("*");
 
   if (!result) {
     throw new Error("Failed to create user");
   }
 
   return result;
-
-
 }
 
-
-
-
 //dev tools for testing ****REMOVE BEFORE RELEASE****
-export async function getAllUsers(){
-
+export async function getAllUsers() {
   if (process.env.NODE_ENV === "production") {
     throw new Error("This function is only for development purposes.");
   }
 
-  return await knex("User")
-    .select(["userID", "userEmail", "userType", "canReadReviews", "graduationYear"]);
-
+  return await knex("User").select([
+    "userID",
+    "userEmail",
+    "userType",
+    "canReadReviews",
+    "graduationYear",
+  ]);
 }
 
 /**
  * Run after a user has been modified or on a schedule to update relevant values in the database.
- * 
+ *
  */
-export async function updateUserCheck(id:string){
-
+export async function updateUserCheck(id: string) {
   //recheck if the user can read reviews
   const user = await __getFullUserByID(id);
   if (!user) {
     throw new Error("User does not exist");
   }
 
-  if (user.numReviews >= 2){
+  if (user.numReviews >= 2) {
     user.canReadReviews = true;
-  }
-  else {
+  } else {
     user.canReadReviews = false;
   }
-
 
   if (user.userType === "faculty") {
     user.canReadReviews = true;
@@ -437,63 +393,90 @@ export async function updateUserCheck(id:string){
     user.canReadReviews = true;
   }
 
-
-  const result = await knex("User").where({userID: user.userID}).update({
+  const result = await knex("User").where({ userID: user.userID }).update({
     canReadReviews: user.canReadReviews,
-  })
-
+  });
 
   if (!result) {
     throw new Error("Failed to update user");
   }
-
-
 }
-
 
 /**
  * Search for courses like the given query.
  * @param query the query to search for
  * @returns a list of courses that match the query
  */
-export async function searchCourses(query:string){
-    //helps with fuzzy search
-    query = query.replace(" ", "%");
+export async function searchCourses(query: string) {
+  //helps with fuzzy search
+  query = query.replace(" ", "%");
 
-    const courses = await knex("Course")
-      .whereRaw("courseID LIKE ?", `%${query}%`)
-      .orWhereRaw("courseName LIKE ?", `%${query}%`)
-      .orWhereRaw("courseDescription LIKE ?", `%${query}%`)
-      .limit(10)
-      .select(["courseID", "courseName", "courseDescription"]);
-  
-    if (!courses || courses.length == 0) {
-      return [];
-    }
-  
-    return courses;
-  
+  //also search the query amoung the department names database for a partial match
+  //then get the dept id for the matche and search for courses with that id
+  const departmentMatch = await getPartialDepartmentMatch(query, 1);
+
+  //if the size is too small then don't search in the description field
+  const courses =
+    query.length < 4
+      ? await knex("Course")
+          .where("courseName", "like", `%${query}%`)
+          .orWhere("courseID", "like", `%${query}%`)
+          .limit(10)
+          .select(["courseID", "courseName", "courseDescription"])
+      : await knex("Course")
+          .where("courseName", "like", `%${query}%`)
+          .orWhere("courseID", "like", `%${query}%`)
+          .orWhere("courseID", "like", `%${departmentMatch}%`)
+          .orWhere("courseDescription", "like", `%${query}%`)
+          .limit(10)
+          .select(["courseID", "courseName", "courseDescription"]);
+
+  if (!courses || courses.length == 0) {
+    return [];
   }
 
+  return courses;
+}
 
 /**
  * Search for instructors like the given query.
  * @param query the query to search for
  * @returns a list of instructors that match the query
- * 
+ *
  */
-export async function searchInstructors(query:string){
-    
-      const instructors = await knex("Instructor")
-        .whereRaw("name LIKE ?", `%${query}%`)
-        .orWhereRaw("departmentID LIKE ?", `%${query}%`)
-        .limit(10)
-        .select(["name", "slug"]);
-    
-      if (!instructors || instructors.length == 0) {
-        return [];
+export async function searchInstructors(query: string) {
+  const departmentMatch = await getPartialDepartmentMatch(query, 1);
+
+  const instructors = await knex("Instructor")
+    .where("name", "like", `%${query}%`)
+    .orWhere("departmentID", "like", `%${query}%`)
+    .orWhere("departmentID", "like", `%${departmentMatch}%`)
+    .limit(10)
+    .select(["name", "slug"]);
+
+  if (!instructors || instructors.length == 0) {
+    return [];
+  }
+
+  return instructors;
+}
+
+
+async function getPartialDepartmentMatch(query: string, limit:number=1){
+    let partialMatch: string = "";
+
+    if (query.length >= 4) {
+      const deptMatches = await knex("Department")
+        .where("departmentName", "like", `%${query}%`)
+        .limit(limit)
+        .select("departmentID");
+
+      if (deptMatches.length > 0) {
+        partialMatch = deptMatches[0].departmentID;
       }
-    
-      return instructors;
-    
     }
+
+    return partialMatch;
+
+
+}
