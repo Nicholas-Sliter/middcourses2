@@ -4,13 +4,31 @@
 
 .container{
       margin: 1rem;
-      width: 600px;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%; //600px
+      //max-width: 600px;
       display: inline-block;
+
+      &:focus-within {
+
+        & > div {
+          display: block;
+          z-index: 1;
+        }
+        
+      }
 
 
 
    input {
-      width: 100%;
+     display: block;
+     position: relative;
+      width: 80%;
+      max-width: 600px;
+      margin: 0;
+      margin-left: auto;
+      margin-right: auto;
       height: 1.2rem;
       outline: none;
       border: $border-light;
@@ -20,22 +38,84 @@
       padding-right: $padding-medium;
       font-size: $font-size-medium;
       box-shadow: $shadow-small-light;
+      z-index: 10;
 
 
-      &:focus {
-         
+      // &:focus-within {
 
-
-      }
+      //   & + div {
+      //     display: block;
+      //     z-index: 1;
+      //   }
+        
+      // }
 
 
    }
 
 
+
+
+
    .dropdown{
+     display: none;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+      max-height: 20rem;
+      max-width: 600px;
+      overflow-y: scroll;
+      background-color: #fcfcfc;
+      border: $border-light;
+      border-radius: $border-radius-large;
 
-      
+      margin-top: -1.5rem;
+      padding-top: 2rem;
 
+      box-shadow: $shadow-small-light;
+
+      button {
+        background-color: transparent;
+        border: none;
+        border-bottom: $border-light;
+        border-radius: $border-radius-small;
+        font-size: 1rem; //0.8rem
+        cursor: pointer;
+
+        &:last-child{
+          border: none;
+        }
+
+        &:hover {
+          background-color: $hover-grey;
+          transition: ease-in-out 0.2s;
+          padding-left: 0.4rem;
+        }
+
+
+        &:focus {
+          background-color: $hover-grey;
+          transition: ease-in-out 0.2s;
+          padding-left: 0.4rem;
+        }
+
+        span {
+          margin-right: 0.4rem;
+
+        svg {
+          font-size: 1rem;
+          color: #333333;
+        }
+
+      }
+
+
+      }
 
 
    }

@@ -271,7 +271,8 @@ export async function getUserByEmail(email:string){
     .select(["userID",
      "userEmail",
      "userType",
-     "canReadReviews"]);
+     "canReadReviews",
+     "admin"]);
 
     if (!user) {
       return null;
@@ -420,8 +421,6 @@ export async function updateUserCheck(id:string){
     throw new Error("User does not exist");
   }
 
-
-
   if (user.numReviews >= 2){
     user.canReadReviews = true;
   }
@@ -450,3 +449,51 @@ export async function updateUserCheck(id:string){
 
 
 }
+
+
+/**
+ * Search for courses like the given query.
+ * @param query the query to search for
+ * @returns a list of courses that match the query
+ */
+export async function searchCourses(query:string){
+    //helps with fuzzy search
+    query = query.replace(" ", "%");
+
+    const courses = await knex("Course")
+      .whereRaw("courseID LIKE ?", `%${query}%`)
+      .orWhereRaw("courseName LIKE ?", `%${query}%`)
+      .orWhereRaw("courseDescription LIKE ?", `%${query}%`)
+      .limit(10)
+      .select(["courseID", "courseName", "courseDescription"]);
+  
+    if (!courses || courses.length == 0) {
+      return [];
+    }
+  
+    return courses;
+  
+  }
+
+
+/**
+ * Search for instructors like the given query.
+ * @param query the query to search for
+ * @returns a list of instructors that match the query
+ * 
+ */
+export async function searchInstructors(query:string){
+    
+      const instructors = await knex("Instructor")
+        .whereRaw("name LIKE ?", `%${query}%`)
+        .orWhereRaw("departmentID LIKE ?", `%${query}%`)
+        .limit(10)
+        .select(["name", "slug"]);
+    
+      if (!instructors || instructors.length == 0) {
+        return [];
+      }
+    
+      return instructors;
+    
+    }

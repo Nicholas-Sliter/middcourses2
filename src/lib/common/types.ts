@@ -34,3 +34,32 @@ export interface public_instructor {
 
 
 }
+
+//TODO: finish this
+export interface User {
+  userID: string;
+  userType: string;
+  banned: boolean;
+  archived: boolean;
+  email: string;
+}
+
+
+export interface Session {
+
+  user: {
+    name: string;
+    email: string;
+    image: string;
+    id: string;
+    role: string;
+    authroized: boolean;
+    admin: boolean;
+
+  };
+
+  expires: string;
+
+
+
+}

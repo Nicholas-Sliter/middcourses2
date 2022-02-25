@@ -1,17 +1,32 @@
 import "../styles/globals.scss";
 import type { AppProps /*, AppContext */ } from "next/app";
 import { SessionProvider } from "next-auth/react";
+import { getProviders } from "next-auth/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
+
+delete theme.styles.global;
 
 import HeaderFooterLayout from "../layouts/HeaderFooterLayout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
-      <HeaderFooterLayout>
-        <Component {...pageProps} />
-      </HeaderFooterLayout>
+      <ChakraProvider resetCSS={false}>
+        <HeaderFooterLayout >
+          <Component {...pageProps} />
+        </HeaderFooterLayout>
+      </ChakraProvider>
     </SessionProvider>
   );
 }
 
+
 export default MyApp;
+
+
+export async function getServerSideProps(context) {
+  const providers = await getProviders();
+  return {
+    props: { providers },
+  };
+}
