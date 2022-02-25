@@ -75,7 +75,7 @@
       border-radius: $border-radius-large;
 
       margin-top: -1.5rem;
-      padding-top: 1.5rem;
+      padding-top: 2rem;
 
       box-shadow: $shadow-small-light;
 
@@ -84,7 +84,7 @@
         border: none;
         border-bottom: $border-light;
         border-radius: $border-radius-small;
-        font-size: 0.8rem;
+        font-size: 1rem; //0.8rem
         cursor: pointer;
 
         &:last-child{
