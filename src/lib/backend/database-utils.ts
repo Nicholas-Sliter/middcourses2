@@ -10,6 +10,9 @@ export const knex = knexInitializer(
   knexConfig[process.env.NODE_ENV || "development"]
 );
 
+
+const likeOperator = (process.env.NODE_ENV === "production") ? "ilike" : "like";
+
 const reviewInfo = [
   "reviewID",
   "courseID",
@@ -419,15 +422,15 @@ export async function searchCourses(query: string) {
   const courses =
     query.length < 4
       ? await knex("Course")
-          .where("courseName", "ilike", `%${query}%`)
-          .orWhere("courseID", "ilike", `%${query}%`)
+          .where("courseName", likeOperator, `%${query}%`)
+          .orWhere("courseID", likeOperator, `%${query}%`)
           .limit(10)
           .select(["courseID", "courseName", "courseDescription"])
       : await knex("Course")
-          .where("courseName", "ilike", `%${query}%`)
-          .orWhere("courseID", "ilike", `%${query}%`)
-          .orWhere("courseID", "ilike", `%${departmentMatch}%`)
-          .orWhere("courseDescription", "like", `%${query}%`)
+          .where("courseName", likeOperator, `%${query}%`)
+          .orWhere("courseID", likeOperator, `%${query}%`)
+          .orWhere("courseID", likeOperator, `%${departmentMatch}%`)
+          .orWhere("courseDescription", likeOperator, `%${query}%`)
           .limit(10)
           .select(["courseID", "courseName", "courseDescription"]);
 
@@ -448,9 +451,9 @@ export async function searchInstructors(query: string) {
   const departmentMatch = await getPartialDepartmentMatch(query, 1);
 
   const instructors = await knex("Instructor")
-    .where("name", "ilike", `%${query}%`)
-    .orWhere("departmentID", "ilike", `%${query}%`)
-    .orWhere("departmentID", "ilike", `%${departmentMatch}%`)
+    .where("name", likeOperator, `%${query}%`)
+    .orWhere("departmentID", likeOperator, `%${query}%`)
+    .orWhere("departmentID", likeOperator, `%${departmentMatch}%`)
     .limit(10)
     .select(["name", "slug"]);
 
@@ -467,7 +470,7 @@ async function getPartialDepartmentMatch(query: string, limit:number=1){
 
     if (query.length >= 4) {
       const deptMatches = await knex("Department")
-        .where("departmentName", "ilike", `%${query}%`)
+        .where("departmentName", likeOperator, `%${query}%`)
         .limit(limit)
         .select("departmentID");
 
