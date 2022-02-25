@@ -419,14 +419,14 @@ export async function searchCourses(query: string) {
   const courses =
     query.length < 4
       ? await knex("Course")
-          .where("courseName", "like", `%${query}%`)
-          .orWhere("courseID", "like", `%${query}%`)
+          .where("courseName", "ilike", `%${query}%`)
+          .orWhere("courseID", "ilike", `%${query}%`)
           .limit(10)
           .select(["courseID", "courseName", "courseDescription"])
       : await knex("Course")
-          .where("courseName", "like", `%${query}%`)
-          .orWhere("courseID", "like", `%${query}%`)
-          .orWhere("courseID", "like", `%${departmentMatch}%`)
+          .where("courseName", "ilike", `%${query}%`)
+          .orWhere("courseID", "ilike", `%${query}%`)
+          .orWhere("courseID", "ilike", `%${departmentMatch}%`)
           .orWhere("courseDescription", "like", `%${query}%`)
           .limit(10)
           .select(["courseID", "courseName", "courseDescription"]);
@@ -448,9 +448,9 @@ export async function searchInstructors(query: string) {
   const departmentMatch = await getPartialDepartmentMatch(query, 1);
 
   const instructors = await knex("Instructor")
-    .where("name", "like", `%${query}%`)
-    .orWhere("departmentID", "like", `%${query}%`)
-    .orWhere("departmentID", "like", `%${departmentMatch}%`)
+    .where("name", "ilike", `%${query}%`)
+    .orWhere("departmentID", "ilike", `%${query}%`)
+    .orWhere("departmentID", "ilike", `%${departmentMatch}%`)
     .limit(10)
     .select(["name", "slug"]);
 
@@ -467,7 +467,7 @@ async function getPartialDepartmentMatch(query: string, limit:number=1){
 
     if (query.length >= 4) {
       const deptMatches = await knex("Department")
-        .where("departmentName", "like", `%${query}%`)
+        .where("departmentName", "ilike", `%${query}%`)
         .limit(limit)
         .select("departmentID");
 
