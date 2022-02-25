@@ -27,7 +27,7 @@ export default function CourseSearchResult({
           `/reviews/${course.courseID.substring(
             0,
             4
-          )}/${course.courseID.substring(4)}`
+          ).toLowerCase()}/${course.courseID.substring(4)}`
         );
       }}
     >
