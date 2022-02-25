@@ -1,4 +1,4 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { cleanString } from "../lib/common/utils";
 
 export default function useSearch(q: string) {
@@ -11,8 +11,14 @@ export default function useSearch(q: string) {
     setLoading(true);
     setError(false);
     setResults([]);
-    
+
     async function fetchResults() {
+      if (query === "") {
+        setResults([]);
+        setLoading(false);
+        setError(false);
+        return;
+      }
       try {
         const res = await fetch(`/api/search?q=${query}`);
         const data = await res.json();
@@ -25,9 +31,7 @@ export default function useSearch(q: string) {
     }
 
     fetchResults();
-    
   }, [query]);
 
   return { results, loading, error };
-
 }

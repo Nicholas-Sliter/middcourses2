@@ -19,6 +19,7 @@ exports.up = function (knex) {
       table.string("courseID");
       table.string("instructorID");
       table.string("term", 3).notNullable();
+
       table
         .foreign("courseID")
         .references("Course.courseID")
@@ -30,9 +31,8 @@ exports.up = function (knex) {
     })
     .createTable("Department", (table) => {
       table
-        .string("departmentID", 4)
-        .unique()
-        .notNullable(); /* Department ID: 4-letter department abbreviation */
+        .string("departmentID", 4).primary()
+        /* Department ID: 4-letter department abbreviation */
       table
         .string("departmentName")
         .notNullable(); /* Department Name: Department name */
