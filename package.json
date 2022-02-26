@@ -17,6 +17,7 @@
     "bad-words": "^3.0.4",
     "directory.js": "^1.0.4",
     "framer-motion": "^6.2.8",
+    "fuse.js": "^6.5.3",
     "knex": "^0.95.15",
     "next": "^12.1.0",
     "next-auth": "^4.2.1",

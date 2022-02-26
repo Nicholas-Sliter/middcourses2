@@ -13,22 +13,33 @@ export default function SearchBar({ showResultDropdown = false }) {
   const debouncedQuery = useDebounce(query, 300);
 
   const { results } = useSearch(debouncedQuery) as any;
+  // const courseResults = results.courses;
+  // const instructorResults = results.instructors;
+
+  // let orderedResults = [];
+  // if (courseResults?.length) {
+  //   orderedResults = orderedResults.concat(courseResults);
+  // }
+  // if (instructorResults?.length) {
+  //   orderedResults = orderedResults.concat(instructorResults);
+  // }
+
 
   const resultDropdown = (
     <div className={styles.dropdown}>
       <Menu>
-          {Array.isArray(results)
-            ? results.map((result) =>
-                result?.courseID ? (
-                  <CourseSearchResult course={result} key={result.courseID} />
-                ) : (
-                  <InstructorSearchResult
-                    instructor={result}
-                    key={result.instructorId}
-                  />
-                )
+        {Array.isArray(results)
+          ? results.map((result) =>
+              result?.courseID ? (
+                <CourseSearchResult course={result} key={result.courseID} />
+              ) : (
+                <InstructorSearchResult
+                  instructor={result}
+                  key={result.instructorId}
+                />
               )
-            : null}
+            )
+          : null}
       </Menu>
     </div>
   );

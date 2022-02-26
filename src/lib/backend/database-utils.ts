@@ -455,7 +455,7 @@ export async function searchInstructors(query: string) {
     .orWhere("departmentID", likeOperator, `%${query}%`)
     .orWhere("departmentID", likeOperator, `%${departmentMatch}%`)
     .limit(10)
-    .select(["name", "slug"]);
+    .select(["name", "slug", "departmentID"]);
 
   if (!instructors || instructors.length == 0) {
     return [];

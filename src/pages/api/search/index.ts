@@ -26,12 +26,11 @@ const handler = nc({
 
   //clean the query and take only the first 24 characters
   const query = cleanString(q).substring(0, 24);
-  console.log(query);
 
   const courses = await searchCourses(query);
   const instructors = await searchInstructors(query);
 
-  res.status(200).json([...courses, ...instructors]);
+  res.status(200).json({courses, instructors});
 
 
 });
