@@ -61,7 +61,6 @@ export default function useSearch(q: string) {
   });
   
   const results = orderedResults.map((result) => result.item);
-  console.log(results);
 
   return { results, loading, error };
 }
