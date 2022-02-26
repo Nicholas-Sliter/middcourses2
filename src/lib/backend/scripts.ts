@@ -105,7 +105,7 @@ const processInstructors =  (rawInstructors:InstructorObject[]) => {
 
     rawInstructors.forEach( async (rawInstructor) => {
 
-        let formattedInstructor = await getInstructorData(rawInstructor);
+        const formattedInstructor = await getInstructorData(rawInstructor);
 
         const ID = formattedInstructor.instructorID;
 
