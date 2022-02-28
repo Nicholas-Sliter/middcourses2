@@ -233,7 +233,8 @@ export async function getCoursesByInstructorID(id: string) {
     .where({
       instructorID: id,
     })
-    .select(["courseID"]);
+    .join("Course", "Course.courseID", "CourseInstructor.courseID")
+    .select(["courseID", "courseName", "courseDescription"]);
 
   if (!courses || courses.length == 0) {
     return null;
@@ -480,6 +481,59 @@ async function getPartialDepartmentMatch(query: string, limit:number=1){
     }
 
     return partialMatch;
+
+
+}
+
+
+
+
+
+export async function getCourseAndInstructorsByID(id:string){
+    const resObj = await knex("Course")
+      .where({
+        "Course.courseID": id,
+      })
+      .join(
+        "CourseInstructor",
+        "Course.courseID",
+        "CourseInstructor.courseID"
+      )
+      .join(
+        "Instructor",
+        "CourseInstructor.instructorID",
+        "Instructor.instructorID"
+      )
+      .select([
+        "Course.courseID",
+        "Course.courseName",
+        "Course.courseDescription",
+        "Instructor.name",
+        "Instructor.slug",
+        "Instructor.departmentID",
+      ]);
+
+    if (!resObj || resObj.length == 0) {
+        return null;
+    }
+
+    const course = {...resObj[0]};
+    delete course.name;
+    delete course.slug;
+    delete course.departmentID;
+
+    const instructors = resObj.map((i) => {
+      return  {
+        name: i.name, 
+        slug: i.slug, 
+        departmentID: i.departmentID};
+    });
+
+    return {
+      course: course,
+      instructors: instructors
+
+    }
 
 
 }

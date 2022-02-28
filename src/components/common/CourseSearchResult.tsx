@@ -16,7 +16,8 @@ export default function CourseSearchResult({
 }: CourseSearchResultProps) {
 
   return (
-    <MenuItem
+    <MenuItem 
+      key={course.courseID}
       icon={<FaBook />}
       onClick={() => {
         Router.push(
