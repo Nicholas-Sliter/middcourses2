@@ -14,6 +14,7 @@ import { Icon } from "@chakra-ui/react";
 import { FiLogOut, FiList, FiUser } from "react-icons/fi";
 import { FaUserEdit } from "react-icons/fa";
 import { signOut, useSession } from "next-auth/react";
+import Router from "next/router";
 
 export default function ProfileButton({}) {
   const { data: session } = useSession();
@@ -29,8 +30,22 @@ export default function ProfileButton({}) {
           className={styles.dropdownMenu}
         >
           <p className={styles.profileEmail}>{session?.user?.email}</p>
-          <MenuItem icon={<FiUser />}>Edit Profile</MenuItem>
-          <MenuItem icon={<FiList />}>View Reviews</MenuItem>
+          <MenuItem
+            onClick={() => {
+              Router.push(`/profile/settings`);
+            }}
+            icon={<FiUser />}
+          >
+            Edit Profile
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              Router.push(`/profile/reviews`);
+            }}
+            icon={<FiList />}
+          >
+            View Reviews
+          </MenuItem>
           <MenuItem onClick={() => signOut()} icon={<FiLogOut />}>
             {" "}
             Sign Out
