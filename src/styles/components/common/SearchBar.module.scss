@@ -4,8 +4,7 @@
   margin: 1rem;
   margin-left: 0;
   margin-right: 0;
-  width: 100%; //600px
-  //max-width: 600px;
+  width: 100%;
   display: inline-block;
 
   &:focus-within {
@@ -83,6 +82,7 @@
         background-color: $hover-grey;
         transition: ease-in-out 0.2s;
         padding-left: 0.4rem;
+
       }
 
       &:focus {
@@ -109,6 +109,7 @@
         border: $border-light;
         border-radius: $border-radius-small;
         float: right;
+
       }
     }
   }
