@@ -67,11 +67,11 @@ export default function Review({ review, instructor }: ReviewProps) {
           with{" "}
           {
             <Link href={`/instructor/${instructor?.slug}`}>
-              <a>{instructor?.name}</a>
+              <a className={styles.instructorLink}>{instructor?.name}</a>
             </Link>
           }
         </span>
-        <DateString date={review.reviewDate}  titlePrefix="Posted on"/>
+        <DateString date={review.reviewDate} titlePrefix="Posted on" />
         <button
           aria-label="Flag Review"
           title="Flag harmful review"
