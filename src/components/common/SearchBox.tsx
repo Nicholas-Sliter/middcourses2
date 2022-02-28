@@ -48,6 +48,7 @@ export default function SearchBar({ showResultDropdown = false }) {
     <div className={styles.container}>
       <input
         type="text"
+        draggable={false}
         placeholder="Search..."
         value={query}
         onChange={(e) => {

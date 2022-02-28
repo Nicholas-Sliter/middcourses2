@@ -19,6 +19,7 @@ export default function InstructorSearchResult({
 
   return (
     <MenuItem
+      key={instructor.instructorID}
       onClick={() => {
         Router.push(`/instructor/${instructor.slug}`);
       }}
