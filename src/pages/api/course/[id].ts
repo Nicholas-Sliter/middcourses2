@@ -27,6 +27,7 @@ const handler = nc({
 
    //get the course from the database
    const course = await getCourseByID(courseID)
+   //switching to getCourseAndInstructorsByID adds 200ms delay
 
    //if the course doesn't exist, return 404
    if (!course) {

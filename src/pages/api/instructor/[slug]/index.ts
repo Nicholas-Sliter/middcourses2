@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getInstructorBySlug } from "../../../lib/backend/database-utils";
+import { getInstructorBySlug } from "../../../../lib/backend/database-utils";
 
 const handler = nc({
   onError: (err, req: NextApiRequest, res: NextApiResponse) => {
