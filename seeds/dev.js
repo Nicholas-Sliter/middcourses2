@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+//chunk size for batch insert
 const MAX_TEST_DATA = 100;
 
 exports.seed = async function(knex) {
