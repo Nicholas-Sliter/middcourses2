@@ -425,14 +425,14 @@ export async function searchCourses(query: string) {
       ? await knex("Course")
           .where("courseName", likeOperator, `%${query}%`)
           .orWhere("courseID", likeOperator, `%${query}%`)
-          .limit(10)
+          .limit(50)
           .select(["courseID", "courseName", "courseDescription"])
       : await knex("Course")
           .where("courseName", likeOperator, `%${query}%`)
           .orWhere("courseID", likeOperator, `%${query}%`)
-          .orWhere("courseID", likeOperator, `%${departmentMatch}%`)
+          //.orWhere("courseID", likeOperator, `%${departmentMatch}%`) //this makes the results so much worse TODO: fix by use fuse on backend?
           .orWhere("courseDescription", likeOperator, `%${query}%`)
-          .limit(10)
+          .limit(50)
           .select(["courseID", "courseName", "courseDescription"]);
 
   if (!courses || courses.length == 0) {
