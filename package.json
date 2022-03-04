@@ -15,6 +15,8 @@
     "@nivo/bar": "^0.73.1",
     "@nivo/core": "^0.73.0",
     "bad-words": "^3.0.4",
+    "catalog.js": "^1.0.4",
+    "departments.js": "^1.1.0",
     "directory.js": "^1.0.4",
     "framer-motion": "^6.2.8",
     "fuse.js": "^6.5.3",

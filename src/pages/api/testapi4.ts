@@ -11,6 +11,7 @@ import {
 } from "../../lib/backend/database-utils";
 import { canWriteReviews } from "../../lib/backend/utils";
 import { Session } from "../../lib/common/types";
+import { getBaseData, getCourses, getDepartmentsData, processDepartmentsData } from "../../lib/backend/scripts";
 
 interface Course {
   courseID: string;
@@ -23,12 +24,23 @@ type Data = {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   //const email = "rdatar@middlebury.edu"; //req.query.email as string
-  const id = req.query.id as string;
+  //const id = req.query.id as string;
 
   //searchCourses
-  const c = (await getCourseAndInstructorsByID(id));
-  console.log(c);
-  res.status(200).end();
+  //const c = (await getCourseAndInstructorsByID(id));
+  //console.log(c);
+
+  //const d = await processDepartmentsData("F21");
+  //console.log(d);
+  //console.log(d.length);
+  //const json = JSON.stringify(d);
+
+
+  //const c = await getCourses("W22");
+  const c  = await getBaseData();
+  const json = JSON.stringify(c);
+
+  res.status(200).end(json);
 };
 
 export default handler;

@@ -1,128 +1,194 @@
-import { public_course } from "../common/types";
-import { Scraper } from "directory.js";
-
-/* eslint-disable */
-export default {};
+import { Department, public_course } from "../common/types";
+import { Scraper as directoryScraper } from "directory.js";
+import departmentsScraper from "departments.js";
+import catalogScraper from "catalog.js";
 
 //test inteface to simulate data from catalog
 interface CourseObject {
-    code: string;
-    description: string;
-    title: string;
-};
-
-
-//get course data from course object 
-const getCourseData = (rawCourse: CourseObject) => {
-
-
-    let formattedCourse: public_course;
-
-    //extract description
-    formattedCourse.courseDescription = rawCourse.description;
-
-    //extract title
-    formattedCourse.courseName = rawCourse.title;
-
-    //extract courseID
-    formattedCourse.courseID = rawCourse.code.substring(0,7);
-
-    return (formattedCourse);
-
-
+  code: string;
+  description: string;
+  title: string;
+  courseNumber: string;
 }
 
-    
-//return array of processed course objects after stripping out sections
-const processCourses = (rawCourses:CourseObject[]) => {
+export async function getCourses(season: string) {
+  const term = season;
+  const searchParameters = null;
+  const filepath = null;
 
-    //create a dictionary to keep track of duplicate courses
-    const courseDict = {};
+  const S = new catalogScraper({ term, searchParameters, filepath });
+  await S.scrape();
+  await S.parse();
 
-    //initialize array of formatted courses
-    const formattedCourses: public_course[] = [];
+  console.log(S.catalog.courses.length);
 
-    rawCourses.forEach( (rawCourse) => {
+  const courses = S.catalog.courses;
 
-        let formattedCourse = getCourseData(rawCourse);
-        let name = formattedCourse.courseID;
+  return processCourses(courses);
+}
 
-        if (!courseDict[name]) {
+export async function getBaseData() {
+  //use previous 3 terms
+  const terms = ["S21", "F21", "W22", "S22"];
 
-            courseDict[name] = 1;
+  const scrapers = [];
 
-            formattedCourses.push(formattedCourse);
-        }
+  terms.forEach((term) => {
+    const S = new catalogScraper({
+      term: term,
+      searchParameters: null,
+      filepath: null,
+    });
+    scrapers.push(S);
+  });
 
+  await Promise.all(
+    scrapers.map(async (S) => {
+      await S.scrape();
     })
+  );
 
-    return (formattedCourses);
+
+  await Promise.all(
+    scrapers.map(async (S) => {
+      await S.parse();
+    })
+  );
+
+  const courses = [];
+
+  scrapers.forEach((S) => {
+    courses.push(...S.catalog.courses);
+  });
+
+  //do instructor processing and stuff
 
 
+  //change to return raw courses
+  return processCourses(courses);
+  
+}
+
+//get course data from course object
+function formatCourse(rawCourse: CourseObject) {
+  const formattedCourse: public_course = {
+    courseDescription: rawCourse.description,
+    courseID: rawCourse.courseNumber,
+    courseName: rawCourse.title,
+  };
+
+  return formattedCourse;
+}
+
+/**
+ * Process course data from catalog.js into a format that can be inserted into the database
+ * @param rawCourses
+ * @returns an array of processed courses that can be added to the database
+ */
+export function processCourses(rawCourses: CourseObject[]) {
+  //create a dictionary to keep track of duplicate courses
+  const courseDict = {};
+
+  //initialize array of formatted courses
+  const formattedCourses: public_course[] = [];
+
+  rawCourses.forEach((rawCourse) => {
+    const formattedCourse = formatCourse(rawCourse);
+    const name = formattedCourse.courseID;
+
+    if (!courseDict[name]) {
+      courseDict[name] = 1;
+      formattedCourses.push(formattedCourse);
+    }
+  });
+
+  return formattedCourses;
+}
+
+export async function getDepartmentsData(term: string) {
+  const S = new departmentsScraper(term);
+  await S.init();
+
+  return S.departments;
+}
+
+interface rawDepartment {
+  code: string;
+  name: string;
+}
+
+export async function processDepartmentsData(season: string) {
+  const rawDepartments: rawDepartment[] = await getDepartmentsData(season);
+  //create dictionary to keep track of duplicate departments
+  const departmentDict = {};
+
+  //store processed departments in an array
+  const formattedDepartments: Department[] = [];
+
+  rawDepartments.forEach((rawDepartment) => {
+    const department = {
+      departmentID: rawDepartment.code,
+      departmentName: rawDepartment.name,
+    };
+
+    if (!departmentDict[rawDepartment.code]) {
+      departmentDict[rawDepartment.code] = 1;
+      formattedDepartments.push(department);
+    }
+  });
+
+  return formattedDepartments;
 }
 
 //test interface in order to simulate data from catalog
 interface InstructorObject {
-    id: string
-    name: string
-};
+  id: string;
+  name: string;
+}
 
 //interface to store instructor data in database
 interface Instructor {
-    name: string;
-    slug: string;
-    instructorID: string;
-    departmentID: string;
-};
-
-//extract 
-const getInstructorData = async (rawInstructor: InstructorObject) => {
-
-    let formattedInstructor:Instructor;
-
-    formattedInstructor.name = rawInstructor.name;
-
-    formattedInstructor.instructorID = rawInstructor.id;
-
-    //gets person from directory by looking up their id
-    const S = new Scraper("", formattedInstructor.instructorID);
-    await S.init();
-    const department = S.person.department; //this gets department name,  NOT departmentID, but I am using this a placeholder until a name-department ID dictionary can be implemented
-
-    formattedInstructor.departmentID = department;
-
-    return (formattedInstructor);
-
+  name: string;
+  slug: string;
+  instructorID: string;
+  departmentID: string;
 }
 
-const processInstructors =  (rawInstructors:InstructorObject[]) => {
+async function getInstructorData(rawInstructor: InstructorObject) {
+  let formattedInstructor: Instructor;
 
-    //create dictionary to keep track of duplicate instructors
-    const instructorDict = {};
+  formattedInstructor.name = rawInstructor.name;
 
-    //store processed instructors in an array
-    const formattedInstructors:Instructor[] = [];
+  formattedInstructor.instructorID = rawInstructor.id;
 
-    rawInstructors.forEach( async (rawInstructor) => {
+  //gets person from directory by looking up their id
+  const S = new directoryScraper("", formattedInstructor.instructorID);
+  await S.init();
+  const department = S.person.department; //this gets department name,  NOT departmentID, but I am using this a placeholder until a name-department ID dictionary can be implemented
 
-        const formattedInstructor = await getInstructorData(rawInstructor);
+  formattedInstructor.departmentID = department;
 
-        const ID = formattedInstructor.instructorID;
-
-        if (!instructorDict[ID]){
-
-            instructorDict[ID] = 1;
-
-            formattedInstructors.push(formattedInstructor);
-
-        }
-
-    })
-
-    return(formattedInstructors);
-
+  return formattedInstructor;
 }
 
+function processInstructors(rawInstructors: InstructorObject[]) {
+  //create dictionary to keep track of duplicate instructors
+  const instructorDict = {};
 
+  //store processed instructors in an array
+  const formattedInstructors: Instructor[] = [];
 
+  rawInstructors.forEach(async (rawInstructor) => {
+    const formattedInstructor = await getInstructorData(rawInstructor);
 
+    const ID = formattedInstructor.instructorID;
+
+    if (!instructorDict[ID]) {
+      instructorDict[ID] = 1;
+
+      formattedInstructors.push(formattedInstructor);
+    }
+  });
+
+  return formattedInstructors;
+}

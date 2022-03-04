@@ -1,38 +1,234 @@
 [
   {
-    "departmentID": "CSCI",
-    "departmentName": "Computer Science"
-  },
-  {
-    "departmentID": "MATH",
-    "departmentName": "Mathematics"
-  },
-  {
     "departmentID": "ANTH",
     "departmentName": "Anthropology"
   },
   {
-    "departmentID": "PHYS",
-    "departmentName": "Physics"
+    "departmentID": "ARBC",
+    "departmentName": "Arabic"
   },
   {
-    "departmentID": "CHEM",
-    "departmentName": "Chemistry and Biochemistry"
+    "departmentID": "ARDV",
+    "departmentName": "Arts Division"
   },
   {
     "departmentID": "BIOL",
     "departmentName": "Biology"
   },
   {
+    "departmentID": "BLST",
+    "departmentName": "Black Studies"
+  },
+  {
+    "departmentID": "CHEM",
+    "departmentName": "Chemistry and Biochemistry"
+  },
+  {
+    "departmentID": "CHNS",
+    "departmentName": "Chinese"
+  },
+  {
+    "departmentID": "CLAS",
+    "departmentName": "Classics"
+  },
+  {
+    "departmentID": "CMLT",
+    "departmentName": "Comparative Literature"
+  },
+  {
+    "departmentID": "CSCI",
+    "departmentName": "Computer Science"
+  },
+  {
+    "departmentID": "CRWR",
+    "departmentName": "Creative Writing"
+  },
+  {
+    "departmentID": "DANC",
+    "departmentName": "Dance"
+  },
+  {
     "departmentID": "ECON",
     "departmentName": "Economics"
+  },
+  {
+    "departmentID": "EDST",
+    "departmentName": "Education Studies"
   },
   {
     "departmentID": "ENAM",
     "departmentName": "English & American Literatures"
   },
   {
+    "departmentID": "ENVS",
+    "departmentName": "Environmental Studies"
+  },
+  {
+    "departmentID": "FMMC",
+    "departmentName": "Film & Media Culture"
+  },
+  {
+    "departmentID": "FYSE",
+    "departmentName": "First Year Seminar"
+  },
+  {
+    "departmentID": "FOOD",
+    "departmentName": "Food Studies"
+  },
+  {
+    "departmentID": "FREN",
+    "departmentName": "French"
+  },
+  {
+    "departmentID": "GSFS",
+    "departmentName": "Gender Sexuality & Feminist Studies"
+  },
+  {
+    "departmentID": "GEOG",
+    "departmentName": "Geography"
+  },
+  {
+    "departmentID": "GEOL",
+    "departmentName": "Geology"
+  },
+  {
+    "departmentID": "GRMN",
+    "departmentName": "German"
+  },
+  {
+    "departmentID": "GHLT",
+    "departmentName": "Global Health"
+  },
+  {
+    "departmentID": "GREK",
+    "departmentName": "Greek"
+  },
+  {
+    "departmentID": "HEBR",
+    "departmentName": "Hebrew (Classical)"
+  },
+  {
+    "departmentID": "HEBM",
+    "departmentName": "Hebrew (Modern)"
+  },
+  {
     "departmentID": "HIST",
     "departmentName": "History"
+  },
+  {
+    "departmentID": "HARC",
+    "departmentName": "History of Art & Architecture"
+  },
+  {
+    "departmentID": "INDE",
+    "departmentName": "Independent Scholar"
+  },
+  {
+    "departmentID": "IPEC",
+    "departmentName": "International Politics & Economics"
+  },
+  {
+    "departmentID": "INTD",
+    "departmentName": "Interdepartmental"
+  },
+  {
+    "departmentID": "IGST",
+    "departmentName": "International & Global Studies"
+  },
+  {
+    "departmentID": "ITAL",
+    "departmentName": "Italian"
+  },
+  {
+    "departmentID": "JAPN",
+    "departmentName": "Japanese"
+  },
+  {
+    "departmentID": "JWST",
+    "departmentName": "Jewish Studies"
+  },
+  {
+    "departmentID": "LATN",
+    "departmentName": "Latin"
+  },
+  {
+    "departmentID": "LNGT",
+    "departmentName": "Linguistics"
+  },
+  {
+    "departmentID": "LITS",
+    "departmentName": "Literary Studies"
+  },
+  {
+    "departmentID": "MATH",
+    "departmentName": "Mathematics"
+  },
+  {
+    "departmentID": "MSAB",
+    "departmentName": "Middlebury School Abroad"
+  },
+  {
+    "departmentID": "MBBC",
+    "departmentName": "Molecular Biology & Biochem"
+  },
+  {
+    "departmentID": "MUSC",
+    "departmentName": "Music"
+  },
+  {
+    "departmentID": "NSCI",
+    "departmentName": "Neuroscience"
+  },
+  {
+    "departmentID": "PHIL",
+    "departmentName": "Philosophy"
+  },
+  {
+    "departmentID": "PHED",
+    "departmentName": "Physical Education"
+  },
+  {
+    "departmentID": "PHYS",
+    "departmentName": "Physics"
+  },
+  {
+    "departmentID": "PSCI",
+    "departmentName": "Political Science"
+  },
+  {
+    "departmentID": "PGSE",
+    "departmentName": "Portuguese"
+  },
+  {
+    "departmentID": "PSYC",
+    "departmentName": "Psychology"
+  },
+  {
+    "departmentID": "RELI",
+    "departmentName": "Religion"
+  },
+  {
+    "departmentID": "RUSS",
+    "departmentName": "Russian"
+  },
+  {
+    "departmentID": "SOCI",
+    "departmentName": "Sociology"
+  },
+  {
+    "departmentID": "SPAN",
+    "departmentName": "Spanish"
+  },
+  {
+    "departmentID": " ART",
+    "departmentName": "Studio Art"
+  },
+  {
+    "departmentID": "THEA",
+    "departmentName": "Theatre"
+  },
+  {
+    "departmentID": "WRPR",
+    "departmentName": "Writing and Rhetoric Program"
   }
 ]

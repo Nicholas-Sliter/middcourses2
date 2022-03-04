@@ -13,7 +13,7 @@ exports.seed = async function(knex) {
    await knex("CourseInstructor").del();
 
    // Insert seed entries
-   const courses = JSON.parse(fs.readFileSync('./data/Course.json', 'utf8'));
+   const courses = JSON.parse(fs.readFileSync('./data/Course2.json', 'utf8'));
    await knex.batchInsert("Course", courses, MAX_TEST_DATA);
 
    const instructors = JSON.parse(fs.readFileSync('./data/Instructor.json', 'utf8'));

@@ -9,6 +9,7 @@ import { public_review, public_instructor } from "../../../../lib/common/types";
 import { lastNameInstructorSort } from "../../../../lib/frontend/utils";
 import ReviewList from "../../../../components/ReviewList";
 import CourseCard from "../../../../components/CourseCard";
+import BarChart from "../../../../components/BarChart";
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
@@ -48,19 +49,19 @@ export default function CoursePage() {
   }, [instructorIDs]);
 
 
+
   //const instructors = useInstructors(instructorIDs);
 
   return (
     <div>
       <CourseCard course={course} />
       <hr />
-     {instructorIDs.map((id) => (
-       //note: this only shows the instructors who have reviews
-       //use the CourseIntructors table to get all instructors
-        <InstructorBadge key={id} id={id} />)
-      )}
+      {instructorIDs.map((id) => (
+        //note: this only shows the instructors who have reviews
+        //use the CourseIntructors table to get all instructors
+        <InstructorBadge key={id} id={id} />
+      ))}
       <div>
-        <h2>Reviews</h2>
         <ReviewList reviews={reviews} instructors={instructors} />
       </div>
     </div>

@@ -63,3 +63,13 @@ export interface Session {
 
 
 }
+
+
+
+export interface Department {
+  departmentID: string;
+  departmentName: string;
+};
+
+
+
