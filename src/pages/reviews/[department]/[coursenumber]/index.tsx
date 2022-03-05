@@ -23,7 +23,7 @@ export default function CoursePage() {
     ?.reviews as public_review[];
 
   const [instructorIDs, setInstructorIDs] = useState<string[]>([]);
-  const [instructors, setInstructors] = useState<public_instructor[]>([]);
+  const instructors = useInstructors(instructorIDs);
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>(
     []
@@ -48,25 +48,7 @@ export default function CoursePage() {
     setSelectedInstructorIDs(arr); //anytime we go to new page, show all instructors as default
   }, [reviews.length, department, courseNumber]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
-  //get instructors
-  useEffect(() => {
-    async function fetchInstructors() {
-      //this set actually doesn't do anything since the instructors are objects
-      const instructorSet = new Set<public_instructor>();
-      instructorIDs.forEach(async (id) => {
-        const res = await fetch(`/api/instructor/id/${id}`);
-        if (!res.ok) {
-          return;
-        }
-        const instructor = (await res.json())?.instructor as public_instructor;
-        instructorSet.add(instructor);
-        setInstructors([...instructorSet]);
-      });
-    }
-    fetchInstructors();
-  }, [instructorIDs]);
-
+  //here
 
   //filter reviews by selected instructors
   useEffect(() => {
@@ -94,11 +76,3 @@ export default function CoursePage() {
     </div>
   );
 }
-
-// {
-//   instructorIDs.map((id) => (
-//     //note: this only shows the instructors who have reviews
-//     //use the CourseIntructors table to get all instructors
-//     <InstructorBadge key={id} id={id} />
-//   ));
-// }

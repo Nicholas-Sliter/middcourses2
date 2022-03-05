@@ -1,36 +1,31 @@
 import {useState, useEffect} from 'react';
 import { public_instructor } from '../lib/common/types';
 import { lastNameInstructorSort } from '../lib/frontend/utils';
-/**
- * Resolve instructors from a list of instructor ids
- * @param instructorIDs 
- */
-export default function useInstructors(instructorIDs: string[]) {
-   console.log("useInstructors: ", instructorIDs);
-   const [instructors, setInstructors] = useState<Set<public_instructor>>(new Set());
-  
-   useEffect(() => {
-      if (!instructorIDs.length) {
-         return;
-      }
 
-       const currSet: Set<public_instructor> = new Set();
+export default function useInstructors(instructorIDs: string[]){
+  const [instructors, setInstructors] = useState<public_instructor[]>([]);
 
-      const fetchInstructor = async (id:string) => {
-         const res = await fetch(`/api/instructor/id/${id}`);
-         const instructor = await res.json();
-         currSet.add(instructor);
-      }
-
-      instructorIDs.forEach((id) => {
-         fetchInstructor(id);
+  //get instructors
+  useEffect(() => {
+    async function fetchInstructors() {
+      const ids = [...new Set(instructorIDs)];
+      //this set actually doesn't do anything since the instructors are objects
+      const arr: public_instructor[] = [];
+      instructorIDs.forEach(async (id) => {
+        const res = await fetch(`/api/instructor/id/${id}`);
+        if (!res.ok) {
+          return;
+        }
+        const instructor = (await res.json())?.instructor as public_instructor;
+        arr.push(instructor);
+        arr.sort(lastNameInstructorSort);
+        setInstructors([...arr]);
       });
+    }
+    fetchInstructors();
+  }, [instructorIDs]);
 
-      setInstructors(currSet);
-
-   }, [instructorIDs]);
-
-   console.log("useInstructors finished with: ", [...instructors]);
-   return [...instructors];
+return instructors;
 
 }
+
