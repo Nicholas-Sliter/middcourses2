@@ -110,9 +110,9 @@ export async function processCourses(rawCourses: CourseObject[]) {
 
   rawCourses.forEach((rawCourse) => {
     //skip courses that have an alias set
-    if (rawCourse.alias !== "") {
-      return;
-    }
+    //if (rawCourse.alias !== "") {
+    //  return;
+    //}
 
     const formattedCourse = formatCourse(rawCourse);
     const name = formattedCourse.courseID;

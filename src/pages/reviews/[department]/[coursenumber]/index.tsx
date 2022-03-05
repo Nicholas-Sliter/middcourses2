@@ -57,7 +57,7 @@ export default function CoursePage() {
     );
     setFilteredReviews(filtered);
 
-  }, [selectedInstructorIDs]);
+  }, [selectedInstructorIDs, reviews, reviews.length, department, courseNumber]);
 
 
   return (
