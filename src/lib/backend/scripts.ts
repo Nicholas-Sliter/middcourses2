@@ -2,6 +2,7 @@ import { Department, public_course } from "../common/types";
 import { Scraper as directoryScraper } from "directory.js";
 import departmentsScraper from "departments.js";
 import catalogScraper from "catalog.js";
+import { getDepartmentByName, getInstructorByID } from "./database-utils";
 
 //test inteface to simulate data from catalog
 interface CourseObject {
@@ -9,9 +10,17 @@ interface CourseObject {
   description: string;
   title: string;
   courseNumber: string;
+  instructors: {
+    rawID: string;
+    href: string;
+    name: string;
+    text: string;
+    id: string;
+  }[];
 }
 
-export async function getCourses(season: string) {
+
+export async function getRawCoursesData(season: string) {
   const term = season;
   const searchParameters = null;
   const filepath = null;
@@ -20,11 +29,18 @@ export async function getCourses(season: string) {
   await S.scrape();
   await S.parse();
 
-  console.log(S.catalog.courses.length);
-
   const courses = S.catalog.courses;
 
-  return processCourses(courses);
+  return courses;
+}
+
+
+
+export async function getCourses(season: string) {
+
+  const courses = await getRawCoursesData(season);
+
+  return await processCourses(courses);
 }
 
 export async function getBaseData() {
@@ -85,7 +101,7 @@ function formatCourse(rawCourse: CourseObject) {
  * @param rawCourses
  * @returns an array of processed courses that can be added to the database
  */
-export function processCourses(rawCourses: CourseObject[]) {
+export async function processCourses(rawCourses: CourseObject[]) {
   //create a dictionary to keep track of duplicate courses
   const courseDict = {};
 
@@ -93,6 +109,11 @@ export function processCourses(rawCourses: CourseObject[]) {
   const formattedCourses: public_course[] = [];
 
   rawCourses.forEach((rawCourse) => {
+    //skip courses that have an alias set
+    if (rawCourse.alias !== "") {
+      return;
+    }
+
     const formattedCourse = formatCourse(rawCourse);
     const name = formattedCourse.courseID;
 
@@ -154,41 +175,79 @@ interface Instructor {
   departmentID: string;
 }
 
-async function getInstructorData(rawInstructor: InstructorObject) {
-  let formattedInstructor: Instructor;
+async function fetchInstructorData(rawInstructor: InstructorObject) {
 
-  formattedInstructor.name = rawInstructor.name;
+  const formattedInstructor: Instructor = {
+    name: rawInstructor.name,
+    instructorID: rawInstructor.id,
+    slug: rawInstructor.name.replace(/\s/g, "-"),
+    departmentID: null
+  };
 
-  formattedInstructor.instructorID = rawInstructor.id;
+  //check if instructor is in database to prevent expensive fetch
+  const instructor = await getInstructorByID(formattedInstructor.instructorID);
 
-  //gets person from directory by looking up their id
-  const S = new directoryScraper("", formattedInstructor.instructorID);
-  await S.init();
-  const department = S.person.department; //this gets department name,  NOT departmentID, but I am using this a placeholder until a name-department ID dictionary can be implemented
+  if (instructor) {
+    return instructor;
+  }
 
-  formattedInstructor.departmentID = department;
+
+  //get department from directory.js using instructor ID
+  const directory = new directoryScraper("", rawInstructor.id);
+  await directory.init();
+
+  const person = directory.person;
+
+  //query the database for the departmentID from the department
+  const department = await getDepartmentByName(person.department);
+
+  formattedInstructor.departmentID = department.departmentID;
 
   return formattedInstructor;
+
 }
 
-function processInstructors(rawInstructors: InstructorObject[]) {
+export async function processInstructors(rawInstructors: InstructorObject[]) {
   //create dictionary to keep track of duplicate instructors
   const instructorDict = {};
 
   //store processed instructors in an array
   const formattedInstructors: Instructor[] = [];
 
-  rawInstructors.forEach(async (rawInstructor) => {
-    const formattedInstructor = await getInstructorData(rawInstructor);
 
-    const ID = formattedInstructor.instructorID;
+  await Promise.allSettled(rawInstructors?.map( async(rawInstructor) => {
+    //add random delay to not overload the server
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 10000));
 
-    if (!instructorDict[ID]) {
-      instructorDict[ID] = 1;
-
-      formattedInstructors.push(formattedInstructor);
+    //check instructorDict to see if instructor already exists before expensive fetch and database query
+    if (instructorDict[rawInstructor.id]) {
+      return;
     }
-  });
+    //prevent duplicate async calls
+    instructorDict[rawInstructor.id] = 1;
+
+    const instructor = await fetchInstructorData(rawInstructor);
+    const ID = instructor.instructorID;
+
+    formattedInstructors.push(instructor);
+  }));
 
   return formattedInstructors;
+}
+
+
+
+export async function getInstructors(rawCourses) {
+  //get instructors
+  const rawInstructors = [];
+
+  rawCourses.forEach((rawCourse) => {
+    //courses are pretty flat and should only have 1-3 instructors roughly
+    rawCourse.instructors.forEach((instructor) => {
+      rawInstructors.push(instructor);
+    });
+  });
+
+  const instructors = await processInstructors(rawInstructors);
+  return instructors;
 }

@@ -1,0 +1,15 @@
+@import "../common/mixins";
+
+.bar {
+  width: 100%;
+  height: 2.2rem;
+
+  overflow-x: scroll;
+  display: flex;
+
+  @include hideScrollbar;
+
+
+
+
+}

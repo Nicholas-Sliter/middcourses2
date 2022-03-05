@@ -2,35 +2,29 @@ import { useEffect, useState } from "react";
 import { public_instructor } from "../lib/common/types";
 import styles from "../styles/components/InstructorBadge.module.scss";
 
-//TODO: add a callback with an array of instrucotrIDs
-// filter that array to add/remove the current id based on selected
-export default function InstructorBadge({ id }) {
-  const [instructor, setInstructor] = useState<public_instructor>(null);
-  const [selected, setSelected] = useState(true);
-  useEffect(() => {
-    async function fetchInstructor() {
-      const res = await fetch(`/api/instructor/id/${id}`);
-      if (!res.ok) {
-        return null;
-      }
-      const data = await res.json();
-      setInstructor(data.instructor);
-    }
+interface InstructorBadgeProps {
+  instructor: public_instructor;
+  selected: boolean;
+  select: Function;
+  deselect: Function;
+};
 
-    fetchInstructor();
-  }, [id]);
+export default function InstructorBadge({ instructor, selected, select, deselect}: InstructorBadgeProps) {
 
   const badgeStyle = selected ? styles.badge + " " + styles.selected : styles.badge;
+  const id = instructor.instructorID;
 
   return (
-    <div key={id} className={styles.container}>
-      {instructor ? (
+    <li key={id} className={styles.container}>
+      {id ? (
         <>
-          <button className={badgeStyle} onClick={()=>setSelected(!selected)}>
+          <button className={badgeStyle} 
+          onClick={
+            () => {(selected) ? deselect(id) : select(id)}}>
             {instructor.name}
           </button>
         </>
       ) : null}
-    </div>
+    </li>
   );
 }

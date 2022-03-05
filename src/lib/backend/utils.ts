@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import Filter from "bad-words";
-import { __getFullUserByID } from "./database-utils";
+import { getInstructorBySlug, __getFullUserByID } from "./database-utils";
 import { User } from "../../lib/common/types";
 
 /* Generate UUID */
@@ -58,4 +58,37 @@ export async function canWriteReviews(id: string) {
     console.log("Something went wrong");
   }
   return false; //fail safe
+}
+
+
+/**
+ * Checks if an instructor slug already exists in the database
+ * @param slug 
+ */
+export async function isSlugUnique(slug:string){
+
+    const instructor = await getInstructorBySlug(slug);
+  
+    if (instructor){
+        return false
+    }
+  
+    return true
+
+}
+
+
+export async function incrementSlugUntilUnique(slug:string){
+
+    const MAX_ATTEMPTS = 10;
+
+    let newSlug = slug;
+    let i = 1
+    while(!(await isSlugUnique(newSlug)) && i < MAX_ATTEMPTS){
+        newSlug = slug + "-" + i.toString();
+        i++;
+    }
+
+    return newSlug;
+
 }
