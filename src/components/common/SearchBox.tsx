@@ -2,7 +2,6 @@ import styles from "../../styles/components/common/SearchBar.module.scss";
 import { useState } from "react";
 import useSearch from "../../hooks/useSearch";
 import useDebounce from "../../hooks/useDebounce";
-import { FiSearch } from "react-icons/fi";
 import CourseSearchResult from "./CourseSearchResult";
 import { Menu } from "@chakra-ui/react";
 import InstructorSearchResult from "./InstructorSearchResult";

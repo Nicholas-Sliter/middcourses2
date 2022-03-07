@@ -55,9 +55,4 @@ export default function ProfileButton({}) {
     </>
   );
 
-  //<p className={styles.profileEmail}>{session?.user?.email}</p>
 }
-
-/**        <button className={styles.containerButton}>
-          <FaRegUserCircle />
-        </button> */
