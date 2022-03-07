@@ -61,6 +61,14 @@
 
     box-shadow: $shadow-small-light;
 
+    .spinner > span {
+      //center the three elements on the same line
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+
     button {
       background-color: transparent;
       border: none;

@@ -1,32 +1,22 @@
 import styles from "../../styles/components/common/SearchBar.module.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useSearch from "../../hooks/useSearch";
 import useDebounce from "../../hooks/useDebounce";
 import { FiSearch } from "react-icons/fi";
 import CourseSearchResult from "./CourseSearchResult";
-import { Menu, MenuButton, MenuList } from "@chakra-ui/react";
+import { Menu } from "@chakra-ui/react";
 import InstructorSearchResult from "./InstructorSearchResult";
-//import useCourseSearchResults from "../../hooks/useCourseSearchResults.js";
+import { BeatLoader } from "react-spinners";
 
 export default function SearchBar({ showResultDropdown = false }) {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
 
-  const { results } = useSearch(debouncedQuery) as any;
-  // const courseResults = results.courses;
-  // const instructorResults = results.instructors;
-
-  // let orderedResults = [];
-  // if (courseResults?.length) {
-  //   orderedResults = orderedResults.concat(courseResults);
-  // }
-  // if (instructorResults?.length) {
-  //   orderedResults = orderedResults.concat(instructorResults);
-  // }
-
+  const { results, loading } = useSearch(debouncedQuery) as any;
 
   const resultDropdown = (
     <div className={styles.dropdown}>
+      {loading ? <div className={styles.spinner}><BeatLoader size={10} color="black" /></div> : null}
       <Menu>
         {Array.isArray(results)
           ? results.map((result) =>
@@ -55,9 +45,7 @@ export default function SearchBar({ showResultDropdown = false }) {
           setQuery(e.target.value);
         }}
       />
-      {showResultDropdown && results.length ? resultDropdown : null}
+      {showResultDropdown && (results.length || loading) ? resultDropdown : null}
     </div>
   );
 }
-
-// <FiSearch className={styles.searchIcon} />
