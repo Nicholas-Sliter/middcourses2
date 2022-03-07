@@ -48,3 +48,23 @@
   }
 
 }
+
+
+
+@media screen and (max-width: $screen-small) {
+  //make the button bigger
+  .container {
+    width: 4rem;
+    height: 4rem;
+
+    button {
+      svg {
+      height: 2rem;
+      width: 2rem;
+    }
+    }
+
+  }
+
+  
+}
