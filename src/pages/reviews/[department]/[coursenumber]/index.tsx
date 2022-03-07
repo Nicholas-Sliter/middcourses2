@@ -10,6 +10,7 @@ import ReviewList from "../../../../components/ReviewList";
 import CourseCard from "../../../../components/CourseCard";
 import BarChart from "../../../../components/BarChart";
 import InstructorBar from "../../../../components/InstructorBar";
+import AddButton from "../../../../components/common/AddButton";
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
@@ -61,18 +62,21 @@ export default function CoursePage() {
 
 
   return (
-    <div>
-      <CourseCard course={course} />
-      <hr />
-      <InstructorBar
-        instructors={instructors}
-        selected={selectedInstructorIDs}
-        select={selectInstructor}
-        deselect={deselectInstructor}
-      />
+    <>
       <div>
-        <ReviewList reviews={filteredReviews} instructors={instructors} />
+        <CourseCard course={course} />
+        <hr />
+        <InstructorBar
+          instructors={instructors}
+          selected={selectedInstructorIDs}
+          select={selectInstructor}
+          deselect={deselectInstructor}
+        />
+        <div>
+          <ReviewList reviews={filteredReviews} instructors={instructors} />
+        </div>
       </div>
-    </div>
+      <AddButton></AddButton>
+    </>
   );
 }

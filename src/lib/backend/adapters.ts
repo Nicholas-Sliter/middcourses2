@@ -39,7 +39,7 @@ export default function CustomAdapter(client, options = {}) {
       return;
     },
     async getUserByAccount({ providerAccountId, provider }) {
-      
+
       return;
     },
     async updateUser(user) {
@@ -64,12 +64,6 @@ export default function CustomAdapter(client, options = {}) {
       return;
     },
     async deleteSession(sessionToken) {
-      return;
-    },
-    async createVerificationToken({ identifier, expires, token }) {
-      return;
-    },
-    async useVerificationToken({ identifier, token }) {
       return;
     },
   };
