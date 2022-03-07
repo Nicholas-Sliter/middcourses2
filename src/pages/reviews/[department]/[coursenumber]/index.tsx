@@ -76,7 +76,7 @@ export default function CoursePage() {
           <ReviewList reviews={filteredReviews} instructors={instructors} />
         </div>
       </div>
-      <AddButton></AddButton>
+      <AddButton onClick={()=>{}}></AddButton>
     </>
   );
 }
