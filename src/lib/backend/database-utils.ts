@@ -334,19 +334,17 @@ export async function generateUser(email: string) {
   const S = new Scraper(email);
   await S.init();
 
-  user.userType = S.person.type.toLowerCase();
+  user.userType = S.person.type.toLowerCase() ?? "student";
   user.graduationYear = S.person?.gradYear ?? null;
   //user.departmentID = departmentNameMapping[S.person?.department] ?? null;
 
-  user.canReadReviews = checkIfFirstSemester(user.graduationYear)
+  user.canReadReviews = checkIfFirstSemester(user?.graduationYear ?? null)
     ? true
     : false;
 
   if (user.userType === "faculty") {
     user.canReadReviews = true;
   }
-
-  console.log(user);
 
   const result = await knex("User").insert(user).returning("*");
 
