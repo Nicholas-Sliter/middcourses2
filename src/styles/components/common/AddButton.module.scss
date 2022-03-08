@@ -9,9 +9,6 @@
   right: 0;
   margin-right: 2rem;
   margin-bottom: 2rem;
-  //right: 0;
-  //width: 2rem;
-
   button {
     width: 100%;
     height: 100%;
@@ -19,7 +16,6 @@
     padding: 0;
     outline: none;
     border: $border-light;
-    //background-color: $offwhite;
     background-color: $logo-blue;
     box-shadow: $shadow-medium-hard;
 
@@ -29,7 +25,6 @@
       background-color: $offwhite;
       transition: background-color 0.3s ease-in-out;
       cursor: pointer;
-      //background-color: $;
 
       svg {
         fill: $black;
@@ -38,7 +33,6 @@
       }
 
     }
-    //background-color: $logo-blue;
 
     svg {
       height: 1.5rem;

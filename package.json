@@ -16,7 +16,7 @@
     "@nivo/core": "^0.73.0",
     "bad-words": "^3.0.4",
     "catalog.js": "^1.0.4",
-    "departments.js": "^1.1.0",
+    "departments.js": "^1.1.1",
     "directory.js": "^1.0.4",
     "framer-motion": "^6.2.8",
     "fuse.js": "^6.5.3",
@@ -31,7 +31,6 @@
     "react-hook-form": "^7.27.1",
     "react-icons": "^4.3.1",
     "react-loading-skeleton": "^3.0.3",
-    "react-modal": "^3.14.4",
     "react-spinners": "^0.11.0",
     "sass": "^1.49.8"
   },

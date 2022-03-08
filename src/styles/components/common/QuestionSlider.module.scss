@@ -1,0 +1,17 @@
+@import "../../common/variables";
+
+  .thumb{
+    border: $border-light !important;
+  }
+
+  .filledTrack{
+    background-color: $logo-blue;
+  }
+
+  .descriptor {
+    font-size: 1rem;
+    min-height: 1rem;
+    padding: 0.2rem;
+    padding-left: 0;
+
+  }

@@ -70,9 +70,9 @@ export const valueMapping = {
   3: "Low",
   4: "Low",
   5: "Average",
-  6: "Somewhat high",
-  7: "Very high",
-  8: "Extremely high",
+  6: "Above average",
+  7: "High",
+  8: "Very high",
   9: "Extremely high",
   10: "Extremely high",
 };
@@ -92,6 +92,11 @@ export const difficultyMapping = {
   9: "Hardcore",
   10: "Impossible",
 };
+
+
+
+export const standardMapping = valueMapping;
+
 
 export function relativeDifference(a: number, b: number) {
   return Math.round(100 * ((a - b) / ((a + b) / 2)));

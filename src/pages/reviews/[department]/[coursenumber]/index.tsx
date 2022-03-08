@@ -4,13 +4,14 @@ import InstructorBadge from "../../../../components/InstructorBadge";
 import useCourse from "../../../../hooks/useCourse";
 import useCourseReviews from "../../../../hooks/useCourseReviews";
 import useInstructors from "../../../../hooks/useInstructors";
-import { public_review, public_instructor } from "../../../../lib/common/types";
-import { lastNameInstructorSort } from "../../../../lib/frontend/utils";
+import { public_review} from "../../../../lib/common/types";
 import ReviewList from "../../../../components/ReviewList";
 import CourseCard from "../../../../components/CourseCard";
 import BarChart from "../../../../components/BarChart";
 import InstructorBar from "../../../../components/InstructorBar";
 import AddButton from "../../../../components/common/AddButton";
+import AddReview from "../../../../components/AddReview";
+import { useDisclosure } from "@chakra-ui/react";
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
@@ -29,8 +30,9 @@ export default function CoursePage() {
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>(
     []
   );
-
   const [filteredReviews, setFilteredReviews] = useState<public_review[]>([]);
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const selectInstructor = (instructorID: string) => {
     const selected = [...new Set([...selectedInstructorIDs, instructorID])];
@@ -57,9 +59,13 @@ export default function CoursePage() {
       selectedInstructorIDs.includes(review.instructorID)
     );
     setFilteredReviews(filtered);
-
-  }, [selectedInstructorIDs, reviews, reviews.length, department, courseNumber]);
-
+  }, [
+    selectedInstructorIDs,
+    reviews,
+    reviews.length,
+    department,
+    courseNumber,
+  ]);
 
   return (
     <>
@@ -76,7 +82,8 @@ export default function CoursePage() {
           <ReviewList reviews={filteredReviews} instructors={instructors} />
         </div>
       </div>
-      <AddButton onClick={()=>{}}></AddButton>
+      <AddButton onClick={() => {onOpen()}}></AddButton>
+      <AddReview isOpen={isOpen} onClose={onClose} course={course} instructors={instructors} />
     </>
   );
 }

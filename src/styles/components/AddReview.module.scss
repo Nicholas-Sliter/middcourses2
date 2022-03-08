@@ -1,0 +1,32 @@
+@import "../common/variables";
+
+.closeButton{
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.form {
+  textarea{
+    width: 90%;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    min-height: 10rem; 
+    border: $border-light;
+  }
+  .characterCount{
+    font-size: 0.8rem;
+    margin-top: -0.5rem;
+    display: block;
+    width: 18rem;
+    text-align: right;
+    margin-left:auto;
+    margin-right: 0.6rem;
+    color: $grey-dark;
+  }
+
+}
+
+

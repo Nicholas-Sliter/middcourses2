@@ -1,0 +1,35 @@
+@import "../../common/variables";
+
+.container {
+  width: 90%;
+  margin: 0.5rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 1rem;
+  border: $border-light;
+  border-radius: $border-radius-small;
+
+  &:hover{
+    border: $border-highlight;
+  }
+
+  &:focus-within{
+    //border: $border-focus;
+    outline: $border-focus;
+  }
+  
+  input, select {
+    margin-bottom: 1rem;
+  }
+
+
+  .question {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+
+}
