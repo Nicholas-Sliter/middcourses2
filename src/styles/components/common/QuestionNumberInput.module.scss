@@ -1,0 +1,27 @@
+@import "../../common/variables";
+
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 90% !important;
+  align-items: top;
+
+.input {
+  width: 100% !important;
+  height: 2.5rem;
+}
+
+
+.button{
+  background-color: $white;
+  width: 5%;
+  margin-top: auto;
+  margin-bottom: 1.2rem;
+  margin-left: 0.5rem;
+  border: $border-light;
+  box-shadow: $shadow-small-light;
+  border-radius: $border-radius-medium;
+}
+
+
+}

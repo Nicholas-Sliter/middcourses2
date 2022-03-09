@@ -66,3 +66,14 @@ export const slugify = (text) => {
     .replace(/[^\w-]+/g, "")
     .replace(/--+/g, "-");
 };
+
+export const primaryComponents = [
+  "Exam",
+  "Project",
+  "Writing",
+  "Research",
+  "Lab",
+  "Discussion",
+  "Homework",
+  "Lecture",
+];

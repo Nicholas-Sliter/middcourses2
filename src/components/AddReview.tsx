@@ -15,6 +15,7 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
+  Button,
 } from "@chakra-ui/react";
 import { useForm, useWatch } from "react-hook-form";
 import { public_course, public_instructor } from "../lib/common/types";
@@ -27,6 +28,8 @@ import {
 import Question from "./common/Question";
 import QuestionSlider from "./common/QuestionSlider";
 import CharacterCount from "./common/CharacterCount";
+import { primaryComponents } from "../lib/common/utils";
+import QuestionNumberInput from "./common/QuestionNumberInput";
 
 interface AddReviewProps {
   course: public_course;
@@ -41,9 +44,6 @@ export default function AddReview({
   isOpen,
   onClose,
 }: AddReviewProps) {
-  if (!isOpen) {
-    return null;
-  }
 
   const {
     register,
@@ -53,6 +53,7 @@ export default function AddReview({
     formState: { errors },
   } = useForm();
 
+
   const DEFAULT_SLIDER_RATING = 5;
   //use the useWatch hook to watch the difficulty form state
   const difficulty = useWatch({
@@ -61,11 +62,11 @@ export default function AddReview({
     defaultValue: DEFAULT_SLIDER_RATING,
   });
 
-  // const value = useWatch({
-  //   control,
-  //   name: "value",
-  //   defaultValue: DEFAULT_SLIDER_RATING,
-  // });
+  const value = useWatch({
+    control,
+    name: "value",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
 
   const rating = useWatch({
     control,
@@ -73,12 +74,19 @@ export default function AddReview({
     defaultValue: DEFAULT_SLIDER_RATING,
   });
 
-  const review = useWatch({
+  const content = useWatch({
     control,
-    name: "review",
+    name: "content",
     defaultValue: "",
   });
 
+      if (!isOpen) {
+        return null;
+      }
+
+  const instructor = instructors.find((instructor) => {
+    return instructor.instructorID === watch("instructor");
+  });
 
   return (
     <Modal
@@ -93,7 +101,6 @@ export default function AddReview({
         <ModalHeader>Review {course?.courseName ?? "a course"}</ModalHeader>
         <ModalCloseButton className={styles.closeButton} />
         <ModalBody>
-          <p>Add a review for this course</p>
           <form className={styles.form}>
             <FormControl>
               <Stack>
@@ -120,15 +127,25 @@ export default function AddReview({
                 <Textarea
                   resize="none"
                   placeholder="Enter your review"
-                  {...register("review", { required: true, minLength: 200, max: 2048 })}
+                  {...register("content", {
+                    required: true,
+                    minLength: 200,
+                    max: 2048,
+                  })}
                 ></Textarea>
-                <CharacterCount className={styles.characterCount} min={200} max={2048} count={review.length} />
+                <CharacterCount
+                  className={styles.characterCount}
+                  min={200}
+                  max={2048}
+                  count={content.length}
+                />
                 <Question
                   label="Would you take this course again?"
                   htmlFor="again"
                 >
                   <Switch name="again" />
                 </Question>
+
                 <Question
                   label="How difficult was the course?"
                   htmlFor="difficulty"
@@ -139,17 +156,104 @@ export default function AddReview({
                     descriptor={difficultyMapping?.[difficulty] ?? null}
                   />
                 </Question>
+
                 <Question
                   label="How would you rate the course?"
                   htmlFor="rating"
                 >
-                  <span className={styles.ratingString}></span>
                   <QuestionSlider
                     registerName="rating"
                     register={register}
                     descriptor={valueMapping?.[rating] ?? null}
                   />
                 </Question>
+                <Question
+                  label="How valuable did you find this course?"
+                  htmlFor="value"
+                >
+                  <QuestionSlider
+                    registerName="value"
+                    register={register}
+                    descriptor={valueMapping?.[value] ?? null}
+                  />
+                </Question>
+
+                <Question
+                  label="What is the primary component of the course?"
+                  htmlFor="primaryComponent"
+                >
+                  <Select
+                    name="primary"
+                    placeholder="Choose a primary component"
+                    {...register("primary", { required: true })}
+                  >
+                    {primaryComponents.map((component) => (
+                      <option key={component} value={component}>
+                        {component}
+                      </option>
+                    ))}
+                  </Select>
+                </Question>
+                <Question
+                  label="How many hours per week do you spend on this course outside of class?"
+                  htmlFor="hours"
+                >
+                  <QuestionNumberInput
+                    registerName="hours"
+                    register={register}
+                    min={0}
+                    max={30}
+                    step={1}
+                  ></QuestionNumberInput>
+                </Question>
+                <hr />
+                <h4>{`Review ${instructor?.name}`}</h4>
+                <Question
+                  label="How effective was the instructor?"
+                  htmlFor="instructorEffectiveness"
+                >
+                  <QuestionSlider
+                    registerName="instructorEffectiveness"
+                    register={register}
+                    descriptor={
+                      standardMapping?.[watch("instructorEffectiveness")] ??
+                      null
+                    }
+                  />
+                </Question>
+                <Question
+                  label="How enthusatic was the instructor?"
+                  htmlFor="instructorEnthusiasm"
+                >
+                  <QuestionSlider
+                    registerName="instructorEnthusiasm"
+                    register={register}
+                    descriptor={
+                      standardMapping?.[watch("instructorEnthusiasm")] ??
+                      null
+                    }
+                  />
+                </Question>
+                <Question
+                  label="How accommodating was the instructor?"
+                  htmlFor="instructorAccommodationLevel"
+                >
+                  <QuestionSlider
+                    registerName="instructorAccommodationLevel"
+                    register={register}
+                    descriptor={
+                      standardMapping?.[watch("instructorAccommodationLevel")] ??
+                      null
+                    }
+                  />
+                </Question>
+                <Question
+                  label="Would you take a course with this instructor again?"
+                  htmlFor="instructorAgain"
+                >
+                  <Switch name="instructorAgain" />
+                </Question>
+                <input className={styles.submitButton} type="submit" onClick={handleSubmit(onClose)} />
               </Stack>
             </FormControl>
           </form>
