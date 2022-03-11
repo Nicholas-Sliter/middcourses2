@@ -11,11 +11,6 @@ import {
   Stack,
   Textarea,
   Switch,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Button,
 } from "@chakra-ui/react";
 import { useForm, useWatch } from "react-hook-form";
 import { public_course, public_instructor } from "../lib/common/types";
@@ -24,12 +19,15 @@ import {
   difficultyMapping,
   valueMapping,
   standardMapping,
+  convertTermToFullString,
 } from "../lib/frontend/utils";
 import Question from "./common/Question";
 import QuestionSlider from "./common/QuestionSlider";
 import CharacterCount from "./common/CharacterCount";
 import { primaryComponents } from "../lib/common/utils";
 import QuestionNumberInput from "./common/QuestionNumberInput";
+import { useState, useEffect } from "react";
+import { RiContactsBookLine } from "react-icons/ri";
 
 interface AddReviewProps {
   course: public_course;
@@ -44,15 +42,57 @@ export default function AddReview({
   isOpen,
   onClose,
 }: AddReviewProps) {
-
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     control,
     formState: { errors },
   } = useForm();
 
+  const [instructorTerms, setInstructorTerms] = useState([]);
+  const [filteredInstructors, setFilteredInstructors] = useState([]);
+
+  useEffect(() => {
+    async function fetchInstructorTerms() {
+      if (!course) {
+        return;
+      }
+      const response = await fetch(
+        `/api/course/${course?.courseID.toUpperCase()}/term`
+      );
+      const { data } = await response.json();
+      setInstructorTerms(data);
+    }
+
+    if (instructors.length > 0) {
+      fetchInstructorTerms();
+    }
+  }, [instructors]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const selectedTerm = watch("semester");
+  console.log(selectedTerm);
+
+  useEffect(() => {
+    if (!selectedTerm || selectedTerm === "") {
+      return;
+    }
+    const instructorIDs = instructorTerms
+      .filter((term) => term.term === selectedTerm)
+      .map((term) => term.instructorID);
+
+    const filteredInstructors = instructors.filter((instructor) =>
+      instructorIDs.includes(instructor.instructorID)
+    );
+
+    setFilteredInstructors(filteredInstructors);
+  }, [selectedTerm]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const terms =
+    instructorTerms?.map((iterm) => {
+      return iterm.term;
+    }) ?? [];
 
   const DEFAULT_SLIDER_RATING = 5;
   //use the useWatch hook to watch the difficulty form state
@@ -80,9 +120,9 @@ export default function AddReview({
     defaultValue: "",
   });
 
-      if (!isOpen) {
-        return null;
-      }
+  if (!isOpen) {
+    return null;
+  }
 
   const instructor = instructors.find((instructor) => {
     return instructor.instructorID === watch("instructor");
@@ -106,11 +146,25 @@ export default function AddReview({
               <Stack>
                 <Question label="Course information" htmlFor="courseinfo">
                   <Select
+                    name="semester"
+                    placeholder="Select the semester"
+                    {...register("semester", { required: true })}
+                  >
+                    {terms.map((term) => {
+                      return (
+                        <option key={term} value={term}>
+                          {convertTermToFullString(term)}
+                        </option>
+                      );
+                    })}
+                  </Select>
+                  <Select
                     name="instructor"
+                    isDisabled={!selectedTerm || selectedTerm === ""}
                     placeholder="Choose your instructor"
                     {...register("instructor", { required: true })}
                   >
-                    {instructors.map((instructor) => (
+                    {filteredInstructors.map((instructor) => (
                       <option
                         key={instructor.instructorID}
                         value={instructor.instructorID}
@@ -119,10 +173,6 @@ export default function AddReview({
                       </option>
                     ))}
                   </Select>
-                  <Select
-                    name="semester"
-                    placeholder="Select the semester"
-                  ></Select>
                 </Question>
                 <Textarea
                   resize="none"
@@ -229,8 +279,7 @@ export default function AddReview({
                     registerName="instructorEnthusiasm"
                     register={register}
                     descriptor={
-                      standardMapping?.[watch("instructorEnthusiasm")] ??
-                      null
+                      standardMapping?.[watch("instructorEnthusiasm")] ?? null
                     }
                   />
                 </Question>
@@ -242,8 +291,9 @@ export default function AddReview({
                     registerName="instructorAccommodationLevel"
                     register={register}
                     descriptor={
-                      standardMapping?.[watch("instructorAccommodationLevel")] ??
-                      null
+                      standardMapping?.[
+                        watch("instructorAccommodationLevel")
+                      ] ?? null
                     }
                   />
                 </Question>
@@ -253,7 +303,11 @@ export default function AddReview({
                 >
                   <Switch name="instructorAgain" />
                 </Question>
-                <input className={styles.submitButton} type="submit" onClick={handleSubmit(onClose)} />
+                <input
+                  className={styles.submitButton}
+                  type="submit"
+                  onClick={handleSubmit(onClose)}
+                />
               </Stack>
             </FormControl>
           </form>

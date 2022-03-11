@@ -179,3 +179,23 @@ export function orderSearchResults(
   
   return orderedResults;
 }
+
+
+
+export function convertTermToFullString(term: string){
+  let s = "";
+  switch(term[0]){
+    case "F":
+      s = "Fall";
+      break;
+    case "W":
+      s = "Winter";
+      break;
+    case "S":
+      s = "Spring";
+      break;
+  };
+
+  s += ` 20${term.slice(1)}`;
+  return s; 
+}

@@ -214,7 +214,9 @@ export async function getInstructorsByCourseID(id: string) {
     .where({
       courseID: id,
     })
-    .select(["instructorID"]);
+    .select(["CourseInstructor.instructorID"])
+    .join("Instructor", "CourseInstructor.instructorID", "Instructor.instructorID")
+    .select(["name", "slug"]);
 
   if (!instructors || instructors.length == 0) {
     return null;
@@ -551,4 +553,22 @@ export async function getDepartmentByName(name:string){
   }
 
   return res
+}
+
+
+
+export async function getInstructorsAndTermsByCourseID(id: string){
+  const res = await knex("CourseInstructor")
+    .where({
+      "CourseInstructor.courseID": id,
+    })
+    .select(["CourseInstructor.instructorID", "CourseInstructor.term"]);
+
+
+  if (!res || res.length == 0){
+    return null;
+  }
+
+  return res;
+
 }

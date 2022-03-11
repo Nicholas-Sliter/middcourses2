@@ -34,7 +34,7 @@
     box-shadow: $shadow-small-light;
     z-index: 10;
 
-    @include noselect;
+    //@include noselect;
 
 
   }

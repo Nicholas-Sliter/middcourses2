@@ -12,6 +12,7 @@ import InstructorBar from "../../../../components/InstructorBar";
 import AddButton from "../../../../components/common/AddButton";
 import AddReview from "../../../../components/AddReview";
 import { useDisclosure } from "@chakra-ui/react";
+import useInstructorsByCourse from "../../../../hooks/useInstructorsByCourse";
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
@@ -20,18 +21,12 @@ export default function CoursePage() {
   const courseNumber = router.query.coursenumber as string;
 
   const course = useCourse(department, courseNumber);
-
   const reviews = useCourseReviews(department, courseNumber)
     ?.reviews as public_review[];
+  const instructors = useInstructorsByCourse(course?.courseID);
 
-  const [instructorIDs, setInstructorIDs] = useState<string[]>([]);
-  const instructors = useInstructors(instructorIDs);
-
-  const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>(
-    []
-  );
+  const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>([]);
   const [filteredReviews, setFilteredReviews] = useState<public_review[]>([]);
-
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const selectInstructor = (instructorID: string) => {
@@ -44,14 +39,11 @@ export default function CoursePage() {
     setSelectedInstructorIDs(selected);
   };
 
-  //get instructor ids
+  //on load of instructors, select all instructor ids
   useEffect(() => {
-    const arr = reviews.map((review) => review.instructorID);
-    setInstructorIDs(arr);
-    setSelectedInstructorIDs(arr); //anytime we go to new page, show all instructors as default
-  }, [reviews.length, department, courseNumber]); // eslint-disable-line react-hooks/exhaustive-deps
+    setSelectedInstructorIDs(instructors.map((instructor) => instructor.instructorID));
+  }, [instructors, instructors.length, courseNumber, department]);
 
-  //here
 
   //filter reviews by selected instructors
   useEffect(() => {

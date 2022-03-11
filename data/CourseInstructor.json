@@ -8,5 +8,10 @@
     "courseID": "CSCI0101",
     "instructorID": "ED3B22D73836EA86F9127C0691477535",
     "term": "S22"
-  }
+  },
+    {
+      "courseID": "CSCI0202",
+      "instructorID": "ED3B22D73836EA86F9127C0691477535",
+      "term": "S22"
+    }
 ]

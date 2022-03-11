@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getCourseByID } from "../../../lib/backend/database-utils";
+import { getCourseByID } from "../../../../lib/backend/database-utils";
 
 const handler = nc({
    onError: (err, req: NextApiRequest, res: NextApiResponse) => {
