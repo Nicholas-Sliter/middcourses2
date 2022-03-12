@@ -1,6 +1,6 @@
 import { public_instructor } from "../../lib/common/types";
 import { MenuItem } from "@chakra-ui/react";
-import Router from "next/router";
+import {useRouter} from "next/router";
 
 interface CourseSearchResultProps {
   compact?: boolean;
@@ -11,17 +11,15 @@ export default function InstructorSearchResult({
   instructor,
   compact = true,
 }: CourseSearchResultProps) {
-  // return(
-  //   <div>
-  //     <p>{course.courseName}</p>
-  //   </div>
-  // );
+
+  const router = useRouter();
 
   return (
     <MenuItem
       key={instructor.instructorID}
-      onClick={() => {
-        Router.push(`/instructor/${instructor.slug}`);
+      onClick={(e) => {
+        e.preventDefault();
+        router.push(`/instructor/${instructor.slug}`);
       }}
     >
       {instructor.name}
