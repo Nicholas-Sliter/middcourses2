@@ -8,7 +8,7 @@
   width: 100%;
   display: inline-block;
 
-  &:focus-within {
+  &:hover, &:focus-within {
     & > div {
       display: block;
       z-index: 1;

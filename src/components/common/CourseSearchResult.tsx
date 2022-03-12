@@ -22,7 +22,8 @@ export default function CourseSearchResult({
     <MenuItem 
       key={course.courseID}
       icon={<FaBook />}
-      onClick={() => {
+      onClick={(e) => {
+        e.preventDefault();
         router.push(
           `/reviews/${course.courseID
             .substring(0, 4)
