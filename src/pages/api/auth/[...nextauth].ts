@@ -35,26 +35,25 @@ async function signIn({profile, user, account}) {
 
 async function session({session, user}){
 
-  //session.user.id = user.id;
-  //session.user.role = user.role;
-  //session.user.email = user.email;
-
-  //add userid to session 
-
-  //console.log("session user", session.user);
   const u = await getUserByEmail(session.user.email);
-  //console.log(u);
 
   session.user.id = u.userID;
   session.user.role = u.userType;
   session.user.authorized = u.canReadReviews as boolean;
   session.user.admin = u.admin;
-  //console.log(session.user);
-  console.log(session);
+
 
 
   return session;
 
+
+}
+
+async function redirect({url, baseUrl}){
+
+    return url.startsWith(baseUrl)
+      ? Promise.resolve(url)
+      : Promise.resolve(baseUrl);
 
 }
 
@@ -72,6 +71,7 @@ export default NextAuth({
   callbacks: {
     signIn: signIn,
     session: session,
+    redirect: redirect,
   },
   pages: {
     newUser: "/auth/signup",
