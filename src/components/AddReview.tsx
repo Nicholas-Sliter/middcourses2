@@ -78,6 +78,8 @@ export default function AddReview({
       throw new Error(`${res.status} ${res.statusText}`);
     }
 
+    onClose();
+    setTimeout(() => {window.location.reload()}, 1000);
     return res.text();
 
   };

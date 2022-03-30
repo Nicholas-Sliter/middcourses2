@@ -85,7 +85,7 @@ const handler = nc({
         .end("Unauthorized: You must be logged in to submit a review");
     }
 
-    if (session.user.type === "faculty" || !canWriteReviews(session.user.id)) {
+    if (session.user.type === "faculty" || ! await canWriteReviews(session.user.id)) {
       return res.status(403).end("You cannot submit a review for courses");
     }
 
@@ -101,11 +101,11 @@ const handler = nc({
     }
 
     //check if course id is valid
-    if (!courseID || !req.body.courseID || getCourseByID(courseID) === null) {
+    if (!courseID || !req.body.courseID || await getCourseByID(courseID) === null) {
       return res.status(400).end("Invalid course id");
     }
 
-    if (checkReviewByUserAndCourse(session.user.id, courseID)) {
+    if (await checkReviewByUserAndCourse(session.user.id, courseID)) {
       console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
       return res
         .status(403)
@@ -118,7 +118,7 @@ const handler = nc({
     }
 
     if (
-      !checkIfCourseExistsByInstructorAndSemester(
+      ! await checkIfCourseExistsByInstructorAndSemester(
         courseID,
         req.body.instructor,
         req.body.semester
@@ -162,7 +162,7 @@ const handler = nc({
       instructorAgain: req.body.instructorAgain,
     };
 
-    addReview(review);
+    await addReview(review);
 
     res.status(200).end("Review submitted");
   });
