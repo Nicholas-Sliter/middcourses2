@@ -8,6 +8,11 @@ export function uuidv4() {
   return crypto.randomUUID();
 }
 
+
+
+export const DEPARTMENT_PADDING_PREFIX = "_";
+
+
 /* Determine if a string contains profanity */
 export function containsProfanity(str: string) {
   const filter = new Filter();

@@ -10,7 +10,14 @@ export default function useInstructorsByCourse(id: string) {
     async function fetchInstructors() {
       const response = await fetch(`/api/course/${id}/instructors`);
       const data = await response.json();
-      setInstructors(data?.instructors.sort(lastNameInstructorSort));
+      
+      //dedupe instructors
+      const deduped = data?.instructors?.filter((instructor, index, self) =>
+        index === self.findIndex((t) => (
+          t.instructorID === instructor.instructorID
+        ))
+      );
+      setInstructors(deduped?.sort(lastNameInstructorSort));
     }
 
     if (id) {

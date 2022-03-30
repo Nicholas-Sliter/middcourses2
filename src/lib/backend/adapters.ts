@@ -39,7 +39,6 @@ export default function CustomAdapter(client, options = {}) {
       return;
     },
     async getUserByAccount({ providerAccountId, provider }) {
-
       return;
     },
     async updateUser(user) {

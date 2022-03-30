@@ -193,6 +193,11 @@ export async function getInstructorBySlug(slug: string): Promise<any> {
  * @returns
  */
 export async function getCourseByID(id: string): Promise<any> {
+
+  if (!id || id.length !== 8) {
+    return null;
+  }
+
   const course = await knex("Course")
     .where({
       courseID: id,
@@ -200,7 +205,7 @@ export async function getCourseByID(id: string): Promise<any> {
     .first()
     .select(["courseID", "courseName", "courseDescription"]);
 
-  if (!course) {
+  if (!course || !course?.courseID) {
     return null;
   }
 
@@ -244,6 +249,30 @@ export async function getCoursesByInstructorID(id: string) {
 
   return courses;
 }
+/**
+ * Check if a course exists for a given courseID, instructor id, and semester.
+ * @param id 
+ * @param term 
+ * @returns 
+ */
+export async function checkIfCourseExistsByInstructorAndSemester(courseID: string, instructorID:string, semester:string){
+  const course = await knex("CourseInstructor")
+    .where({
+      courseID: courseID,
+      instructorID: instructorID,
+      term: semester
+    })
+    .first()
+    .select(["courseID"]);
+
+  if (!course || !course?.courseID) {
+    return false;
+  }
+
+  return true;
+
+}
+
 
 /**
  * @authentication {self only}
@@ -571,4 +600,33 @@ export async function getInstructorsAndTermsByCourseID(id: string){
 
   return res;
 
+}
+
+
+export async function addReview(review){
+  const res = await knex("Review")
+    .insert(review);
+
+  if (!res){
+    throw new Error("Failed to add review");
+  }
+
+  return res;
+
+}
+
+export async function checkReviewByUserAndCourse(userID:string, courseID:string){
+  const res = await knex("Review")
+    .where({
+      "Review.reviewerID": userID,
+      "Review.courseID": courseID,
+    })
+    .first()
+    .select(["Review.reviewID"]);
+
+  if (!res?.reviewID){
+    return false;
+  }
+
+  return true;
 }

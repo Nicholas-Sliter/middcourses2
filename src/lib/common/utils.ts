@@ -77,3 +77,11 @@ export const primaryComponents = [
   "Homework",
   "Lecture",
 ];
+
+
+
+
+export function formatTermObj(termObj) {
+  const term: string = `${termObj.season}${termObj.year.toString().slice(2)}`;
+  return term;
+}

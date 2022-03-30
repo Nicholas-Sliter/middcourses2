@@ -1,4 +1,3 @@
-
 exports.up = function (knex) {
   return knex.schema.createTable("Review", (table) => {
     table
@@ -16,6 +15,18 @@ exports.up = function (knex) {
     table
       .string("semester")
       .notNullable(); /* Semester: Semester of the review */
+    table.boolean(
+      "inMajorMinor"
+    ); /* In Major or Minor: Whether the review is in the reviewers Major or Minor */
+    table.enum("whyTake", [
+      "For my major",
+      "For my minor",
+      "Specific interest",
+      "Distribution elective",
+      "Pre-requisite for later courses",
+      "Someone recommended it",
+      "To try something new",
+    ]); /* Why Take: Why the student took the course */
 
     table.text("content").notNullable(); /* Content: Text of the review */
     table.integer(
@@ -32,6 +43,7 @@ exports.up = function (knex) {
       "again"
     ); /* Again: Whether or not the student would take the course again */
 
+    //TODO: make this take multiple choices as a joined string or array
     table.enu("primaryComponent", [
       "exam",
       "project",
@@ -68,7 +80,10 @@ exports.up = function (knex) {
       .boolean("deleted")
       .notNullable()
       .defaultTo(false); /* Deleted: Whether the review has been deleted */
-    table.boolean("archived").notNullable().defaultTo(false); /* Archived: Whether the review has been archived */
+    table
+      .boolean("archived")
+      .notNullable()
+      .defaultTo(false); /* Archived: Whether the review has been archived */
 
     table.json(
       "upvotes"
@@ -80,18 +95,21 @@ exports.up = function (knex) {
       "voteCount"
     ); /* VoteCount: current non-fuzzied value equal to upvotes - downvotes*/
 
-    table
-      .boolean("flagged")
-      .notNullable()
-      .defaultTo(false); /* Flagged: Whether the review has been flagged */
-    table.json(
-      "flaggedBy"
-    ).defaultTo("[]"); /* Flagged By: JSON Array of Unique IDs for the users who flagged the review */
-    table
-      .integer("flaggedCount")
-      .notNullable()
-      .defaultTo(0); /* Flag Count: how many times a review has been flagged */
+  })
+  .createTable("Flagged", (table) => {
+      table.uuid("reviewID").notNullable();
+      table
+        .foreign("reviewID")
+        .references("Review.reviewID")
+        .onDelete("CASCADE");
+      table.uuid("flaggedBy").notNullable();
+      table
+        .foreign("flaggedBy")
+        .references("User.userID")
+        .onDelete("CASCADE");
+      table.timestamp("flaggedDate").notNullable();
   });
+  
 };
 
 exports.down = function (knex) {

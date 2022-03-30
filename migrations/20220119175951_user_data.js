@@ -1,4 +1,4 @@
-exports.up = function(knex)  {
+exports.up = function (knex) {
   return knex.schema.createTable("User", (table) => {
     //add middID here and consider replacing uuid with it
     table
@@ -9,8 +9,6 @@ exports.up = function(knex)  {
       .string("userEmail")
       .unique()
       .notNullable(); /* User Email: User email */
-    table
-    .string("refreshToken")  /* Refresh Token: Refresh token for each user */
     table
       .enum("userType", ["student", "faculty"])
       .notNullable(); /* User Type: One of { student, faculty } */
@@ -32,15 +30,24 @@ exports.up = function(knex)  {
       .notNullable()
       .defaultTo(0); /* Num Reviews: Number of reviews the user has written */
     table
-      .string("graduationYear") /* Graduation Year: Graduation year of the user, null when user is an instructor */
+      .integer("numReviewsThisTerm")
+      .notNullable()
+      .defaultTo(
+        0
+      ); /* Num Reviews this term: Number of reviews the user has written since the last reset */
+    table.string(
+      "graduationYear"
+    ); /* Graduation Year: Graduation year of the user, null when user is an instructor */
     table
       .boolean("canReadReviews")
       .notNullable()
-      .defaultTo(false); /* Can Read Reviews: Whether the user can read reviews, true if numReviews > 2 or is first semester firstyear */
+      .defaultTo(
+        false
+      ); /* Can Read Reviews: Whether the user can read reviews, true if numReviews > 2 or is first semester firstyear */
     table.date("createdAt").notNullable();
   });
-}
+};
 
-exports.down = function(knex){
+exports.down = function (knex) {
   return knex.schema.dropTableIfExists("User");
-}
+};

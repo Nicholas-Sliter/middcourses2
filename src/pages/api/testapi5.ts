@@ -12,13 +12,13 @@ import {
 import { canWriteReviews } from "../../lib/backend/utils";
 import { Session } from "../../lib/common/types";
 import {
-  getBaseData,
   getCourses,
   getDepartmentsData,
   getInstructors,
   getRawCoursesData,
   processDepartmentsData,
 } from "../../lib/backend/scripts";
+import getBaseData from "../../lib/backend/scripts/getBaseData";
 
 interface Course {
   courseID: string;
@@ -33,14 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   // res.status(200).end(json);
 
-  const rcourses = await getRawCoursesData('W22');
-
-
-
-  const i = await getInstructors(rcourses.slice(0,10));
-
-  res.status(200).end(JSON.stringify(i));
-
+  getBaseData();
 
 };
 

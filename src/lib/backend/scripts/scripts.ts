@@ -1,8 +1,9 @@
-import { Department, public_course } from "../common/types";
+import { Department, public_course } from "../../common/types";
 import { Scraper as directoryScraper } from "directory.js";
 import departmentsScraper from "departments.js";
 import catalogScraper from "catalog.js";
-import { getDepartmentByName, getInstructorByID } from "./database-utils";
+import { getDepartmentByName, getInstructorByID } from "../database-utils";
+import { slugify } from "../../common/utils";
 
 //test inteface to simulate data from catalog
 interface CourseObject {
@@ -101,7 +102,7 @@ function formatCourse(rawCourse: CourseObject) {
  * @param rawCourses
  * @returns an array of processed courses that can be added to the database
  */
-export async function processCourses(rawCourses: CourseObject[]) {
+export function processCourses(rawCourses: CourseObject[]) {
   //create a dictionary to keep track of duplicate courses
   const courseDict = {};
 
@@ -180,16 +181,17 @@ async function fetchInstructorData(rawInstructor: InstructorObject) {
   const formattedInstructor: Instructor = {
     name: rawInstructor.name,
     instructorID: rawInstructor.id,
-    slug: rawInstructor.name.replace(/\s/g, "-"),
+    slug: slugify(rawInstructor.name),
     departmentID: null
   };
 
   //check if instructor is in database to prevent expensive fetch
-  const instructor = await getInstructorByID(formattedInstructor.instructorID);
+  //const instructor = await getInstructorByID(formattedInstructor.instructorID);
 
-  if (instructor) {
-    return instructor;
-  }
+  //if (instructor) {
+   // console.log("instructor already in database");
+  //  return instructor;
+  //}
 
 
   //get department from directory.js using instructor ID
@@ -199,7 +201,7 @@ async function fetchInstructorData(rawInstructor: InstructorObject) {
   const person = directory.person;
 
   //query the database for the departmentID from the department
-  const department = await getDepartmentByName(person.department);
+  const department = await getDepartmentByName(person.department) ?? "Unknown"; //OTHER /OTHR 
 
   formattedInstructor.departmentID = department.departmentID;
 
@@ -209,32 +211,39 @@ async function fetchInstructorData(rawInstructor: InstructorObject) {
 
 export async function processInstructors(rawInstructors: InstructorObject[]) {
   //create dictionary to keep track of duplicate instructors
-  const instructorDict = {};
+  //const instructorDict = {};
 
   //store processed instructors in an array
   const formattedInstructors: Instructor[] = [];
+  const indexes = [];
 
-
-  await Promise.allSettled(rawInstructors?.map( async(rawInstructor) => {
+  await Promise.allSettled(rawInstructors?.map( async(rawInstructor, index) => {
     //add random delay to not overload the server
-    await new Promise((resolve) => setTimeout(resolve, Math.random() * 10000));
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 24000));
 
     //check instructorDict to see if instructor already exists before expensive fetch and database query
-    if (instructorDict[rawInstructor.id]) {
-      return;
-    }
+    //if (instructorDict[rawInstructor.id]) {
+    //  console.log("instructor already processed");
+    //  return;
+    //}
     //prevent duplicate async calls
-    instructorDict[rawInstructor.id] = 1;
+    //instructorDict[rawInstructor.id] = 1;
 
     const instructor = await fetchInstructorData(rawInstructor);
-    const ID = instructor.instructorID;
+    if (!instructor || instructor.name === "") {
+      console.log("Error with instructor: ", rawInstructor.id);
+    }
 
     formattedInstructors.push(instructor);
+    //console.log("pushed instructor: ", index);
+    indexes.push(index);
   }));
 
+  console.log("formatted instructors size: ", formattedInstructors.length);
+  const sindexes = indexes.sort(function(a, b) {return a - b});
+  console.log({sindexes});
   return formattedInstructors;
 }
-
 
 
 export async function getInstructors(rawCourses) {

@@ -5,7 +5,7 @@ const MAX_TEST_DATA = 100;
 
 exports.seed = async function(knex) {
 
-   // Delete ALL existing table entries
+    //Delete ALL existing table entries
    await knex("User").del();
    await knex("Course").del();
    await knex("Review").del();
@@ -13,8 +13,8 @@ exports.seed = async function(knex) {
    await knex("Department").del();
    await knex("CourseInstructor").del();
 
-   // Insert seed entries
-   const courses = JSON.parse(fs.readFileSync('./data/Course2.json', 'utf8'));
+  //Insert seed entries
+   const courses = JSON.parse(fs.readFileSync('./data/Course.json', 'utf8'));
    await knex.batchInsert("Course", courses, MAX_TEST_DATA);
 
    const instructors = JSON.parse(fs.readFileSync('./data/Instructor.json', 'utf8'));

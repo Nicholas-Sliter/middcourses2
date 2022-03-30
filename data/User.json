@@ -6,6 +6,7 @@
       "graduationYear": "2026",
       "createdAt": "2022-04-01T00:00:00.000Z",
       "numReviews": 1,
+      "numReviewsThisTerm": 0,
       "canReadReviews": true,
       "admin": false,
       "banned": false
@@ -17,6 +18,7 @@
       "graduationYear": "2025",
       "createdAt": "2022-04-02T00:00:00.000Z",
       "numReviews": 1,
+      "numReviewsThisTerm": 0,
       "canReadReviews": true,
       "admin": false,
       "banned": false
@@ -28,6 +30,7 @@
          "graduationYear": "2023",
          "createdAt": "2022-04-02T00:00:00.000Z",
          "numReviews": 1,
+         "numReviewsThisTerm": 0,
          "canReadReviews": true,
          "admin": true,
          "banned": false

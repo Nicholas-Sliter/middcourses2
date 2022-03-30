@@ -23,6 +23,7 @@ export default function CoursePage() {
   const course = useCourse(department, courseNumber);
   const reviews = useCourseReviews(department, courseNumber)
     ?.reviews as public_review[];
+    
   const instructors = useInstructorsByCourse(course?.courseID);
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>([]);
