@@ -15,10 +15,14 @@ exports.seed = async function(knex) {
 
   //Insert seed entries
    const courses = JSON.parse(fs.readFileSync('./data/Course.json', 'utf8'));
-   await knex.batchInsert("Course", courses, MAX_TEST_DATA);
+   const c = await knex.batchInsert("Course", courses, MAX_TEST_DATA);
+
+  console.log(c);
 
    const instructors = JSON.parse(fs.readFileSync('./data/Instructor.json', 'utf8'));
-   await knex.batchInsert("Instructor", instructors, MAX_TEST_DATA);
+   const r = await knex.batchInsert("Instructor", instructors, MAX_TEST_DATA);
+
+   console.log(r);
 
    const courseInstructors = JSON.parse(fs.readFileSync('./data/CourseInstructor.json', 'utf8'));
    await knex.batchInsert("CourseInstructor", courseInstructors, MAX_TEST_DATA);
