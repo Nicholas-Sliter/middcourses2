@@ -628,5 +628,6 @@ export async function checkReviewByUserAndCourse(userID:string, courseID:string)
     return false;
   }
 
+  //review exists
   return true;
 }
