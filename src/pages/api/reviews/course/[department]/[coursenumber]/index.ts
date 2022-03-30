@@ -106,6 +106,7 @@ const handler = nc({
     }
 
     if (checkReviewByUserAndCourse(session.user.id, courseID)) {
+      console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
       return res
         .status(403)
         .end("You have already submitted a review for this course");
@@ -149,7 +150,16 @@ const handler = nc({
       rating: req.body.rating,
       reviewDate: new Date().toISOString(),
       approved: true,
-      //swithc vote count to its own table
+      voteCount: req.body.voteCount,
+      difficulty: req.body.difficulty,
+      value: req.body.value,
+      hours: parseInt(req.body.hours, 10),
+      again: req.body.again,
+      primaryComponent: req.body.primaryComponent,
+      instructorEffectiveness: req.body.instructorEffectiveness,
+      instructorAccommodationLevel: req.body.instructorAccommodationLevel,
+      instructorEnthusiasm: req.body.instructorEnthusiasm,
+      instructorAgain: req.body.instructorAgain,
     };
 
     addReview(review);

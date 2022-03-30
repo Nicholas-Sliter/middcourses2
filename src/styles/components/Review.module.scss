@@ -31,6 +31,10 @@
       }
     }
 
+    p {
+      overflow-wrap: break-word;
+    }
+
     .flagButton {
       outline: none;
       border: none;
