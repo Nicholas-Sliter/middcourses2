@@ -12,7 +12,7 @@ import {
   Textarea,
   Switch,
 } from "@chakra-ui/react";
-import { useForm, useWatch } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { public_course, public_instructor } from "../lib/common/types";
 import styles from "../styles/components/AddReview.module.scss";
 import {
@@ -28,6 +28,7 @@ import { primaryComponents } from "../lib/common/utils";
 import QuestionNumberInput from "./common/QuestionNumberInput";
 import { useState, useEffect } from "react";
 import { RiContactsBookLine } from "react-icons/ri";
+import ReviewContentInput from "./common/ReviewContentInput";
 
 interface AddReviewProps {
   course: public_course;
@@ -54,6 +55,33 @@ export default function AddReview({
   const [instructorTerms, setInstructorTerms] = useState([]);
   const [filteredInstructors, setFilteredInstructors] = useState([]);
 
+  const onSubmit = async (
+    data: Object,
+  ) => {
+
+    const dept = course.courseID.slice(0, 4).toLowerCase();
+    const code = course.courseID.slice(4);
+
+    const res = await fetch(`/api/reviews/course/${dept}/${code}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...data,
+        courseID: course.courseID,
+      }),
+    });
+
+
+    if (!res.ok) {
+      throw new Error(`${res.status} ${res.statusText}`);
+    }
+
+    return res.text();
+
+  };
+
   useEffect(() => {
     async function fetchInstructorTerms() {
       if (!course) {
@@ -72,7 +100,6 @@ export default function AddReview({
   }, [instructors]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const selectedTerm = watch("semester");
-  console.log(selectedTerm);
 
   useEffect(() => {
     if (!selectedTerm || selectedTerm === "") {
@@ -112,12 +139,6 @@ export default function AddReview({
     control,
     name: "rating",
     defaultValue: DEFAULT_SLIDER_RATING,
-  });
-
-  const content = useWatch({
-    control,
-    name: "content",
-    defaultValue: "",
   });
 
   if (!isOpen) {
@@ -174,20 +195,16 @@ export default function AddReview({
                     ))}
                   </Select>
                 </Question>
-                <Textarea
-                  resize="none"
-                  placeholder="Enter your review"
-                  {...register("content", {
-                    required: true,
-                    minLength: 200,
-                    max: 2048,
-                  })}
-                ></Textarea>
-                <CharacterCount
-                  className={styles.characterCount}
-                  min={200}
-                  max={2048}
-                  count={content.length}
+                <Controller
+                  control={control}
+                  name="content"
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                    fieldState: { invalid, isTouched, isDirty, error },
+                    formState,
+                  }) => (
+                    <ReviewContentInput onChange={onChange} value={value} className={styles.characterCount}/>
+                  )}
                 />
                 <Question
                   label="Would you take this course again?"
@@ -195,7 +212,6 @@ export default function AddReview({
                 >
                   <Switch name="again" />
                 </Question>
-
                 <Question
                   label="How difficult was the course?"
                   htmlFor="difficulty"
@@ -206,7 +222,6 @@ export default function AddReview({
                     descriptor={difficultyMapping?.[difficulty] ?? null}
                   />
                 </Question>
-
                 <Question
                   label="How would you rate the course?"
                   htmlFor="rating"
@@ -227,7 +242,6 @@ export default function AddReview({
                     descriptor={valueMapping?.[value] ?? null}
                   />
                 </Question>
-
                 <Question
                   label="What is the primary component of the course?"
                   htmlFor="primaryComponent"
@@ -306,7 +320,7 @@ export default function AddReview({
                 <input
                   className={styles.submitButton}
                   type="submit"
-                  onClick={handleSubmit(onClose)}
+                  onClick={handleSubmit(onSubmit)}
                 />
               </Stack>
             </FormControl>
