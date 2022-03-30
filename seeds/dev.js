@@ -9,20 +9,21 @@ exports.seed = async function(knex) {
    await knex("User").del();
    await knex("Course").del();
    await knex("Review").del();
+   await knex("Flagged").del();
    await knex("Instructor").del();
    await knex("Department").del();
    await knex("CourseInstructor").del();
 
   //Insert seed entries
    const courses = JSON.parse(fs.readFileSync('./data/Course.json', 'utf8'));
-   const c = await knex.batchInsert("Course", courses, MAX_TEST_DATA);
+   await knex.batchInsert("Course", courses, MAX_TEST_DATA);
 
-  console.log(c);
+   console.log(await knex("Course").select("courseID"));
 
    const instructors = JSON.parse(fs.readFileSync('./data/Instructor.json', 'utf8'));
-   const r = await knex.batchInsert("Instructor", instructors, MAX_TEST_DATA);
+   await knex.batchInsert("Instructor", instructors, MAX_TEST_DATA);
 
-   console.log(r);
+   console.log(await knex("Instructor").select("instructorID"));
 
    const courseInstructors = JSON.parse(fs.readFileSync('./data/CourseInstructor.json', 'utf8'));
    await knex.batchInsert("CourseInstructor", courseInstructors, MAX_TEST_DATA);

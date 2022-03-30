@@ -7,13 +7,13 @@ exports.up = function (knex) {
       table.string("courseName").notNullable(); /* Course Name: Course name */
       table
         .text("courseDescription")
-        .notNullable(); /* Course Description: Course description */
+        .notNullable().defaultTo(""); /* Course Description: Course description */
     })
     .createTable("Instructor", (table) => {
       table.string("name").notNullable();
       table.string("slug").unique().notNullable();
       table.string("instructorID").primary();
-      table.string("departmentID");
+      table.string("departmentID").defaultTo("");
     })
     .createTable("CourseInstructor", (table) => {
       table.string("courseID");
