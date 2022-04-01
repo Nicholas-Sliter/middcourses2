@@ -187,9 +187,9 @@ async function fetchInstructorData(rawInstructor: InstructorObject) {
     if (person) {
       //query the database for the departmentID from the department
       const department =
-        (await getDepartmentByName(person.department ?? "")) ?? "Unknown"; //OTHER /OTHR
+        (await getDepartmentByName(person.department ?? "")) ?? null; //OTHER /OTHR
 
-      formattedInstructor.departmentID = department.departmentID;
+      formattedInstructor.departmentID = department.departmentID ?? null;
     }
   } catch (e) {
     //console.error(e);
