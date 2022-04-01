@@ -17,7 +17,7 @@
     "bad-words": "^3.0.4",
     "catalog.js": "^1.0.6",
     "departments.js": "^1.1.1",
-    "directory.js": "^1.0.5",
+    "directory.js": "^1.0.6",
     "framer-motion": "^6.2.8",
     "fuse.js": "^6.5.3",
     "knex": "^0.95.15",

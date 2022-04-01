@@ -192,7 +192,7 @@ async function fetchInstructorData(rawInstructor: InstructorObject) {
       formattedInstructor.departmentID = department.departmentID;
     }
   } catch (e) {
-    console.error(e);
+    //console.error(e);
   }
 
   return formattedInstructor;

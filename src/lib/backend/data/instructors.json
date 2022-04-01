@@ -1,1797 +1,14 @@
 [
   {
-    "name": "Su Tan",
-    "instructorID": "195B554A9E61B496B1A68AF2B468319C",
-    "slug": "su-tan",
-    "departmentID": "MUSC"
-  },
-  {
-    "name": "Jennifer Crodelle",
-    "instructorID": "5F406A21162C0AF535E22849CF8BB8CF",
-    "slug": "jennifer-crodelle",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Diane DeBella",
-    "instructorID": "D364F12C8399D5100A4222E62486938D",
-    "slug": "diane-debella"
-  },
-  {
-    "name": "Kara Karpman",
-    "instructorID": "834C7F42E577464DCC70BDEB6B2F4813",
-    "slug": "kara-karpman",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Benjamin Cotts",
-    "instructorID": "62CF0939951D55F5D2F5E7CCA0BBD33A",
-    "slug": "benjamin-cotts"
-  },
-  {
-    "name": "Molly Anderson",
-    "instructorID": "AD898008B7D240406B58EE1A24EC6973",
-    "slug": "molly-anderson",
-    "departmentID": "FOOD"
-  },
-  {
-    "name": "Nicholas Perlongo",
-    "instructorID": "96323B45B4F852997657B887792A1888",
-    "slug": "nicholas-perlongo",
-    "departmentID": null
-  },
-  {
-    "name": "Michael Olinick",
-    "instructorID": "D3CD48D2B8CAD51ACB0F48C000189315",
-    "slug": "michael-olinick",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Michelle Pottorf",
-    "instructorID": "36B1BFF06C9D5CBABA5441C5506A9752",
-    "slug": "michelle-pottorf",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Larry Hamberlin",
-    "instructorID": "9E5141BF44152930FC18CA846C2ABD19",
-    "slug": "larry-hamberlin",
-    "departmentID": "MUSC"
-  },
-  {
-    "name": "Stever Bartlett",
-    "instructorID": "DF4888C349C18051B5E7354C025846CB",
-    "slug": "stever-bartlett"
-  },
-  {
-    "name": "Allison Stanger",
-    "instructorID": "E4D014379D428C941E40E8571920E70B",
-    "slug": "allison-stanger",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Brett Millier",
-    "instructorID": "E34554346788B8778EA8B40079C181C4",
-    "slug": "brett-millier"
-  },
-  {
-    "name": "Jeff Buettner",
-    "instructorID": "B19C3ACFBD148B22EE59295A9EFD6B5F",
-    "slug": "jeff-buettner",
-    "departmentID": "MUSC"
-  },
-  {
-    "name": "Tina Donaldson",
-    "instructorID": "834771AAF10B2F4F7202098DB79BC35F",
-    "slug": "tina-donaldson",
-    "departmentID": null
-  },
-  {
-    "name": "Gyula Zsombok",
-    "instructorID": "313ED23082C62818B6A1CAAB011E5A8D",
-    "slug": "gyula-zsombok"
-  },
-  {
-    "name": "Amitava Biswas",
-    "instructorID": "21DAF706828C069DF748066F13602365",
-    "slug": "amitava-biswas",
-    "departmentID": null
-  },
-  {
-    "name": "Anne-Marie Magri",
-    "instructorID": "1128BC3BEC9B32BB9275A5B36127526B",
-    "slug": "anne-marie-magri"
-  },
-  {
-    "name": "Margaret Clinton",
-    "instructorID": "E4A28AA344AF0CCC1F602126E482A0D9",
-    "slug": "margaret-clinton",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Matthew Walker",
-    "instructorID": "2018712E1D4848B28D059AA3B0BE4760",
-    "slug": "matthew-walker",
-    "departmentID": "RUSS"
-  },
-  {
-    "name": "William Poulin-Deltour",
-    "instructorID": "943ECA4FC732B31E4F1E816A3704589A",
-    "slug": "william-poulin-deltour"
-  },
-  {
-    "name": "Neil Sinclair",
-    "instructorID": "D2B9930E430D72EDC9B59C168BE9BCEC",
-    "slug": "neil-sinclair"
-  },
-  {
-    "name": "Jeff Munroe",
-    "instructorID": "9A3FDD77D134B270B61CEF61DE67AA33",
-    "slug": "jeff-munroe",
-    "departmentID": "GEOL"
-  },
-  {
-    "name": "Alex Lyford",
-    "instructorID": "24D40C0872F9CE5ED2CDF6F2F9CB82EA",
-    "slug": "alex-lyford",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Lida Winfield",
-    "instructorID": "82D1FBA48381E1ADCEBD72E320987EAC",
-    "slug": "lida-winfield",
-    "departmentID": "DANC"
-  },
-  {
-    "name": "Glen Ernstrom",
-    "instructorID": "65A37BF0E77BED87387B4B541C3DC3DD",
-    "slug": "glen-ernstrom"
-  },
-  {
-    "name": "Philip Caplan",
-    "instructorID": "ED3B22D73836EA86F9127C0691477535",
-    "slug": "philip-caplan",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Angus Findlay",
-    "instructorID": "E098EA309474EF6F36348A2DFFFCA479",
-    "slug": "angus-findlay",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "Ryan Sheldon",
-    "instructorID": "64EE9CEED2BA9392E7FA9CFD9C05E48B",
-    "slug": "ryan-sheldon"
-  },
-  {
-    "name": "Mark Spritzer",
-    "instructorID": "74B64E9044F9B3A5047B8555CB148C91",
-    "slug": "mark-spritzer",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Claudio Medeiros",
-    "instructorID": "CD4A7A5BC6E9CA9031CBE51488C9A0DC",
-    "slug": "claudio-medeiros",
-    "departmentID": "THEA"
-  },
-  {
-    "name": "Matthew Saldivar",
-    "instructorID": "0C310E0FEFBD5038A72F20C2BF78EC09",
-    "slug": "matthew-saldivar",
-    "departmentID": null
-  },
-  {
-    "name": "Joshua Nelson",
-    "instructorID": "658831BAE0991BB1A58941F5E9C0A9B9",
-    "slug": "joshua-nelson",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "James Ralph",
-    "instructorID": "BBED25313DB31B7F912B2D5089848C50",
-    "slug": "james-ralph"
-  },
-  {
-    "name": "Kim Cronise",
-    "instructorID": "B1F95A32F9AD98473D9B9C9EB7E9FA6E",
-    "slug": "kim-cronise",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "KJ Krasco",
-    "instructorID": "561AA67D31276575D767406AB705192D",
-    "slug": "kj-krasco"
-  },
-  {
-    "name": "Alla Fil",
-    "instructorID": "6E2A535AC2D05C2B9765F712CD5107E0",
-    "slug": "alla-fil"
-  },
-  {
-    "name": "Dana Hart",
-    "instructorID": "3E91CBF679D7344CF7F3882D632D4225",
-    "slug": "dana-hart",
-    "departmentID": null
-  },
-  {
-    "name": "Damascus Kafumbe",
-    "instructorID": "71165CB6B3F17B9A7E49316C481A40E8",
-    "slug": "damascus-kafumbe",
-    "departmentID": "MUSC"
-  },
-  {
-    "name": "Rebecca Tiger",
-    "instructorID": "8F03093486627D4075577A89C0185CC3",
-    "slug": "rebecca-tiger",
-    "departmentID": "SOCI"
-  },
-  {
-    "name": "Kristina Sargent",
-    "instructorID": "513216CEA24B3B8A593F60149D9B501B",
-    "slug": "kristina-sargent",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "William Beaney",
-    "instructorID": "EE8F706249F8F7332E1A3FB5B68A89F5",
-    "slug": "william-beaney"
-  },
-  {
-    "name": "Lindsay Houpt-Varner",
-    "instructorID": "3ED7022E3BD1DC029819CDE87F987A06",
-    "slug": "lindsay-houpt-varner",
-    "departmentID": null
-  },
-  {
-    "name": "David Torres",
-    "instructorID": "ED7B73CCE3292B075FD7382C30BFFEB5",
-    "slug": "david-torres"
-  },
-  {
-    "name": "Paul Sommers",
-    "instructorID": "0E206A3DE3E62AAF4BBDBD358AA65EBE",
-    "slug": "paul-sommers",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "James Gallagher",
-    "instructorID": "DEDF250EE7051DA1BD16496EFA1C0D16",
-    "slug": "james-gallagher",
-    "departmentID": null
-  },
-  {
-    "name": "Estefania Puerta",
-    "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF",
-    "slug": "estefania-puerta",
-    "departmentID": null
-  },
-  {
-    "name": "Marion Wells",
-    "instructorID": "8014BD7E5A4FF1E898CA1CDA431D41CA",
-    "slug": "marion-wells"
-  },
-  {
-    "name": "Prem Prakash",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A",
-    "slug": "prem-prakash",
-    "departmentID": null
-  },
-  {
-    "name": "M. Van Order",
-    "instructorID": "C13F62CF78B4B50ADBBF33756DF71128",
-    "slug": "m-van-order",
-    "departmentID": "ITAL"
-  },
-  {
-    "name": "Grace Spatafora",
-    "instructorID": "604CEF681674D80FFA4E6601001E065F",
-    "slug": "grace-spatafora"
-  },
-  {
-    "name": "Wei Xu",
-    "instructorID": "0C879498591B9C0A235C1834BF78349D",
-    "slug": "wei-xu",
-    "departmentID": "CHNS"
-  },
-  {
-    "name": "Sarah Lohnes Watulak",
-    "instructorID": "5B175C7BBE7D8D75B5BC4A4FD8F7A407",
-    "slug": "sarah-lohnes-watulak"
-  },
-  {
-    "name": "Katharine DeLorenzo",
-    "instructorID": "146B7A040A32FFADC373EFB407CD9984",
-    "slug": "katharine-delorenzo"
-  },
-  {
-    "name": "David Miranda Hardy",
-    "instructorID": "5B102D1255929DBA4A202E7C0EDED6D4",
-    "slug": "david-miranda-hardy"
-  },
-  {
-    "name": "Martha Woodruff",
-    "instructorID": "335D089E7A89AF096BD4CFA093D2E40A",
-    "slug": "martha-woodruff",
-    "departmentID": "PHIL"
-  },
-  {
-    "name": "Andrew Fieldhouse",
-    "instructorID": "94D542EB9BCBA195EFE821D3AD5D7FD6",
-    "slug": "andrew-fieldhouse",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Hang Du",
-    "instructorID": "B8D0B556359BE9D67A4612496DD07E77",
-    "slug": "hang-du",
-    "departmentID": "CHNS"
-  },
-  {
-    "name": "Dana Yeaton",
-    "instructorID": "90338E439DA4652A2BDE2AC3F327A563",
-    "slug": "dana-yeaton",
-    "departmentID": "THEA"
-  },
-  {
-    "name": "Michael Linderman",
-    "instructorID": "A2AC71171F0C0CF8D1E502B2DCBF4DAB",
-    "slug": "michael-linderman",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Alexandra Yuster",
-    "instructorID": "9DCEDDAC73447B93373664353125A5E3",
-    "slug": "alexandra-yuster",
-    "departmentID": null
-  },
-  {
-    "name": "Robert Cluss",
-    "instructorID": "B2A0FABC474E9D5533212AFA3288FFD0",
-    "slug": "robert-cluss"
-  },
-  {
-    "name": "Jason Duquette-Hoffman",
-    "instructorID": "EEEF0BBBCD32D1AF8F9BBB441944AAC9",
-    "slug": "jason-duquette-hoffman"
-  },
-  {
-    "name": "Karin Gottshall",
-    "instructorID": "B60F66808A2CC54F616BCFBBF409DD13",
-    "slug": "karin-gottshall"
-  },
-  {
-    "name": "Eva Dessein",
-    "instructorID": "F6C60AB6445DD2AD96D2C51EB483123F",
-    "slug": "eva-dessein"
-  },
-  {
-    "name": "Constanza Monterrubio",
-    "instructorID": "8247FF0D99AA70B9A02057CD0BAAAA61",
-    "slug": "constanza-monterrubio",
-    "departmentID": null
-  },
-  {
-    "name": "Ilaria Brancoli Busdraghi",
-    "instructorID": "7DD4BF380396C5F7FBD2055592D434B3",
-    "slug": "ilaria-brancoli-busdraghi",
-    "departmentID": "ITAL"
-  },
-  {
-    "name": "Robert Schine",
-    "instructorID": "0AD8E115DEDC0EDC35BBD58E4BD21010",
-    "slug": "robert-schine",
-    "departmentID": "RELI"
-  },
-  {
-    "name": "Elizabeth Ultee",
-    "instructorID": "7BB0EEEA4E65A6DC3EE1D8BCDD653CE5",
-    "slug": "elizabeth-ultee",
-    "departmentID": "GEOL"
-  },
-  {
-    "name": "Irina Feldman",
-    "instructorID": "D4FDAB73021E533907907BCD2F5131B3",
-    "slug": "irina-feldman"
-  },
-  {
-    "name": "Allison Cardon",
-    "instructorID": "7F0EA9BD6DA2F270E6E984FA5149379A",
-    "slug": "allison-cardon",
-    "departmentID": null
-  },
-  {
-    "name": "Richard Finkelstein",
-    "instructorID": "1A3ACF51A8939FB0A69D92F4A3DE36C4",
-    "slug": "richard-finkelstein",
-    "departmentID": null
-  },
-  {
-    "name": "Charles Frankel",
-    "instructorID": "C59CBC4B30D373A173D04B2C72FE588C",
-    "slug": "charles-frankel",
-    "departmentID": null
-  },
-  {
-    "name": "Laurie Patton",
-    "instructorID": "00A67761BCF3FFC83EAC4EE36A5D2ADB",
-    "slug": "laurie-patton"
-  },
-  {
-    "name": "Josefina Itoiz",
-    "instructorID": "99585D2A6C180AEC9139DC32599B1503",
-    "slug": "josefina-itoiz",
-    "departmentID": null
-  },
-  {
-    "name": "Michael French",
-    "instructorID": "FDE4A2B4FF0BD032A1925E0D4EB4A2C0",
-    "slug": "michael-french"
-  },
-  {
-    "name": "Daniel Silva",
-    "instructorID": "03ADA254D300419ED7B580EC6EC281B9",
-    "slug": "daniel-silva"
-  },
-  {
-    "name": "Albert Baldridge",
-    "instructorID": "353B68F9AF880E7CA768B19AEB2B9953",
-    "slug": "albert-baldridge"
-  },
-  {
-    "name": "William Sessions",
-    "instructorID": "941C444B1345C0B482AB2BECE09C0473",
-    "slug": "william-sessions",
-    "departmentID": null
-  },
-  {
-    "name": "Florence Feiereisen",
-    "instructorID": "955358ECE78CE73A328BA57180418DD8",
-    "slug": "florence-feiereisen",
-    "departmentID": "GRMN"
-  },
-  {
-    "name": "Daniel Fram",
-    "instructorID": "63F41E336B54F6A579DBDAC795BD58D7",
-    "slug": "daniel-fram",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Don Wyatt",
-    "instructorID": "2E6C1B042D6893794CFD5DA35C15B72B",
-    "slug": "don-wyatt",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Katherine Smith Abbott",
-    "instructorID": "99FAAD4061036D4FED72D24ACD408EA8",
-    "slug": "katherine-smith-abbott",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Joseph Andriano",
-    "instructorID": "A197BF1B8F13CDB0870D2EB5C8EA3004",
-    "slug": "joseph-andriano"
-  },
-  {
-    "name": "John McLeod",
-    "instructorID": "B43211984226D5695DBD68CC56D6794C",
-    "slug": "john-mcleod",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Matthew Dickerson",
-    "instructorID": "FF5EAE40C3FC9F2AE50BE07E65D4142C",
-    "slug": "matthew-dickerson",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Samantha Roach-Gerber",
-    "instructorID": "81004303A5EEED05DBA63F1FC108B820",
-    "slug": "samantha-roach-gerber",
-    "departmentID": null
-  },
-  {
-    "name": "Claudia Cooper",
-    "instructorID": "787CC35B48569CF641E38265DE244F47",
-    "slug": "claudia-cooper"
-  },
-  {
-    "name": "Ed McMahon",
-    "instructorID": "A313EA20FA869357E4AEAF4DB23481D3",
-    "slug": "ed-mcmahon",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Ellery Foutch",
-    "instructorID": "E1AA26EECE8D090367FF654D1F517C7A",
-    "slug": "ellery-foutch"
-  },
-  {
-    "name": "Erik Bleich",
-    "instructorID": "FAC0A346A86F832BFDEA1C217D90EE96",
-    "slug": "erik-bleich",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Vinita Tripathi",
-    "instructorID": "52076C4003C3F0723DF790A96B835730",
-    "slug": "vinita-tripathi"
-  },
-  {
-    "name": "Hector Vila",
-    "instructorID": "CEA61494686073E71ED939F0517D4FF2",
-    "slug": "hector-vila"
-  },
-  {
-    "name": "Lauren Ash",
-    "instructorID": "1989E0DDB6CE0526043CB3EBC4324F1F",
-    "slug": "lauren-ash",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Elianna Kan",
-    "instructorID": "81E2F53D94D77A22D345B7F988485439",
-    "slug": "elianna-kan",
-    "departmentID": null
-  },
-  {
-    "name": "Hemangini Gupta",
-    "instructorID": "DDA745F4B9CD95F3D03FE34A582EC0AB",
-    "slug": "hemangini-gupta"
-  },
-  {
-    "name": "Julien Weber",
-    "instructorID": "2AF098F38F961D1F5956AAF020E505BA",
-    "slug": "julien-weber"
-  },
-  {
-    "name": "Peter Ryan",
-    "instructorID": "58281F423FB805EE2CD1E978C4572352",
-    "slug": "peter-ryan"
-  },
-  {
-    "name": "Ioana Uricaru",
-    "instructorID": "27848342F57B82B352426976F5C1B293",
-    "slug": "ioana-uricaru"
-  },
-  {
-    "name": "David Paoli",
-    "instructorID": "CD80ADFAD430D701852B16BF808BFD97",
-    "slug": "david-paoli"
-  },
-  {
-    "name": "Mike Leonard",
-    "instructorID": "C117A799DF2CE834D4A4AB9556C172C1",
-    "slug": "mike-leonard"
-  },
-  {
-    "name": "Claudio Gonzalez-Chiaramonte",
-    "instructorID": "3186AF987FC467F6F1A2786BE35E0C58",
-    "slug": "claudio-gonzalez-chiaramonte"
-  },
-  {
-    "name": "Carlos Velez",
-    "instructorID": "65043BF916F74BB832A06EF9A90586B3",
-    "slug": "carlos-velez"
-  },
-  {
-    "name": "Michael Dash",
-    "instructorID": "E8A82F65E8FD9F7380A931E6FFB51888",
-    "slug": "michael-dash",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "Shelby Kimmel",
-    "instructorID": "6B11D09D050CB905DC2F468A64E07875",
-    "slug": "shelby-kimmel",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Chong Han",
-    "instructorID": "471FAB199FE5BEF5891FC1B69D63A2E4",
-    "slug": "chong-han",
-    "departmentID": "SOCI"
-  },
-  {
-    "name": "Nana Tsikhelashvili",
-    "instructorID": "3DF8A6D08FD944AA07D7A01D43E2B35B",
-    "slug": "nana-tsikhelashvili"
-  },
-  {
-    "name": "William Nash",
-    "instructorID": "2F62DD619168364AA9BDC01556AF2A51",
-    "slug": "william-nash"
-  },
-  {
-    "name": "Kemi Fuentes-George",
-    "instructorID": "E4931EE5E19F27BC9C45B36C97D3E89B",
-    "slug": "kemi-fuentes-george",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Kevin Moss",
-    "instructorID": "6B08BC59E0211B5A3EC9D684D5F151C2",
-    "slug": "kevin-moss"
-  },
-  {
-    "name": "Catherine Canavan",
-    "instructorID": "35F8B84ED8E03200A988AC5B3E2E89F5",
-    "slug": "catherine-canavan",
-    "departmentID": null
-  },
-  {
-    "name": "Erin Eggleston",
-    "instructorID": "2E3AF6AA5F7AB28F3192090EAA3232CA",
-    "slug": "erin-eggleston",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Viola Huang",
-    "instructorID": "63A480028991D84CB6078ADCBD34C71E",
-    "slug": "viola-huang"
-  },
-  {
-    "name": "Otilia Milutin",
-    "instructorID": "A652069B034A757D4A0E017533F48992",
-    "slug": "otilia-milutin"
-  },
-  {
-    "name": "Nicole Wilkerson",
-    "instructorID": "A75F07493B93D5D7CEF3057B2F3F5BD9",
-    "slug": "nicole-wilkerson"
-  },
-  {
-    "name": "Victoria Juharyan",
-    "instructorID": "5E37B04F9B1E6BEC1E6D391B2033AD22",
-    "slug": "victoria-juharyan",
-    "departmentID": null
-  },
-  {
-    "name": "Gloria Gonzalez Zenteno",
-    "instructorID": "9B7DF7493908B6FD994192E2DD7EB246",
-    "slug": "gloria-gonzalez-zenteno"
-  },
-  {
-    "name": "Maryait Khader",
-    "instructorID": "5F6928E5C92E430196405A54712B5A4A",
-    "slug": "maryait-khader"
-  },
-  {
-    "name": "Molly Costanza-Robinson",
-    "instructorID": "6EEDA60650D2709ED5FFF1E9FA67C0DD",
-    "slug": "molly-costanza-robinson"
-  },
-  {
-    "name": "Ines Pousadela",
-    "instructorID": "8E6C4134FDB61A13D270FA298178974C",
-    "slug": "ines-pousadela",
-    "departmentID": null
-  },
-  {
-    "name": "Karin Hanta",
-    "instructorID": "50FCA9C1571453AB81A233FB26841610",
-    "slug": "karin-hanta"
-  },
-  {
-    "name": "Olga Sanchez Saltveit",
-    "instructorID": "4BB20753F5BF03248FCA33807F56D94D",
-    "slug": "olga-sanchez-saltveit",
-    "departmentID": "THEA"
-  },
-  {
-    "name": "Carolyn Craven",
-    "instructorID": "4DF105E073C84E5F6E7327E7051DFF77",
-    "slug": "carolyn-craven",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Genie Giaimo",
-    "instructorID": "411DE1A776E995B3AF89D611BA7E09CB",
-    "slug": "genie-giaimo"
-  },
-  {
-    "name": "Robert Izsak",
-    "instructorID": "1F316C111F37C16F98D4E2921682859A",
-    "slug": "robert-izsak",
-    "departmentID": null
-  },
-  {
-    "name": "Karine Silva",
-    "instructorID": "C8E877AC6B4467794F7F41CFB6DFCC06",
-    "slug": "karine-silva",
-    "departmentID": null
-  },
-  {
-    "name": "Carol Harden",
-    "instructorID": "DAC78E86853E33F36AF93101FA3FBF06",
-    "slug": "carol-harden",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Marybeth Nevins",
-    "instructorID": "8724BFF3B8EDED3EF4589B469BDCB965",
-    "slug": "marybeth-nevins"
-  },
-  {
-    "name": "Catherine Lee",
-    "instructorID": "4EC9A25EF40FBADAFFC3533299F4A93A",
-    "slug": "catherine-lee",
-    "departmentID": null
-  },
-  {
-    "name": "Michelle Leftheris",
-    "instructorID": "2A3612F3931E8BDE207BA2F553506727",
-    "slug": "michelle-leftheris",
-    "departmentID": "_ART"
-  },
-  {
-    "name": "Roberto Lint Sagarena",
-    "instructorID": "38281666015C523B87B3FB8F52EC48DA",
-    "slug": "roberto-lint-sagarena"
-  },
-  {
-    "name": "Amy Yuen",
-    "instructorID": "42542D9E8079DE75A64A6AC90A8A66F4",
-    "slug": "amy-yuen",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Marcia Collaer",
-    "instructorID": "6D7E704E5075E3A39713B5834042B150",
-    "slug": "marcia-collaer",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "David Stoll",
-    "instructorID": "7E0BD22F5C7614074D42AF59C4A17705",
-    "slug": "david-stoll",
-    "departmentID": "ANTH"
-  },
-  {
-    "name": "Shalom Goldman",
-    "instructorID": "3282CCCBD97076DE3DF9FC82D8787427",
-    "slug": "shalom-goldman",
-    "departmentID": "RELI"
-  },
-  {
-    "name": "Christopher Klyza",
-    "instructorID": "C488F92E663365CFA1E1B8BA64160094",
-    "slug": "christopher-klyza"
-  },
-  {
-    "name": "David Cromwell",
-    "instructorID": "EC608A36333F776D4144C80D9A301398",
-    "slug": "david-cromwell"
-  },
-  {
-    "name": "Ellen Oxfeld",
-    "instructorID": "36ABE68689916ED6DC9A628709F5CD8C",
-    "slug": "ellen-oxfeld",
-    "departmentID": "ANTH"
-  },
-  {
-    "name": "David Campbell",
-    "instructorID": "C99578163927073E8F338A0E6BEA171A",
-    "slug": "david-campbell"
-  },
-  {
-    "name": "Heike Fahrenberg",
-    "instructorID": "452C12C920CC804397252FCF26024536",
-    "slug": "heike-fahrenberg"
-  },
-  {
-    "name": "Rebecca Bennette",
-    "instructorID": "4A0E4E2D912948AA3234D8D740C742C4",
-    "slug": "rebecca-bennette",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Nadine Barnicle",
-    "instructorID": "99EF938CCF3D533904CCD75C97F4AF15",
-    "slug": "nadine-barnicle"
-  },
-  {
-    "name": "Carolyn Dash",
-    "instructorID": "13B1C12B60906E7CDCF868FBB8CB4C73",
-    "slug": "carolyn-dash",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Louisa Stein",
-    "instructorID": "DF5327E57DC65C9CA22E0045B842BBA0",
-    "slug": "louisa-stein"
-  },
-  {
-    "name": "Carolyn Anderson",
-    "instructorID": "5FAD334DD5F1CF994EFD116A90B05319",
-    "slug": "carolyn-anderson",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Christopher Andrews",
-    "instructorID": "0000B179AB1F457FE988C16085F42DDE",
-    "slug": "christopher-andrews",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Judith Marshall",
-    "instructorID": "B8AEADCC39D46C165601EA579874CA78",
-    "slug": "judith-marshall",
-    "departmentID": null
-  },
-  {
-    "name": "Eric Jacobson",
-    "instructorID": "AB1BDB43776D150BB28CBD3CA980E273",
-    "slug": "eric-jacobson",
-    "departmentID": null
-  },
-  {
-    "name": "Christal Brown",
-    "instructorID": "CF429294CAC43EBB71EA77B2BB5391CF",
-    "slug": "christal-brown",
-    "departmentID": "DANC"
-  },
-  {
-    "name": "Stephen Ratcliff",
-    "instructorID": "F831FD27432531DCF5784CAFF45AE380",
-    "slug": "stephen-ratcliff",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "James Fitzsimmons",
-    "instructorID": "E0119F12AB809813E33DAD1C9ADF013A",
-    "slug": "james-fitzsimmons",
-    "departmentID": "ANTH"
-  },
-  {
-    "name": "Michael Sheridan",
-    "instructorID": "31713591786A52B234FBF2AF71849977",
-    "slug": "michael-sheridan",
-    "departmentID": "ANTH"
-  },
-  {
-    "name": "Amy Collier",
-    "instructorID": "E9BBE20403A437991594AB47E50DEABC",
-    "slug": "amy-collier"
-  },
-  {
-    "name": "Pieter Broucke",
-    "instructorID": "5EA9655FD99D097BB6AFB108FA779435",
-    "slug": "pieter-broucke"
-  },
-  {
-    "name": "Sarah Raunecker",
-    "instructorID": "B934BB551869F0DEC79FEF423857FEAB",
-    "slug": "sarah-raunecker"
-  },
-  {
-    "name": "Jason Chavez",
-    "instructorID": "C3C422BB4E056217116CF5F47CC66F2A",
-    "slug": "jason-chavez",
-    "departmentID": "DANC"
-  },
-  {
-    "name": "Sepideh Alavi",
-    "instructorID": "1ADEE061F5E38F04774A7C8815314564",
-    "slug": "sepideh-alavi",
-    "departmentID": null
-  },
-  {
-    "name": "David Munro",
-    "instructorID": "A89E904BE46BDB734080D0AB85AF2B8A",
-    "slug": "david-munro",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Stephen Snyder",
-    "instructorID": "0ECF6D84A8E20406098834662805613F",
-    "slug": "stephen-snyder"
-  },
-  {
-    "name": "Bertram Johnson",
-    "instructorID": "B4D34C135EA69007C2A5EA1B70DBD78A",
-    "slug": "bertram-johnson",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Karl Krusell",
-    "instructorID": "5B664AAB2BEA457263A24E6B29C9D18A",
-    "slug": "karl-krusell",
-    "departmentID": "CLAS"
-  },
-  {
-    "name": "Mark Lewis",
-    "instructorID": "E8D3504A93431EE6205EF6CE3F000BFD",
-    "slug": "mark-lewis"
-  },
-  {
-    "name": "Michael Durst",
-    "instructorID": "5858CF90D5FCB6BAB2634638E75E833A",
-    "slug": "michael-durst",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "Susan DeSimone",
-    "instructorID": "0EEF5FFBF80E26E890DBAFB5B3966DEA",
-    "slug": "susan-desimone",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Moyara Ruehsen",
-    "instructorID": "354777FBEE33F4B557080A5BE4324346",
-    "slug": "moyara-ruehsen"
-  },
-  {
-    "name": "Akhil Rao",
-    "instructorID": "41A9AE26E0CFD30EF48A0BA512363F4E",
-    "slug": "akhil-rao",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Michele Dube",
-    "instructorID": "B2A7D3ACE466FCF1450A98EEFEDAB0B4",
-    "slug": "michele-dube"
-  },
-  {
-    "name": "Susan Watson",
-    "instructorID": "69F19D762DFB22DEA3436F4B2F0671C5",
-    "slug": "susan-watson",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "Jeffrey Lunstead",
-    "instructorID": "E1E4DBCE15E2E91DA55702E7B5DBEB06",
-    "slug": "jeffrey-lunstead",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Nadia Horning",
-    "instructorID": "5DB8463D3011463D6393C4EAF1F09584",
-    "slug": "nadia-horning"
-  },
-  {
-    "name": "Richard Bunt",
-    "instructorID": "82BC2F99BBA7A6AB086BB2602F08E656",
-    "slug": "richard-bunt"
-  },
-  {
-    "name": "Erick Gong",
-    "instructorID": "82F8CEF2E6C8AC1F50A1662258396EBE",
-    "slug": "erick-gong",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Ivy Zhang",
-    "instructorID": "26EB84CA0F247F4FBA1B9D425917635E",
-    "slug": "ivy-zhang",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Nicolas Poppe",
-    "instructorID": "417A8D39757151EE1F064CD12B090FB8",
-    "slug": "nicolas-poppe"
-  },
-  {
-    "name": "Thomas Moran",
-    "instructorID": "740E9587BF8057D0039828F54DDAF546",
-    "slug": "thomas-moran",
-    "departmentID": "CHNS"
-  },
-  {
-    "name": "Jessica Teets",
-    "instructorID": "55A9F72F76FB46FBB03BF810E7982F5A",
-    "slug": "jessica-teets",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Caitlin Myers",
-    "instructorID": "3F14B3B9EC244441F572AAEC07DC4401",
-    "slug": "caitlin-myers",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Amanda Gregg",
-    "instructorID": "7D4C6B2D9F24BDB5809D5947FC7338BC",
-    "slug": "amanda-gregg",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Robert Ritter",
-    "instructorID": "A4D8EE9BFC705ADA8896CD4856CD4BAD",
-    "slug": "robert-ritter"
-  },
-  {
-    "name": "Catherine Combelles",
-    "instructorID": "8DEB11E25EC65E57992F153094A6E312",
-    "slug": "catherine-combelles",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Alexander Elias",
-    "instructorID": "4257DC6E92D1E6DA5937B47A5764BAA6",
-    "slug": "alexander-elias"
-  },
-  {
-    "name": "Jeffrey Carpenter",
-    "instructorID": "CDD160ACBA4863F038731B1F6E5EC717",
-    "slug": "jeffrey-carpenter",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Jonathan Miller-Lane",
-    "instructorID": "5AB6B5E762B3BF514617D18E5B4C6667",
-    "slug": "jonathan-miller-lane",
-    "departmentID": "EDST"
-  },
-  {
-    "name": "Noah Graham",
-    "instructorID": "B3622D4060AE5D5CC4CB029AC5671E79",
-    "slug": "noah-graham",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "David Bradbury",
-    "instructorID": "7CF4D521D2664BBB1E76AA4E3308B5D6",
-    "slug": "david-bradbury",
-    "departmentID": null
-  },
-  {
-    "name": "Dima Ayoub",
-    "instructorID": "6A4690E148F4EF2A0767AFCB7011AEC2",
-    "slug": "dima-ayoub",
-    "departmentID": "ARBC"
-  },
-  {
-    "name": "Michael Owens",
-    "instructorID": "7280D8D5CEC76985DB5C697C0E9A0096",
-    "slug": "michael-owens",
-    "departmentID": "SOCI"
-  },
-  {
     "name": "David Allen",
     "instructorID": "51BFF5832BD6A9CB1D88964D045F9798",
     "slug": "david-allen",
     "departmentID": "BIOL"
   },
   {
-    "name": "Andrea Robbett",
-    "instructorID": "8D41AF182DA0A6CD7526D7033B665801",
-    "slug": "andrea-robbett",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Mary Jane Simpson",
-    "instructorID": "847A9A9587A7C5D713207402B3AFD9CA",
-    "slug": "mary-jane-simpson"
-  },
-  {
-    "name": "Cheryl Faraone",
-    "instructorID": "C471A9C18AC0C4FA489E57415325B416",
-    "slug": "cheryl-faraone"
-  },
-  {
-    "name": "Allison DiBianca Fasoli",
-    "instructorID": "33302B178BD67C84419D45A78C082D6E",
-    "slug": "allison-dibianca-fasoli",
-    "departmentID": null
-  },
-  {
-    "name": "Edward Vazquez",
-    "instructorID": "005DA2AD086C543D5979380D1F4B7114",
-    "slug": "edward-vazquez",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Peter Johnson",
-    "instructorID": "F6822B69DB1BFEF738BC8FF68C068640",
-    "slug": "peter-johnson",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Francisco Seijo Maceiras",
-    "instructorID": "5E33B6A8FCCF01872DEC8CEAC1F9D5F6",
-    "slug": "francisco-seijo-maceiras",
-    "departmentID": null
-  },
-  {
-    "name": "Enrique Garcia",
-    "instructorID": "1759D0B4EAFB2A3A93D708EDF5FAE185",
-    "slug": "enrique-garcia"
-  },
-  {
-    "name": "Sarah Stroup",
-    "instructorID": "F87DC808A105CC9C85FCAB074414134E",
-    "slug": "sarah-stroup",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Silvia Lorenso Castro",
-    "instructorID": "3F835D951BF7F17BCF3798CA0CE0B33B",
-    "slug": "silvia-lorenso-castro"
-  },
-  {
-    "name": "William Peterson",
-    "instructorID": "FE02890B0656E74799D3311D486B4412",
-    "slug": "william-peterson",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Guntram Herb",
-    "instructorID": "60BE5F8EA93ABF7A70C808EE804B450D",
-    "slug": "guntram-herb",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Patricia Saldarriaga",
-    "instructorID": "D4E6141C8BB521E67CB656E841A030A8",
-    "slug": "patricia-saldarriaga"
-  },
-  {
-    "name": "Daniel Velleman",
-    "instructorID": "E31257BCEFEB286C80864723C5A9BCFD",
-    "slug": "daniel-velleman",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Rula AlHindi",
-    "instructorID": "1DDF52E5DEB5A7379F5528EFACB3A606",
-    "slug": "rula-alhindi",
-    "departmentID": null
-  },
-  {
-    "name": "Marc Witkin",
-    "instructorID": "0B704A1B96BB076EE496F5F70B8D3F31",
-    "slug": "marc-witkin",
-    "departmentID": "CLAS"
-  },
-  {
-    "name": "John Pirone",
-    "instructorID": "B96B9A81CF065621FCC8AAE2EAF1770D",
-    "slug": "john-pirone",
-    "departmentID": null
-  },
-  {
-    "name": "Emma Auden",
-    "instructorID": "7F695B8EEEFCC2360FAF9CCF6F8D734F",
-    "slug": "emma-auden"
-  },
-  {
-    "name": "Nourdin Bejjit",
-    "instructorID": "35308D47AC37CC145EC565AE45A472C6",
-    "slug": "nourdin-bejjit",
-    "departmentID": null
-  },
-  {
-    "name": "Matthew Schrader",
-    "instructorID": "8BE2436CF461459DDE1FC12563D1B822",
-    "slug": "matthew-schrader",
-    "departmentID": "_ART"
-  },
-  {
-    "name": "Michal Strier",
-    "instructorID": "B08C0725FED9D9AECD7CD5094149492F",
-    "slug": "michal-strier"
-  },
-  {
-    "name": "Jeff Howarth",
-    "instructorID": "04971DA03D394CCDCE57432B237242D2",
-    "slug": "jeff-howarth",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Marc Lapin",
-    "instructorID": "CBBEB5459B95503AA26C8B7A9FF330BF",
-    "slug": "marc-lapin",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "Ernie Parizeau",
-    "instructorID": "AB3428DE54A399BF6CA35D06B3E05F95",
-    "slug": "ernie-parizeau"
-  },
-  {
-    "name": "Jay Parini",
-    "instructorID": "80AC323ED5135D1BD1126DB9E351DA2E",
-    "slug": "jay-parini"
-  },
-  {
-    "name": "Julia Proctor",
-    "instructorID": "058C5910496B76A69045A8E81163C61C",
-    "slug": "julia-proctor",
-    "departmentID": null
-  },
-  {
-    "name": "Spring Ulmer",
-    "instructorID": "DD194645B18E4DE168BBAF237E0F3D27",
-    "slug": "spring-ulmer"
-  },
-  {
-    "name": "Michael Katz",
-    "instructorID": "648362120AD035EA0D5A4078A62FFE1C",
-    "slug": "michael-katz"
-  },
-  {
-    "name": "Kyoko Davis",
-    "instructorID": "C8759DEF7A9DC6F20D6A221565DDA30D",
-    "slug": "kyoko-davis"
-  },
-  {
-    "name": "Charles Nunley",
-    "instructorID": "398A77E3FAAE60CBF16050D608DBE701",
-    "slug": "charles-nunley"
-  },
-  {
-    "name": "Patricia Zupan",
-    "instructorID": "B8A96BEC095A5C2BA7C6579D5CC2D69C",
-    "slug": "patricia-zupan",
-    "departmentID": "ITAL"
-  },
-  {
-    "name": "John Foley",
-    "instructorID": "F7B2876DA3228449D34F671C74199F99",
-    "slug": "john-foley",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "William Mandigo",
-    "instructorID": "516A2E4F61F8F756379C117D2EF570BA",
-    "slug": "william-mandigo"
-  },
-  {
-    "name": "Alexis Mychajliw",
-    "instructorID": "B1EFA2C8D3C58A19538445BF723BF868",
-    "slug": "alexis-mychajliw"
-  },
-  {
-    "name": "Jason Grant",
-    "instructorID": "03DCA9ABAF419ADEAD85FABD6473C139",
-    "slug": "jason-grant",
-    "departmentID": null
-  },
-  {
-    "name": "Jason Mittell",
-    "instructorID": "9C807581A92322DDF2AB21BDA6036168",
-    "slug": "jason-mittell"
-  },
-  {
-    "name": "Ajay Verghese",
-    "instructorID": "A2421666BC17C4B8CAC8CACCDABF861E",
-    "slug": "ajay-verghese",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Stanley Sloan",
-    "instructorID": "7B5E7F243F1B2DC7CA2007B122F54930",
-    "slug": "stanley-sloan",
-    "departmentID": null
-  },
-  {
-    "name": "Marcos Rohena-Madrazo",
-    "instructorID": "AB3FD7C0CF17D55BC2F39884FDE4137F",
-    "slug": "marcos-rohena-madrazo"
-  },
-  {
-    "name": "Max Ward",
-    "instructorID": "C8D4C2B636E46E85D467D70F649197DC",
-    "slug": "max-ward",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Clinton Cave",
-    "instructorID": "BAB94ED5A7F9F15A1BC3CAFD71E4911A",
-    "slug": "clinton-cave",
-    "departmentID": "NSCI"
-  },
-  {
-    "name": "Amit Prakash",
-    "instructorID": "184298D4561DB6C8A2E7C6C09ACDE8D8",
-    "slug": "amit-prakash"
-  },
-  {
-    "name": "Kailee Brickner-McDonald",
-    "instructorID": "E2EFDEA7A75FDDCAD2B3296DF657133C",
-    "slug": "kailee-brickner-mcdonald"
-  },
-  {
-    "name": "John Schmitt",
-    "instructorID": "2D0A8479D7326245AE4234AECA465D8C",
-    "slug": "john-schmitt",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Sunder Ramaswamy",
-    "instructorID": "36C0FFC8FBF0B8830027CB0B726E96E9",
-    "slug": "sunder-ramaswamy"
-  },
-  {
-    "name": "Martin Seehuus",
-    "instructorID": "32A0F54B8F0EBC79BCF945F9F43329BD",
-    "slug": "martin-seehuus",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "Karima Borni",
-    "instructorID": "3F1285F4DD81824CB42A177D0893577D",
-    "slug": "karima-borni",
-    "departmentID": "DANC"
-  },
-  {
-    "name": "Christian Keathley",
-    "instructorID": "31725A9574D633FFACF1F1E5C5560C74",
-    "slug": "christian-keathley"
-  },
-  {
-    "name": "Paul Monod",
-    "instructorID": "C2BFE054FAB66D96DCD4D3D8E27640A0",
-    "slug": "paul-monod",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Andrew Baker",
-    "instructorID": "70A8537ED8B8A2E1C8A6E7E08F27540F",
-    "slug": "andrew-baker",
-    "departmentID": null
-  },
-  {
-    "name": "Kim Wilson",
-    "instructorID": "350AE2355A837DBBEE9FAF48E08F834D",
-    "slug": "kim-wilson",
-    "departmentID": null
-  },
-  {
-    "name": "Andrew Schwarz",
-    "instructorID": "A04259D5E4B664D6DE6509BF14ADC3BF",
-    "slug": "andrew-schwarz",
-    "departmentID": null
-  },
-  {
-    "name": "AnGayle Vasiliou",
-    "instructorID": "289055D7CEB6125D296208129D25706D",
-    "slug": "angayle-vasiliou"
-  },
-  {
-    "name": "Jeannette Ariane Ngabeu",
-    "instructorID": "290EBD39657633D21CF2B22BC524E072",
-    "slug": "jeannette-ariane-ngabeu"
-  },
-  {
-    "name": "Zohar Gazit",
-    "instructorID": "0EA5676C7CF17E5E992DFB214C8CBE19",
-    "slug": "zohar-gazit"
-  },
-  {
-    "name": "Matthew Considine",
-    "instructorID": "B8E748AD19E33787FEA2FD1F51365D3F",
-    "slug": "matthew-considine"
-  },
-  {
-    "name": "Yury Bit-Yunan",
-    "instructorID": "D418DB41C5E8D12CE543C69027EBB806",
-    "slug": "yury-bit-yunan",
-    "departmentID": null
-  },
-  {
-    "name": "Carol Christensen",
-    "instructorID": "74287995F932BE725E21546900569483",
-    "slug": "carol-christensen"
-  },
-  {
-    "name": "Pam Berenbaum",
-    "instructorID": "87EEC3A387C12918B5559E21A0F6A387",
-    "slug": "pam-berenbaum"
-  },
-  {
-    "name": "Maria Hatjigeorgiou",
-    "instructorID": "4126E0ADF7A8944EFD02D220C6C70D49",
-    "slug": "maria-hatjigeorgiou"
-  },
-  {
-    "name": "William Vitek",
-    "instructorID": "792647BCB23E4656F1E56D908E19F4D0",
-    "slug": "william-vitek",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "María Casullo",
-    "instructorID": "C928C0B893810635510931EFD27E1868",
-    "slug": "maria-casullo",
-    "departmentID": null
-  },
-  {
-    "name": "Kerstin Wilsch",
-    "instructorID": "073287D7BEEEF7588434131AC7C74B3A",
-    "slug": "kerstin-wilsch"
-  },
-  {
-    "name": "Phoebe Streblow",
-    "instructorID": "7FAC5B5341A7CB6339C7F64BCC8F620C",
-    "slug": "phoebe-streblow",
-    "departmentID": "_ART"
-  },
-  {
-    "name": "Linsey Sainte-Claire",
-    "instructorID": "2208D1206F85F534C4BD84628A8A56D4",
-    "slug": "linsey-sainte-claire"
-  },
-  {
-    "name": "Will Pyle",
-    "instructorID": "998F4652D1E3166AEE65B5F3C40B7A94",
-    "slug": "will-pyle",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Jason Blazakis",
-    "instructorID": "92883A2955131115773B66E24FD46B70",
-    "slug": "jason-blazakis"
-  },
-  {
-    "name": "Virginia Thomas",
-    "instructorID": "EE47DF9B8935F48BA2A312D84688561B",
-    "slug": "virginia-thomas",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "Aida Bueno Sarduy",
-    "instructorID": "1772C014E0E961D11292CB41F4628BE6",
-    "slug": "aida-bueno-sarduy",
-    "departmentID": null
-  },
-  {
-    "name": "Fernando Rocha",
-    "instructorID": "37FBA9B1E77BFB032B8144ADCEBA8A46",
-    "slug": "fernando-rocha"
-  },
-  {
-    "name": "Alejandro Herrera",
-    "instructorID": "9896B4DC6F9C8F53FF7073A35284BAB5",
-    "slug": "alejandro-herrera",
-    "departmentID": null
-  },
-  {
-    "name": "Catharine Wright",
-    "instructorID": "6AFD31847CCDD6AE6577AFAA62C2E03C",
-    "slug": "catharine-wright"
-  },
-  {
-    "name": "Gerald Boddie",
-    "instructorID": "1E88F2FD3D7EEB929F287EEBB64AEF2C",
-    "slug": "gerald-boddie",
-    "departmentID": null
-  },
-  {
-    "name": "Justin Doran",
-    "instructorID": "7C1142898FAE872E26C99907CA3B8872",
-    "slug": "justin-doran",
-    "departmentID": "RELI"
-  },
-  {
-    "name": "Kyle Brudvik",
-    "instructorID": "4369B105E5B867B960F0CD7E4DB7E659",
-    "slug": "kyle-brudvik",
-    "departmentID": null
-  },
-  {
-    "name": "John Maluccio",
-    "instructorID": "AE8B7891A56495B614A4430A64B10F24",
-    "slug": "john-maluccio",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Carrie Wiebe",
-    "instructorID": "F7C30CBB20769B5CE99A67636303DE5D",
-    "slug": "carrie-wiebe",
-    "departmentID": "CHNS"
-  },
-  {
-    "name": "Kristen Mullins",
-    "instructorID": "1EAAAE39F482C9B5940FAE38F31B35D4",
-    "slug": "kristen-mullins"
-  },
-  {
-    "name": "Timothy Portice",
-    "instructorID": "F382C1007D96210770BEA299BB90D396",
-    "slug": "timothy-portice",
-    "departmentID": "RUSS"
-  },
-  {
-    "name": "Amy Briggs",
-    "instructorID": "F574C0807AA68D774B95DA064BA1475A",
-    "slug": "amy-briggs",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Randall Ganiban",
-    "instructorID": "DBCD8307315D8F33DAB24BD2ABDC0B30",
-    "slug": "randall-ganiban",
-    "departmentID": "CLAS"
-  },
-  {
-    "name": "Sayaka Abe",
-    "instructorID": "AF447BBF7AAA4D008D807A660462F04B",
-    "slug": "sayaka-abe"
-  },
-  {
-    "name": "Christopher Mills",
-    "instructorID": "729D38690B761AB8723E4C575287B71B",
-    "slug": "christopher-mills",
-    "departmentID": null
-  },
-  {
-    "name": "Matthew Dickinson",
-    "instructorID": "97425AB3688238ADD570AAD81A34CA6E",
-    "slug": "matthew-dickinson",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Jennifer Wang",
-    "instructorID": "1DAF2F53B85EC4561E658926C6B070B6",
-    "slug": "jennifer-wang"
-  },
-  {
-    "name": "Antonia Losano",
-    "instructorID": "9FBE17ED74F41AB70C5A36067B5A00DF",
-    "slug": "antonia-losano"
-  },
-  {
-    "name": "David West",
-    "instructorID": "5FBA0531A015AE3486D6B3B286296726",
-    "slug": "david-west",
-    "departmentID": "GEOL"
-  },
-  {
-    "name": "Tracy Weston",
-    "instructorID": "725949FA28731758E8AF2FDC72AFA34F",
-    "slug": "tracy-weston",
-    "departmentID": "EDST"
-  },
-  {
-    "name": "James Berg",
-    "instructorID": "F8D24630B317241DC15E1AF9E407B499",
-    "slug": "james-berg"
-  },
-  {
-    "name": "Eric Moody",
-    "instructorID": "B8254EED4F08BDC932184E2EBD4E7D34",
-    "slug": "eric-moody",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Ludmila Scheinkman",
-    "instructorID": "A0885E4C28AEC393DEC746555C8DB16D",
-    "slug": "ludmila-scheinkman",
-    "departmentID": null
-  },
-  {
-    "name": "Laura Lesta Garcia",
-    "instructorID": "DB0B7E063649E3F27FD17B2647FC894D",
-    "slug": "laura-lesta-garcia"
-  },
-  {
-    "name": "Benjamin Powers",
-    "instructorID": "63AAA735047595CEE9837206B638593B",
-    "slug": "benjamin-powers"
-  },
-  {
-    "name": "Zane Anthony",
-    "instructorID": "62743E724B967156A0B0BD6D602E47C3",
-    "slug": "zane-anthony",
-    "departmentID": null
-  },
-  {
-    "name": "Tim Nguyen",
-    "instructorID": "898D906EB3F7564D953E340CE43FD2B8",
-    "slug": "tim-nguyen"
-  },
-  {
-    "name": "Nikolina Dobreva",
-    "instructorID": "A316A7E912B054980B7CD3ACFD5949CF",
-    "slug": "nikolina-dobreva"
-  },
-  {
-    "name": "Suzanne Gurland",
-    "instructorID": "1641BA5F8F8DAB211330DAF99D724EDF",
-    "slug": "suzanne-gurland",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "Allan Hamilton",
-    "instructorID": "27FDB8EDB5E9A2E5C5671E49C4D29867",
-    "slug": "allan-hamilton",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Michael Abbatiello",
-    "instructorID": "095FEB6823C7DEF7F143654355F87CF3",
-    "slug": "michael-abbatiello"
-  },
-  {
-    "name": "Trinh Tran",
-    "instructorID": "A51982E5C5607263F2E974A9BA97279A",
-    "slug": "trinh-tran",
-    "departmentID": "ANTH"
-  },
-  {
-    "name": "Winfield Kelley",
-    "instructorID": "399E127512F4D158DF25F62BB83F56FC",
-    "slug": "winfield-kelley"
-  },
-  {
-    "name": "Rebecca Gould",
-    "instructorID": "24A150A746C54051DC54759D0C3919C5",
-    "slug": "rebecca-gould",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "Pavlos Sfyroeras",
-    "instructorID": "68C8D326BEDC2E16088A2E161583BCF3",
-    "slug": "pavlos-sfyroeras",
-    "departmentID": "CLAS"
-  },
-  {
-    "name": "Jamal Bahmad",
-    "instructorID": "D785419C7C50D248CC7F61EE78C31606",
-    "slug": "jamal-bahmad",
-    "departmentID": null
-  },
-  {
-    "name": "John Dooley",
-    "instructorID": "77C223A04D742A8614C95F3CCE4E4214",
-    "slug": "john-dooley",
-    "departmentID": null
-  },
-  {
-    "name": "Mark Williams",
-    "instructorID": "B1A409175A04AEE202DA483F6AD6EE53",
-    "slug": "mark-williams",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Michael Newbury",
-    "instructorID": "3314AC56F1073624BB5C3C2B9DD346D3",
-    "slug": "michael-newbury"
-  },
-  {
-    "name": "Heidi Grasswick",
-    "instructorID": "AD22A6254E9040A5FFA33FF0812B5137",
-    "slug": "heidi-grasswick"
-  },
-  {
-    "name": "Ruth Hardy",
-    "instructorID": "3D0CC879B0E86106C55684E1EF364209",
-    "slug": "ruth-hardy",
-    "departmentID": null
-  },
-  {
-    "name": "Christina Johnston",
-    "instructorID": "F5948C3AACAEB4B52C12BE6027568A20",
-    "slug": "christina-johnston",
-    "departmentID": "EDST"
-  },
-  {
-    "name": "Peter Tarjanyi",
-    "instructorID": "6074A33BD5C38DCEBFBEE837FAE7C87E",
-    "slug": "peter-tarjanyi",
-    "departmentID": null
-  },
-  {
-    "name": "Susan Fenstermacher",
-    "instructorID": "AC651AF802A2EA1C4DD608327F35DA96",
-    "slug": "susan-fenstermacher",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "Andrew Thomson",
-    "instructorID": "AEE9184B109B03E13C99DA5496E81CC5",
-    "slug": "andrew-thomson"
-  },
-  {
-    "name": "Daniel Brayton",
-    "instructorID": "8E9E0EBC961731CCC79C281611143831",
-    "slug": "daniel-brayton"
-  },
-  {
-    "name": "Christopher Star",
-    "instructorID": "42179414C25D051A55B61D24EA934542",
-    "slug": "christopher-star",
-    "departmentID": "CLAS"
-  },
-  {
-    "name": "Douglas Richards",
-    "instructorID": "CD403E22BB56426564110529D59E76AA",
-    "slug": "douglas-richards",
-    "departmentID": null
-  },
-  {
-    "name": "Tamar Mayer",
-    "instructorID": "798336D763BAF962081BCC85267BD218",
-    "slug": "tamar-mayer",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Shawna Shapiro",
-    "instructorID": "ADF8F2A8FA7AFD6CCC0572A4D09D9BDD",
-    "slug": "shawna-shapiro"
-  },
-  {
-    "name": "Raquel Albarran",
-    "instructorID": "AC452ED2FB6FC157DF83CF3942831781",
-    "slug": "raquel-albarran"
-  },
-  {
-    "name": "Natalie Eppelsheimer",
-    "instructorID": "399298C5CCA9AAF2E29C0EE3D43B7FCE",
-    "slug": "natalie-eppelsheimer",
-    "departmentID": "GRMN"
-  },
-  {
-    "name": "Douglas Anderson",
-    "instructorID": "68ED42EC2E4BAC346E6C140B72C2B61F",
-    "slug": "douglas-anderson",
-    "departmentID": null
-  },
-  {
-    "name": "Louisa Burnham",
-    "instructorID": "D2A10AF977306BF58B10DC58EEA6A640",
-    "slug": "louisa-burnham",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Kathy Doyle",
-    "instructorID": "6F4B57433A6EA6A7D2E619CF1F151652",
-    "slug": "kathy-doyle",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "Mira Veikley",
-    "instructorID": "25D6645845549EB63EB76607934617DD",
-    "slug": "mira-veikley",
-    "departmentID": "THEA"
-  },
-  {
-    "name": "Diane Munroe",
-    "instructorID": "FBF944C3D7E428F4425AE5414C9B4C06",
-    "slug": "diane-munroe"
-  },
-  {
-    "name": "John Spackman",
-    "instructorID": "B9899E9EA78BEBA315D4102B2281326B",
-    "slug": "john-spackman",
-    "departmentID": "PHIL"
-  },
-  {
-    "name": "Peter Kim",
-    "instructorID": "44D45D189ECC1E5787660DFFF7E44DF5",
-    "slug": "peter-kim"
-  },
-  {
-    "name": "Kyra Miller Wegman",
-    "instructorID": "817C44D0C33F91F5BCD13E038C97B0FE",
-    "slug": "kyra-miller-wegman",
-    "departmentID": null
-  },
-  {
-    "name": "Michole Biancosino",
-    "instructorID": "C31F68F5FFA66FD9ED5E6B958261E5D7",
-    "slug": "michole-biancosino",
-    "departmentID": "THEA"
-  },
-  {
-    "name": "James Douglas",
-    "instructorID": "B21A41EE4D7FCB498B346B435DE7FE5F",
-    "slug": "james-douglas"
-  },
-  {
-    "name": "Allison Jacobel",
-    "instructorID": "A6EAF29B25268B44AD172D87A64684B5",
-    "slug": "allison-jacobel",
-    "departmentID": "GEOL"
-  },
-  {
-    "name": "Lana Povitz",
-    "instructorID": "A1254A934DA9A43687CCFFA052E45058",
-    "slug": "lana-povitz",
-    "departmentID": "HIST"
+    "name": "Lindsay Houpt-Varner",
+    "instructorID": "3ED7022E3BD1DC029819CDE87F987A06",
+    "slug": "lindsay-houpt-varner"
   },
   {
     "name": "James Sanchez",
@@ -1799,942 +16,20 @@
     "slug": "james-sanchez"
   },
   {
-    "name": "Jeffrey Cason",
-    "instructorID": "40D445C1F1C39D069B78A98210B3D34B",
-    "slug": "jeffrey-cason"
+    "name": "Benjamin Powers",
+    "instructorID": "63AAA735047595CEE9837206B638593B",
+    "slug": "benjamin-powers"
   },
   {
-    "name": "Bettina Matthias",
-    "instructorID": "A392B22FC71DFDA563379925E5E33984",
-    "slug": "bettina-matthias",
-    "departmentID": "GRMN"
-  },
-  {
-    "name": "Vickie Backus",
-    "instructorID": "0B6117CE0000AF17125783E741A6E829",
-    "slug": "vickie-backus",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Chris Herdman",
-    "instructorID": "C6CF3BBB54E270E49CECB8F4AF71865A",
-    "slug": "chris-herdman",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "James Dunn",
-    "instructorID": "1A274F82ED75B6D6F67CE65CBAA731EE",
-    "slug": "james-dunn",
-    "departmentID": "THEA"
-  },
-  {
-    "name": "William Amidon",
-    "instructorID": "43DA1DC94A5922C840F11461809C1B91",
-    "slug": "william-amidon",
-    "departmentID": "GEOL"
-  },
-  {
-    "name": "Mario Higa",
-    "instructorID": "6720980EC30B1A7897597F69B00559FE",
-    "slug": "mario-higa"
-  },
-  {
-    "name": "Jonathan Isham",
-    "instructorID": "A792424EFB52FEA9D8C3BFD15666E20B",
-    "slug": "jonathan-isham"
-  },
-  {
-    "name": "Kai Zhang",
-    "instructorID": "FC69F550E1515F2D00D1BC8CF490FDA0",
-    "slug": "kai-zhang"
-  },
-  {
-    "name": "Harrison Hsiang",
-    "instructorID": "1A556F2E2EC82A000684E4EA3FB2ED39",
-    "slug": "harrison-hsiang",
-    "departmentID": null
-  },
-  {
-    "name": "Benjamin Graves",
-    "instructorID": "2C15FF264E152A310A896055692CAB5F",
-    "slug": "benjamin-graves"
-  },
-  {
-    "name": "Joseph Holler",
-    "instructorID": "339F59F76C594F4978F4B3D547A4D0CF",
-    "slug": "joseph-holler",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Claire Hodgdon",
-    "instructorID": "F696CD0F9A8408474406B434FDE3D4A1",
-    "slug": "claire-hodgdon",
-    "departmentID": null
-  },
-  {
-    "name": "Gary Winslett",
-    "instructorID": "AE3DB8B66DDD9E2E0770D7BCE8879FB2",
-    "slug": "gary-winslett",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Kareem Khalifa",
-    "instructorID": "ED16FFB18CB76EA016EC85B22F9DAF28",
-    "slug": "kareem-khalifa",
-    "departmentID": "PHIL"
-  },
-  {
-    "name": "Ambroise Kom",
-    "instructorID": "228010CC0FFD2A04DBDC2590FFBB6C3E",
-    "slug": "ambroise-kom",
-    "departmentID": null
-  },
-  {
-    "name": "Sebnem Gumuscu",
-    "instructorID": "6A6F6A8F0A1686D4AD3BFA45FB359454",
-    "slug": "sebnem-gumuscu",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Roman Graf",
-    "instructorID": "3634F15F36D6F25A08B4BB0203078FF8",
-    "slug": "roman-graf",
-    "departmentID": "GRMN"
-  },
-  {
-    "name": "Jamie McCallum",
-    "instructorID": "F4588AA52B12EE804AA7D201056A8E79",
-    "slug": "jamie-mccallum",
-    "departmentID": "SOCI"
-  },
-  {
-    "name": "Tatiana Smorodinska",
-    "instructorID": "293D4B7A7401F56541320CE7C1388AC1",
-    "slug": "tatiana-smorodinska",
-    "departmentID": "RUSS"
-  },
-  {
-    "name": "Phanindra Wunnava",
-    "instructorID": "E808A04D206258FB3D31F2D8FF7BE285",
-    "slug": "phanindra-wunnava",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Erin Wolcott",
-    "instructorID": "247A9113F6FEF7D8ADD5D2813807F5C8",
-    "slug": "erin-wolcott",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Alexandra (Sasha) Portice",
-    "instructorID": "6E66B13A321113E025AB8B372B63A599",
-    "slug": "alexandra-sasha-portice",
-    "departmentID": "RUSS"
-  },
-  {
-    "name": "Kathryn Crawford",
-    "instructorID": "06F96738C1E011D5B87BA6D64FA1784A",
-    "slug": "kathryn-crawford",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "Kathryn Livesay",
-    "instructorID": "55DC3CE4C5FBFD24F27C8E62D8BB4D66",
-    "slug": "kathryn-livesay"
-  },
-  {
-    "name": "Paul Hess",
-    "instructorID": "0AAE8C22D8324D2266634917327A42FA",
-    "slug": "paul-hess",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "Daniel Scharstein",
-    "instructorID": "D6C22626AF40B14B8AEF1754FC270596",
-    "slug": "daniel-scharstein",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Roger Russi",
-    "instructorID": "EA677E6759BC87089DA2763DC47DAE9B",
-    "slug": "roger-russi",
-    "departmentID": "CMLT"
-  },
-  {
-    "name": "Patricia Rodriguez",
-    "instructorID": "88AA623BE855F32BAB2F5812CF179DFB",
-    "slug": "patricia-rodriguez"
-  },
-  {
-    "name": "Jason Arndt",
-    "instructorID": "26F18A3229D0E81990D7171A00027493",
-    "slug": "jason-arndt",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "German Clulow",
-    "instructorID": "16174698D53016C292F509D0807016C9",
-    "slug": "german-clulow",
-    "departmentID": null
-  },
-  {
-    "name": "Alexander Draper",
-    "instructorID": "41552955D84CF1F42ADD9013A69AD42F",
-    "slug": "alexander-draper",
-    "departmentID": "THEA"
-  },
-  {
-    "name": "Evan Bennett",
-    "instructorID": "7BCE396E4A1B040CE6DF1B9399F0B217",
-    "slug": "evan-bennett"
-  },
-  {
-    "name": "Joseph Crodelle",
-    "instructorID": "FDAAF608D37473417A4CD39B691FC1ED",
-    "slug": "joseph-crodelle",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Melissa Hammerle",
-    "instructorID": "AB24D3022A48F2C394E118CB47F04879",
-    "slug": "melissa-hammerle",
-    "departmentID": "EDST"
-  },
-  {
-    "name": "Raphaelle Gauvin-Coulombe",
-    "instructorID": "5E14E6768ADB88CB41EE61FC82F958AF",
-    "slug": "raphaelle-gauvin-coulombe",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Anne Goodsell",
-    "instructorID": "2E9B35780F113280253B3C6B3E42B712",
-    "slug": "anne-goodsell",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "William Waldron",
-    "instructorID": "EAB584A8331F02DFDA15E844A9F20D72",
-    "slug": "william-waldron",
-    "departmentID": "RELI"
-  },
-  {
-    "name": "Shuching Huang",
-    "instructorID": "4C28BEC077D6EA96026DFC19BE3CBE60",
-    "slug": "shuching-huang",
-    "departmentID": null
-  },
-  {
-    "name": "Lindsay Repka",
-    "instructorID": "A1D7F0A8321DE769F4F8F8416167CD3E",
-    "slug": "lindsay-repka"
-  },
-  {
-    "name": "Linda White",
-    "instructorID": "64B1BD910C848B837FB5E3F91CE1665D",
-    "slug": "linda-white"
-  },
-  {
-    "name": "Robert Moeller",
-    "instructorID": "0F37CF2CB1F657446BF9FFBD72EDEB69",
-    "slug": "robert-moeller",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "Benjamin Marks",
-    "instructorID": "6BCC9CF1F92754C993A961782228E918",
-    "slug": "benjamin-marks",
-    "departmentID": null
-  },
-  {
-    "name": "Robert Rueppel",
-    "instructorID": "D16A487AF7AD4AA9D97EA8BB166DBEC5",
-    "slug": "robert-rueppel"
-  },
-  {
-    "name": "Robert Greeley",
-    "instructorID": "4A56D8EC8C51010A47F5D7444D22FB84",
-    "slug": "robert-greeley",
-    "departmentID": "ARBC"
-  },
-  {
-    "name": "J. Ashley Laux",
-    "instructorID": "E21B242D5B228818595D0E2BF79B852D",
-    "slug": "j-ashley-laux"
-  },
-  {
-    "name": "Mohamed Hussein",
-    "instructorID": "A5C6358478D893016A8109451EE6B0AF",
-    "slug": "mohamed-hussein",
-    "departmentID": null
-  },
-  {
-    "name": "Dan Suarez",
-    "instructorID": "F602A2A474E7366808F856CE47CE9E2A",
-    "slug": "dan-suarez",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "Carolyn Finney",
-    "instructorID": "7E956EED64F609D9E16DC3C6A3DE9B67",
-    "slug": "carolyn-finney",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "Jessica L'Roe",
-    "instructorID": "A6F4F0D8197CCCBFCEE4A6CE9645FFE7",
-    "slug": "jessica-lroe",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Jocelyn Breton",
-    "instructorID": "8BA65B5C2FBD520AB4A3330A7BC3C281",
-    "slug": "jocelyn-breton",
-    "departmentID": null
-  },
-  {
-    "name": "Benjamin Allred",
-    "instructorID": "C9D5B575937C9853D39DF06192F91274",
-    "slug": "benjamin-allred",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Jeffrey Byers",
-    "instructorID": "961270A9AA151057D32C1D01461D4F72",
-    "slug": "jeffrey-byers"
-  },
-  {
-    "name": "Daniel Houghton",
-    "instructorID": "3E637AD148F82CA4D93345DE7DBB2603",
-    "slug": "daniel-houghton"
-  },
-  {
-    "name": "Bingxiao Du",
-    "instructorID": "6D991BB3B2F219D0E8F3FAC24946299D",
-    "slug": "bingxiao-du",
-    "departmentID": null
-  },
-  {
-    "name": "Khyree Davis",
-    "instructorID": "608426B96A7E0EC1A3BD3032DE87A40A",
-    "slug": "khyree-davis"
-  },
-  {
-    "name": "Timothy Parsons",
-    "instructorID": "389D002F396CF6568D23AC3816DC3D74",
-    "slug": "timothy-parsons"
-  },
-  {
-    "name": "Timothy Spears",
-    "instructorID": "88D1680887AE0661D5A798F901003B2F",
-    "slug": "timothy-spears"
-  },
-  {
-    "name": "Erin Sassin",
-    "instructorID": "B2C46E0B6A1FA07FAE11C562146BFEF4",
-    "slug": "erin-sassin",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Stefano Mula",
-    "instructorID": "F06933E27725230518C5BD5100E2D021",
-    "slug": "stefano-mula",
-    "departmentID": "ITAL"
-  },
-  {
-    "name": "David Fastovich",
-    "instructorID": "24B67CC1824B63E032BC435C82375BAC",
-    "slug": "david-fastovich",
-    "departmentID": null
-  },
-  {
-    "name": "Jean du Preez",
-    "instructorID": "5CE2BF869D9BDF3F65929F6C7CE8B884",
-    "slug": "jean-du-preez"
-  },
-  {
-    "name": "Matthew Taylor",
-    "instructorID": "20BB18F56A41D6C8F3E9DBF6F51BFA9D",
-    "slug": "matthew-taylor",
-    "departmentID": "MUSC"
-  },
-  {
-    "name": "Miguel Fernandez",
-    "instructorID": "D641EEB98927F8CDEE8F2C89AB43BF18",
-    "slug": "miguel-fernandez"
-  },
-  {
-    "name": "Heather Christie",
-    "instructorID": "B57ECEA682082FAB72F06F5840BFEB51",
-    "slug": "heather-christie",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Peter Matthews",
-    "instructorID": "45341434052C76031F1138C6B4276B68",
-    "slug": "peter-matthews",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Ananya Christman",
-    "instructorID": "CD027B285BB2EF1E6041BA37FA9C0F6C",
-    "slug": "ananya-christman",
-    "departmentID": "CSCI"
-  },
-  {
-    "name": "Steven Viner",
-    "instructorID": "2ECA27B5F3CED31181268AED7EBBD287",
-    "slug": "steven-viner",
-    "departmentID": "PHIL"
-  },
-  {
-    "name": "J. Forman",
-    "instructorID": "19ED4E4FAD257D24A7E6E27A5E9A56F9",
-    "slug": "j-forman"
-  },
-  {
-    "name": "Elizabeth Morrison",
-    "instructorID": "5BF99E8B7F619EE65C57E3B07E011A68",
-    "slug": "elizabeth-morrison",
-    "departmentID": "RELI"
-  },
-  {
-    "name": "Katherine Wang",
-    "instructorID": "D07F0C92A42969CBB12BAC065B3DCB43",
-    "slug": "katherine-wang",
+    "name": "Emma Auden",
+    "instructorID": "7F695B8EEEFCC2360FAF9CCF6F8D734F",
+    "slug": "emma-auden",
     "departmentID": "CHNS"
   },
   {
-    "name": "Roger White",
-    "instructorID": "173C57FE1B3DA0CDB2A384703017284C",
-    "slug": "roger-white",
-    "departmentID": "_ART"
-  },
-  {
-    "name": "Armelle Crouzieres-Ingenthron",
-    "instructorID": "6DDE7CA27B41F261BFBA83E9A17DA480",
-    "slug": "armelle-crouzieres-ingenthron"
-  },
-  {
-    "name": "David Dorman",
-    "instructorID": "C13BB2BE4E7F885F54ED380FE9E93B05",
-    "slug": "david-dorman",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Peter Hamlin",
-    "instructorID": "887563BCE0089BFECD55E59B51FFB1AB",
-    "slug": "peter-hamlin"
-  },
-  {
-    "name": "Harriet Napier",
-    "instructorID": "42A9CB8324F71CCD6673DDBEBCD67492",
-    "slug": "harriet-napier",
-    "departmentID": null
-  },
-  {
-    "name": "Cole Dovey",
-    "instructorID": "A58FA55DB62D78E291987302BC26CE93",
-    "slug": "cole-dovey"
-  },
-  {
-    "name": "Joyce Mao",
-    "instructorID": "7B2012334C1FA1DEB4147DF1AB431F1A",
-    "slug": "joyce-mao",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Natasha Ngaiza",
-    "instructorID": "4FDA4C70C292DB4B19918B16B2DD1FCD",
-    "slug": "natasha-ngaiza"
-  },
-  {
-    "name": "Jeremy Ward",
-    "instructorID": "E82A3376ABD68AE9B0DA115A49CA1403",
-    "slug": "jeremy-ward",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Stephen Abbott",
-    "instructorID": "DBEDDD428ECE9A09E78D86A43290171F",
-    "slug": "stephen-abbott",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Peter Bevere",
-    "instructorID": "94B394B6171AD905FFF2F912D145C417",
-    "slug": "peter-bevere",
-    "departmentID": null
-  },
-  {
-    "name": "Yumna Siddiqi",
-    "instructorID": "7C85D384A845D8094BFDC46237DF3B07",
-    "slug": "yumna-siddiqi"
-  },
-  {
-    "name": "Markus Gerke",
-    "instructorID": "15481BA5D75AB76DD951FD5D1BCDC275",
-    "slug": "markus-gerke",
-    "departmentID": "SOCI"
-  },
-  {
-    "name": "Lisa Luna",
-    "instructorID": "FBAB60D1A1B8403A8C2024B1DF4F876C",
-    "slug": "lisa-luna",
-    "departmentID": null
-  },
-  {
-    "name": "Emily Malcolm-White",
-    "instructorID": "C3177E57E2B4E380E08925E92F272599",
-    "slug": "emily-malcolm-white",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Elsa Mendoza",
-    "instructorID": "428F7699A17A3A80BA016EEA90D3A1D4",
-    "slug": "elsa-mendoza",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Jeffrey Brown",
-    "instructorID": "E5F0C69172FDF43B8BD079C02FABCA7E",
-    "slug": "jeffrey-brown"
-  },
-  {
-    "name": "Jennifer Ortegren",
-    "instructorID": "B91A11C5F210206CA33093F381406DAF",
-    "slug": "jennifer-ortegren",
-    "departmentID": "RELI"
-  },
-  {
-    "name": "Kathryn Morse",
-    "instructorID": "BAC5FFA7864D7D99323624DECFE0E5BF",
-    "slug": "kathryn-morse"
-  },
-  {
-    "name": "Youlan Zhang",
-    "instructorID": "65AAAC96932C6E86D799B6CB43428B06",
-    "slug": "youlan-zhang",
-    "departmentID": null
-  },
-  {
-    "name": "Heimo Wallner",
-    "instructorID": "697808EC815F245BB49809C246638696",
-    "slug": "heimo-wallner",
-    "departmentID": "_ART"
-  },
-  {
-    "name": "David Pratt",
-    "instructorID": "FFE706DF8BA5870BC8B1D38BFBB78EB8",
-    "slug": "david-pratt",
-    "departmentID": null
-  },
-  {
-    "name": "Rebecca Horn",
-    "instructorID": "C3EAB3B6F087866779616E2416FD4C87",
-    "slug": "rebecca-horn",
-    "departmentID": null
-  },
-  {
-    "name": "Sanae Eda",
-    "instructorID": "E74DF8E7C16882ACDB525A69F68D4DA9",
-    "slug": "sanae-eda"
-  },
-  {
-    "name": "James Butler",
-    "instructorID": "084D3FDB44C7EB904917ECCD4DE708E6",
-    "slug": "james-butler",
-    "departmentID": "_ART"
-  },
-  {
-    "name": "Frank Van Gansbeke",
-    "instructorID": "7AD2121A8B9C6C0C5BD12C3CBA124E3F",
-    "slug": "frank-van-gansbeke"
-  },
-  {
-    "name": "Cynthia Packert",
-    "instructorID": "24B10A7A17F880C76E963FDCEE227BAF",
-    "slug": "cynthia-packert",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Jeannie Bartlett",
-    "instructorID": "87F0848B3EC4DF58F7AF7ED61EB35BB1",
-    "slug": "jeannie-bartlett",
-    "departmentID": null
-  },
-  {
-    "name": "Rebecca Mitchell",
-    "instructorID": "38D7C6796CCDF1F71B975265908DBF9C",
-    "slug": "rebecca-mitchell",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Waithera Roki",
-    "instructorID": "FC9094508A17C3B2415B6DB743633184",
-    "slug": "waithera-roki",
-    "departmentID": null
-  },
-  {
-    "name": "Ata Anzali",
-    "instructorID": "0BFF1BB2800101A08938FEED075BFA61",
-    "slug": "ata-anzali",
-    "departmentID": "RELI"
-  },
-  {
-    "name": "John Pickens",
-    "instructorID": "323C941C85BDD45CECBCD522D3705F7A",
-    "slug": "john-pickens",
-    "departmentID": null
-  },
-  {
-    "name": "Usama Soltan",
-    "instructorID": "A40FB0EDD244631A5ABE05B9DB8C59B7",
-    "slug": "usama-soltan"
-  },
-  {
-    "name": "Courtney Smith",
-    "instructorID": "8C9643858FB9F1AFE93EDD2820646840",
-    "slug": "courtney-smith"
-  },
-  {
-    "name": "Niwaeli Kimambo",
-    "instructorID": "5D7A85224D895117373A9B10F4F30DEA",
-    "slug": "niwaeli-kimambo",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Alison Nurok",
-    "instructorID": "8AF3AB029898FE58B2B539487A841978",
-    "slug": "alison-nurok",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Kirsten Coe",
-    "instructorID": "9C9631941EAA786401208717FA068C32",
-    "slug": "kirsten-coe",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Neha Tiwari",
-    "instructorID": "915243F29C51C4132B14B75A09E0D010",
-    "slug": "neha-tiwari",
-    "departmentID": null
-  },
-  {
-    "name": "Obie Porteous",
-    "instructorID": "E663FBC963E64FE586F1815E5EE3E69D",
-    "slug": "obie-porteous",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Stephen Hoffman",
-    "instructorID": "87CED3FD7AF0C13BF53EEA002D5E787F",
-    "slug": "stephen-hoffman",
-    "departmentID": null
-  },
-  {
-    "name": "Orion Lewis",
-    "instructorID": "A826A18A4E638CE4880F8C245CF68D80",
-    "slug": "orion-lewis",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Matt Lawrence",
-    "instructorID": "FD8491D395699875D36BD627480466E1",
-    "slug": "matt-lawrence",
-    "departmentID": "SOCI"
-  },
-  {
-    "name": "Rachael Joo",
-    "instructorID": "F86D802267249A01F24AED3F3AAA917F",
-    "slug": "rachael-joo"
-  },
-  {
-    "name": "Megan Mayhew-Bergman",
-    "instructorID": "A26123211EA944E7FBB18561CC0AA144",
-    "slug": "megan-mayhew-bergman"
-  },
-  {
-    "name": "Peter Nelson",
-    "instructorID": "290C9BCEFD0C8F278E72785ECFF6C392",
-    "slug": "peter-nelson",
-    "departmentID": "GEOG"
-  },
-  {
-    "name": "Jane Chaplin",
-    "instructorID": "F2549A47ECAE7C1FEDBC926514656672",
-    "slug": "jane-chaplin",
-    "departmentID": "CLAS"
-  },
-  {
-    "name": "Oz Aloni",
-    "instructorID": "B4FFBEF32F3BE8711C49AF43FBC1F1FD",
-    "slug": "oz-aloni",
-    "departmentID": null
-  },
-  {
-    "name": "Eliza Garrison",
-    "instructorID": "2A8D69E7767D3516B0F757D62366F21C",
-    "slug": "eliza-garrison",
-    "departmentID": "HARC"
-  },
-  {
-    "name": "Michael Kraus",
-    "instructorID": "7004BAE56EC3A88C7120540319119D32",
-    "slug": "michael-kraus",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Gregory Pask",
-    "instructorID": "E80C2851E876713CF9FBF73A30ED977D",
-    "slug": "gregory-pask",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Peter Schumer",
-    "instructorID": "3A5EF0A2C46ED6B8D9FFD8E15C130124",
-    "slug": "peter-schumer",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Jessica Holmes",
-    "instructorID": "DE1DDE977272E8B8D75E391E76AE93F1",
-    "slug": "jessica-holmes",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Carly Thomsen",
-    "instructorID": "908485A2FA661010AA86B854469E40E2",
-    "slug": "carly-thomsen"
-  },
-  {
-    "name": "Sandra Carletti",
-    "instructorID": "8426360FB13F67DF39939686DBE10863",
-    "slug": "sandra-carletti",
-    "departmentID": "ITAL"
-  },
-  {
-    "name": "Mez Baker-Medard",
-    "instructorID": "CF858B7BED9EB2485AB8EF2ED16FB5CB",
-    "slug": "mez-baker-medard",
-    "departmentID": "ENVS"
-  },
-  {
-    "name": "Jacob Tropp",
-    "instructorID": "E5FDFE9D40A9ABE98A45F9DAC570615E",
-    "slug": "jacob-tropp",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Samir Jaafar",
-    "instructorID": "66146000C066037C650995132E2C58FA",
-    "slug": "samir-jaafar",
-    "departmentID": null
-  },
-  {
-    "name": "Hedya Klein",
-    "instructorID": "4839CB3B489DA33A457CA972F901AF41",
-    "slug": "hedya-klein",
-    "departmentID": "_ART"
-  },
-  {
-    "name": "Clarissa Parker",
-    "instructorID": "3A6B3237C93AB85B9E623817AEA8D7A7",
-    "slug": "clarissa-parker"
-  },
-  {
-    "name": "Timothy Billings",
-    "instructorID": "5011AC4F149EF67446B2091C65118AD6",
-    "slug": "timothy-billings"
-  },
-  {
-    "name": "Marta Manrique-Gomez",
-    "instructorID": "CEA9F75B39CA2A867ABB252B6E686FD6",
-    "slug": "marta-manrique-gomez"
-  },
-  {
-    "name": "Kyle Saulnier",
-    "instructorID": "886520F1B9E26EA790C5059DC88B9ACA",
-    "slug": "kyle-saulnier",
-    "departmentID": "MUSC"
-  },
-  {
-    "name": "Holly Allen",
-    "instructorID": "EB22314A852970F29D9C828DEC3265D2",
-    "slug": "holly-allen"
-  },
-  {
-    "name": "David Caputi",
-    "instructorID": "DFB8B5ABFD3D4ECED505809E5E939DF0",
-    "slug": "david-caputi"
-  },
-  {
-    "name": "Robin Lunge",
-    "instructorID": "D3F207217E217D85BAF4FA6686CD5CA1",
-    "slug": "robin-lunge",
-    "departmentID": null
-  },
-  {
-    "name": "Amy Morsman",
-    "instructorID": "FCB3561BB007EF02906627759D017C26",
-    "slug": "amy-morsman",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Tanya Byker",
-    "instructorID": "3DAE4B8382EE810A238661903DCDA2B7",
-    "slug": "tanya-byker",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Joseph McVeigh",
-    "instructorID": "AB6DA469928BE57EAC184A341C5DE499",
-    "slug": "joseph-mcveigh",
-    "departmentID": null
-  },
-  {
-    "name": "Michaela Kubacki",
-    "instructorID": "BCBA68AEB3B1C7D9F8A69E3CBAA98374",
-    "slug": "michaela-kubacki",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Amanda Crocker",
-    "instructorID": "F08F952F80699F836242F7A719673438",
-    "slug": "amanda-crocker",
-    "departmentID": "NSCI"
-  },
-  {
-    "name": "Laurie Essig",
-    "instructorID": "2C7CF1C500B1611C390F509167D049D0",
-    "slug": "laurie-essig"
-  },
-  {
-    "name": "Thomas Dunn",
-    "instructorID": "601538B1BC60EBCFE39C6664D426BF81",
-    "slug": "thomas-dunn",
-    "departmentID": null
-  },
-  {
-    "name": "Francis Swenton",
-    "instructorID": "775EF6B5D466E85B040334FBC42FF7AC",
-    "slug": "francis-swenton",
-    "departmentID": "MATH"
-  },
-  {
-    "name": "Eilat Glikman",
-    "instructorID": "F16ADCB6066D31DAF05DD3D79133CD18",
-    "slug": "eilat-glikman",
-    "departmentID": "PHYS"
-  },
-  {
-    "name": "Amy Tondu",
-    "instructorID": "0B6329B897700A150218E841B38B23A4",
-    "slug": "amy-tondu"
-  },
-  {
-    "name": "Laurel Jenkins",
-    "instructorID": "CE6767E8AC2F03D570AF496D26252B3C",
-    "slug": "laurel-jenkins",
-    "departmentID": "DANC"
-  },
-  {
-    "name": "Nancy Fullman",
-    "instructorID": "B3710875D14A797FB7326975C019B814",
-    "slug": "nancy-fullman",
-    "departmentID": null
-  },
-  {
-    "name": "Andrew Johnson",
-    "instructorID": "23EB06439EBE2ABADF50A0A433BE34B1",
-    "slug": "andrew-johnson"
-  },
-  {
-    "name": "Robert Hansen",
-    "instructorID": "F7AB6051B1C3D11FF276B4E356D69CAE",
-    "slug": "robert-hansen"
-  },
-  {
-    "name": "Jay Saper",
-    "instructorID": "96E91E13BF88BD2A5F38E740A7E04966",
-    "slug": "jay-saper",
-    "departmentID": null
-  },
-  {
-    "name": "Keyue Song",
-    "instructorID": "C224E766C281DC12F9BF53264A76EF3B",
-    "slug": "keyue-song",
-    "departmentID": "CHNS"
-  },
-  {
-    "name": "Samuel Byrne",
-    "instructorID": "7BAAEF7AFCBE354564B9E003B32AB499",
-    "slug": "samuel-byrne",
-    "departmentID": "BIOL"
-  },
-  {
-    "name": "Douglas Mandigo",
-    "instructorID": "1274232D5AE566DD23B29501A27D8CF0",
-    "slug": "douglas-mandigo"
-  },
-  {
-    "name": "Stacie Cassarino",
-    "instructorID": "F6F8B9D240215C1641D2971E1E959241",
-    "slug": "stacie-cassarino",
-    "departmentID": "FYSE"
-  },
-  {
-    "name": "Steven Pecsok",
-    "instructorID": "87EE090F0826CE5E23FBD81B605B22F6",
-    "slug": "steven-pecsok",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Zu Wei Zhai",
-    "instructorID": "6092FF719F9ED014EB91C7EE975B7F59",
-    "slug": "zu-wei-zhai",
-    "departmentID": "NSCI"
-  },
-  {
-    "name": "Michelle McCauley",
-    "instructorID": "93E10A5539314C1C2B4C3C89D0895843",
-    "slug": "michelle-mccauley",
-    "departmentID": "PSYC"
-  },
-  {
-    "name": "Tara Affolter",
-    "instructorID": "6AF32EA7C0382BDE59813BC0AD625ABE",
-    "slug": "tara-affolter",
-    "departmentID": "EDST"
-  },
-  {
-    "name": "Faisal Alasiri",
-    "instructorID": "CBEDEE05A100CB6231D20C783D4C0091",
-    "slug": "faisal-alasiri"
-  },
-  {
-    "name": "Jeanne Albert",
-    "instructorID": "8F52E04FAEEDC68DF96253A3F50376BD",
-    "slug": "jeanne-albert",
-    "departmentID": null
-  },
-  {
-    "name": "Andrea Hamre",
-    "instructorID": "6D271B37862A5856E9848969A9FACE29",
-    "slug": "andrea-hamre",
-    "departmentID": null
-  },
-  {
-    "name": "Alix Pauchet",
-    "instructorID": "1AEEC3EADF5C72204FC55AB5AAC03066",
-    "slug": "alix-pauchet",
-    "departmentID": null
-  },
-  {
-    "name": "Roger Sandwick",
-    "instructorID": "0719AB870756E798F9C73BA6CF86392C",
-    "slug": "roger-sandwick"
+    "name": "Allison DiBianca Fasoli",
+    "instructorID": "33302B178BD67C84419D45A78C082D6E",
+    "slug": "allison-dibianca-fasoli"
   },
   {
     "name": "Emily Proctor",
@@ -2743,55 +38,9 @@
     "departmentID": "MATH"
   },
   {
-    "name": "Mairead Harris",
-    "instructorID": "2D7A16E1446B245011C9D95A5DB3A10A",
-    "slug": "mairead-harris"
-  },
-  {
-    "name": "Amy McGlashan",
-    "instructorID": "B8029526934F84788D4524241DADDA35",
-    "slug": "amy-mcglashan"
-  },
-  {
-    "name": "Erin Davis",
-    "instructorID": "0479814930D9C96F91BBF09B1E64BD16",
-    "slug": "erin-davis",
-    "departmentID": null
-  },
-  {
-    "name": "Murray Dry",
-    "instructorID": "076325FE8E9D69193C080B0052AB9561",
-    "slug": "murray-dry",
-    "departmentID": "PSCI"
-  },
-  {
-    "name": "Ian Barrow",
-    "instructorID": "A3562A2BE42408A9A1ACAD71CE693B14",
-    "slug": "ian-barrow",
-    "departmentID": "HIST"
-  },
-  {
-    "name": "Juan Pastene",
-    "instructorID": "839D81B666EEDDAB87A670F4099A5028",
-    "slug": "juan-pastene",
-    "departmentID": null
-  },
-  {
-    "name": "Jeffrey Lewis",
-    "instructorID": "CCAB297AAD3E222BFA423680B3C23A4B",
-    "slug": "jeffrey-lewis"
-  },
-  {
-    "name": "Cihan Artunc",
-    "instructorID": "09DAF2E83F6528BF828786C82BB39FB9",
-    "slug": "cihan-artunc",
-    "departmentID": "ECON"
-  },
-  {
-    "name": "Gabriella Koltai",
-    "instructorID": "5B44BB4B8CF71B46DCAC7A4D428BD128",
-    "slug": "gabriella-koltai",
-    "departmentID": null
+    "name": "Nicolas Poppe",
+    "instructorID": "417A8D39757151EE1F064CD12B090FB8",
+    "slug": "nicolas-poppe"
   },
   {
     "name": "Martin Abel",
@@ -2800,71 +49,361 @@
     "departmentID": "ECON"
   },
   {
-    "name": "Samuel Liebhaber",
-    "instructorID": "C18B43860BECC98255C81AE287D89299",
-    "slug": "samuel-liebhaber",
-    "departmentID": "ARBC"
+    "name": "Michael Katz",
+    "instructorID": "648362120AD035EA0D5A4078A62FFE1C",
+    "slug": "michael-katz"
   },
   {
-    "name": "Robert Cohen",
-    "instructorID": "4B2EA87CFDECC2A1C584557A278166EF",
-    "slug": "robert-cohen"
+    "name": "David Torres",
+    "instructorID": "ED7B73CCE3292B075FD7382C30BFFEB5",
+    "slug": "david-torres"
   },
   {
-    "name": "Julia Berazneva",
-    "instructorID": "4B9522045037EEB1760C552B0B57C04D",
-    "slug": "julia-berazneva",
+    "name": "Luis Castaneda",
+    "instructorID": "D69497F8FE139D15FD4F4291DE7F8927",
+    "slug": "luis-castaneda"
+  },
+  {
+    "name": "William Peterson",
+    "instructorID": "FE02890B0656E74799D3311D486B4412",
+    "slug": "william-peterson",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Tim Nguyen",
+    "instructorID": "898D906EB3F7564D953E340CE43FD2B8",
+    "slug": "tim-nguyen"
+  },
+  {
+    "name": "Stefano Mula",
+    "instructorID": "F06933E27725230518C5BD5100E2D021",
+    "slug": "stefano-mula",
+    "departmentID": "ITAL"
+  },
+  {
+    "name": "Elianna Kan",
+    "instructorID": "81E2F53D94D77A22D345B7F988485439",
+    "slug": "elianna-kan"
+  },
+  {
+    "name": "Florence Feiereisen",
+    "instructorID": "955358ECE78CE73A328BA57180418DD8",
+    "slug": "florence-feiereisen",
+    "departmentID": "GRMN"
+  },
+  {
+    "name": "Heike Fahrenberg",
+    "instructorID": "452C12C920CC804397252FCF26024536",
+    "slug": "heike-fahrenberg"
+  },
+  {
+    "name": "Andrea Hamre",
+    "instructorID": "6D271B37862A5856E9848969A9FACE29",
+    "slug": "andrea-hamre"
+  },
+  {
+    "name": "Sandra Carletti",
+    "instructorID": "8426360FB13F67DF39939686DBE10863",
+    "slug": "sandra-carletti",
+    "departmentID": "ITAL"
+  },
+  {
+    "name": "Andrea Robbett",
+    "instructorID": "8D41AF182DA0A6CD7526D7033B665801",
+    "slug": "andrea-robbett",
     "departmentID": "ECON"
   },
   {
-    "name": "Katherine O'Brien",
-    "instructorID": "458B8319CC93032A2D62C31376167F7F",
-    "slug": "katherine-obrien"
+    "name": "Constanza Monterrubio",
+    "instructorID": "8247FF0D99AA70B9A02057CD0BAAAA61",
+    "slug": "constanza-monterrubio"
   },
   {
-    "name": "Susan Burch",
-    "instructorID": "3415A6AFA51EDCD9F9CD4013A2C68E36",
-    "slug": "susan-burch"
+    "name": "Kristina Sargent",
+    "instructorID": "513216CEA24B3B8A593F60149D9B501B",
+    "slug": "kristina-sargent",
+    "departmentID": "ECON"
   },
   {
-    "name": "Peter Stavros",
-    "instructorID": "489517F95784CADDD55E573C12DFA687",
-    "slug": "peter-stavros",
-    "departmentID": null
+    "name": "Jason Grant",
+    "instructorID": "03DCA9ABAF419ADEAD85FABD6473C139",
+    "slug": "jason-grant"
   },
   {
-    "name": "Anaïs Frantz de Spot",
-    "instructorID": "7556A2EBEC99A3AB42423BC95C46CFD4",
-    "slug": "anais-frantz-de-spot"
+    "name": "Peter Schumer",
+    "instructorID": "3A5EF0A2C46ED6B8D9FFD8E15C130124",
+    "slug": "peter-schumer",
+    "departmentID": "MATH"
   },
   {
-    "name": "Deborah Evans",
-    "instructorID": "DBA7682E041FDF869E2BBE507852B0CD",
-    "slug": "deborah-evans"
+    "name": "Trinh Tran",
+    "instructorID": "A51982E5C5607263F2E974A9BA97279A",
+    "slug": "trinh-tran",
+    "departmentID": "ANTH"
   },
   {
-    "name": "Maya Bhave",
-    "instructorID": "2101FCE5BA2CCA17C1E62281A69D68A8",
-    "slug": "maya-bhave",
-    "departmentID": null
+    "name": "Ioana Uricaru",
+    "instructorID": "27848342F57B82B352426976F5C1B293",
+    "slug": "ioana-uricaru"
   },
   {
-    "name": "Andrea Vaccari",
-    "instructorID": "4347EFF33F703A17CBF34CE12E14464A",
-    "slug": "andrea-vaccari",
+    "name": "Jeffrey Brown",
+    "instructorID": "E5F0C69172FDF43B8BD079C02FABCA7E",
+    "slug": "jeffrey-brown"
+  },
+  {
+    "name": "Linsey Sainte-Claire",
+    "instructorID": "2208D1206F85F534C4BD84628A8A56D4",
+    "slug": "linsey-sainte-claire"
+  },
+  {
+    "name": "John Foley",
+    "instructorID": "F7B2876DA3228449D34F671C74199F99",
+    "slug": "john-foley",
     "departmentID": "CSCI"
   },
   {
-    "name": "Catherine Miller",
-    "instructorID": "D64A14DF895B9101CA9C5086E9C7B4E1",
-    "slug": "catherine-miller",
-    "departmentID": "PHYS"
+    "name": "Akhil Rao",
+    "instructorID": "41A9AE26E0CFD30EF48A0BA512363F4E",
+    "slug": "akhil-rao",
+    "departmentID": "ECON"
   },
   {
-    "name": "Mark Evancho",
-    "instructorID": "F9E1C9B5283AFB7E9842BB4F12C19718",
-    "slug": "mark-evancho",
+    "name": "Tamar Mayer",
+    "instructorID": "798336D763BAF962081BCC85267BD218",
+    "slug": "tamar-mayer",
+    "departmentID": "GEOG"
+  },
+  {
+    "name": "David Munro",
+    "instructorID": "A89E904BE46BDB734080D0AB85AF2B8A",
+    "slug": "david-munro",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Suzanne Gurland",
+    "instructorID": "1641BA5F8F8DAB211330DAF99D724EDF",
+    "slug": "suzanne-gurland",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "James Fitzsimmons",
+    "instructorID": "E0119F12AB809813E33DAD1C9ADF013A",
+    "slug": "james-fitzsimmons",
+    "departmentID": "ANTH"
+  },
+  {
+    "name": "William Poulin-Deltour",
+    "instructorID": "943ECA4FC732B31E4F1E816A3704589A",
+    "slug": "william-poulin-deltour"
+  },
+  {
+    "name": "Diane Munroe",
+    "instructorID": "FBF944C3D7E428F4425AE5414C9B4C06",
+    "slug": "diane-munroe",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Andrew Baker",
+    "instructorID": "70A8537ED8B8A2E1C8A6E7E08F27540F",
+    "slug": "andrew-baker"
+  },
+  {
+    "name": "Paul Sommers",
+    "instructorID": "0E206A3DE3E62AAF4BBDBD358AA65EBE",
+    "slug": "paul-sommers",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Maryait Khader",
+    "instructorID": "5F6928E5C92E430196405A54712B5A4A",
+    "slug": "maryait-khader",
+    "departmentID": "ARBC"
+  },
+  {
+    "name": "J. Ashley Laux",
+    "instructorID": "E21B242D5B228818595D0E2BF79B852D",
+    "slug": "j-ashley-laux"
+  },
+  {
+    "name": "Robert Moeller",
+    "instructorID": "0F37CF2CB1F657446BF9FFBD72EDEB69",
+    "slug": "robert-moeller",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Jason Duquette-Hoffman",
+    "instructorID": "EEEF0BBBCD32D1AF8F9BBB441944AAC9",
+    "slug": "jason-duquette-hoffman"
+  },
+  {
+    "name": "Shawna Shapiro",
+    "instructorID": "ADF8F2A8FA7AFD6CCC0572A4D09D9BDD",
+    "slug": "shawna-shapiro"
+  },
+  {
+    "name": "Christina Johnston",
+    "instructorID": "F5948C3AACAEB4B52C12BE6027568A20",
+    "slug": "christina-johnston",
+    "departmentID": "EDST"
+  },
+  {
+    "name": "Daniel Fram",
+    "instructorID": "63F41E336B54F6A579DBDAC795BD58D7",
+    "slug": "daniel-fram",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Viola Huang",
+    "instructorID": "63A480028991D84CB6078ADCBD34C71E",
+    "slug": "viola-huang"
+  },
+  {
+    "name": "Juan Pastene",
+    "instructorID": "839D81B666EEDDAB87A670F4099A5028",
+    "slug": "juan-pastene"
+  },
+  {
+    "name": "Mairead Harris",
+    "instructorID": "2D7A16E1446B245011C9D95A5DB3A10A",
+    "slug": "mairead-harris"
+  },
+  {
+    "name": "Erin Wolcott",
+    "instructorID": "247A9113F6FEF7D8ADD5D2813807F5C8",
+    "slug": "erin-wolcott",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Ludmila Scheinkman",
+    "instructorID": "A0885E4C28AEC393DEC746555C8DB16D",
+    "slug": "ludmila-scheinkman"
+  },
+  {
+    "name": "Carolyn Anderson",
+    "instructorID": "5FAD334DD5F1CF994EFD116A90B05319",
+    "slug": "carolyn-anderson",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Tara Affolter",
+    "instructorID": "6AF32EA7C0382BDE59813BC0AD625ABE",
+    "slug": "tara-affolter",
+    "departmentID": "EDST"
+  },
+  {
+    "name": "Pavlos Sfyroeras",
+    "instructorID": "68C8D326BEDC2E16088A2E161583BCF3",
+    "slug": "pavlos-sfyroeras",
+    "departmentID": "CLAS"
+  },
+  {
+    "name": "Stephen Hoffman",
+    "instructorID": "87CED3FD7AF0C13BF53EEA002D5E787F",
+    "slug": "stephen-hoffman"
+  },
+  {
+    "name": "David West",
+    "instructorID": "5FBA0531A015AE3486D6B3B286296726",
+    "slug": "david-west",
+    "departmentID": "GEOL"
+  },
+  {
+    "name": "Antonia Losano",
+    "instructorID": "9FBE17ED74F41AB70C5A36067B5A00DF",
+    "slug": "antonia-losano"
+  },
+  {
+    "name": "Matthew Taylor",
+    "instructorID": "20BB18F56A41D6C8F3E9DBF6F51BFA9D",
+    "slug": "matthew-taylor",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Marcia Collaer",
+    "instructorID": "6D7E704E5075E3A39713B5834042B150",
+    "slug": "marcia-collaer",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Michael Abbatiello",
+    "instructorID": "095FEB6823C7DEF7F143654355F87CF3",
+    "slug": "michael-abbatiello",
+    "departmentID": "DANC"
+  },
+  {
+    "name": "Hemangini Gupta",
+    "instructorID": "DDA745F4B9CD95F3D03FE34A582EC0AB",
+    "slug": "hemangini-gupta"
+  },
+  {
+    "name": "Jeffrey Lunstead",
+    "instructorID": "E1E4DBCE15E2E91DA55702E7B5DBEB06",
+    "slug": "jeffrey-lunstead",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Ed McMahon",
+    "instructorID": "A313EA20FA869357E4AEAF4DB23481D3",
+    "slug": "ed-mcmahon",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Heimo Wallner",
+    "instructorID": "697808EC815F245BB49809C246638696",
+    "slug": "heimo-wallner",
+    "departmentID": "_ART"
+  },
+  {
+    "name": "Jeannette Ariane Ngabeu",
+    "instructorID": "290EBD39657633D21CF2B22BC524E072",
+    "slug": "jeannette-ariane-ngabeu"
+  },
+  {
+    "name": "Carolyn Finney",
+    "instructorID": "7E956EED64F609D9E16DC3C6A3DE9B67",
+    "slug": "carolyn-finney",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Kyle Saulnier",
+    "instructorID": "886520F1B9E26EA790C5059DC88B9ACA",
+    "slug": "kyle-saulnier",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Matt Lawrence",
+    "instructorID": "FD8491D395699875D36BD627480466E1",
+    "slug": "matt-lawrence",
+    "departmentID": "SOCI"
+  },
+  {
+    "name": "Michole Biancosino",
+    "instructorID": "C31F68F5FFA66FD9ED5E6B958261E5D7",
+    "slug": "michole-biancosino",
     "departmentID": "THEA"
+  },
+  {
+    "name": "Erin Eggleston",
+    "instructorID": "2E3AF6AA5F7AB28F3192090EAA3232CA",
+    "slug": "erin-eggleston",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Julien Weber",
+    "instructorID": "2AF098F38F961D1F5956AAF020E505BA",
+    "slug": "julien-weber"
+  },
+  {
+    "name": "Kathryn Morse",
+    "instructorID": "BAC5FFA7864D7D99323624DECFE0E5BF",
+    "slug": "kathryn-morse"
+  },
+  {
+    "name": "Patricia Zupan",
+    "instructorID": "B8A96BEC095A5C2BA7C6579D5CC2D69C",
+    "slug": "patricia-zupan",
+    "departmentID": "ITAL"
   },
   {
     "name": "Priscilla Bremser",
@@ -2873,10 +412,671 @@
     "departmentID": "MATH"
   },
   {
-    "name": "Lorraine Besser",
-    "instructorID": "153F4504816359C25AB11AFD711E0318",
-    "slug": "lorraine-besser",
-    "departmentID": "PHIL"
+    "name": "Stanley Sloan",
+    "instructorID": "7B5E7F243F1B2DC7CA2007B122F54930",
+    "slug": "stanley-sloan"
+  },
+  {
+    "name": "Kim Cronise",
+    "instructorID": "B1F95A32F9AD98473D9B9C9EB7E9FA6E",
+    "slug": "kim-cronise",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Paul Monod",
+    "instructorID": "C2BFE054FAB66D96DCD4D3D8E27640A0",
+    "slug": "paul-monod",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Hang Du",
+    "instructorID": "B8D0B556359BE9D67A4612496DD07E77",
+    "slug": "hang-du",
+    "departmentID": "CHNS"
+  },
+  {
+    "name": "Christopher Star",
+    "instructorID": "42179414C25D051A55B61D24EA934542",
+    "slug": "christopher-star",
+    "departmentID": "CLAS"
+  },
+  {
+    "name": "Karine Silva",
+    "instructorID": "C8E877AC6B4467794F7F41CFB6DFCC06",
+    "slug": "karine-silva"
+  },
+  {
+    "name": "Richard Finkelstein",
+    "instructorID": "1A3ACF51A8939FB0A69D92F4A3DE36C4",
+    "slug": "richard-finkelstein"
+  },
+  {
+    "name": "Courtney Smith",
+    "instructorID": "8C9643858FB9F1AFE93EDD2820646840",
+    "slug": "courtney-smith",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "Jeffrey Cason",
+    "instructorID": "40D445C1F1C39D069B78A98210B3D34B",
+    "slug": "jeffrey-cason"
+  },
+  {
+    "name": "Carlos Velez",
+    "instructorID": "65043BF916F74BB832A06EF9A90586B3",
+    "slug": "carlos-velez"
+  },
+  {
+    "name": "Erik Bleich",
+    "instructorID": "FAC0A346A86F832BFDEA1C217D90EE96",
+    "slug": "erik-bleich",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Dima Ayoub",
+    "instructorID": "6A4690E148F4EF2A0767AFCB7011AEC2",
+    "slug": "dima-ayoub",
+    "departmentID": "ARBC"
+  },
+  {
+    "name": "Katharine DeLorenzo",
+    "instructorID": "146B7A040A32FFADC373EFB407CD9984",
+    "slug": "katharine-delorenzo"
+  },
+  {
+    "name": "Stephen Ratcliff",
+    "instructorID": "F831FD27432531DCF5784CAFF45AE380",
+    "slug": "stephen-ratcliff",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Kathryn Crawford",
+    "instructorID": "06F96738C1E011D5B87BA6D64FA1784A",
+    "slug": "kathryn-crawford",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Nourdin Bejjit",
+    "instructorID": "35308D47AC37CC145EC565AE45A472C6",
+    "slug": "nourdin-bejjit"
+  },
+  {
+    "name": "David Pratt",
+    "instructorID": "FFE706DF8BA5870BC8B1D38BFBB78EB8",
+    "slug": "david-pratt"
+  },
+  {
+    "name": "Steven Pecsok",
+    "instructorID": "87EE090F0826CE5E23FBD81B605B22F6",
+    "slug": "steven-pecsok",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Ines Pousadela",
+    "instructorID": "8E6C4134FDB61A13D270FA298178974C",
+    "slug": "ines-pousadela"
+  },
+  {
+    "name": "Emily Malcolm-White",
+    "instructorID": "C3177E57E2B4E380E08925E92F272599",
+    "slug": "emily-malcolm-white",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Daniel Scharstein",
+    "instructorID": "D6C22626AF40B14B8AEF1754FC270596",
+    "slug": "daniel-scharstein",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Sunder Ramaswamy",
+    "instructorID": "36C0FFC8FBF0B8830027CB0B726E96E9",
+    "slug": "sunder-ramaswamy"
+  },
+  {
+    "name": "Hector Vila",
+    "instructorID": "CEA61494686073E71ED939F0517D4FF2",
+    "slug": "hector-vila"
+  },
+  {
+    "name": "Sebnem Gumuscu",
+    "instructorID": "6A6F6A8F0A1686D4AD3BFA45FB359454",
+    "slug": "sebnem-gumuscu",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Molly Costanza-Robinson",
+    "instructorID": "6EEDA60650D2709ED5FFF1E9FA67C0DD",
+    "slug": "molly-costanza-robinson"
+  },
+  {
+    "name": "Gyula Zsombok",
+    "instructorID": "313ED23082C62818B6A1CAAB011E5A8D",
+    "slug": "gyula-zsombok"
+  },
+  {
+    "name": "Jeremy Ward",
+    "instructorID": "E82A3376ABD68AE9B0DA115A49CA1403",
+    "slug": "jeremy-ward",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Louisa Burnham",
+    "instructorID": "D2A10AF977306BF58B10DC58EEA6A640",
+    "slug": "louisa-burnham",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Linda White",
+    "instructorID": "64B1BD910C848B837FB5E3F91CE1665D",
+    "slug": "linda-white"
+  },
+  {
+    "name": "Jeffrey Byers",
+    "instructorID": "961270A9AA151057D32C1D01461D4F72",
+    "slug": "jeffrey-byers"
+  },
+  {
+    "name": "Estefania Puerta",
+    "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF",
+    "slug": "estefania-puerta"
+  },
+  {
+    "name": "Lida Winfield",
+    "instructorID": "82D1FBA48381E1ADCEBD72E320987EAC",
+    "slug": "lida-winfield",
+    "departmentID": "DANC"
+  },
+  {
+    "name": "Roberto Lint Sagarena",
+    "instructorID": "38281666015C523B87B3FB8F52EC48DA",
+    "slug": "roberto-lint-sagarena"
+  },
+  {
+    "name": "Ilaria Brancoli Busdraghi",
+    "instructorID": "7DD4BF380396C5F7FBD2055592D434B3",
+    "slug": "ilaria-brancoli-busdraghi",
+    "departmentID": "ITAL"
+  },
+  {
+    "name": "German Clulow",
+    "instructorID": "16174698D53016C292F509D0807016C9",
+    "slug": "german-clulow"
+  },
+  {
+    "name": "Mark Lewis",
+    "instructorID": "E8D3504A93431EE6205EF6CE3F000BFD",
+    "slug": "mark-lewis"
+  },
+  {
+    "name": "Oz Aloni",
+    "instructorID": "B4FFBEF32F3BE8711C49AF43FBC1F1FD",
+    "slug": "oz-aloni"
+  },
+  {
+    "name": "Jamal Bahmad",
+    "instructorID": "D785419C7C50D248CC7F61EE78C31606",
+    "slug": "jamal-bahmad"
+  },
+  {
+    "name": "Samuel Liebhaber",
+    "instructorID": "C18B43860BECC98255C81AE287D89299",
+    "slug": "samuel-liebhaber",
+    "departmentID": "ARBC"
+  },
+  {
+    "name": "Peter Ryan",
+    "instructorID": "58281F423FB805EE2CD1E978C4572352",
+    "slug": "peter-ryan"
+  },
+  {
+    "name": "Grace Spatafora",
+    "instructorID": "604CEF681674D80FFA4E6601001E065F",
+    "slug": "grace-spatafora"
+  },
+  {
+    "name": "Kyoko Davis",
+    "instructorID": "C8759DEF7A9DC6F20D6A221565DDA30D",
+    "slug": "kyoko-davis"
+  },
+  {
+    "name": "Alison Nurok",
+    "instructorID": "8AF3AB029898FE58B2B539487A841978",
+    "slug": "alison-nurok",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "William Nash",
+    "instructorID": "2F62DD619168364AA9BDC01556AF2A51",
+    "slug": "william-nash"
+  },
+  {
+    "name": "Jason Blazakis",
+    "instructorID": "92883A2955131115773B66E24FD46B70",
+    "slug": "jason-blazakis"
+  },
+  {
+    "name": "Kirsten Coe",
+    "instructorID": "9C9631941EAA786401208717FA068C32",
+    "slug": "kirsten-coe",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Neil Sinclair",
+    "instructorID": "D2B9930E430D72EDC9B59C168BE9BCEC",
+    "slug": "neil-sinclair"
+  },
+  {
+    "name": "Gloria Gonzalez Zenteno",
+    "instructorID": "9B7DF7493908B6FD994192E2DD7EB246",
+    "slug": "gloria-gonzalez-zenteno"
+  },
+  {
+    "name": "Anne Goodsell",
+    "instructorID": "2E9B35780F113280253B3C6B3E42B712",
+    "slug": "anne-goodsell",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Daniel Brayton",
+    "instructorID": "8E9E0EBC961731CCC79C281611143831",
+    "slug": "daniel-brayton"
+  },
+  {
+    "name": "Jessica Holmes",
+    "instructorID": "DE1DDE977272E8B8D75E391E76AE93F1",
+    "slug": "jessica-holmes",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Matthew Kimble",
+    "instructorID": "0276CA37F898194094DF14FA4FDABC78",
+    "slug": "matthew-kimble",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Alix Pauchet",
+    "instructorID": "1AEEC3EADF5C72204FC55AB5AAC03066",
+    "slug": "alix-pauchet"
+  },
+  {
+    "name": "Miguel Fernandez",
+    "instructorID": "D641EEB98927F8CDEE8F2C89AB43BF18",
+    "slug": "miguel-fernandez"
+  },
+  {
+    "name": "Randall Ganiban",
+    "instructorID": "DBCD8307315D8F33DAB24BD2ABDC0B30",
+    "slug": "randall-ganiban",
+    "departmentID": "CLAS"
+  },
+  {
+    "name": "Harriet Napier",
+    "instructorID": "42A9CB8324F71CCD6673DDBEBCD67492",
+    "slug": "harriet-napier"
+  },
+  {
+    "name": "Heidi Grasswick",
+    "instructorID": "AD22A6254E9040A5FFA33FF0812B5137",
+    "slug": "heidi-grasswick"
+  },
+  {
+    "name": "Christian Keathley",
+    "instructorID": "31725A9574D633FFACF1F1E5C5560C74",
+    "slug": "christian-keathley"
+  },
+  {
+    "name": "James Butler",
+    "instructorID": "084D3FDB44C7EB904917ECCD4DE708E6",
+    "slug": "james-butler",
+    "departmentID": "_ART"
+  },
+  {
+    "name": "David Cromwell",
+    "instructorID": "EC608A36333F776D4144C80D9A301398",
+    "slug": "david-cromwell"
+  },
+  {
+    "name": "Alejandro Herrera",
+    "instructorID": "9896B4DC6F9C8F53FF7073A35284BAB5",
+    "slug": "alejandro-herrera"
+  },
+  {
+    "name": "Rebecca Mitchell",
+    "instructorID": "38D7C6796CCDF1F71B975265908DBF9C",
+    "slug": "rebecca-mitchell",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Alexis Mychajliw",
+    "instructorID": "B1EFA2C8D3C58A19538445BF723BF868",
+    "slug": "alexis-mychajliw"
+  },
+  {
+    "name": "Kristin  Bright",
+    "instructorID": "63B20E6912C46B8F991A396BB8B96DFA",
+    "slug": "kristin-bright",
+    "departmentID": "ANTH"
+  },
+  {
+    "name": "Cole Dovey",
+    "instructorID": "A58FA55DB62D78E291987302BC26CE93",
+    "slug": "cole-dovey"
+  },
+  {
+    "name": "Nicholas Perlongo",
+    "instructorID": "96323B45B4F852997657B887792A1888",
+    "slug": "nicholas-perlongo"
+  },
+  {
+    "name": "Neha Tiwari",
+    "instructorID": "915243F29C51C4132B14B75A09E0D010",
+    "slug": "neha-tiwari"
+  },
+  {
+    "name": "Pam Berenbaum",
+    "instructorID": "87EEC3A387C12918B5559E21A0F6A387",
+    "slug": "pam-berenbaum"
+  },
+  {
+    "name": "Charles Nunley",
+    "instructorID": "398A77E3FAAE60CBF16050D608DBE701",
+    "slug": "charles-nunley"
+  },
+  {
+    "name": "David Caputi",
+    "instructorID": "DFB8B5ABFD3D4ECED505809E5E939DF0",
+    "slug": "david-caputi"
+  },
+  {
+    "name": "Marion Wells",
+    "instructorID": "8014BD7E5A4FF1E898CA1CDA431D41CA",
+    "slug": "marion-wells"
+  },
+  {
+    "name": "Julia Proctor",
+    "instructorID": "058C5910496B76A69045A8E81163C61C",
+    "slug": "julia-proctor"
+  },
+  {
+    "name": "Youlan Zhang",
+    "instructorID": "65AAAC96932C6E86D799B6CB43428B06",
+    "slug": "youlan-zhang"
+  },
+  {
+    "name": "Kevin Moss",
+    "instructorID": "6B08BC59E0211B5A3EC9D684D5F151C2",
+    "slug": "kevin-moss"
+  },
+  {
+    "name": "Bingxiao Du",
+    "instructorID": "6D991BB3B2F219D0E8F3FAC24946299D",
+    "slug": "bingxiao-du"
+  },
+  {
+    "name": "Francisco Seijo Maceiras",
+    "instructorID": "5E33B6A8FCCF01872DEC8CEAC1F9D5F6",
+    "slug": "francisco-seijo-maceiras"
+  },
+  {
+    "name": "Carol Christensen",
+    "instructorID": "74287995F932BE725E21546900569483",
+    "slug": "carol-christensen"
+  },
+  {
+    "name": "Michaela Kubacki",
+    "instructorID": "BCBA68AEB3B1C7D9F8A69E3CBAA98374",
+    "slug": "michaela-kubacki",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Jessica Teets",
+    "instructorID": "55A9F72F76FB46FBB03BF810E7982F5A",
+    "slug": "jessica-teets",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Tatiana Smorodinska",
+    "instructorID": "293D4B7A7401F56541320CE7C1388AC1",
+    "slug": "tatiana-smorodinska",
+    "departmentID": "RUSS"
+  },
+  {
+    "name": "Yumna Siddiqi",
+    "instructorID": "7C85D384A845D8094BFDC46237DF3B07",
+    "slug": "yumna-siddiqi"
+  },
+  {
+    "name": "Aida Bueno Sarduy",
+    "instructorID": "1772C014E0E961D11292CB41F4628BE6",
+    "slug": "aida-bueno-sarduy"
+  },
+  {
+    "name": "Amy Briggs",
+    "instructorID": "F574C0807AA68D774B95DA064BA1475A",
+    "slug": "amy-briggs",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Amitava Biswas",
+    "instructorID": "21DAF706828C069DF748066F13602365",
+    "slug": "amitava-biswas"
+  },
+  {
+    "name": "Angus Findlay",
+    "instructorID": "E098EA309474EF6F36348A2DFFFCA479",
+    "slug": "angus-findlay",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Frank Van Gansbeke",
+    "instructorID": "7AD2121A8B9C6C0C5BD12C3CBA124E3F",
+    "slug": "frank-van-gansbeke"
+  },
+  {
+    "name": "Jason Mittell",
+    "instructorID": "9C807581A92322DDF2AB21BDA6036168",
+    "slug": "jason-mittell"
+  },
+  {
+    "name": "Joseph Crodelle",
+    "instructorID": "FDAAF608D37473417A4CD39B691FC1ED",
+    "slug": "joseph-crodelle",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Mohamed Hussein",
+    "instructorID": "A5C6358478D893016A8109451EE6B0AF",
+    "slug": "mohamed-hussein"
+  },
+  {
+    "name": "Kathy Doyle",
+    "instructorID": "6F4B57433A6EA6A7D2E619CF1F151652",
+    "slug": "kathy-doyle",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Glen Ernstrom",
+    "instructorID": "65A37BF0E77BED87387B4B541C3DC3DD",
+    "slug": "glen-ernstrom"
+  },
+  {
+    "name": "Stephen Abbott",
+    "instructorID": "DBEDDD428ECE9A09E78D86A43290171F",
+    "slug": "stephen-abbott",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Andrew Thomson",
+    "instructorID": "AEE9184B109B03E13C99DA5496E81CC5",
+    "slug": "andrew-thomson"
+  },
+  {
+    "name": "Marc Witkin",
+    "instructorID": "0B704A1B96BB076EE496F5F70B8D3F31",
+    "slug": "marc-witkin",
+    "departmentID": "CLAS"
+  },
+  {
+    "name": "Eva Dessein",
+    "instructorID": "F6C60AB6445DD2AD96D2C51EB483123F",
+    "slug": "eva-dessein"
+  },
+  {
+    "name": "Peter Kim",
+    "instructorID": "44D45D189ECC1E5787660DFFF7E44DF5",
+    "slug": "peter-kim"
+  },
+  {
+    "name": "Michael Sheridan",
+    "instructorID": "31713591786A52B234FBF2AF71849977",
+    "slug": "michael-sheridan",
+    "departmentID": "ANTH"
+  },
+  {
+    "name": "Marybeth Nevins",
+    "instructorID": "8724BFF3B8EDED3EF4589B469BDCB965",
+    "slug": "marybeth-nevins"
+  },
+  {
+    "name": "Don Wyatt",
+    "instructorID": "2E6C1B042D6893794CFD5DA35C15B72B",
+    "slug": "don-wyatt",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Elsa Mendoza",
+    "instructorID": "428F7699A17A3A80BA016EEA90D3A1D4",
+    "slug": "elsa-mendoza",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "María Casullo",
+    "instructorID": "C928C0B893810635510931EFD27E1868",
+    "slug": "maria-casullo"
+  },
+  {
+    "name": "Ata Anzali",
+    "instructorID": "0BFF1BB2800101A08938FEED075BFA61",
+    "slug": "ata-anzali",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "Yury Bit-Yunan",
+    "instructorID": "D418DB41C5E8D12CE543C69027EBB806",
+    "slug": "yury-bit-yunan"
+  },
+  {
+    "name": "Kim Wilson",
+    "instructorID": "350AE2355A837DBBEE9FAF48E08F834D",
+    "slug": "kim-wilson"
+  },
+  {
+    "name": "Catherine Miller",
+    "instructorID": "D64A14DF895B9101CA9C5086E9C7B4E1",
+    "slug": "catherine-miller",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Jacob Tropp",
+    "instructorID": "E5FDFE9D40A9ABE98A45F9DAC570615E",
+    "slug": "jacob-tropp",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Laura Lesta Garcia",
+    "instructorID": "DB0B7E063649E3F27FD17B2647FC894D",
+    "slug": "laura-lesta-garcia"
+  },
+  {
+    "name": "Kristen Mullins",
+    "instructorID": "1EAAAE39F482C9B5940FAE38F31B35D4",
+    "slug": "kristen-mullins"
+  },
+  {
+    "name": "Irina Feldman",
+    "instructorID": "D4FDAB73021E533907907BCD2F5131B3",
+    "slug": "irina-feldman"
+  },
+  {
+    "name": "Ellery Foutch",
+    "instructorID": "E1AA26EECE8D090367FF654D1F517C7A",
+    "slug": "ellery-foutch"
+  },
+  {
+    "name": "Michelle Leftheris",
+    "instructorID": "2A3612F3931E8BDE207BA2F553506727",
+    "slug": "michelle-leftheris",
+    "departmentID": "_ART"
+  },
+  {
+    "name": "Michael Dash",
+    "instructorID": "E8A82F65E8FD9F7380A931E6FFB51888",
+    "slug": "michael-dash",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Kara Karpman",
+    "instructorID": "834C7F42E577464DCC70BDEB6B2F4813",
+    "slug": "kara-karpman",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Karl Krusell",
+    "instructorID": "5B664AAB2BEA457263A24E6B29C9D18A",
+    "slug": "karl-krusell",
+    "departmentID": "CLAS"
+  },
+  {
+    "name": "Timothy Billings",
+    "instructorID": "5011AC4F149EF67446B2091C65118AD6",
+    "slug": "timothy-billings"
+  },
+  {
+    "name": "Daniel Velleman",
+    "instructorID": "E31257BCEFEB286C80864723C5A9BCFD",
+    "slug": "daniel-velleman",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Catherine Combelles",
+    "instructorID": "8DEB11E25EC65E57992F153094A6E312",
+    "slug": "catherine-combelles",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Jennifer Crodelle",
+    "instructorID": "5F406A21162C0AF535E22849CF8BB8CF",
+    "slug": "jennifer-crodelle",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "David Paoli",
+    "instructorID": "CD80ADFAD430D701852B16BF808BFD97",
+    "slug": "david-paoli"
+  },
+  {
+    "name": "Armelle Crouzieres-Ingenthron",
+    "instructorID": "6DDE7CA27B41F261BFBA83E9A17DA480",
+    "slug": "armelle-crouzieres-ingenthron"
+  },
+  {
+    "name": "Larry Hamberlin",
+    "instructorID": "9E5141BF44152930FC18CA846C2ABD19",
+    "slug": "larry-hamberlin",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Chong Han",
+    "instructorID": "471FAB199FE5BEF5891FC1B69D63A2E4",
+    "slug": "chong-han",
+    "departmentID": "SOCI"
+  },
+  {
+    "name": "Keyue Song",
+    "instructorID": "C224E766C281DC12F9BF53264A76EF3B",
+    "slug": "keyue-song",
+    "departmentID": "CHNS"
   },
   {
     "name": "Brandon Baird",
@@ -2889,32 +1089,37 @@
     "slug": "per-urlaub"
   },
   {
-    "name": "Logan Fischer",
-    "instructorID": "F67E87DD30752A0E2C50AE2842D97939",
-    "slug": "logan-fischer"
+    "name": "Amit Prakash",
+    "instructorID": "184298D4561DB6C8A2E7C6C09ACDE8D8",
+    "slug": "amit-prakash"
   },
   {
-    "name": "James Davis",
-    "instructorID": "A4B8F95413AED0F4A12C13EF4849317D",
-    "slug": "james-davis",
-    "departmentID": "RELI"
+    "name": "Enrique Garcia",
+    "instructorID": "1759D0B4EAFB2A3A93D708EDF5FAE185",
+    "slug": "enrique-garcia"
   },
   {
-    "name": "Kristin  Bright",
-    "instructorID": "63B20E6912C46B8F991A396BB8B96DFA",
-    "slug": "kristin-bright",
-    "departmentID": "ANTH"
+    "name": "Carol Harden",
+    "instructorID": "DAC78E86853E33F36AF93101FA3FBF06",
+    "slug": "carol-harden",
+    "departmentID": "GEOG"
   },
   {
-    "name": "Matthew Kimble",
-    "instructorID": "0276CA37F898194094DF14FA4FDABC78",
-    "slug": "matthew-kimble",
-    "departmentID": "PSYC"
+    "name": "William Amidon",
+    "instructorID": "43DA1DC94A5922C840F11461809C1B91",
+    "slug": "william-amidon",
+    "departmentID": "GEOL"
   },
   {
-    "name": "Sujata Moorti",
-    "instructorID": "85F66339C9FF4EAB1AAF654ADCF1ED6E",
-    "slug": "sujata-moorti"
+    "name": "Douglas Richards",
+    "instructorID": "CD403E22BB56426564110529D59E76AA",
+    "slug": "douglas-richards"
+  },
+  {
+    "name": "Jason Chavez",
+    "instructorID": "C3C422BB4E056217116CF5F47CC66F2A",
+    "slug": "jason-chavez",
+    "departmentID": "DANC"
   },
   {
     "name": "Sarah Rogers",
@@ -2923,8 +1128,1721 @@
     "departmentID": "HARC"
   },
   {
-    "name": "Luis Castaneda",
-    "instructorID": "D69497F8FE139D15FD4F4291DE7F8927",
-    "slug": "luis-castaneda"
+    "name": "Rebecca Gould",
+    "instructorID": "24A150A746C54051DC54759D0C3919C5",
+    "slug": "rebecca-gould",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Louisa Stein",
+    "instructorID": "DF5327E57DC65C9CA22E0045B842BBA0",
+    "slug": "louisa-stein"
+  },
+  {
+    "name": "Karin Hanta",
+    "instructorID": "50FCA9C1571453AB81A233FB26841610",
+    "slug": "karin-hanta"
+  },
+  {
+    "name": "Samir Jaafar",
+    "instructorID": "66146000C066037C650995132E2C58FA",
+    "slug": "samir-jaafar"
+  },
+  {
+    "name": "Benjamin Cotts",
+    "instructorID": "62CF0939951D55F5D2F5E7CCA0BBD33A",
+    "slug": "benjamin-cotts"
+  },
+  {
+    "name": "Prem Prakash",
+    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A",
+    "slug": "prem-prakash"
+  },
+  {
+    "name": "Alexandra Yuster",
+    "instructorID": "9DCEDDAC73447B93373664353125A5E3",
+    "slug": "alexandra-yuster"
+  },
+  {
+    "name": "Alexander Draper",
+    "instructorID": "41552955D84CF1F42ADD9013A69AD42F",
+    "slug": "alexander-draper",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "Mary Jane Simpson",
+    "instructorID": "847A9A9587A7C5D713207402B3AFD9CA",
+    "slug": "mary-jane-simpson"
+  },
+  {
+    "name": "Andrew Schwarz",
+    "instructorID": "A04259D5E4B664D6DE6509BF14ADC3BF",
+    "slug": "andrew-schwarz"
+  },
+  {
+    "name": "Melissa Hammerle",
+    "instructorID": "AB24D3022A48F2C394E118CB47F04879",
+    "slug": "melissa-hammerle",
+    "departmentID": "EDST"
+  },
+  {
+    "name": "Cihan Artunc",
+    "instructorID": "09DAF2E83F6528BF828786C82BB39FB9",
+    "slug": "cihan-artunc",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Francis Swenton",
+    "instructorID": "775EF6B5D466E85B040334FBC42FF7AC",
+    "slug": "francis-swenton",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Susan Fenstermacher",
+    "instructorID": "AC651AF802A2EA1C4DD608327F35DA96",
+    "slug": "susan-fenstermacher",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Jeanne Albert",
+    "instructorID": "8F52E04FAEEDC68DF96253A3F50376BD",
+    "slug": "jeanne-albert"
+  },
+  {
+    "name": "Samuel Byrne",
+    "instructorID": "7BAAEF7AFCBE354564B9E003B32AB499",
+    "slug": "samuel-byrne",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Jeff Buettner",
+    "instructorID": "B19C3ACFBD148B22EE59295A9EFD6B5F",
+    "slug": "jeff-buettner",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Alexandra (Sasha) Portice",
+    "instructorID": "6E66B13A321113E025AB8B372B63A599",
+    "slug": "alexandra-sasha-portice",
+    "departmentID": "RUSS"
+  },
+  {
+    "name": "Mark Spritzer",
+    "instructorID": "74B64E9044F9B3A5047B8555CB148C91",
+    "slug": "mark-spritzer",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Obie Porteous",
+    "instructorID": "E663FBC963E64FE586F1815E5EE3E69D",
+    "slug": "obie-porteous",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Ian Barrow",
+    "instructorID": "A3562A2BE42408A9A1ACAD71CE693B14",
+    "slug": "ian-barrow",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Eric Moody",
+    "instructorID": "B8254EED4F08BDC932184E2EBD4E7D34",
+    "slug": "eric-moody",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Karima Borni",
+    "instructorID": "3F1285F4DD81824CB42A177D0893577D",
+    "slug": "karima-borni",
+    "departmentID": "DANC"
+  },
+  {
+    "name": "James Ralph",
+    "instructorID": "BBED25313DB31B7F912B2D5089848C50",
+    "slug": "james-ralph"
+  },
+  {
+    "name": "Dana Hart",
+    "instructorID": "3E91CBF679D7344CF7F3882D632D4225",
+    "slug": "dana-hart"
+  },
+  {
+    "name": "Wei Xu",
+    "instructorID": "0C879498591B9C0A235C1834BF78349D",
+    "slug": "wei-xu",
+    "departmentID": "CHNS"
+  },
+  {
+    "name": "Roger Sandwick",
+    "instructorID": "0719AB870756E798F9C73BA6CF86392C",
+    "slug": "roger-sandwick"
+  },
+  {
+    "name": "Benjamin Graves",
+    "instructorID": "2C15FF264E152A310A896055692CAB5F",
+    "slug": "benjamin-graves"
+  },
+  {
+    "name": "Shalom Goldman",
+    "instructorID": "3282CCCBD97076DE3DF9FC82D8787427",
+    "slug": "shalom-goldman",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "Patricia Rodriguez",
+    "instructorID": "88AA623BE855F32BAB2F5812CF179DFB",
+    "slug": "patricia-rodriguez"
+  },
+  {
+    "name": "William Sessions",
+    "instructorID": "941C444B1345C0B482AB2BECE09C0473",
+    "slug": "william-sessions"
+  },
+  {
+    "name": "Mario Higa",
+    "instructorID": "6720980EC30B1A7897597F69B00559FE",
+    "slug": "mario-higa"
+  },
+  {
+    "name": "Mark Evancho",
+    "instructorID": "F9E1C9B5283AFB7E9842BB4F12C19718",
+    "slug": "mark-evancho",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "Lana Povitz",
+    "instructorID": "A1254A934DA9A43687CCFFA052E45058",
+    "slug": "lana-povitz",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Megan Mayhew-Bergman",
+    "instructorID": "A26123211EA944E7FBB18561CC0AA144",
+    "slug": "megan-mayhew-bergman"
+  },
+  {
+    "name": "Noah Graham",
+    "instructorID": "B3622D4060AE5D5CC4CB029AC5671E79",
+    "slug": "noah-graham",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Jeff Munroe",
+    "instructorID": "9A3FDD77D134B270B61CEF61DE67AA33",
+    "slug": "jeff-munroe",
+    "departmentID": "GEOL"
+  },
+  {
+    "name": "Timothy Spears",
+    "instructorID": "88D1680887AE0661D5A798F901003B2F",
+    "slug": "timothy-spears"
+  },
+  {
+    "name": "Mark Williams",
+    "instructorID": "B1A409175A04AEE202DA483F6AD6EE53",
+    "slug": "mark-williams",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Anaïs Frantz de Spot",
+    "instructorID": "7556A2EBEC99A3AB42423BC95C46CFD4",
+    "slug": "anais-frantz-de-spot"
+  },
+  {
+    "name": "Matthew Schrader",
+    "instructorID": "8BE2436CF461459DDE1FC12563D1B822",
+    "slug": "matthew-schrader",
+    "departmentID": "_ART"
+  },
+  {
+    "name": "Jennifer Wang",
+    "instructorID": "1DAF2F53B85EC4561E658926C6B070B6",
+    "slug": "jennifer-wang"
+  },
+  {
+    "name": "Ananya Christman",
+    "instructorID": "CD027B285BB2EF1E6041BA37FA9C0F6C",
+    "slug": "ananya-christman",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Jonathan Miller-Lane",
+    "instructorID": "5AB6B5E762B3BF514617D18E5B4C6667",
+    "slug": "jonathan-miller-lane",
+    "departmentID": "EDST"
+  },
+  {
+    "name": "Raphaelle Gauvin-Coulombe",
+    "instructorID": "5E14E6768ADB88CB41EE61FC82F958AF",
+    "slug": "raphaelle-gauvin-coulombe",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Samantha Roach-Gerber",
+    "instructorID": "81004303A5EEED05DBA63F1FC108B820",
+    "slug": "samantha-roach-gerber"
+  },
+  {
+    "name": "Hedya Klein",
+    "instructorID": "4839CB3B489DA33A457CA972F901AF41",
+    "slug": "hedya-klein",
+    "departmentID": "_ART"
+  },
+  {
+    "name": "Genie Giaimo",
+    "instructorID": "411DE1A776E995B3AF89D611BA7E09CB",
+    "slug": "genie-giaimo"
+  },
+  {
+    "name": "Jonathan Isham",
+    "instructorID": "A792424EFB52FEA9D8C3BFD15666E20B",
+    "slug": "jonathan-isham"
+  },
+  {
+    "name": "Amanda Gregg",
+    "instructorID": "7D4C6B2D9F24BDB5809D5947FC7338BC",
+    "slug": "amanda-gregg",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Rebecca Bennette",
+    "instructorID": "4A0E4E2D912948AA3234D8D740C742C4",
+    "slug": "rebecca-bennette",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Lorraine Besser",
+    "instructorID": "153F4504816359C25AB11AFD711E0318",
+    "slug": "lorraine-besser",
+    "departmentID": "PHIL"
+  },
+  {
+    "name": "Zane Anthony",
+    "instructorID": "62743E724B967156A0B0BD6D602E47C3",
+    "slug": "zane-anthony"
+  },
+  {
+    "name": "Thomas Dunn",
+    "instructorID": "601538B1BC60EBCFE39C6664D426BF81",
+    "slug": "thomas-dunn"
+  },
+  {
+    "name": "Molly Anderson",
+    "instructorID": "AD898008B7D240406B58EE1A24EC6973",
+    "slug": "molly-anderson",
+    "departmentID": "FOOD"
+  },
+  {
+    "name": "Lindsay Repka",
+    "instructorID": "A1D7F0A8321DE769F4F8F8416167CD3E",
+    "slug": "lindsay-repka"
+  },
+  {
+    "name": "Matthew Dickerson",
+    "instructorID": "FF5EAE40C3FC9F2AE50BE07E65D4142C",
+    "slug": "matthew-dickerson",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Richard Bunt",
+    "instructorID": "82BC2F99BBA7A6AB086BB2602F08E656",
+    "slug": "richard-bunt"
+  },
+  {
+    "name": "KJ Krasco",
+    "instructorID": "561AA67D31276575D767406AB705192D",
+    "slug": "kj-krasco"
+  },
+  {
+    "name": "Jeffrey Lewis",
+    "instructorID": "CCAB297AAD3E222BFA423680B3C23A4B",
+    "slug": "jeffrey-lewis"
+  },
+  {
+    "name": "Claire Hodgdon",
+    "instructorID": "F696CD0F9A8408474406B434FDE3D4A1",
+    "slug": "claire-hodgdon"
+  },
+  {
+    "name": "Julia Berazneva",
+    "instructorID": "4B9522045037EEB1760C552B0B57C04D",
+    "slug": "julia-berazneva",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Michael Durst",
+    "instructorID": "5858CF90D5FCB6BAB2634638E75E833A",
+    "slug": "michael-durst",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Erick Gong",
+    "instructorID": "82F8CEF2E6C8AC1F50A1662258396EBE",
+    "slug": "erick-gong",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Benjamin Allred",
+    "instructorID": "C9D5B575937C9853D39DF06192F91274",
+    "slug": "benjamin-allred",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Chris Herdman",
+    "instructorID": "C6CF3BBB54E270E49CECB8F4AF71865A",
+    "slug": "chris-herdman",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Bertram Johnson",
+    "instructorID": "B4D34C135EA69007C2A5EA1B70DBD78A",
+    "slug": "bertram-johnson",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Raquel Albarran",
+    "instructorID": "AC452ED2FB6FC157DF83CF3942831781",
+    "slug": "raquel-albarran"
+  },
+  {
+    "name": "Sarah Stroup",
+    "instructorID": "F87DC808A105CC9C85FCAB074414134E",
+    "slug": "sarah-stroup",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Joshua Nelson",
+    "instructorID": "658831BAE0991BB1A58941F5E9C0A9B9",
+    "slug": "joshua-nelson",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "David Dorman",
+    "instructorID": "C13BB2BE4E7F885F54ED380FE9E93B05",
+    "slug": "david-dorman",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Stephen Snyder",
+    "instructorID": "0ECF6D84A8E20406098834662805613F",
+    "slug": "stephen-snyder"
+  },
+  {
+    "name": "Sarah Raunecker",
+    "instructorID": "B934BB551869F0DEC79FEF423857FEAB",
+    "slug": "sarah-raunecker"
+  },
+  {
+    "name": "Robert Izsak",
+    "instructorID": "1F316C111F37C16F98D4E2921682859A",
+    "slug": "robert-izsak"
+  },
+  {
+    "name": "Rebecca Tiger",
+    "instructorID": "8F03093486627D4075577A89C0185CC3",
+    "slug": "rebecca-tiger",
+    "departmentID": "SOCI"
+  },
+  {
+    "name": "Will Pyle",
+    "instructorID": "998F4652D1E3166AEE65B5F3C40B7A94",
+    "slug": "will-pyle",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Carly Thomsen",
+    "instructorID": "908485A2FA661010AA86B854469E40E2",
+    "slug": "carly-thomsen"
+  },
+  {
+    "name": "William Beaney",
+    "instructorID": "EE8F706249F8F7332E1A3FB5B68A89F5",
+    "slug": "william-beaney"
+  },
+  {
+    "name": "Peter Bevere",
+    "instructorID": "94B394B6171AD905FFF2F912D145C417",
+    "slug": "peter-bevere"
+  },
+  {
+    "name": "Christal Brown",
+    "instructorID": "CF429294CAC43EBB71EA77B2BB5391CF",
+    "slug": "christal-brown",
+    "departmentID": "DANC"
+  },
+  {
+    "name": "John Pirone",
+    "instructorID": "B96B9A81CF065621FCC8AAE2EAF1770D",
+    "slug": "john-pirone"
+  },
+  {
+    "name": "Jeff Howarth",
+    "instructorID": "04971DA03D394CCDCE57432B237242D2",
+    "slug": "jeff-howarth",
+    "departmentID": "GEOG"
+  },
+  {
+    "name": "Allison Cardon",
+    "instructorID": "7F0EA9BD6DA2F270E6E984FA5149379A",
+    "slug": "allison-cardon"
+  },
+  {
+    "name": "Khyree Davis",
+    "instructorID": "608426B96A7E0EC1A3BD3032DE87A40A",
+    "slug": "khyree-davis"
+  },
+  {
+    "name": "Ambroise Kom",
+    "instructorID": "228010CC0FFD2A04DBDC2590FFBB6C3E",
+    "slug": "ambroise-kom"
+  },
+  {
+    "name": "Michael Kraus",
+    "instructorID": "7004BAE56EC3A88C7120540319119D32",
+    "slug": "michael-kraus",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Nadia Horning",
+    "instructorID": "5DB8463D3011463D6393C4EAF1F09584",
+    "slug": "nadia-horning"
+  },
+  {
+    "name": "Sayaka Abe",
+    "instructorID": "AF447BBF7AAA4D008D807A660462F04B",
+    "slug": "sayaka-abe"
+  },
+  {
+    "name": "Andrea Vaccari",
+    "instructorID": "4347EFF33F703A17CBF34CE12E14464A",
+    "slug": "andrea-vaccari",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Guntram Herb",
+    "instructorID": "60BE5F8EA93ABF7A70C808EE804B450D",
+    "slug": "guntram-herb",
+    "departmentID": "GEOG"
+  },
+  {
+    "name": "Anne-Marie Magri",
+    "instructorID": "1128BC3BEC9B32BB9275A5B36127526B",
+    "slug": "anne-marie-magri"
+  },
+  {
+    "name": "William Mandigo",
+    "instructorID": "516A2E4F61F8F756379C117D2EF570BA",
+    "slug": "william-mandigo"
+  },
+  {
+    "name": "Jeffrey Carpenter",
+    "instructorID": "CDD160ACBA4863F038731B1F6E5EC717",
+    "slug": "jeffrey-carpenter",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Michael French",
+    "instructorID": "FDE4A2B4FF0BD032A1925E0D4EB4A2C0",
+    "slug": "michael-french"
+  },
+  {
+    "name": "Jean du Preez",
+    "instructorID": "5CE2BF869D9BDF3F65929F6C7CE8B884",
+    "slug": "jean-du-preez"
+  },
+  {
+    "name": "Kyra Miller Wegman",
+    "instructorID": "817C44D0C33F91F5BCD13E038C97B0FE",
+    "slug": "kyra-miller-wegman"
+  },
+  {
+    "name": "Matthew Considine",
+    "instructorID": "B8E748AD19E33787FEA2FD1F51365D3F",
+    "slug": "matthew-considine"
+  },
+  {
+    "name": "Claudio Medeiros",
+    "instructorID": "CD4A7A5BC6E9CA9031CBE51488C9A0DC",
+    "slug": "claudio-medeiros",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "Joyce Mao",
+    "instructorID": "7B2012334C1FA1DEB4147DF1AB431F1A",
+    "slug": "joyce-mao",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Vinita Tripathi",
+    "instructorID": "52076C4003C3F0723DF790A96B835730",
+    "slug": "vinita-tripathi"
+  },
+  {
+    "name": "Nancy Fullman",
+    "instructorID": "B3710875D14A797FB7326975C019B814",
+    "slug": "nancy-fullman"
+  },
+  {
+    "name": "Robert Cluss",
+    "instructorID": "B2A0FABC474E9D5533212AFA3288FFD0",
+    "slug": "robert-cluss"
+  },
+  {
+    "name": "Harrison Hsiang",
+    "instructorID": "1A556F2E2EC82A000684E4EA3FB2ED39",
+    "slug": "harrison-hsiang"
+  },
+  {
+    "name": "Allison Jacobel",
+    "instructorID": "A6EAF29B25268B44AD172D87A64684B5",
+    "slug": "allison-jacobel",
+    "departmentID": "GEOL"
+  },
+  {
+    "name": "Gregory Pask",
+    "instructorID": "E80C2851E876713CF9FBF73A30ED977D",
+    "slug": "gregory-pask",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Victoria Juharyan",
+    "instructorID": "5E37B04F9B1E6BEC1E6D391B2033AD22",
+    "slug": "victoria-juharyan"
+  },
+  {
+    "name": "Peter Nelson",
+    "instructorID": "290C9BCEFD0C8F278E72785ECFF6C392",
+    "slug": "peter-nelson",
+    "departmentID": "GEOG"
+  },
+  {
+    "name": "Shuching Huang",
+    "instructorID": "4C28BEC077D6EA96026DFC19BE3CBE60",
+    "slug": "shuching-huang"
+  },
+  {
+    "name": "Pieter Broucke",
+    "instructorID": "5EA9655FD99D097BB6AFB108FA779435",
+    "slug": "pieter-broucke"
+  },
+  {
+    "name": "Amy Collier",
+    "instructorID": "E9BBE20403A437991594AB47E50DEABC",
+    "slug": "amy-collier"
+  },
+  {
+    "name": "Allan Hamilton",
+    "instructorID": "27FDB8EDB5E9A2E5C5671E49C4D29867",
+    "slug": "allan-hamilton",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Kemi Fuentes-George",
+    "instructorID": "E4931EE5E19F27BC9C45B36C97D3E89B",
+    "slug": "kemi-fuentes-george",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Shelby Kimmel",
+    "instructorID": "6B11D09D050CB905DC2F468A64E07875",
+    "slug": "shelby-kimmel",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Tanya Byker",
+    "instructorID": "3DAE4B8382EE810A238661903DCDA2B7",
+    "slug": "tanya-byker",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Susan Burch",
+    "instructorID": "3415A6AFA51EDCD9F9CD4013A2C68E36",
+    "slug": "susan-burch"
+  },
+  {
+    "name": "James Berg",
+    "instructorID": "F8D24630B317241DC15E1AF9E407B499",
+    "slug": "james-berg"
+  },
+  {
+    "name": "Mira Veikley",
+    "instructorID": "25D6645845549EB63EB76607934617DD",
+    "slug": "mira-veikley",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "Michael Newbury",
+    "instructorID": "3314AC56F1073624BB5C3C2B9DD346D3",
+    "slug": "michael-newbury"
+  },
+  {
+    "name": "Vickie Backus",
+    "instructorID": "0B6117CE0000AF17125783E741A6E829",
+    "slug": "vickie-backus",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Moyara Ruehsen",
+    "instructorID": "354777FBEE33F4B557080A5BE4324346",
+    "slug": "moyara-ruehsen"
+  },
+  {
+    "name": "Kyle Brudvik",
+    "instructorID": "4369B105E5B867B960F0CD7E4DB7E659",
+    "slug": "kyle-brudvik"
+  },
+  {
+    "name": "Gabriella Koltai",
+    "instructorID": "5B44BB4B8CF71B46DCAC7A4D428BD128",
+    "slug": "gabriella-koltai"
+  },
+  {
+    "name": "Michal Strier",
+    "instructorID": "B08C0725FED9D9AECD7CD5094149492F",
+    "slug": "michal-strier"
+  },
+  {
+    "name": "Ellen Oxfeld",
+    "instructorID": "36ABE68689916ED6DC9A628709F5CD8C",
+    "slug": "ellen-oxfeld",
+    "departmentID": "ANTH"
+  },
+  {
+    "name": "Phoebe Streblow",
+    "instructorID": "7FAC5B5341A7CB6339C7F64BCC8F620C",
+    "slug": "phoebe-streblow",
+    "departmentID": "_ART"
+  },
+  {
+    "name": "Jason Arndt",
+    "instructorID": "26F18A3229D0E81990D7171A00027493",
+    "slug": "jason-arndt",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Ajay Verghese",
+    "instructorID": "A2421666BC17C4B8CAC8CACCDABF861E",
+    "slug": "ajay-verghese",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Waithera Roki",
+    "instructorID": "FC9094508A17C3B2415B6DB743633184",
+    "slug": "waithera-roki"
+  },
+  {
+    "name": "M. Van Order",
+    "instructorID": "C13F62CF78B4B50ADBBF33756DF71128",
+    "slug": "m-van-order",
+    "departmentID": "ITAL"
+  },
+  {
+    "name": "Usama Soltan",
+    "instructorID": "A40FB0EDD244631A5ABE05B9DB8C59B7",
+    "slug": "usama-soltan"
+  },
+  {
+    "name": "Erin Sassin",
+    "instructorID": "B2C46E0B6A1FA07FAE11C562146BFEF4",
+    "slug": "erin-sassin",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Erin Davis",
+    "instructorID": "0479814930D9C96F91BBF09B1E64BD16",
+    "slug": "erin-davis"
+  },
+  {
+    "name": "Sarah Lohnes Watulak",
+    "instructorID": "5B175C7BBE7D8D75B5BC4A4FD8F7A407",
+    "slug": "sarah-lohnes-watulak"
+  },
+  {
+    "name": "Damascus Kafumbe",
+    "instructorID": "71165CB6B3F17B9A7E49316C481A40E8",
+    "slug": "damascus-kafumbe",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Albert Baldridge",
+    "instructorID": "353B68F9AF880E7CA768B19AEB2B9953",
+    "slug": "albert-baldridge"
+  },
+  {
+    "name": "Clarissa Parker",
+    "instructorID": "3A6B3237C93AB85B9E623817AEA8D7A7",
+    "slug": "clarissa-parker"
+  },
+  {
+    "name": "David Stoll",
+    "instructorID": "7E0BD22F5C7614074D42AF59C4A17705",
+    "slug": "david-stoll",
+    "departmentID": "ANTH"
+  },
+  {
+    "name": "Michael Linderman",
+    "instructorID": "A2AC71171F0C0CF8D1E502B2DCBF4DAB",
+    "slug": "michael-linderman",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Stacie Cassarino",
+    "instructorID": "F6F8B9D240215C1641D2971E1E959241",
+    "slug": "stacie-cassarino",
+    "departmentID": "FYSE"
+  },
+  {
+    "name": "Michael Owens",
+    "instructorID": "7280D8D5CEC76985DB5C697C0E9A0096",
+    "slug": "michael-owens",
+    "departmentID": "SOCI"
+  },
+  {
+    "name": "James Gallagher",
+    "instructorID": "DEDF250EE7051DA1BD16496EFA1C0D16",
+    "slug": "james-gallagher"
+  },
+  {
+    "name": "Maria Hatjigeorgiou",
+    "instructorID": "4126E0ADF7A8944EFD02D220C6C70D49",
+    "slug": "maria-hatjigeorgiou"
+  },
+  {
+    "name": "Carrie Wiebe",
+    "instructorID": "F7C30CBB20769B5CE99A67636303DE5D",
+    "slug": "carrie-wiebe",
+    "departmentID": "CHNS"
+  },
+  {
+    "name": "Carolyn Dash",
+    "instructorID": "13B1C12B60906E7CDCF868FBB8CB4C73",
+    "slug": "carolyn-dash",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Virginia Thomas",
+    "instructorID": "EE47DF9B8935F48BA2A312D84688561B",
+    "slug": "virginia-thomas",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Dana Yeaton",
+    "instructorID": "90338E439DA4652A2BDE2AC3F327A563",
+    "slug": "dana-yeaton",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "Su Tan",
+    "instructorID": "195B554A9E61B496B1A68AF2B468319C",
+    "slug": "su-tan",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Justin Doran",
+    "instructorID": "7C1142898FAE872E26C99907CA3B8872",
+    "slug": "justin-doran",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "Zu Wei Zhai",
+    "instructorID": "6092FF719F9ED014EB91C7EE975B7F59",
+    "slug": "zu-wei-zhai",
+    "departmentID": "NSCI"
+  },
+  {
+    "name": "Edward Vazquez",
+    "instructorID": "005DA2AD086C543D5979380D1F4B7114",
+    "slug": "edward-vazquez",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Peter Stavros",
+    "instructorID": "489517F95784CADDD55E573C12DFA687",
+    "slug": "peter-stavros"
+  },
+  {
+    "name": "Timothy Portice",
+    "instructorID": "F382C1007D96210770BEA299BB90D396",
+    "slug": "timothy-portice",
+    "departmentID": "RUSS"
+  },
+  {
+    "name": "Orion Lewis",
+    "instructorID": "A826A18A4E638CE4880F8C245CF68D80",
+    "slug": "orion-lewis",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Paul Hess",
+    "instructorID": "0AAE8C22D8324D2266634917327A42FA",
+    "slug": "paul-hess",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Elizabeth Morrison",
+    "instructorID": "5BF99E8B7F619EE65C57E3B07E011A68",
+    "slug": "elizabeth-morrison",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "Robert Greeley",
+    "instructorID": "4A56D8EC8C51010A47F5D7444D22FB84",
+    "slug": "robert-greeley",
+    "departmentID": "ARBC"
+  },
+  {
+    "name": "Heather Christie",
+    "instructorID": "B57ECEA682082FAB72F06F5840BFEB51",
+    "slug": "heather-christie",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Michael Olinick",
+    "instructorID": "D3CD48D2B8CAD51ACB0F48C000189315",
+    "slug": "michael-olinick",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Phanindra Wunnava",
+    "instructorID": "E808A04D206258FB3D31F2D8FF7BE285",
+    "slug": "phanindra-wunnava",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Katherine Wang",
+    "instructorID": "D07F0C92A42969CBB12BAC065B3DCB43",
+    "slug": "katherine-wang",
+    "departmentID": "CHNS"
+  },
+  {
+    "name": "Susan DeSimone",
+    "instructorID": "0EEF5FFBF80E26E890DBAFB5B3966DEA",
+    "slug": "susan-desimone",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Bettina Matthias",
+    "instructorID": "A392B22FC71DFDA563379925E5E33984",
+    "slug": "bettina-matthias",
+    "departmentID": "GRMN"
+  },
+  {
+    "name": "Steven Viner",
+    "instructorID": "2ECA27B5F3CED31181268AED7EBBD287",
+    "slug": "steven-viner",
+    "departmentID": "PHIL"
+  },
+  {
+    "name": "Sepideh Alavi",
+    "instructorID": "1ADEE061F5E38F04774A7C8815314564",
+    "slug": "sepideh-alavi"
+  },
+  {
+    "name": "Martha Woodruff",
+    "instructorID": "335D089E7A89AF096BD4CFA093D2E40A",
+    "slug": "martha-woodruff",
+    "departmentID": "PHIL"
+  },
+  {
+    "name": "Matthew Dickinson",
+    "instructorID": "97425AB3688238ADD570AAD81A34CA6E",
+    "slug": "matthew-dickinson",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "John Dooley",
+    "instructorID": "77C223A04D742A8614C95F3CCE4E4214",
+    "slug": "john-dooley"
+  },
+  {
+    "name": "Rachael Joo",
+    "instructorID": "F86D802267249A01F24AED3F3AAA917F",
+    "slug": "rachael-joo"
+  },
+  {
+    "name": "Kailee Brickner-McDonald",
+    "instructorID": "E2EFDEA7A75FDDCAD2B3296DF657133C",
+    "slug": "kailee-brickner-mcdonald"
+  },
+  {
+    "name": "Alexander Elias",
+    "instructorID": "4257DC6E92D1E6DA5937B47A5764BAA6",
+    "slug": "alexander-elias"
+  },
+  {
+    "name": "Jeannie Bartlett",
+    "instructorID": "87F0848B3EC4DF58F7AF7ED61EB35BB1",
+    "slug": "jeannie-bartlett"
+  },
+  {
+    "name": "Jessica L'Roe",
+    "instructorID": "A6F4F0D8197CCCBFCEE4A6CE9645FFE7",
+    "slug": "jessica-lroe",
+    "departmentID": "GEOG"
+  },
+  {
+    "name": "William Vitek",
+    "instructorID": "792647BCB23E4656F1E56D908E19F4D0",
+    "slug": "william-vitek",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Kareem Khalifa",
+    "instructorID": "ED16FFB18CB76EA016EC85B22F9DAF28",
+    "slug": "kareem-khalifa",
+    "departmentID": "PHIL"
+  },
+  {
+    "name": "Elizabeth Ultee",
+    "instructorID": "7BB0EEEA4E65A6DC3EE1D8BCDD653CE5",
+    "slug": "elizabeth-ultee",
+    "departmentID": "GEOL"
+  },
+  {
+    "name": "John Spackman",
+    "instructorID": "B9899E9EA78BEBA315D4102B2281326B",
+    "slug": "john-spackman",
+    "departmentID": "PHIL"
+  },
+  {
+    "name": "Joseph Andriano",
+    "instructorID": "A197BF1B8F13CDB0870D2EB5C8EA3004",
+    "slug": "joseph-andriano"
+  },
+  {
+    "name": "Holly Allen",
+    "instructorID": "EB22314A852970F29D9C828DEC3265D2",
+    "slug": "holly-allen"
+  },
+  {
+    "name": "Evan Bennett",
+    "instructorID": "7BCE396E4A1B040CE6DF1B9399F0B217",
+    "slug": "evan-bennett",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Ernie Parizeau",
+    "instructorID": "AB3428DE54A399BF6CA35D06B3E05F95",
+    "slug": "ernie-parizeau"
+  },
+  {
+    "name": "Claudia Cooper",
+    "instructorID": "787CC35B48569CF641E38265DE244F47",
+    "slug": "claudia-cooper",
+    "departmentID": "EDST"
+  },
+  {
+    "name": "Amy Yuen",
+    "instructorID": "42542D9E8079DE75A64A6AC90A8A66F4",
+    "slug": "amy-yuen",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Douglas Mandigo",
+    "instructorID": "1274232D5AE566DD23B29501A27D8CF0",
+    "slug": "douglas-mandigo"
+  },
+  {
+    "name": "Jocelyn Breton",
+    "instructorID": "8BA65B5C2FBD520AB4A3330A7BC3C281",
+    "slug": "jocelyn-breton"
+  },
+  {
+    "name": "Nicole Wilkerson",
+    "instructorID": "A75F07493B93D5D7CEF3057B2F3F5BD9",
+    "slug": "nicole-wilkerson"
+  },
+  {
+    "name": "Laurie Essig",
+    "instructorID": "2C7CF1C500B1611C390F509167D049D0",
+    "slug": "laurie-essig"
+  },
+  {
+    "name": "Michelle Pottorf",
+    "instructorID": "36B1BFF06C9D5CBABA5441C5506A9752",
+    "slug": "michelle-pottorf",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Jamie McCallum",
+    "instructorID": "F4588AA52B12EE804AA7D201056A8E79",
+    "slug": "jamie-mccallum",
+    "departmentID": "SOCI"
+  },
+  {
+    "name": "Stever Bartlett",
+    "instructorID": "DF4888C349C18051B5E7354C025846CB",
+    "slug": "stever-bartlett"
+  },
+  {
+    "name": "Sujata Moorti",
+    "instructorID": "85F66339C9FF4EAB1AAF654ADCF1ED6E",
+    "slug": "sujata-moorti"
+  },
+  {
+    "name": "Natalie Eppelsheimer",
+    "instructorID": "399298C5CCA9AAF2E29C0EE3D43B7FCE",
+    "slug": "natalie-eppelsheimer",
+    "departmentID": "GRMN"
+  },
+  {
+    "name": "Peter Hamlin",
+    "instructorID": "887563BCE0089BFECD55E59B51FFB1AB",
+    "slug": "peter-hamlin",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Judith Marshall",
+    "instructorID": "B8AEADCC39D46C165601EA579874CA78",
+    "slug": "judith-marshall"
+  },
+  {
+    "name": "Max Ward",
+    "instructorID": "C8D4C2B636E46E85D467D70F649197DC",
+    "slug": "max-ward",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Lisa Luna",
+    "instructorID": "FBAB60D1A1B8403A8C2024B1DF4F876C",
+    "slug": "lisa-luna"
+  },
+  {
+    "name": "Josefina Itoiz",
+    "instructorID": "99585D2A6C180AEC9139DC32599B1503",
+    "slug": "josefina-itoiz"
+  },
+  {
+    "name": "Eilat Glikman",
+    "instructorID": "F16ADCB6066D31DAF05DD3D79133CD18",
+    "slug": "eilat-glikman",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "Daniel Houghton",
+    "instructorID": "3E637AD148F82CA4D93345DE7DBB2603",
+    "slug": "daniel-houghton"
+  },
+  {
+    "name": "Roger White",
+    "instructorID": "173C57FE1B3DA0CDB2A384703017284C",
+    "slug": "roger-white",
+    "departmentID": "_ART"
+  },
+  {
+    "name": "Michele Dube",
+    "instructorID": "B2A7D3ACE466FCF1450A98EEFEDAB0B4",
+    "slug": "michele-dube"
+  },
+  {
+    "name": "Tracy Weston",
+    "instructorID": "725949FA28731758E8AF2FDC72AFA34F",
+    "slug": "tracy-weston",
+    "departmentID": "EDST"
+  },
+  {
+    "name": "Susan Watson",
+    "instructorID": "69F19D762DFB22DEA3436F4B2F0671C5",
+    "slug": "susan-watson",
+    "departmentID": "PHYS"
+  },
+  {
+    "name": "David Miranda Hardy",
+    "instructorID": "5B102D1255929DBA4A202E7C0EDED6D4",
+    "slug": "david-miranda-hardy"
+  },
+  {
+    "name": "Benjamin Marks",
+    "instructorID": "6BCC9CF1F92754C993A961782228E918",
+    "slug": "benjamin-marks"
+  },
+  {
+    "name": "David Bradbury",
+    "instructorID": "7CF4D521D2664BBB1E76AA4E3308B5D6",
+    "slug": "david-bradbury"
+  },
+  {
+    "name": "Faisal Alasiri",
+    "instructorID": "CBEDEE05A100CB6231D20C783D4C0091",
+    "slug": "faisal-alasiri"
+  },
+  {
+    "name": "Thomas Moran",
+    "instructorID": "740E9587BF8057D0039828F54DDAF546",
+    "slug": "thomas-moran",
+    "departmentID": "CHNS"
+  },
+  {
+    "name": "Allison Stanger",
+    "instructorID": "E4D014379D428C941E40E8571920E70B",
+    "slug": "allison-stanger",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Marcos Rohena-Madrazo",
+    "instructorID": "AB3FD7C0CF17D55BC2F39884FDE4137F",
+    "slug": "marcos-rohena-madrazo"
+  },
+  {
+    "name": "Robin Lunge",
+    "instructorID": "D3F207217E217D85BAF4FA6686CD5CA1",
+    "slug": "robin-lunge"
+  },
+  {
+    "name": "Alla Fil",
+    "instructorID": "6E2A535AC2D05C2B9765F712CD5107E0",
+    "slug": "alla-fil"
+  },
+  {
+    "name": "Catharine Wright",
+    "instructorID": "6AFD31847CCDD6AE6577AFAA62C2E03C",
+    "slug": "catharine-wright"
+  },
+  {
+    "name": "Daniel Silva",
+    "instructorID": "03ADA254D300419ED7B580EC6EC281B9",
+    "slug": "daniel-silva"
+  },
+  {
+    "name": "James Dunn",
+    "instructorID": "1A274F82ED75B6D6F67CE65CBAA731EE",
+    "slug": "james-dunn",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "John Schmitt",
+    "instructorID": "2D0A8479D7326245AE4234AECA465D8C",
+    "slug": "john-schmitt",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Marta Manrique-Gomez",
+    "instructorID": "CEA9F75B39CA2A867ABB252B6E686FD6",
+    "slug": "marta-manrique-gomez"
+  },
+  {
+    "name": "Robert Cohen",
+    "instructorID": "4B2EA87CFDECC2A1C584557A278166EF",
+    "slug": "robert-cohen"
+  },
+  {
+    "name": "Charles Frankel",
+    "instructorID": "C59CBC4B30D373A173D04B2C72FE588C",
+    "slug": "charles-frankel"
+  },
+  {
+    "name": "Andrew Johnson",
+    "instructorID": "23EB06439EBE2ABADF50A0A433BE34B1",
+    "slug": "andrew-johnson"
+  },
+  {
+    "name": "John Maluccio",
+    "instructorID": "AE8B7891A56495B614A4430A64B10F24",
+    "slug": "john-maluccio",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Olga Sanchez Saltveit",
+    "instructorID": "4BB20753F5BF03248FCA33807F56D94D",
+    "slug": "olga-sanchez-saltveit",
+    "departmentID": "THEA"
+  },
+  {
+    "name": "Amy McGlashan",
+    "instructorID": "B8029526934F84788D4524241DADDA35",
+    "slug": "amy-mcglashan"
+  },
+  {
+    "name": "Ruth Hardy",
+    "instructorID": "3D0CC879B0E86106C55684E1EF364209",
+    "slug": "ruth-hardy"
+  },
+  {
+    "name": "Jane Chaplin",
+    "instructorID": "F2549A47ECAE7C1FEDBC926514656672",
+    "slug": "jane-chaplin",
+    "departmentID": "CLAS"
+  },
+  {
+    "name": "James Davis",
+    "instructorID": "A4B8F95413AED0F4A12C13EF4849317D",
+    "slug": "james-davis",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "David Fastovich",
+    "instructorID": "24B67CC1824B63E032BC435C82375BAC",
+    "slug": "david-fastovich"
+  },
+  {
+    "name": "Carolyn Craven",
+    "instructorID": "4DF105E073C84E5F6E7327E7051DFF77",
+    "slug": "carolyn-craven",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Gerald Boddie",
+    "instructorID": "1E88F2FD3D7EEB929F287EEBB64AEF2C",
+    "slug": "gerald-boddie"
+  },
+  {
+    "name": "Sanae Eda",
+    "instructorID": "E74DF8E7C16882ACDB525A69F68D4DA9",
+    "slug": "sanae-eda"
+  },
+  {
+    "name": "Laurie Patton",
+    "instructorID": "00A67761BCF3FFC83EAC4EE36A5D2ADB",
+    "slug": "laurie-patton"
+  },
+  {
+    "name": "Mez Baker-Medard",
+    "instructorID": "CF858B7BED9EB2485AB8EF2ED16FB5CB",
+    "slug": "mez-baker-medard",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Joseph Holler",
+    "instructorID": "339F59F76C594F4978F4B3D547A4D0CF",
+    "slug": "joseph-holler",
+    "departmentID": "GEOG"
+  },
+  {
+    "name": "Michelle McCauley",
+    "instructorID": "93E10A5539314C1C2B4C3C89D0895843",
+    "slug": "michelle-mccauley",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Robert Hansen",
+    "instructorID": "F7AB6051B1C3D11FF276B4E356D69CAE",
+    "slug": "robert-hansen"
+  },
+  {
+    "name": "Jennifer Ortegren",
+    "instructorID": "B91A11C5F210206CA33093F381406DAF",
+    "slug": "jennifer-ortegren",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "Lauren Ash",
+    "instructorID": "1989E0DDB6CE0526043CB3EBC4324F1F",
+    "slug": "lauren-ash",
+    "departmentID": "BIOL"
+  },
+  {
+    "name": "Ivy Zhang",
+    "instructorID": "26EB84CA0F247F4FBA1B9D425917635E",
+    "slug": "ivy-zhang",
+    "departmentID": "MATH"
+  },
+  {
+    "name": "Mike Leonard",
+    "instructorID": "C117A799DF2CE834D4A4AB9556C172C1",
+    "slug": "mike-leonard"
+  },
+  {
+    "name": "Catherine Lee",
+    "instructorID": "4EC9A25EF40FBADAFFC3533299F4A93A",
+    "slug": "catherine-lee"
+  },
+  {
+    "name": "Marc Lapin",
+    "instructorID": "CBBEB5459B95503AA26C8B7A9FF330BF",
+    "slug": "marc-lapin",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Peter Matthews",
+    "instructorID": "45341434052C76031F1138C6B4276B68",
+    "slug": "peter-matthews",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "John McLeod",
+    "instructorID": "B43211984226D5695DBD68CC56D6794C",
+    "slug": "john-mcleod",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Matthew Saldivar",
+    "instructorID": "0C310E0FEFBD5038A72F20C2BF78EC09",
+    "slug": "matthew-saldivar"
+  },
+  {
+    "name": "Timothy Parsons",
+    "instructorID": "389D002F396CF6568D23AC3816DC3D74",
+    "slug": "timothy-parsons"
+  },
+  {
+    "name": "Nana Tsikhelashvili",
+    "instructorID": "3DF8A6D08FD944AA07D7A01D43E2B35B",
+    "slug": "nana-tsikhelashvili"
+  },
+  {
+    "name": "Margaret Clinton",
+    "instructorID": "E4A28AA344AF0CCC1F602126E482A0D9",
+    "slug": "margaret-clinton",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "AnGayle Vasiliou",
+    "instructorID": "289055D7CEB6125D296208129D25706D",
+    "slug": "angayle-vasiliou"
+  },
+  {
+    "name": "Robert Ritter",
+    "instructorID": "A4D8EE9BFC705ADA8896CD4856CD4BAD",
+    "slug": "robert-ritter"
+  },
+  {
+    "name": "Clinton Cave",
+    "instructorID": "BAB94ED5A7F9F15A1BC3CAFD71E4911A",
+    "slug": "clinton-cave",
+    "departmentID": "NSCI"
+  },
+  {
+    "name": "Natasha Ngaiza",
+    "instructorID": "4FDA4C70C292DB4B19918B16B2DD1FCD",
+    "slug": "natasha-ngaiza"
+  },
+  {
+    "name": "Matthew Walker",
+    "instructorID": "2018712E1D4848B28D059AA3B0BE4760",
+    "slug": "matthew-walker",
+    "departmentID": "RUSS"
+  },
+  {
+    "name": "William Waldron",
+    "instructorID": "EAB584A8331F02DFDA15E844A9F20D72",
+    "slug": "william-waldron",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "David Campbell",
+    "instructorID": "C99578163927073E8F338A0E6BEA171A",
+    "slug": "david-campbell"
+  },
+  {
+    "name": "Christopher Mills",
+    "instructorID": "729D38690B761AB8723E4C575287B71B",
+    "slug": "christopher-mills"
+  },
+  {
+    "name": "Patricia Saldarriaga",
+    "instructorID": "D4E6141C8BB521E67CB656E841A030A8",
+    "slug": "patricia-saldarriaga"
+  },
+  {
+    "name": "Amy Tondu",
+    "instructorID": "0B6329B897700A150218E841B38B23A4",
+    "slug": "amy-tondu"
+  },
+  {
+    "name": "Fernando Rocha",
+    "instructorID": "37FBA9B1E77BFB032B8144ADCEBA8A46",
+    "slug": "fernando-rocha"
+  },
+  {
+    "name": "Katherine O'Brien",
+    "instructorID": "458B8319CC93032A2D62C31376167F7F",
+    "slug": "katherine-obrien"
+  },
+  {
+    "name": "Caitlin Myers",
+    "instructorID": "3F14B3B9EC244441F572AAEC07DC4401",
+    "slug": "caitlin-myers",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Logan Fischer",
+    "instructorID": "F67E87DD30752A0E2C50AE2842D97939",
+    "slug": "logan-fischer"
+  },
+  {
+    "name": "Gary Winslett",
+    "instructorID": "AE3DB8B66DDD9E2E0770D7BCE8879FB2",
+    "slug": "gary-winslett",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Roger Russi",
+    "instructorID": "EA677E6759BC87089DA2763DC47DAE9B",
+    "slug": "roger-russi",
+    "departmentID": "CMLT"
+  },
+  {
+    "name": "Winfield Kelley",
+    "instructorID": "399E127512F4D158DF25F62BB83F56FC",
+    "slug": "winfield-kelley"
+  },
+  {
+    "name": "Robert Schine",
+    "instructorID": "0AD8E115DEDC0EDC35BBD58E4BD21010",
+    "slug": "robert-schine",
+    "departmentID": "RELI"
+  },
+  {
+    "name": "Rebecca Horn",
+    "instructorID": "C3EAB3B6F087866779616E2416FD4C87",
+    "slug": "rebecca-horn"
+  },
+  {
+    "name": "J. Forman",
+    "instructorID": "19ED4E4FAD257D24A7E6E27A5E9A56F9",
+    "slug": "j-forman",
+    "departmentID": "MUSC"
+  },
+  {
+    "name": "Roman Graf",
+    "instructorID": "3634F15F36D6F25A08B4BB0203078FF8",
+    "slug": "roman-graf",
+    "departmentID": "GRMN"
+  },
+  {
+    "name": "Cynthia Packert",
+    "instructorID": "24B10A7A17F880C76E963FDCEE227BAF",
+    "slug": "cynthia-packert",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Andrew Fieldhouse",
+    "instructorID": "94D542EB9BCBA195EFE821D3AD5D7FD6",
+    "slug": "andrew-fieldhouse",
+    "departmentID": "ECON"
+  },
+  {
+    "name": "Christopher Klyza",
+    "instructorID": "C488F92E663365CFA1E1B8BA64160094",
+    "slug": "christopher-klyza"
+  },
+  {
+    "name": "Diane DeBella",
+    "instructorID": "D364F12C8399D5100A4222E62486938D",
+    "slug": "diane-debella"
+  },
+  {
+    "name": "Kai Zhang",
+    "instructorID": "FC69F550E1515F2D00D1BC8CF490FDA0",
+    "slug": "kai-zhang"
+  },
+  {
+    "name": "Ryan Sheldon",
+    "instructorID": "64EE9CEED2BA9392E7FA9CFD9C05E48B",
+    "slug": "ryan-sheldon"
+  },
+  {
+    "name": "Catherine Canavan",
+    "instructorID": "35F8B84ED8E03200A988AC5B3E2E89F5",
+    "slug": "catherine-canavan"
+  },
+  {
+    "name": "Martin Seehuus",
+    "instructorID": "32A0F54B8F0EBC79BCF945F9F43329BD",
+    "slug": "martin-seehuus",
+    "departmentID": "PSYC"
+  },
+  {
+    "name": "Nadine Barnicle",
+    "instructorID": "99EF938CCF3D533904CCD75C97F4AF15",
+    "slug": "nadine-barnicle"
+  },
+  {
+    "name": "Katherine Smith Abbott",
+    "instructorID": "99FAAD4061036D4FED72D24ACD408EA8",
+    "slug": "katherine-smith-abbott",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Tina Donaldson",
+    "instructorID": "834771AAF10B2F4F7202098DB79BC35F",
+    "slug": "tina-donaldson"
+  },
+  {
+    "name": "Eric Jacobson",
+    "instructorID": "AB1BDB43776D150BB28CBD3CA980E273",
+    "slug": "eric-jacobson"
+  },
+  {
+    "name": "Joseph McVeigh",
+    "instructorID": "AB6DA469928BE57EAC184A341C5DE499",
+    "slug": "joseph-mcveigh"
+  },
+  {
+    "name": "Jay Saper",
+    "instructorID": "96E91E13BF88BD2A5F38E740A7E04966",
+    "slug": "jay-saper"
+  },
+  {
+    "name": "Nikolina Dobreva",
+    "instructorID": "A316A7E912B054980B7CD3ACFD5949CF",
+    "slug": "nikolina-dobreva"
+  },
+  {
+    "name": "Philip Caplan",
+    "instructorID": "ED3B22D73836EA86F9127C0691477535",
+    "slug": "philip-caplan",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Murray Dry",
+    "instructorID": "076325FE8E9D69193C080B0052AB9561",
+    "slug": "murray-dry",
+    "departmentID": "PSCI"
+  },
+  {
+    "name": "Kathryn Livesay",
+    "instructorID": "55DC3CE4C5FBFD24F27C8E62D8BB4D66",
+    "slug": "kathryn-livesay"
+  },
+  {
+    "name": "Spring Ulmer",
+    "instructorID": "DD194645B18E4DE168BBAF237E0F3D27",
+    "slug": "spring-ulmer"
+  },
+  {
+    "name": "Otilia Milutin",
+    "instructorID": "A652069B034A757D4A0E017533F48992",
+    "slug": "otilia-milutin"
+  },
+  {
+    "name": "Silvia Lorenso Castro",
+    "instructorID": "3F835D951BF7F17BCF3798CA0CE0B33B",
+    "slug": "silvia-lorenso-castro"
+  },
+  {
+    "name": "Amy Morsman",
+    "instructorID": "FCB3561BB007EF02906627759D017C26",
+    "slug": "amy-morsman",
+    "departmentID": "HIST"
+  },
+  {
+    "name": "Peter Tarjanyi",
+    "instructorID": "6074A33BD5C38DCEBFBEE837FAE7C87E",
+    "slug": "peter-tarjanyi"
+  },
+  {
+    "name": "Laurel Jenkins",
+    "instructorID": "CE6767E8AC2F03D570AF496D26252B3C",
+    "slug": "laurel-jenkins",
+    "departmentID": "DANC"
+  },
+  {
+    "name": "Claudio Gonzalez-Chiaramonte",
+    "instructorID": "3186AF987FC467F6F1A2786BE35E0C58",
+    "slug": "claudio-gonzalez-chiaramonte"
+  },
+  {
+    "name": "Robert Rueppel",
+    "instructorID": "D16A487AF7AD4AA9D97EA8BB166DBEC5",
+    "slug": "robert-rueppel"
+  },
+  {
+    "name": "Markus Gerke",
+    "instructorID": "15481BA5D75AB76DD951FD5D1BCDC275",
+    "slug": "markus-gerke",
+    "departmentID": "SOCI"
+  },
+  {
+    "name": "Kerstin Wilsch",
+    "instructorID": "073287D7BEEEF7588434131AC7C74B3A",
+    "slug": "kerstin-wilsch"
+  },
+  {
+    "name": "Deborah Evans",
+    "instructorID": "DBA7682E041FDF869E2BBE507852B0CD",
+    "slug": "deborah-evans"
+  },
+  {
+    "name": "Dan Suarez",
+    "instructorID": "F602A2A474E7366808F856CE47CE9E2A",
+    "slug": "dan-suarez",
+    "departmentID": "ENVS"
+  },
+  {
+    "name": "Rula AlHindi",
+    "instructorID": "1DDF52E5DEB5A7379F5528EFACB3A606",
+    "slug": "rula-alhindi"
+  },
+  {
+    "name": "Zohar Gazit",
+    "instructorID": "0EA5676C7CF17E5E992DFB214C8CBE19",
+    "slug": "zohar-gazit"
+  },
+  {
+    "name": "Douglas Anderson",
+    "instructorID": "68ED42EC2E4BAC346E6C140B72C2B61F",
+    "slug": "douglas-anderson"
+  },
+  {
+    "name": "Peter Johnson",
+    "instructorID": "F6822B69DB1BFEF738BC8FF68C068640",
+    "slug": "peter-johnson",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "John Pickens",
+    "instructorID": "323C941C85BDD45CECBCD522D3705F7A",
+    "slug": "john-pickens"
+  },
+  {
+    "name": "Cheryl Faraone",
+    "instructorID": "C471A9C18AC0C4FA489E57415325B416",
+    "slug": "cheryl-faraone"
+  },
+  {
+    "name": "Amanda Crocker",
+    "instructorID": "F08F952F80699F836242F7A719673438",
+    "slug": "amanda-crocker",
+    "departmentID": "NSCI"
+  },
+  {
+    "name": "Brett Millier",
+    "instructorID": "E34554346788B8778EA8B40079C181C4",
+    "slug": "brett-millier"
+  },
+  {
+    "name": "Jay Parini",
+    "instructorID": "80AC323ED5135D1BD1126DB9E351DA2E",
+    "slug": "jay-parini"
+  },
+  {
+    "name": "Karin Gottshall",
+    "instructorID": "B60F66808A2CC54F616BCFBBF409DD13",
+    "slug": "karin-gottshall"
+  },
+  {
+    "name": "James Douglas",
+    "instructorID": "B21A41EE4D7FCB498B346B435DE7FE5F",
+    "slug": "james-douglas"
+  },
+  {
+    "name": "Eliza Garrison",
+    "instructorID": "2A8D69E7767D3516B0F757D62366F21C",
+    "slug": "eliza-garrison",
+    "departmentID": "HARC"
+  },
+  {
+    "name": "Christopher Andrews",
+    "instructorID": "0000B179AB1F457FE988C16085F42DDE",
+    "slug": "christopher-andrews",
+    "departmentID": "CSCI"
+  },
+  {
+    "name": "Maya Bhave",
+    "instructorID": "2101FCE5BA2CCA17C1E62281A69D68A8",
+    "slug": "maya-bhave"
+  },
+  {
+    "name": "Niwaeli Kimambo",
+    "instructorID": "5D7A85224D895117373A9B10F4F30DEA",
+    "slug": "niwaeli-kimambo",
+    "departmentID": "GEOG"
+  },
+  {
+    "name": "Alex Lyford",
+    "instructorID": "24D40C0872F9CE5ED2CDF6F2F9CB82EA",
+    "slug": "alex-lyford",
+    "departmentID": "MATH"
   }
 ]
