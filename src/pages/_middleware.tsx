@@ -9,7 +9,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     req.headers.get("x-forwarded-proto") !== "https"
   ) {
     return NextResponse.redirect(
-      `https://${req.nextUrl.hostname}${req.nextUrl.pathname}`,
+      `https://${process.env.HOST_NAME}${req.nextUrl.pathname}`,
       301
     );
   }
