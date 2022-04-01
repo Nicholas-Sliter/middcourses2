@@ -21,11 +21,21 @@ exports.seed = async function(knex) {
    console.log(await knex("Course").select("courseID"));
 
    const instructors = JSON.parse(fs.readFileSync('./data/Instructor.json', 'utf8'));
-   await knex.batchInsert("Instructor", instructors, MAX_TEST_DATA);
+   const fixedInstructors = instructors.map(instructor => {
+     return({
+       instructorID: instructor.instructorID,
+        name: instructor.name,
+        slug: instructor.slug,
+        departmentID: instructor.departmentID ?? ""
+     });
+    });
+
+   await knex.batchInsert("Instructor", fixedInstructors, MAX_TEST_DATA);
 
    console.log(await knex("Instructor").select("instructorID"));
 
    const courseInstructors = JSON.parse(fs.readFileSync('./data/CourseInstructor.json', 'utf8'));
+
    await knex.batchInsert("CourseInstructor", courseInstructors, MAX_TEST_DATA);
 
    const departments = JSON.parse(fs.readFileSync('./data/Department.json', 'utf8'));

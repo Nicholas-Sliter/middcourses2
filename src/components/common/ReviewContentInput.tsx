@@ -1,7 +1,5 @@
 import { Textarea } from "@chakra-ui/react";
 import CharacterCount from "./CharacterCount";
-import { useState } from "react";
-
 
 export default function ReviewContentInput({ onChange, value, className }) {
 
