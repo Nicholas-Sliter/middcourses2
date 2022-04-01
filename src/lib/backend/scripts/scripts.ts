@@ -20,7 +20,6 @@ interface CourseObject {
   }[];
 }
 
-
 export async function getRawCoursesData(season: string) {
   const term = season;
   const searchParameters = null;
@@ -35,10 +34,7 @@ export async function getRawCoursesData(season: string) {
   return courses;
 }
 
-
-
 export async function getCourses(season: string) {
-
   const courses = await getRawCoursesData(season);
 
   return await processCourses(courses);
@@ -65,7 +61,6 @@ export async function getBaseData() {
     })
   );
 
-
   await Promise.all(
     scrapers.map(async (S) => {
       await S.parse();
@@ -80,10 +75,8 @@ export async function getBaseData() {
 
   //do instructor processing and stuff
 
-
   //change to return raw courses
   return processCourses(courses);
-  
 }
 
 //get course data from course object
@@ -177,36 +170,32 @@ interface Instructor {
 }
 
 async function fetchInstructorData(rawInstructor: InstructorObject) {
-
   const formattedInstructor: Instructor = {
     name: rawInstructor.name,
     instructorID: rawInstructor.id,
     slug: slugify(rawInstructor.name),
-    departmentID: null
+    departmentID: null,
   };
 
-  //check if instructor is in database to prevent expensive fetch
-  //const instructor = await getInstructorByID(formattedInstructor.instructorID);
+  try {
+    //get department from directory.js using instructor ID
+    const directory = new directoryScraper("", rawInstructor.id);
+    await directory.init();
 
-  //if (instructor) {
-   // console.log("instructor already in database");
-  //  return instructor;
-  //}
+    const person = directory.person;
 
+    if (person) {
+      //query the database for the departmentID from the department
+      const department =
+        (await getDepartmentByName(person.department ?? "")) ?? "Unknown"; //OTHER /OTHR
 
-  //get department from directory.js using instructor ID
-  const directory = new directoryScraper("", rawInstructor.id);
-  await directory.init();
-
-  const person = directory.person;
-
-  //query the database for the departmentID from the department
-  const department = await getDepartmentByName(person.department) ?? "Unknown"; //OTHER /OTHR 
-
-  formattedInstructor.departmentID = department.departmentID;
+      formattedInstructor.departmentID = department.departmentID;
+    }
+  } catch (e) {
+    console.error(e);
+  }
 
   return formattedInstructor;
-
 }
 
 export async function processInstructors(rawInstructors: InstructorObject[]) {
@@ -217,34 +206,39 @@ export async function processInstructors(rawInstructors: InstructorObject[]) {
   const formattedInstructors: Instructor[] = [];
   const indexes = [];
 
-  await Promise.allSettled(rawInstructors?.map( async(rawInstructor, index) => {
-    //add random delay to not overload the server
-    await new Promise((resolve) => setTimeout(resolve, Math.random() * 24000));
+  await Promise.allSettled(
+    rawInstructors?.map(async (rawInstructor, index) => {
+      //add random delay to not overload the server
+      await new Promise((resolve) =>
+        setTimeout(resolve, Math.random() * 24000)
+      );
 
-    //check instructorDict to see if instructor already exists before expensive fetch and database query
-    //if (instructorDict[rawInstructor.id]) {
-    //  console.log("instructor already processed");
-    //  return;
-    //}
-    //prevent duplicate async calls
-    //instructorDict[rawInstructor.id] = 1;
+      //check instructorDict to see if instructor already exists before expensive fetch and database query
+      //if (instructorDict[rawInstructor.id]) {
+      //  console.log("instructor already processed");
+      //  return;
+      //}
+      //prevent duplicate async calls
+      //instructorDict[rawInstructor.id] = 1;
 
-    const instructor = await fetchInstructorData(rawInstructor);
-    if (!instructor || instructor.name === "") {
-      console.log("Error with instructor: ", rawInstructor.id);
-    }
+      const instructor = await fetchInstructorData(rawInstructor);
+      if (!instructor || instructor.name === "") {
+        console.log("Error with instructor: ", rawInstructor.id);
+      }
 
-    formattedInstructors.push(instructor);
-    //console.log("pushed instructor: ", index);
-    indexes.push(index);
-  }));
+      formattedInstructors.push(instructor);
+      //console.log("pushed instructor: ", index);
+      indexes.push(index);
+    })
+  );
 
   console.log("formatted instructors size: ", formattedInstructors.length);
-  const sindexes = indexes.sort(function(a, b) {return a - b});
-  console.log({sindexes});
+  const sindexes = indexes.sort(function (a, b) {
+    return a - b;
+  });
+  console.log({ sindexes });
   return formattedInstructors;
 }
-
 
 export async function getInstructors(rawCourses) {
   //get instructors

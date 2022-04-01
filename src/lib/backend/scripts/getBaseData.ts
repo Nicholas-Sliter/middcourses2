@@ -106,6 +106,19 @@ export default async function getBaseData() {
 
   console.log("processed instructor size: ", processedInstructors.length);
 
+  // //write to debug file
+  // fs.writeFileSync(
+  //   "./src/lib/backend/data/debug/instructors.json",
+  //   JSON.stringify(processedInstructors, null, 2)
+  // );
+
+  // //write deduped instructors to debug file
+  // fs.writeFileSync(
+  //   "./src/lib/backend/data/debug/dedupedInstructors.json",
+  //   JSON.stringify(dedupedInstructors, null, 2)
+  // );
+
+
   //get department list using departmentsScraper
   const departments = [];
   console.log("getting departments");
