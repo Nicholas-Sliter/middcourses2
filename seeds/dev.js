@@ -36,7 +36,7 @@ exports.seed = async function(knex) {
 
    const courseInstructors = JSON.parse(fs.readFileSync('./data/CourseInstructor.json', 'utf8'));
 
-   await knex.batchInsert("CourseInstructor", courseInstructors, MAX_TEST_DATA);
+   await knex.batchInsert("CourseInstructor", courseInstructors, MAX_TEST_DATA).ignore();
 
    const departments = JSON.parse(fs.readFileSync('./data/Department.json', 'utf8'));
    await knex.batchInsert("Department", departments, MAX_TEST_DATA);
