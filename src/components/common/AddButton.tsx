@@ -43,6 +43,7 @@ export default function AddButton({ onClick }) {
       title="Add a review"
         onClick={onClick}
       >
+        <span className={styles.expandedText}>Review</span>
         <RiAddFill />
       </Button>
     </div>

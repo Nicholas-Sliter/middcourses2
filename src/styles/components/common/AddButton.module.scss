@@ -4,20 +4,27 @@
   position: fixed;
   z-index: 100;
   height: 3rem;
-  width: 3rem;
+  width: 7rem; //3rem
   bottom: 0;
   right: 0;
   margin-right: 2rem;
   margin-bottom: 2rem;
+
   button {
     width: 100%;
     height: 100%;
-    border-radius: 35%;
+    border-radius: 16px; //35%
     padding: 0;
     outline: none;
     border: $border-light;
     background-color: $logo-blue;
     box-shadow: $shadow-medium-hard;
+
+    .expandedText{
+      display:inline-block;
+      padding-right: 0.6rem;
+      color: $white;
+    }
 
     &:hover{
 
@@ -25,6 +32,11 @@
       background-color: $offwhite;
       transition: background-color 0.3s ease-in-out;
       cursor: pointer;
+
+      .expandedText{
+        color: $black;
+        transition: transform 0.2s ease-in-out;
+      }
 
       svg {
         fill: $black;
@@ -52,6 +64,11 @@
     height: 4rem;
 
     button {
+      border-radius: 35%;
+    .expandedText {
+      display: none;
+    }
+
       svg {
       height: 2rem;
       width: 2rem;

@@ -10,6 +10,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
             rel="stylesheet"
           />
+          <meta name="viewport" content="width=device-width, user-scalable=no"></meta>
         </Head>
         <body>
           <Main />
