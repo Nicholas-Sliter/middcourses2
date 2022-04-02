@@ -55,9 +55,8 @@ export default function AddReview({
   const [instructorTerms, setInstructorTerms] = useState([]);
   const [filteredInstructors, setFilteredInstructors] = useState([]);
 
-  const onSubmit = async (
-    data: Object,
-  ) => {
+  const onSubmit = async (data: Object) => {
+    console.log(data);
 
     const dept = course.courseID.slice(0, 4).toLowerCase();
     const code = course.courseID.slice(4);
@@ -73,15 +72,15 @@ export default function AddReview({
       }),
     });
 
-
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
     }
 
     onClose();
-    setTimeout(() => {window.location.reload()}, 1000);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
     return res.text();
-
   };
 
   useEffect(() => {
@@ -143,6 +142,7 @@ export default function AddReview({
     defaultValue: DEFAULT_SLIDER_RATING,
   });
 
+
   if (!isOpen) {
     return null;
   }
@@ -173,13 +173,17 @@ export default function AddReview({
                     placeholder="Select the semester"
                     {...register("semester", { required: true })}
                   >
-                    {terms.map((term) => {
-                      return (
-                        <option key={term} value={term}>
-                          {convertTermToFullString(term)}
-                        </option>
-                      );
-                    })}
+                    {terms
+                      .filter((term, index) => {
+                        return terms.indexOf(term) === index;
+                      })
+                      .map((term) => {
+                        return (
+                          <option key={term} value={term}>
+                            {convertTermToFullString(term)}
+                          </option>
+                        );
+                      })}
                   </Select>
                   <Select
                     name="instructor"
@@ -205,7 +209,11 @@ export default function AddReview({
                     fieldState: { invalid, isTouched, isDirty, error },
                     formState,
                   }) => (
-                    <ReviewContentInput onChange={onChange} value={value} className={styles.characterCount}/>
+                    <ReviewContentInput
+                      onChange={onChange}
+                      value={value}
+                      className={styles.characterCount}
+                    />
                   )}
                 />
                 <Question
@@ -249,9 +257,9 @@ export default function AddReview({
                   htmlFor="primaryComponent"
                 >
                   <Select
-                    name="primary"
+                    name="primaryComponent"
                     placeholder="Choose a primary component"
-                    {...register("primary", { required: true })}
+                    {...register("primaryComponent", { required: true })}
                   >
                     {primaryComponents.map((component) => (
                       <option key={component} value={component}>
@@ -267,6 +275,11 @@ export default function AddReview({
                   <QuestionNumberInput
                     registerName="hours"
                     register={register}
+                    validationObject={{
+                      required: true,
+                      min: 0,
+                      max: 30,
+                    }}
                     min={0}
                     max={30}
                     step={1}

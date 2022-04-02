@@ -1,18 +1,4 @@
-import {
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  InputRightAddon,
-  Button,
-  InputAddon,
-  Input,
-  StylesProvider,
-  InputRightElement,
-  InputGroup
-} from "@chakra-ui/react";
-
+import { Button, Input } from "@chakra-ui/react";
 import { useNumberInput } from "@chakra-ui/react";
 import styles from "../../styles/components/common/QuestionNumberInput.module.scss";
 
@@ -37,6 +23,17 @@ export default function QuestionNumberInput({
   step = 1,
   defaultValue = 0,
 }: QuestionNumberInputProps) {
+
+   const onChange = (s) => {
+    const e = {
+      target: {
+        value: parseInt(s, 10),
+        name: registerName,
+      },
+    };
+    reg.onChange(e);
+  };
+
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step,
@@ -44,17 +41,30 @@ export default function QuestionNumberInput({
       min,
       max,
       precision: 0,
+      onChange: (valueAsString, valueAsNumber) => onChange(valueAsString),
     });
 
   const inc = getIncrementButtonProps();
   const dec = getDecrementButtonProps();
   const input = getInputProps();
 
+  const reg =
+    registerName !== "" ? register(registerName, validationObject) : {};
+
   return (
     <div className={styles.container}>
-        <Input className={styles.input} {...input}></Input>
-        <Button className={styles.button} {...dec}>-</Button>
-        <Button className={styles.button} {...inc}>+</Button>
+      <Input
+        name={registerName}
+        {...reg}
+        className={styles.input}
+        {...input}
+      ></Input>
+      <Button className={styles.button} {...dec}>
+        -
+      </Button>
+      <Button className={styles.button} {...inc}>
+        +
+      </Button>
     </div>
   );
 }

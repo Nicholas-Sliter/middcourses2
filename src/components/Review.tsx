@@ -50,7 +50,7 @@ const ratingColorMapping = {
 };
 
 export default function Review({ review, instructor }: ReviewProps) {
-  review.rating = Math.floor(Math.random() * 10) + 1;
+
   return (
     <div key={review.reviewID} className={styles.container}>
       <div className={styles.reviewMain}>

@@ -140,6 +140,14 @@ const handler = nc({
       return res.status(400).end("Review contains profanity");
     }
 
+    const clamp = (x, min=0, max=10) => Math.max(Math.min(x, max), min);
+
+    const parseReviewInt = (s, min=1, max=10) => {
+      const x = parseInt(s,10) ?? 5;
+      return clamp(x, min, max);
+    }
+
+
     const review = {
       reviewID: uuidv4(),
       reviewerID: session.user.id,
@@ -147,19 +155,21 @@ const handler = nc({
       semester: req.body.semester,
       instructorID: req.body.instructor,
       content: req.body.content,
-      rating: req.body.rating,
+      rating: parseReviewInt(req.body.rating),
       reviewDate: new Date().toISOString(),
       approved: true,
-      voteCount: req.body.voteCount,
-      difficulty: req.body.difficulty,
-      value: req.body.value,
-      hours: parseInt(req.body.hours, 10),
-      again: req.body.again,
-      primaryComponent: req.body.primaryComponent,
-      instructorEffectiveness: req.body.instructorEffectiveness,
-      instructorAccommodationLevel: req.body.instructorAccommodationLevel,
-      instructorEnthusiasm: req.body.instructorEnthusiasm,
-      instructorAgain: req.body.instructorAgain,
+      voteCount: 0,
+      difficulty: parseReviewInt(req.body.difficulty),
+      value: parseReviewInt(req.body.value),
+      hours: parseReviewInt(req.body.hours, 0, 30),
+      again: req.body.again ?? false,
+      primaryComponent: req.body.primaryComponent?.toLowerCase(),
+      instructorEffectiveness: parseReviewInt(req.body.instructorEffectiveness),
+      instructorAccommodationLevel: parseReviewInt(
+        req.body.instructorAccommodationLevel
+      ),
+      instructorEnthusiasm: parseReviewInt(req.body.instructorEnthusiasm),
+      instructorAgain: req.body.instructorAgain ?? false,
     };
 
     await addReview(review);
