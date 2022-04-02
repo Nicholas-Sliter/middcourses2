@@ -111,6 +111,10 @@ export function processCourses(rawCourses: CourseObject[]) {
     const formattedCourse = formatCourse(rawCourse);
     const name = formattedCourse.courseID;
 
+    if (name.slice(0, 4) === "MIIS") {
+      return;
+    }
+
     if (!courseDict[name]) {
       courseDict[name] = 1;
       formattedCourses.push(formattedCourse);

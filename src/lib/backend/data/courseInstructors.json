@@ -205,47 +205,47 @@
     "instructorID": "058C5910496B76A69045A8E81163C61C"
   },
   {
-    "courseID": "ART0169",
+    "courseID": "_ART0169",
     "term": "S21",
     "instructorID": "173C57FE1B3DA0CDB2A384703017284C"
   },
   {
-    "courseID": "ART0195",
+    "courseID": "_ART0195",
     "term": "S21",
     "instructorID": "2A3612F3931E8BDE207BA2F553506727"
   },
   {
-    "courseID": "ART0300",
+    "courseID": "_ART0300",
     "term": "S21",
     "instructorID": "4839CB3B489DA33A457CA972F901AF41"
   },
   {
-    "courseID": "ART0303",
+    "courseID": "_ART0303",
     "term": "S21",
     "instructorID": "084D3FDB44C7EB904917ECCD4DE708E6"
   },
   {
-    "courseID": "ART0324",
+    "courseID": "_ART0324",
     "term": "S21",
     "instructorID": "4839CB3B489DA33A457CA972F901AF41"
   },
   {
-    "courseID": "ART0380",
+    "courseID": "_ART0380",
     "term": "S21",
     "instructorID": "2A3612F3931E8BDE207BA2F553506727"
   },
   {
-    "courseID": "ART0700",
+    "courseID": "_ART0700",
     "term": "S21",
     "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF"
   },
   {
-    "courseID": "ART0701",
+    "courseID": "_ART0701",
     "term": "S21",
     "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF"
   },
   {
-    "courseID": "ART0702",
+    "courseID": "_ART0702",
     "term": "S21",
     "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF"
   },
@@ -2250,106 +2250,6 @@
     "instructorID": "D69497F8FE139D15FD4F4291DE7F8927"
   },
   {
-    "courseID": "PHED0453",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
-    "courseID": "PHED0462",
-    "term": "Unknown",
-    "instructorID": "729D38690B761AB8723E4C575287B71B"
-  },
-  {
-    "courseID": "PHED0464",
-    "term": "Unknown",
-    "instructorID": "E8D3504A93431EE6205EF6CE3F000BFD"
-  },
-  {
-    "courseID": "PHED0465",
-    "term": "Unknown",
-    "instructorID": "E5F0C69172FDF43B8BD079C02FABCA7E"
-  },
-  {
-    "courseID": "PHED0466",
-    "term": "Unknown",
-    "instructorID": "146B7A040A32FFADC373EFB407CD9984"
-  },
-  {
-    "courseID": "PHED0471",
-    "term": "Unknown",
-    "instructorID": "729D38690B761AB8723E4C575287B71B"
-  },
-  {
-    "courseID": "PHED0492",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
-    "courseID": "PHED0509",
-    "term": "Unknown",
-    "instructorID": "B934BB551869F0DEC79FEF423857FEAB"
-  },
-  {
-    "courseID": "PHED0509",
-    "term": "Unknown",
-    "instructorID": "23EB06439EBE2ABADF50A0A433BE34B1"
-  },
-  {
-    "courseID": "PHED0511",
-    "term": "Unknown",
-    "instructorID": "EC608A36333F776D4144C80D9A301398"
-  },
-  {
-    "courseID": "PHED0513",
-    "term": "Unknown",
-    "instructorID": "561AA67D31276575D767406AB705192D"
-  },
-  {
-    "courseID": "PHED0525",
-    "term": "Unknown",
-    "instructorID": "4257DC6E92D1E6DA5937B47A5764BAA6"
-  },
-  {
-    "courseID": "PHED0534",
-    "term": "Unknown",
-    "instructorID": "A4D8EE9BFC705ADA8896CD4856CD4BAD"
-  },
-  {
-    "courseID": "PHED0535",
-    "term": "Unknown",
-    "instructorID": "516A2E4F61F8F756379C117D2EF570BA"
-  },
-  {
-    "courseID": "PHED0553",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
-    "courseID": "PHED0565",
-    "term": "Unknown",
-    "instructorID": "1274232D5AE566DD23B29501A27D8CF0"
-  },
-  {
-    "courseID": "PHED0565",
-    "term": "Unknown",
-    "instructorID": "DFB8B5ABFD3D4ECED505809E5E939DF0"
-  },
-  {
-    "courseID": "PHED0566",
-    "term": "Unknown",
-    "instructorID": "D16A487AF7AD4AA9D97EA8BB166DBEC5"
-  },
-  {
-    "courseID": "PHED0571",
-    "term": "Unknown",
-    "instructorID": "D2B9930E430D72EDC9B59C168BE9BCEC"
-  },
-  {
-    "courseID": "PHED0592",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
     "courseID": "PHIL0150",
     "term": "S21",
     "instructorID": "335D089E7A89AF096BD4CFA093D2E40A"
@@ -3285,57 +3185,57 @@
     "instructorID": "3F1285F4DD81824CB42A177D0893577D"
   },
   {
-    "courseID": "ART0156",
+    "courseID": "_ART0156",
     "term": "F21",
     "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF"
   },
   {
-    "courseID": "ART0159",
+    "courseID": "_ART0159",
     "term": "F21",
     "instructorID": "4839CB3B489DA33A457CA972F901AF41"
   },
   {
-    "courseID": "ART0174",
+    "courseID": "_ART0174",
     "term": "F21",
     "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
   },
   {
-    "courseID": "ART0195",
+    "courseID": "_ART0195",
     "term": "F21",
     "instructorID": "7FAC5B5341A7CB6339C7F64BCC8F620C"
   },
   {
-    "courseID": "ART0315",
+    "courseID": "_ART0315",
     "term": "F21",
     "instructorID": "4839CB3B489DA33A457CA972F901AF41"
   },
   {
-    "courseID": "ART0348",
+    "courseID": "_ART0348",
     "term": "F21",
     "instructorID": "084D3FDB44C7EB904917ECCD4DE708E6"
   },
   {
-    "courseID": "ART0371",
+    "courseID": "_ART0371",
     "term": "F21",
     "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
   },
   {
-    "courseID": "ART0380",
+    "courseID": "_ART0380",
     "term": "F21",
     "instructorID": "7FAC5B5341A7CB6339C7F64BCC8F620C"
   },
   {
-    "courseID": "ART0700",
+    "courseID": "_ART0700",
     "term": "F21",
     "instructorID": "697808EC815F245BB49809C246638696"
   },
   {
-    "courseID": "ART0701",
+    "courseID": "_ART0701",
     "term": "F21",
     "instructorID": "697808EC815F245BB49809C246638696"
   },
   {
-    "courseID": "ART0702",
+    "courseID": "_ART0702",
     "term": "F21",
     "instructorID": "697808EC815F245BB49809C246638696"
   },
@@ -5595,86 +5495,6 @@
     "instructorID": "6720980EC30B1A7897597F69B00559FE"
   },
   {
-    "courseID": "PHED0110",
-    "term": "Unknown",
-    "instructorID": "DF4888C349C18051B5E7354C025846CB"
-  },
-  {
-    "courseID": "PHED0125",
-    "term": "Unknown",
-    "instructorID": "EE8F706249F8F7332E1A3FB5B68A89F5"
-  },
-  {
-    "courseID": "PHED0126",
-    "term": "Unknown",
-    "instructorID": "561AA67D31276575D767406AB705192D"
-  },
-  {
-    "courseID": "PHED0135",
-    "term": "Unknown",
-    "instructorID": "EE8F706249F8F7332E1A3FB5B68A89F5"
-  },
-  {
-    "courseID": "PHED0143",
-    "term": "Unknown",
-    "instructorID": "23EB06439EBE2ABADF50A0A433BE34B1"
-  },
-  {
-    "courseID": "PHED0145",
-    "term": "Unknown",
-    "instructorID": "F7AB6051B1C3D11FF276B4E356D69CAE"
-  },
-  {
-    "courseID": "PHED0153",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
-    "courseID": "PHED0166",
-    "term": "Unknown",
-    "instructorID": "D16A487AF7AD4AA9D97EA8BB166DBEC5"
-  },
-  {
-    "courseID": "PHED0171",
-    "term": "Unknown",
-    "instructorID": "D2B9930E430D72EDC9B59C168BE9BCEC"
-  },
-  {
-    "courseID": "PHED0182",
-    "term": "Unknown",
-    "instructorID": "C117A799DF2CE834D4A4AB9556C172C1"
-  },
-  {
-    "courseID": "PHED0192",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
-    "courseID": "PHED0212",
-    "term": "Unknown",
-    "instructorID": "C99578163927073E8F338A0E6BEA171A"
-  },
-  {
-    "courseID": "PHED0249",
-    "term": "Unknown",
-    "instructorID": "90338E439DA4652A2BDE2AC3F327A563"
-  },
-  {
-    "courseID": "PHED0264",
-    "term": "Unknown",
-    "instructorID": "E8D3504A93431EE6205EF6CE3F000BFD"
-  },
-  {
-    "courseID": "PHED0265",
-    "term": "Unknown",
-    "instructorID": "E5F0C69172FDF43B8BD079C02FABCA7E"
-  },
-  {
-    "courseID": "PHED0292",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
     "courseID": "PHIL0160",
     "term": "F21",
     "instructorID": "153F4504816359C25AB11AFD711E0318"
@@ -6390,22 +6210,22 @@
     "instructorID": "5F6928E5C92E430196405A54712B5A4A"
   },
   {
-    "courseID": "ART0156",
+    "courseID": "_ART0156",
     "term": "W22",
     "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF"
   },
   {
-    "courseID": "ART0159",
+    "courseID": "_ART0159",
     "term": "W22",
     "instructorID": "C3EAB3B6F087866779616E2416FD4C87"
   },
   {
-    "courseID": "ART0195",
+    "courseID": "_ART0195",
     "term": "W22",
     "instructorID": "7FAC5B5341A7CB6339C7F64BCC8F620C"
   },
   {
-    "courseID": "ART0302",
+    "courseID": "_ART0302",
     "term": "W22",
     "instructorID": "084D3FDB44C7EB904917ECCD4DE708E6"
   },
@@ -7110,66 +6930,6 @@
     "instructorID": "24D40C0872F9CE5ED2CDF6F2F9CB82EA"
   },
   {
-    "courseID": "PHED0304",
-    "term": "Unknown",
-    "instructorID": "A75F07493B93D5D7CEF3057B2F3F5BD9"
-  },
-  {
-    "courseID": "PHED0312",
-    "term": "Unknown",
-    "instructorID": "C99578163927073E8F338A0E6BEA171A"
-  },
-  {
-    "courseID": "PHED0326",
-    "term": "Unknown",
-    "instructorID": "55DC3CE4C5FBFD24F27C8E62D8BB4D66"
-  },
-  {
-    "courseID": "PHED0329",
-    "term": "Unknown",
-    "instructorID": "44D45D189ECC1E5787660DFFF7E44DF5"
-  },
-  {
-    "courseID": "PHED0345",
-    "term": "W22",
-    "instructorID": "AEE9184B109B03E13C99DA5496E81CC5"
-  },
-  {
-    "courseID": "PHED0348",
-    "term": "Unknown",
-    "instructorID": "399E127512F4D158DF25F62BB83F56FC"
-  },
-  {
-    "courseID": "PHED0351",
-    "term": "Unknown",
-    "instructorID": "44D45D189ECC1E5787660DFFF7E44DF5"
-  },
-  {
-    "courseID": "PHED0353",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
-    "courseID": "PHED0354",
-    "term": "Unknown",
-    "instructorID": "B934BB551869F0DEC79FEF423857FEAB"
-  },
-  {
-    "courseID": "PHED0362",
-    "term": "Unknown",
-    "instructorID": "55DC3CE4C5FBFD24F27C8E62D8BB4D66"
-  },
-  {
-    "courseID": "PHED0371",
-    "term": "Unknown",
-    "instructorID": "1274232D5AE566DD23B29501A27D8CF0"
-  },
-  {
-    "courseID": "PHED0392",
-    "term": "Unknown",
-    "instructorID": "6BF89DD2C311BE41595B88C41DB6945A"
-  },
-  {
     "courseID": "PHIL0216",
     "term": "W22",
     "instructorID": "ED16FFB18CB76EA016EC85B22F9DAF28"
@@ -7470,42 +7230,42 @@
     "instructorID": "3F1285F4DD81824CB42A177D0893577D"
   },
   {
-    "courseID": "ART0155",
+    "courseID": "_ART0155",
     "term": "S22",
     "instructorID": "697808EC815F245BB49809C246638696"
   },
   {
-    "courseID": "ART0169",
+    "courseID": "_ART0169",
     "term": "S22",
     "instructorID": "173C57FE1B3DA0CDB2A384703017284C"
   },
   {
-    "courseID": "ART0179",
+    "courseID": "_ART0179",
     "term": "S22",
     "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
   },
   {
-    "courseID": "ART0300",
+    "courseID": "_ART0300",
     "term": "S22",
     "instructorID": "4839CB3B489DA33A457CA972F901AF41"
   },
   {
-    "courseID": "ART0303",
+    "courseID": "_ART0303",
     "term": "S22",
     "instructorID": "084D3FDB44C7EB904917ECCD4DE708E6"
   },
   {
-    "courseID": "ART0700",
+    "courseID": "_ART0700",
     "term": "S22",
     "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
   },
   {
-    "courseID": "ART0701",
+    "courseID": "_ART0701",
     "term": "S22",
     "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
   },
   {
-    "courseID": "ART0702",
+    "courseID": "_ART0702",
     "term": "S22",
     "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
   },
@@ -9411,7 +9171,7 @@
   },
   {
     "courseID": "MIIS8523",
-    "term": "Unknown",
+    "term": "S22",
     "instructorID": "92883A2955131115773B66E24FD46B70"
   },
   {
@@ -9543,16 +9303,6 @@
     "courseID": "PGSE0370",
     "term": "S22",
     "instructorID": "6720980EC30B1A7897597F69B00559FE"
-  },
-  {
-    "courseID": "PHED0449",
-    "term": "Unknown",
-    "instructorID": "90338E439DA4652A2BDE2AC3F327A563"
-  },
-  {
-    "courseID": "PHED0454",
-    "term": "Unknown",
-    "instructorID": "DFB8B5ABFD3D4ECED505809E5E939DF0"
   },
   {
     "courseID": "PHIL0150",

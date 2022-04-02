@@ -2,6 +2,7 @@ import { Department, public_course } from "../../common/types";
 import { Scraper as directoryScraper } from "directory.js";
 import departmentsScraper from "departments.js";
 import catalogScraper from "catalog.js";
+import Param from 'catalog.js/lib/classes/Param.js';
 import { getDepartmentByName, getInstructorByID } from "../database-utils";
 import { processInstructors, processCourses } from "./scripts";
 import { DEPARTMENT_PADDING_PREFIX } from "../utils";
@@ -14,10 +15,24 @@ export default async function getBaseData() {
 
   const scrapers = [];
 
+  const searchParameters = [
+    new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(),
+    //new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(), //
+    new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
+    new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+    new Param("search", "Search").getObject(),
+  ];
+
   terms.forEach((term) => {
     const S = new catalogScraper({
       term: term,
-      searchParameters: null,
+      searchParameters,
       filepath: null,
     });
     scrapers.push(S);
@@ -33,7 +48,7 @@ export default async function getBaseData() {
   }, []);
 
   console.log("courses size: ", courses.length);
-
+  //console.log(courses.find((course) => course.courseNumber.slice(0,4) === "PHED"));
   const formattedCourses = processCourses(courses);
 
   console.log("formatted courses size: ", formattedCourses.length);
