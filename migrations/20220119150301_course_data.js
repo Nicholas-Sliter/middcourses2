@@ -1,5 +1,13 @@
 exports.up = function (knex) {
   return knex.schema
+      .createTable("Department", (table) => {
+      table
+        .string("departmentID", 4).primary()
+        /* Department ID: 4-letter department abbreviation */
+      table
+        .string("departmentName")
+        .notNullable(); /* Department Name: Department name */
+    })
     .createTable("Course", (table) => {
       table
         .string("courseID")
@@ -30,14 +38,6 @@ exports.up = function (knex) {
         .foreign("instructorID")
         .references("Instructor.instructorID")
         .onDelete("CASCADE");
-    })
-    .createTable("Department", (table) => {
-      table
-        .string("departmentID", 4).primary()
-        /* Department ID: 4-letter department abbreviation */
-      table
-        .string("departmentName")
-        .notNullable(); /* Department Name: Department name */
     });
 };
 
