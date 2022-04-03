@@ -471,6 +471,17 @@ export async function searchCourses(query: string) {
   return courses;
 }
 
+
+/**
+ * Get a list of all courses in the database. 
+ * @returns a list of all courses in the database
+ */
+
+export async function getAllCourses() {
+  return await knex("Course").select(["courseID"]);
+}
+
+
 /**
  * Search for instructors like the given query.
  * @param query the query to search for
@@ -492,6 +503,14 @@ export async function searchInstructors(query: string) {
   }
 
   return instructors;
+}
+
+/**
+ * Get all instructors in the database.
+ * @returns a list of instructor slugs
+ */
+export async function getAllInstructors() {
+  return await knex("Instructor").select(["slug"]);
 }
 
 
@@ -582,6 +601,14 @@ export async function getDepartmentByName(name:string){
   }
 
   return res
+}
+
+/**
+ * Get all the departments in the database.
+ * @returns a list of all departments
+ */
+export async function getAllDepartments() {
+  return await knex("Department").select(["departmentID"]);
 }
 
 

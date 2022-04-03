@@ -13,7 +13,6 @@ import {
   containsProfanity,
   uuidv4,
 } from "../../../../../../lib/backend/utils";
-import { exists } from "fs";
 
 /**
  * Get all course reviews for a specific course

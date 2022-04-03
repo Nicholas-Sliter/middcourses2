@@ -13,6 +13,7 @@ import AddButton from "../../../../components/common/AddButton";
 import AddReview from "../../../../components/AddReview";
 import { useDisclosure } from "@chakra-ui/react";
 import useInstructorsByCourse from "../../../../hooks/useInstructorsByCourse";
+import PageTitle from "../../../../components/common/PageTitle";
 
 export default function CoursePage() {
   const router: NextRouter = useRouter();
@@ -62,6 +63,7 @@ export default function CoursePage() {
 
   return (
     <>
+    <PageTitle pageTitle={`${course?.courseName}`} />
       <div>
         <CourseCard course={course} />
         <hr />
