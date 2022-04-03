@@ -1,5 +1,9 @@
 [
   {
+    "departmentID": "AMST",
+    "departmentName": "American Studies"
+  },
+  {
     "departmentID": "ANTH",
     "departmentName": "Anthropology"
   },
@@ -162,6 +166,10 @@
   {
     "departmentID": "MATH",
     "departmentName": "Mathematics"
+  },
+  {
+    "departmentID": "MIIS",
+    "departmentName": "Middlebury Institute Courses"
   },
   {
     "departmentID": "MSAB",
