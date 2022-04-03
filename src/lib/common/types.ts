@@ -25,6 +25,7 @@ export interface public_course {
    courseID: string;
    courseName: string;
    courseDescription: string;
+   departmentID?: string;
 };
 
 export interface public_instructor {

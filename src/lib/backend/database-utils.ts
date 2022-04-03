@@ -10,8 +10,7 @@ export const knex = knexInitializer(
   knexConfig[process.env.NODE_ENV || "development"]
 );
 
-
-const likeOperator = (process.env.NODE_ENV === "production") ? "ilike" : "like";
+const likeOperator = process.env.NODE_ENV === "production" ? "ilike" : "like";
 
 const reviewInfo = [
   "reviewID",
@@ -193,7 +192,6 @@ export async function getInstructorBySlug(slug: string): Promise<any> {
  * @returns
  */
 export async function getCourseByID(id: string): Promise<any> {
-
   if (!id || id.length !== 8) {
     return null;
   }
@@ -220,7 +218,11 @@ export async function getInstructorsByCourseID(id: string) {
       courseID: id,
     })
     .select(["CourseInstructor.instructorID"])
-    .join("Instructor", "CourseInstructor.instructorID", "Instructor.instructorID")
+    .join(
+      "Instructor",
+      "CourseInstructor.instructorID",
+      "Instructor.instructorID"
+    )
     .select(["name", "slug"]);
 
   if (!instructors || instructors.length == 0) {
@@ -251,16 +253,20 @@ export async function getCoursesByInstructorID(id: string) {
 }
 /**
  * Check if a course exists for a given courseID, instructor id, and semester.
- * @param id 
- * @param term 
- * @returns 
+ * @param id
+ * @param term
+ * @returns
  */
-export async function checkIfCourseExistsByInstructorAndSemester(courseID: string, instructorID:string, semester:string){
+export async function checkIfCourseExistsByInstructorAndSemester(
+  courseID: string,
+  instructorID: string,
+  semester: string
+) {
   const course = await knex("CourseInstructor")
     .where({
       courseID: courseID,
       instructorID: instructorID,
-      term: semester
+      term: semester,
     })
     .first()
     .select(["courseID"]);
@@ -270,9 +276,7 @@ export async function checkIfCourseExistsByInstructorAndSemester(courseID: strin
   }
 
   return true;
-
 }
-
 
 /**
  * @authentication {self only}
@@ -471,16 +475,14 @@ export async function searchCourses(query: string) {
   return courses;
 }
 
-
 /**
- * Get a list of all courses in the database. 
+ * Get a list of all courses in the database.
  * @returns a list of all courses in the database
  */
 
 export async function getAllCourses() {
   return await knex("Course").select(["courseID"]);
 }
-
 
 /**
  * Search for instructors like the given query.
@@ -513,82 +515,128 @@ export async function getAllInstructors() {
   return await knex("Instructor").select(["slug"]);
 }
 
+/**
+ * Get courses by department.
+ * @param departmentID
+ * @returns a list of all courses in the given department
+ */
+export async function getCoursesByDepartment(departmentID: string) {
+  return await knex("Course")
+    .where({ departmentID })
+    .select(["courseID", "courseName", "courseDescription"]);
+}
 
-async function getPartialDepartmentMatch(query: string, limit:number=1){
-    let partialMatch: string = "";
+/**
+ * Get instructors by department.
+ * @param departmentID
+ * @returns a list of all instructors in the given department
+ */
 
-    if (query.length >= 4) {
-      const deptMatches = await knex("Department")
-        .where("departmentName", likeOperator, `%${query}%`)
-        .limit(limit)
-        .select("departmentID");
+export async function getInstructorsByDepartment(departmentID: string) {
+  return await knex("Instructor")
+    .where({ departmentID })
+    .select(["name", "slug"]);
+}
 
-      if (deptMatches.length > 0) {
-        partialMatch = deptMatches[0].departmentID;
-      }
-    }
+/**
+ * Get recent reviews in a department.
+ * @param departmentID
+ * @param limit the max number of reviews to return
+ * @returns a list of recent reviews of courses in the given department
+ */
+export async function getRecentReviewsByDepartment(
+  departmentID: string,
+  limit: number | null = null
+) {
 
-    return partialMatch;
+  const returns = [
+    "Review.courseID",
+    "content",
+    "rating",
+    "reviewDate"
+];
 
+
+  //have to do this to support sqlite limit
+  const reviews = (limit === null) ? await knex("Course")
+    .where({ departmentID })
+    .select(["Course.courseID"])
+    .join("Review", "Course.courseID", "Review.courseID")
+    .orderBy("reviewDate")
+    .select(returns) 
+    : await knex("Course")
+    .where({ departmentID })
+    .select(["Course.courseID"])
+    .join("Review", "Course.courseID", "Review.courseID")
+    .orderBy("reviewDate")
+    .limit(limit)
+    .select(returns);
+
+    return reviews;
 
 }
 
+async function getPartialDepartmentMatch(query: string, limit: number = 1) {
+  let partialMatch: string = "";
 
+  if (query.length >= 4) {
+    const deptMatches = await knex("Department")
+      .where("departmentName", likeOperator, `%${query}%`)
+      .limit(limit)
+      .select("departmentID");
 
-
-
-export async function getCourseAndInstructorsByID(id:string){
-    const resObj = await knex("Course")
-      .where({
-        "Course.courseID": id,
-      })
-      .join(
-        "CourseInstructor",
-        "Course.courseID",
-        "CourseInstructor.courseID"
-      )
-      .join(
-        "Instructor",
-        "CourseInstructor.instructorID",
-        "Instructor.instructorID"
-      )
-      .select([
-        "Course.courseID",
-        "Course.courseName",
-        "Course.courseDescription",
-        "Instructor.name",
-        "Instructor.slug",
-        "Instructor.departmentID",
-      ]);
-
-    if (!resObj || resObj.length == 0) {
-        return null;
+    if (deptMatches.length > 0) {
+      partialMatch = deptMatches[0].departmentID;
     }
+  }
 
-    const course = {...resObj[0]};
-    delete course.name;
-    delete course.slug;
-    delete course.departmentID;
+  return partialMatch;
+}
 
-    const instructors = resObj.map((i) => {
-      return  {
-        name: i.name, 
-        slug: i.slug, 
-        departmentID: i.departmentID};
-    });
+export async function getCourseAndInstructorsByID(id: string) {
+  const resObj = await knex("Course")
+    .where({
+      "Course.courseID": id,
+    })
+    .join("CourseInstructor", "Course.courseID", "CourseInstructor.courseID")
+    .join(
+      "Instructor",
+      "CourseInstructor.instructorID",
+      "Instructor.instructorID"
+    )
+    .select([
+      "Course.courseID",
+      "Course.courseName",
+      "Course.courseDescription",
+      "Instructor.name",
+      "Instructor.slug",
+      "Instructor.departmentID",
+    ]);
 
+  if (!resObj || resObj.length == 0) {
+    return null;
+  }
+
+  const course = { ...resObj[0] };
+  delete course.name;
+  delete course.slug;
+  delete course.departmentID;
+
+  const instructors = resObj.map((i) => {
     return {
-      course: course,
-      instructors: instructors
+      name: i.name,
+      slug: i.slug,
+      departmentID: i.departmentID,
+    };
+  });
 
-    }
-
-
+  return {
+    course: course,
+    instructors: instructors,
+  };
 }
 
-
-
-export async function getDepartmentByName(name:string){
+export async function getDepartmentByName(name: string) {
   const res = await knex("Department")
     .where({
       "Department.departmentName": name,
@@ -596,11 +644,26 @@ export async function getDepartmentByName(name:string){
     .first()
     .select(["Department.departmentID", "Department.departmentName"]);
 
-  if (!res){
+  if (!res) {
     return null;
   }
 
-  return res
+  return res;
+}
+
+export async function getDepartmentByID(id: string) {
+  const res = await knex("Department")
+    .where({
+      "Department.departmentID": id
+    })
+    .first()
+    .select(["Department.departmentID", "Department.departmentName"]);
+
+  if (!res) {
+    return null;
+  }
+
+  return res;
 }
 
 /**
@@ -611,38 +674,34 @@ export async function getAllDepartments() {
   return await knex("Department").select(["departmentID"]);
 }
 
-
-
-export async function getInstructorsAndTermsByCourseID(id: string){
+export async function getInstructorsAndTermsByCourseID(id: string) {
   const res = await knex("CourseInstructor")
     .where({
       "CourseInstructor.courseID": id,
     })
     .select(["CourseInstructor.instructorID", "CourseInstructor.term"]);
 
-
-  if (!res || res.length == 0){
+  if (!res || res.length == 0) {
     return null;
   }
 
   return res;
-
 }
 
+export async function addReview(review) {
+  const res = await knex("Review").insert(review);
 
-export async function addReview(review){
-  const res = await knex("Review")
-    .insert(review);
-
-  if (!res){
+  if (!res) {
     throw new Error("Failed to add review");
   }
 
   return res;
-
 }
 
-export async function checkReviewByUserAndCourse(userID:string, courseID:string){
+export async function checkReviewByUserAndCourse(
+  userID: string,
+  courseID: string
+) {
   const res = await knex("Review")
     .where({
       "Review.reviewerID": userID,
@@ -651,7 +710,7 @@ export async function checkReviewByUserAndCourse(userID:string, courseID:string)
     .first()
     .select(["Review.reviewID"]);
 
-  if (!res?.reviewID){
+  if (!res?.reviewID) {
     return false;
   }
 

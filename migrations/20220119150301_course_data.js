@@ -8,6 +8,8 @@ exports.up = function (knex) {
       table
         .text("courseDescription")
         .notNullable().defaultTo(""); /* Course Description: Course description */
+      table.string("departmentID").notNullable(); /* Course Department: Department name */
+      table.foreign("departmentID").references("Department.departmentID");
     })
     .createTable("Instructor", (table) => {
       table.string("name").notNullable();

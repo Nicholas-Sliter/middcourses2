@@ -85,6 +85,7 @@ function formatCourse(rawCourse: CourseObject) {
     courseDescription: rawCourse.description,
     courseID: rawCourse.courseNumber,
     courseName: rawCourse.title,
+    departmentID: rawCourse.courseNumber.substring(0, 4).toUpperCase(),
   };
 
   return formattedCourse;

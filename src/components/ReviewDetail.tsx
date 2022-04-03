@@ -9,9 +9,17 @@ import {
   FiChevronsUp,
 } from "react-icons/fi";
 import { FaRegGem } from "react-icons/fa";
-import { valueMapping, difficultyMapping, getRelativeDifferenceText, getRelativeDifferenceColor, relativeDifference } from "../lib/frontend/utils";
+import {
+  valueMapping,
+  difficultyMapping,
+  getRelativeDifferenceText,
+  getRelativeDifferenceColor,
+  relativeDifference,
+} from "../lib/frontend/utils";
 
 import styles from "../styles/components/ReviewDetail.module.scss";
+import Reviews from "../pages/profile/reviews";
+import { primaryComponents } from "../lib/common/utils";
 
 interface ReviewDetailProps {
   review: public_review;
@@ -19,13 +27,13 @@ interface ReviewDetailProps {
     hours: number;
     difficulty: number;
     value: number;
-    
+
     instructorEffectiveness: number;
     instructorAccomodationLevel: number;
     instructorEnthusiasm: number;
-  }
+  };
+  expandable: boolean;
 }
-
 
 interface ReviewDetailNumericalElementProps {
   title: string;
@@ -35,34 +43,44 @@ interface ReviewDetailNumericalElementProps {
   outOf?: number | null;
 }
 
-function ReviewDetailNumericalElement({text, value, average, positiveGood=true, outOf=null}){
+function ReviewDetailNumericalElement({
+  text,
+  value,
+  average,
+  positiveGood = true,
+  outOf = null,
+}) {
   const relativeDiff = relativeDifference(value, average);
   const relativeDiffText = getRelativeDifferenceText(value, average);
-  const relativeDiffColor = getRelativeDifferenceColor(relativeDiff, positiveGood);
+  const relativeDiffColor = getRelativeDifferenceColor(
+    relativeDiff,
+    positiveGood
+  );
 
   const outOfString = outOf ? `/${outOf} ` : " ";
 
   //if value or average is undefined, return null, but dont return null if 0
-  if(value === undefined || average === undefined){
+  if (value === undefined || average === undefined) {
     return null;
   }
 
-  return(
- <div key={text}>
-   <b>{text}: </b>
-   {value}{outOfString}
-   <span
-     className={styles.difference}
-     style={{
-       backgroundColor: relativeDiffColor,
-     }}
-     title={`${relativeDiffText}`}
-   >
-     {`${relativeDiff}%`}
-   </span>
- </div>);
+  return (
+    <div key={text}>
+      <b>{text}: </b>
+      {value}
+      {outOfString}
+      <span
+        className={styles.difference}
+        style={{
+          backgroundColor: relativeDiffColor,
+        }}
+        title={`${relativeDiffText}`}
+      >
+        {`${relativeDiff}%`}
+      </span>
+    </div>
+  );
 }
-
 
 function ReviewDetailFull({ review, averages }) {
   return (
@@ -95,35 +113,51 @@ function ReviewDetailFull({ review, averages }) {
 }
 
 function ReviewDetailBar({ review }) {
-  return (
-    <div className={styles.bar}>
+  const hours =
+    review?.hours || review?.hours == 0 ? (
       <span>
         <FiClock /> {`${review?.hours}hrs / week`}
       </span>
+    ) : null;
+
+  const difficulty =
+    review?.difficulty || review?.difficulty == 0 ? (
       <span title="Difficulty">
         <FiBarChart /> {`${difficultyMapping[review?.difficulty]} difficulty`}
       </span>
-      <span>
+    ) : null;
+
+  const value =
+    review?.value || review?.value == 0 ? (
+      <span title="Value">
         <FaRegGem /> {`${valueMapping[review?.value]} value`}
       </span>
+    ) : null;
+
+    const primaryComponent = review?.primaryComponent ? (
       <span>
         <FiLayers /> {`${review?.primaryComponent}-based`}
       </span>
-      {/**      <button
-        title="Expand review"
-        className={styles.openButton}
-        aria-expanded={false}
-      >
-        <FiChevronsDown />
-</button> */}
+    ) : null;
+
+  return (
+    <div className={styles.bar}>
+      {hours}
+      {difficulty}
+      {value}
+      {primaryComponent}
     </div>
   );
 }
 
-export default function ReviewDetail({ review, averages }: ReviewDetailProps) {
+export default function ReviewDetail({
+  review,
+  averages,
+  expandable,
+}: ReviewDetailProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const expandButton = (
+  const expandButton = expandable ? (
     <button
       title={isOpen ? "Close Review" : "Expand review"}
       className={styles.openButton}
@@ -132,19 +166,26 @@ export default function ReviewDetail({ review, averages }: ReviewDetailProps) {
     >
       {isOpen ? <FiChevronsUp /> : <FiChevronsDown />}
     </button>
-  );
+  ) : null;
 
   return (
     <div className={styles.container}>
       {isOpen ? (
         <div className={styles.bar}>
-            <span>{" "}</span>
-         </div>
+          <span> </span>
+        </div>
       ) : (
         <ReviewDetailBar review={review} />
       )}
       {expandButton}
-      {isOpen ? <ReviewDetailFull review={review} averages={{hours: 14, difficulty: 8, value: 7}} /> : <></>}
+      {isOpen ? (
+        <ReviewDetailFull
+          review={review}
+          averages={{ hours: 14, difficulty: 8, value: 7 }}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

@@ -6,9 +6,11 @@ import { FiXCircle } from "react-icons/fi";
 interface ReviewListProps {
   reviews: public_review[];
   instructors: public_instructor[];
+  expandable?: boolean;
+  identifyCourse?: boolean;
 }
 
-export default function ReviewList({ reviews, instructors }: ReviewListProps) {
+export default function ReviewList({ reviews, instructors, expandable=true, identifyCourse=false }: ReviewListProps) {
   return (
     <div className={styles.list}>
       {reviews?.length ? null : (
@@ -27,6 +29,8 @@ export default function ReviewList({ reviews, instructors }: ReviewListProps) {
             key={review.reviewID}
             review={review}
             instructor={instructor}
+            expandable={expandable}
+            identifyCourse={identifyCourse}
           />
         );
       })}

@@ -20,6 +20,8 @@ import ReviewDetail from "./ReviewDetail";
 interface ReviewProps {
   review: public_review;
   instructor: public_instructor;
+  expandable?: boolean;
+  identifyCourse?: boolean;
 }
 
 //map the ratings from 1-10 to emoji icons
@@ -49,7 +51,15 @@ const ratingColorMapping = {
   10: "green",
 };
 
-export default function Review({ review, instructor }: ReviewProps) {
+export default function Review({
+  review,
+  instructor,
+  expandable = true,
+  identifyCourse = false,
+}: ReviewProps) {
+
+  const department = review.courseID.slice(0,4).toLowerCase();
+  const courseNumber = review.courseID.slice(4);
 
   return (
     <div key={review.reviewID} className={styles.container}>
@@ -64,6 +74,13 @@ export default function Review({ review, instructor }: ReviewProps) {
         </span>
         <span>
           {" "}
+          {identifyCourse ? (
+            <Link href={`/reviews/${department}/${courseNumber}`}>
+              <a>{review.courseID}</a>
+            </Link>
+          ) : (
+            ""
+          )}{" "}
           with{" "}
           {
             <Link href={`/instructor/${instructor?.slug}`}>
@@ -96,7 +113,7 @@ export default function Review({ review, instructor }: ReviewProps) {
         <br />
         <p>{review.content}</p>
       </div>
-      <ReviewDetail review={review} />
+      <ReviewDetail review={review} expandable={expandable} />
     </div>
   );
 }
