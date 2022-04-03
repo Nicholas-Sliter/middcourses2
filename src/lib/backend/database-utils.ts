@@ -553,7 +553,8 @@ export async function getRecentReviewsByDepartment(
     "Review.courseID",
     "content",
     "rating",
-    "reviewDate"
+    "reviewDate",
+    "instructorID",
 ];
 
 
