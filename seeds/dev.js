@@ -16,9 +16,12 @@ exports.seed = async function (knex) {
   //Insert seed entries
 
   const departments = JSON.parse(
-    fs.readFileSync("./data/Department.json", "utf8")
-  );
+    fs.readFileSync("./data/Department.json", "utf8"));
   await knex.batchInsert("Department", departments, MAX_TEST_DATA);
+
+  //get and print departments
+  const depts = await knex("Department").select("*");
+  console.log(depts);
 
   const courseData = JSON.parse(fs.readFileSync("./data/Course.json", "utf8"));
   const courses = courseData.map((course) => {
@@ -30,7 +33,13 @@ exports.seed = async function (knex) {
         course.departmentID ?? course.courseID.slice(0, 4).toUpperCase(),
     };
   });
-  await knex.batchInsert("Course", courses, MAX_TEST_DATA);
+  //await knex.batchInsert("Course", courses, MAX_TEST_DATA);
+  courses.forEach(async (course) => {
+    await knex("Course")
+      .insert(course)
+      .catch((err) => console.log(err));;
+  });
+
 
   console.log(await knex("Course").select("courseID"));
 
