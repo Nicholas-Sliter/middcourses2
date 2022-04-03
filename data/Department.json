@@ -136,6 +136,10 @@
     "departmentName": "Interdepartmental"
   },
   {
+    "departmentID": "INTN",
+    "departmentName": "Internship"
+  },
+  {
     "departmentID": "IGST",
     "departmentName": "International & Global Studies"
   },
