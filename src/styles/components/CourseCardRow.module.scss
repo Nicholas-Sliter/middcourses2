@@ -1,0 +1,14 @@
+@import "../common/variables";
+@import "../common/mixins";
+
+
+.container{
+  display: flex;
+  flex-direction: row;
+  overflow-x : scroll;
+  overflow-y : none;
+  height: 12rem;
+
+  @include hideScrollbar();
+
+}

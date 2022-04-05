@@ -21,8 +21,6 @@ export default function useRecentReviewsByDepartment(department){
     fetchRecentReviews();
   }, [department]);
 
-  console.log(recentReviews);
-
   return recentReviews;
 
 

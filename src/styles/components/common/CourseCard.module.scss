@@ -1,0 +1,59 @@
+@import "../../common/variables";
+
+.container {
+  width: 16rem;
+  //height: 8rem;
+  height: 7rem;
+  border: $border-light;
+  border-radius: 6px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: $card-white;
+  box-shadow: $shadow-medium-light;
+
+  .cardBody {
+    width: 16rem;
+    height: 7rem;
+    position: relative;
+
+    h5 {
+      margin: 0;
+      font-size: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+      span {
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #333; //8c8c8c
+      border: $border-light;
+      border-radius: $border-radius-small;
+      }
+
+    p {
+      font-size: 0.8rem;
+      overflow: hidden;
+      //white-space: nowrap;
+      line-clamp: 2;
+      line-height: 1rem;
+      height: 3rem;
+      margin-top: 0.2rem;
+      
+    }
+
+    .link{
+      margin-top: auto;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      
+    }
+
+
+  }
+
+
+}

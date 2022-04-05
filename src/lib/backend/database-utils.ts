@@ -535,7 +535,7 @@ export async function getCoursesByDepartment(departmentID: string) {
 export async function getInstructorsByDepartment(departmentID: string) {
   return await knex("Instructor")
     .where({ departmentID })
-    .select(["name", "slug"]);
+    .select(["name", "slug", "instructorID"]);
 }
 
 /**
@@ -555,6 +555,7 @@ export async function getRecentReviewsByDepartment(
     "rating",
     "reviewDate",
     "instructorID",
+    "reviewID",
 ];
 
 
