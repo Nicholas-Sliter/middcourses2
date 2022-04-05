@@ -8,6 +8,8 @@ import useDepartmentCourses from "../../../hooks/useDepartmentCourses";
 import useInstructorsByDepartment from "../../../hooks/useInstructorsByDepartment";
 import useRecentReviewsByDepartment from "../../../hooks/useRecentReviewsByDepartment";
 import CourseCardRow from "../../../components/CourseCardRow";
+import Instructor from "../../../components/common/Instructor";
+import Row from "../../../components/common/Row";
 
 export default function DepartmentPage({}) {
   const deptCode = useRouter().query.department as string;
@@ -20,8 +22,12 @@ export default function DepartmentPage({}) {
     <>
       <PageTitle pageTitle={`${department}`} />
       <h2>{department}</h2>
-      <h3>Courses:</h3>
       <CourseCardRow courses={courses} />
+      <Row>
+        {instructors.map((instructor) => (
+          <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
+        ))}
+      </Row>
       <h3>Recent Reviews:</h3>
       <ReviewList
         reviews={reviews}

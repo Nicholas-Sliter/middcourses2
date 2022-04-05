@@ -112,3 +112,21 @@
 
 
 }
+
+
+@mixin scrollX {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+
+@mixin feelHover{
+  box-shadow: $shadow-small-light;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: $shadow-medium-hard;
+    transform: scale(1.02);
+  }
+
+}

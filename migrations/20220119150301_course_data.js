@@ -23,6 +23,7 @@ exports.up = function (knex) {
       table.string("name").notNullable();
       table.string("slug").unique().notNullable();
       table.string("instructorID").primary();
+      table.string("email");
       table.string("departmentID").defaultTo("");
     })
     .createTable("CourseInstructor", (table) => {

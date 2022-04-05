@@ -11,7 +11,7 @@ interface CourseCardProps {
 export default function CourseCard({course}: CourseCardProps){
   const department = course.courseID.substring(0, 4);
   const courseNumber = course.courseID.substring(4);
-  const url = `/reviews/${department}/${courseNumber}`;
+  const url = `/reviews/${department.toLowerCase()}/${courseNumber}`;
   //const n = Math.floor(Math.random() * 50000 *(1/parseInt(courseNumber,10)));
   // {`${n} reviews`}
   return (

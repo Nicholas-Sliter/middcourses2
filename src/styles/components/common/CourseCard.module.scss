@@ -1,4 +1,5 @@
 @import "../../common/variables";
+@import "../../common/mixins";
 
 .container {
   width: 16rem;
@@ -8,8 +9,11 @@
   border-radius: 6px;
   margin: 0.5rem;
   padding: 0.5rem;
-  background-color: $card-white;
+  //background-color: $card-white;
+  background-color: $card-grey;
   box-shadow: $shadow-medium-light;
+
+  @include feelHover();
 
   .cardBody {
     width: 16rem;

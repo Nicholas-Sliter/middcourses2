@@ -1,0 +1,28 @@
+@import "../../common/variables";
+@import "../../common/mixins";
+
+
+.container {
+  cursor: pointer;
+  margin: 0.5rem;
+  border: $border-light;
+  border-radius: $border-radius-small;
+  flex-shrink: 0 !important;
+  //background-color: $card-white !important;
+  @include feelHover();
+
+  span{
+    align-items: center;
+    vertical-align: middle;
+    padding: 0.2rem;
+    position: relative;
+    top: 0.25rem;
+    outline: $border-light;
+
+    div{
+
+    }
+  }
+
+
+}

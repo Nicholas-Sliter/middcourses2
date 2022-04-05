@@ -1,0 +1,10 @@
+@import "../../common/variables";
+@import "../../common/mixins";
+
+.container{
+  @include hideScrollbar();
+  @include flex_row_nowrap();
+  @include scrollX();
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}

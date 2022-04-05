@@ -31,6 +31,7 @@ export interface public_course {
 export interface public_instructor {
   instructorID: string;
   name: string;
+  email: string;
   slug: string;
 
 

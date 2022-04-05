@@ -167,6 +167,7 @@ interface Instructor {
   name: string;
   slug: string;
   instructorID: string;
+  email: string;
   departmentID: string;
 }
 
@@ -175,6 +176,7 @@ async function fetchInstructorData(rawInstructor: InstructorObject) {
     name: rawInstructor.name,
     instructorID: rawInstructor.id,
     slug: slugify(rawInstructor.name),
+    email: "",
     departmentID: null,
   };
 
@@ -186,6 +188,7 @@ async function fetchInstructorData(rawInstructor: InstructorObject) {
     const person = directory.person;
 
     if (person) {
+      formattedInstructor.email = person.email;
       //query the database for the departmentID from the department
       const department =
         (await getDepartmentByName(person.department ?? "")) ?? null; //OTHER /OTHR
@@ -213,14 +216,6 @@ export async function processInstructors(rawInstructors: InstructorObject[]) {
       await new Promise((resolve) =>
         setTimeout(resolve, Math.random() * 24000)
       );
-
-      //check instructorDict to see if instructor already exists before expensive fetch and database query
-      //if (instructorDict[rawInstructor.id]) {
-      //  console.log("instructor already processed");
-      //  return;
-      //}
-      //prevent duplicate async calls
-      //instructorDict[rawInstructor.id] = 1;
 
       const instructor = await fetchInstructorData(rawInstructor);
       if (!instructor || instructor.name === "") {

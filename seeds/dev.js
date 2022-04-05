@@ -51,6 +51,7 @@ exports.seed = async function (knex) {
       instructorID: instructor.instructorID,
       name: instructor.name,
       slug: instructor.slug,
+      email: instructor.email,
       departmentID: instructor.departmentID ?? "",
     };
   });

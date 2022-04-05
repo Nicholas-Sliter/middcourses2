@@ -155,7 +155,7 @@ export async function getInstructorByID(id: string): Promise<any> {
       instructorID: id,
     })
     .first()
-    .select(["name", "instructorID", "slug"]);
+    .select(["name", "instructorID", "slug", "email"]);
 
   if (!instructor) {
     return null;
@@ -535,7 +535,7 @@ export async function getCoursesByDepartment(departmentID: string) {
 export async function getInstructorsByDepartment(departmentID: string) {
   return await knex("Instructor")
     .where({ departmentID })
-    .select(["name", "slug", "instructorID"]);
+    .select(["name", "slug", "instructorID", "email"]);
 }
 
 /**
