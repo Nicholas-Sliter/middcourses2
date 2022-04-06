@@ -28,7 +28,7 @@ export default function DepartmentPage({}) {
           <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
         ))}
       </Row>
-      <h3>Recent Reviews:</h3>
+      <h3>Most Recent Reviews:</h3>
       <ReviewList
         reviews={reviews}
         instructors={instructors}

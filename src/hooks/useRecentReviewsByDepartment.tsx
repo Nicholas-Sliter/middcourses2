@@ -16,7 +16,11 @@ export default function useRecentReviewsByDepartment(department){
       }
 
       const data = await res.json();
-      setRecentReviews(data);
+      //order by reviewDate with the most recent review first
+      const sorted = data.sort((a, b) => {
+        return (a.reviewDate > b.reviewDate) ? -1 : 1;
+      });
+      setRecentReviews(sorted);
     };
     fetchRecentReviews();
   }, [department]);
