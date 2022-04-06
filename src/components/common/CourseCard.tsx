@@ -1,4 +1,6 @@
+import { route } from "next/dist/server/router";
 import Link from "next/link";
+import router, { Router } from "next/router";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { public_course } from "../../lib/common/types";
@@ -16,7 +18,10 @@ export default function CourseCard({course}: CourseCardProps){
   // {`${n} reviews`}
   return (
     <div className={styles.container}>
-      <div className={styles.cardBody}>
+      <button 
+        className={styles.cardBody}
+        onClick={() => router.push(url)}
+      >
         <h5>{course.courseName}</h5>
         {courseNumber ? (
           <span>
@@ -26,10 +31,13 @@ export default function CourseCard({course}: CourseCardProps){
           <Skeleton count={1} />
         )}
         <p>{course.courseDescription}</p>
-        <Link href={url}>
+        {/*<Link href={url}>
           <a className={styles.link}>{"View reviews"}</a>
-        </Link>
-      </div>
+        </Link>*/}
+        <span className={styles.term}>
+          {course?.term ?? null}
+        </span>
+      </button>
     </div>
   );
 }

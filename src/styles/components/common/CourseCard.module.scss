@@ -3,11 +3,12 @@
 
 .container {
   width: 16rem;
-  //height: 8rem;
   height: 7rem;
   border: $border-light;
   border-radius: 6px;
   margin: 0.5rem;
+  margin-left: 0.6rem;
+  margin-right: 0.6rem;
   padding: 0.5rem;
   //background-color: $card-white;
   background-color: $card-grey;
@@ -19,6 +20,16 @@
     width: 16rem;
     height: 7rem;
     position: relative;
+    outline: none;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    text-align: left;
+
 
     h5 {
       margin: 0;
@@ -28,14 +39,14 @@
       text-overflow: ellipsis;
     }
 
-      span {
+    span {
       font-size: 0.875rem;
       font-weight: 400;
       line-height: 1.5;
       color: #333; //8c8c8c
       border: $border-light;
       border-radius: $border-radius-small;
-      }
+    }
 
     p {
       font-size: 0.8rem;
@@ -43,21 +54,23 @@
       //white-space: nowrap;
       line-clamp: 2;
       line-height: 1rem;
-      height: 3rem;
+      //height: 3rem;
+      height: 3rem; //4rem
       margin-top: 0.2rem;
-      
     }
 
-    .link{
+    .link {
       margin-top: auto;
       position: absolute;
       left: 0;
       bottom: 0;
-      
     }
 
-
+    .term {
+      font-weight: bold;
+      float: right;
+      position: relative;
+      top: -0.7rem;
+    }
   }
-
-
 }

@@ -2,11 +2,17 @@ import { useState, useEffect } from "react";
 import { public_instructor } from "../lib/common/types";
 
 
-export default function useInstructor(id:string) {
+export default function useInstructorBySlug(slug:string) {
    const [instructor, setInstructor] = useState<public_instructor>(null);
+
    useEffect(() => {
+
+      if (!slug) {
+         return;
+      }
+
       async function fetchInstructor() {
-         const res = await fetch(`/api/instructor/id/${id}`);
+         const res = await fetch(`/api/instructor/${slug}`);
          if (!res.ok) {
             return null;
          }
@@ -15,7 +21,7 @@ export default function useInstructor(id:string) {
       }
 
       fetchInstructor();
-   }, [id]);
+   }, [slug]);
 
   return instructor;
 }

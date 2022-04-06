@@ -177,7 +177,7 @@ export async function getInstructorBySlug(slug: string): Promise<any> {
       slug: slug,
     })
     .first()
-    .select(["name", "instructorID", "slug"]);
+    .select(["name", "instructorID", "slug", "departmentID", "email"]);
 
   if (!instructor) {
     return null;
@@ -251,6 +251,31 @@ export async function getCoursesByInstructorID(id: string) {
 
   return courses;
 }
+
+
+export async function getCoursesByInstructorSlug(slug: string) {
+  //search through the CourseInstructor table for all instructors associated with a course
+  const courses = await knex("Instructor")
+  .where({
+    slug: slug,
+  })
+  .select(["Instructor.instructorID"])
+  .join("CourseInstructor", "CourseInstructor.instructorID", "Instructor.instructorID")
+  .select("term")
+  .join("Course", "Course.courseID", "CourseInstructor.courseID")
+  .select(["Course.courseID", "course.courseName", "Course.courseDescription"]);
+
+  if (!courses || courses.length == 0) {
+    return null;
+  }
+
+  return courses;
+}
+
+
+
+
+
 /**
  * Check if a course exists for a given courseID, instructor id, and semester.
  * @param id
@@ -539,6 +564,23 @@ export async function getInstructorsByDepartment(departmentID: string) {
 }
 
 /**
+ * Get instructors who teach in a department
+ * @param departmentID 
+ * @returns a list of all instructors who teach in the given department
+ */
+export async function getInstructorsByDepartmentCourses(departmentID: string) {
+  return await knex("Course")
+    .where({ "Course.departmentID" :departmentID })
+    .join("CourseInstructor", "Course.courseID", "CourseInstructor.courseID")
+    .join("Instructor", "CourseInstructor.instructorID", "Instructor.instructorID")
+    .select(["Instructor.name", "Instructor.slug", "Instructor.instructorID", "Instructor.email"])
+    .distinct("Instructor.instructorID");
+
+}
+
+
+
+/**
  * Get recent reviews in a department.
  * @param departmentID
  * @param limit the max number of reviews to return
@@ -575,6 +617,42 @@ export async function getRecentReviewsByDepartment(
     .select(returns);
 
     return reviews;
+
+}
+
+export async function getRecentReviewsByInstructor(slug:string, limit:number|null = null){
+
+
+  const returns = [
+    "Review.courseID",
+    "content",
+    "rating",
+    "reviewDate",
+    "Instructor.instructorID",
+    "reviewID",
+  ];
+
+  //have to do this to support sqlite limit
+  const reviews =
+    limit === null
+      ? await knex("Instructor")
+          .where({ slug })
+          .select("Instructor.instructorID")
+          .join("Review", "Instructor.instructorID", "Review.instructorID")
+          .orderBy("reviewDate")
+          .select(returns)
+      : await knex("Instructor")
+          .where({ slug })
+          .select(["Instructor.instructorID"])
+          .join("Review", "Instructor.instructorID", "Review.instructorID")
+          .orderBy("reviewDate")
+          .limit(limit)
+          .select(returns);
+
+  return reviews;
+
+
+
 
 }
 

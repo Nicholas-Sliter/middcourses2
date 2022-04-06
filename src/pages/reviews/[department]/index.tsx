@@ -23,7 +23,7 @@ export default function DepartmentPage({}) {
       <PageTitle pageTitle={`${department}`} />
       <h2>{department}</h2>
       <CourseCardRow courses={courses} />
-      <Row>
+      <Row style={{marginTop:"-1rem"}} >
         {instructors.map((instructor) => (
           <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
         ))}

@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getInstructorsByDepartment } from "../../../../lib/backend/database-utils";
+import { getInstructorsByDepartment, getInstructorsByDepartmentCourses } from "../../../../lib/backend/database-utils";
 
 const handler = nc({
   onError: (err, req: NextApiRequest, res: NextApiResponse) => {
@@ -14,12 +14,23 @@ const handler = nc({
   const deptCode = req.query.deptcode as string;
   const instructors = await getInstructorsByDepartment(deptCode);
 
-  if (!instructors || instructors.length === 0) {
-    res.status(404).end("Not Found");
-    return;
+  if (instructors && instructors.length > 0) {
+    res.status(200).json({ instructors });
   }
 
-  res.status(200).json({ instructors });
+  //try finding all instructors who teach for the department
+  //if none found, return 404
+
+  const instructors2 = await getInstructorsByDepartmentCourses(deptCode);
+
+  if (instructors2 && instructors2.length > 0) {
+    res.status(200).json({ instructors: instructors2 });
+  }
+  
+
+
+
+  res.status(404).end("Not Found");
 });
 
 export default handler;

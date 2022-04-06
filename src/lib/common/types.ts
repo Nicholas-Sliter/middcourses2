@@ -26,13 +26,16 @@ export interface public_course {
    courseName: string;
    courseDescription: string;
    departmentID?: string;
+   instructorID?: string;
+   term?: string;
 };
 
 export interface public_instructor {
   instructorID: string;
   name: string;
-  email: string;
+  email?: string;
   slug: string;
+  departmentID?: string;
 
 
 }
