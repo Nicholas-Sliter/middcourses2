@@ -10,7 +10,7 @@ interface InstructorProps {
 
 export default function Instructor({
   instructor,
-  link = `/instructors/${instructor.slug}`,
+  link = `/instructor/${instructor.slug}`,
 }: InstructorProps) {
   const img_url = `https://directory.middlebury.edu/DirectoryImage.aspx?show=true&email=${instructor.email}`;
 

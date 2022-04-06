@@ -14,6 +14,7 @@ export default function CustomHead() {
     <Head>
       <title>{title}</title>
       <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+      <meta name="keywords" content={`Middlebury, MiddCourses, ${title}, Course Reviews, Middlebury College `} ></meta>
     </Head>
   );
 }
