@@ -16,6 +16,7 @@ const handler = nc({
 
   if (instructors && instructors.length > 0) {
     res.status(200).json({ instructors });
+    return;
   }
 
   //try finding all instructors who teach for the department
@@ -25,10 +26,9 @@ const handler = nc({
 
   if (instructors2 && instructors2.length > 0) {
     res.status(200).json({ instructors: instructors2 });
+    return;
   }
   
-
-
 
   res.status(404).end("Not Found");
 });
