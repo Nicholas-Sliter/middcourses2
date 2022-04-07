@@ -263,7 +263,7 @@ export async function getCoursesByInstructorSlug(slug: string) {
   .join("CourseInstructor", "CourseInstructor.instructorID", "Instructor.instructorID")
   .select("term")
   .join("Course", "Course.courseID", "CourseInstructor.courseID")
-  .select(["Course.courseID", "course.courseName", "Course.courseDescription"]);
+  .select(["Course.courseID", "Course.courseName", "Course.courseDescription"]);
 
   if (!courses || courses.length == 0) {
     return null;
