@@ -1,13 +1,13 @@
 @import "../../common/variables.scss";
+@import "../../common/mixins.scss";
 
 
 .feature {
    align-items: center;
    position: relative;
-   //width: 34vw;
    max-width: 400px;
    min-width: 300px;
-   height: 7rem;
+   height: 8rem;
    display: inline-block;
    padding: 1rem;
    margin: 1rem;
@@ -16,6 +16,12 @@
    background-color: #ffffff;
    border: $border-light;
    box-shadow: $shadow-small-light;
+   cursor: pointer;
+   @include feelHover;
+
+   &:hover {
+      box-shadow: $shadow-medium-light;
+   }
 
    svg {
       display: block;
@@ -31,7 +37,8 @@
       border-radius: $border-radius-circle;
       -webkit-border-radius: 50%;
       overflow: visible;
-      color: $grey-dark;
+      //color: $grey-dark;
+      color: $midd-blue;
       outline: $border-light;
       box-shadow: $shadow-small-light;
    }

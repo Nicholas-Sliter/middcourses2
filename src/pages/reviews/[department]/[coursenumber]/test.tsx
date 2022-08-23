@@ -14,18 +14,38 @@ import AddReview from "../../../../components/AddReview";
 import { useDisclosure } from "@chakra-ui/react";
 import useInstructorsByCourse from "../../../../hooks/useInstructorsByCourse";
 import PageTitle from "../../../../components/common/PageTitle";
+import { getCourseByID, getInstructorsByCourseID, getReviewsByCourseID } from "../../../../lib/backend/database-utils";
+import { getSession } from "next-auth/react";
 
-export default function CoursePage() {
+
+
+// SSR is amazing
+export async function getServerSideProps(context) {
+
+  const session = await getSession(context)
+  console.log(session)
+
+  const department = context.query.department as string;
+  const courseNumber = context.query.coursenumber as string;
+  const courseID = `${department.toUpperCase()}${courseNumber}`;
+  const course = await getCourseByID(courseID);
+  const instructors = await getInstructorsByCourseID(courseID);
+  const reviews = (session?.user?.authorized) ? await getReviewsByCourseID(courseID) : [];
+  console.log("SSR:", course, instructors, reviews);
+  return {
+    props: { department, courseNumber, course, instructors, reviews }, // will be passed to the page component as props
+  }
+}
+
+
+
+export default function CoursePage({ department, courseNumber, course, instructors, reviews }) {
   const router: NextRouter = useRouter();
 
-  const department = router.query.department as string;
-  const courseNumber = router.query.coursenumber as string;
+  // const reviews = useCourseReviews(department, courseNumber)
+  //   ?.reviews as public_review[];
 
-  const course = useCourse(department, courseNumber);
-  const reviews = useCourseReviews(department, courseNumber)
-    ?.reviews as public_review[];
-
-  const instructors = useInstructorsByCourse(course?.courseID);
+  //const instructors = useInstructorsByCourse(course?.courseID);
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>([]);
   const [filteredReviews, setFilteredReviews] = useState<public_review[]>([]);
