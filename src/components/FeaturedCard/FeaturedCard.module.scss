@@ -1,0 +1,27 @@
+@import "../../styles/common/variables.scss";
+
+
+.featuredCard {
+    width: 800px;
+    height: 200px;
+    margin: 1rem;
+    border-radius: 1rem;
+    background-size: cover;
+    position: relative;
+    outline: $border-light;
+    box-shadow: $shadow-small-light;
+
+
+
+    .content {
+        position: absolute;
+        //backdrop-filter: blur(2px);
+        border-radius: 1rem;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+
+}

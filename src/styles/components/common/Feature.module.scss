@@ -3,36 +3,44 @@
 
 .feature {
    align-items: center;
-   width: 34vw;
+   position: relative;
+   //width: 34vw;
+   max-width: 400px;
+   min-width: 300px;
+   height: 7rem;
    display: inline-block;
-   padding: 0.2rem;
-   margin: 0.5rem;
-   margin-bottom: 2rem;
+   padding: 1rem;
+   margin: 1rem;
+   margin-top: 3rem;
+   border-radius: 1rem;
+   background-color: #ffffff;
+   border: $border-light;
+   box-shadow: $shadow-small-light;
 
    svg {
       display: block;
+      position: absolute;
+      top: -2rem;
+      left: calc(50% - 2.2rem);
       margin: auto;
       width: 2rem;
       height: 2rem;
       padding: 1.2rem;
-      outline: 1px solid $grey-dark;
+      background-color: #ffffff;
+      //outline: 1px solid $grey-dark;
       border-radius: $border-radius-circle;
       -webkit-border-radius: 50%;
       overflow: visible;
       color: $grey-dark;
-
-      &:hover {
-         background-color: $hover-grey;
-      }
-
-
+      outline: $border-light;
+      box-shadow: $shadow-small-light;
    }
 
    h3 {
       text-align: center;
       margin: auto;
       padding: 0;
-      padding-top: 1rem;
+      padding-top: 1.6rem;
       font-size: $font-size-medium;
       font-weight: bolder;
       color: $grey-dark;

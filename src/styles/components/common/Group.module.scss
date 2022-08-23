@@ -20,24 +20,24 @@
     flex-wrap: wrap;
     justify-content: space-around;
     //margin-top: 2rem;
-    outline: solid 1px #e6e6e6;
+    //outline: solid 1px #e6e6e6;
     border-radius: 8px;
     min-height: 12rem;
-    background-color: #fafafa;
+    //background-color: #fafafa;
 
 }
 
 
 
 .center {
-   margin: auto;
-   align-items: center;
-   justify-content: center;
-   
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .outline {
-   outline: solid 1px #e6e6e6;
-   border-radius: $border-radius-medium;
-   min-height: 12rem;
+    outline: solid 1px #e6e6e6;
+    border-radius: $border-radius-medium;
+    min-height: 12rem;
 }
