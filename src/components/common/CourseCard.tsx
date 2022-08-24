@@ -1,4 +1,3 @@
-import { route } from "next/dist/server/router";
 import Link from "next/link";
 import router, { Router } from "next/router";
 import Skeleton from "react-loading-skeleton";
@@ -10,7 +9,7 @@ interface CourseCardProps {
   course: public_course;
 };
 
-export default function CourseCard({course}: CourseCardProps){
+export default function CourseCard({ course }: CourseCardProps) {
   const department = course.courseID.substring(0, 4);
   const courseNumber = course.courseID.substring(4);
   const url = `/reviews/${department.toLowerCase()}/${courseNumber}`;
@@ -18,7 +17,7 @@ export default function CourseCard({course}: CourseCardProps){
   // {`${n} reviews`}
   return (
     <div className={styles.container}>
-      <button 
+      <button
         className={styles.cardBody}
         onClick={() => router.push(url)}
       >
