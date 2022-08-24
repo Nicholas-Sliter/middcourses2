@@ -19,13 +19,16 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <SessionProvider session={pageProps.session}>
-      <ChakraProvider resetCSS={false}>
-        <HeaderFooterLayout >
-          <Component {...pageProps} />
-        </HeaderFooterLayout>
-      </ChakraProvider>
-    </SessionProvider>
+    <>
+      <meta name="viewport" content="width=device-width, user-scalable=no"></meta>
+      <SessionProvider session={pageProps.session}>
+        <ChakraProvider resetCSS={false}>
+          <HeaderFooterLayout >
+            <Component {...pageProps} />
+          </HeaderFooterLayout>
+        </ChakraProvider>
+      </SessionProvider>
+    </>
   );
 }
 
