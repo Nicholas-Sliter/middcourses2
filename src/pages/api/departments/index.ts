@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getAllDepartments, getDepartmentByID } from "../../../lib/backend/database-utils";
 import { getTopReviewedDepartments, getTopRatedDepartments } from "../../../lib/backend/database/departments";
 

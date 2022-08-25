@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import { searchCourses, searchInstructors } from "../../../lib/backend/database-utils";
 import { cleanString } from "../../../lib/common/utils";
 
@@ -16,26 +16,26 @@ const handler = nc({
 
 
 
-.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  const q = req.query.q as string;
+  .get(async (req: NextApiRequest, res: NextApiResponse) => {
+    const q = req.query.q as string;
 
-  if (!q) {
-    res.status(400).end("No query provided");
-    return;
-  }
+    if (!q) {
+      res.status(400).end("No query provided");
+      return;
+    }
 
-  //clean the query and take only the first 24 characters
-  const query = cleanString(q).substring(0, 24);
+    //clean the query and take only the first 24 characters
+    const query = cleanString(q).substring(0, 24);
 
-  const [courses, instructors] = await Promise.all([
-    searchCourses(query),
-    searchInstructors(query)
-  ]);
+    const [courses, instructors] = await Promise.all([
+      searchCourses(query),
+      searchInstructors(query)
+    ]);
 
-    res.status(200).json({courses, instructors});
+    res.status(200).json({ courses, instructors });
 
 
-});
+  });
 
 
 

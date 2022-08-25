@@ -3,7 +3,7 @@
  */
 
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getRecentReviewsByInstructor } from "../../../../lib/backend/database-utils";
 import { getSession } from "next-auth/react";
 

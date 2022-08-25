@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getInstructorsByCourseID } from "../../../../lib/backend/database-utils";
 
 const handler = nc({
@@ -29,7 +29,7 @@ const handler = nc({
     return;
   }
 
-  res.status(200).json({instructors});
+  res.status(200).json({ instructors });
 });
 
 export default handler;

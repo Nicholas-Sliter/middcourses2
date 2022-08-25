@@ -2,7 +2,7 @@
 //use get to get a list of hidden reviews
 
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 
 const handler = nc({
   onError: (err, req: NextApiRequest, res: NextApiResponse) => {

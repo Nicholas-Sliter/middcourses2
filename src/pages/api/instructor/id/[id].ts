@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getInstructorByID } from "../../../../lib/backend/database-utils";
 
 const handler = nc({

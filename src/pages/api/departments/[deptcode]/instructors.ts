@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getInstructorsByDepartment, getInstructorsByDepartmentCourses } from "../../../../lib/backend/database-utils";
 
 const handler = nc({
@@ -28,7 +28,7 @@ const handler = nc({
     res.status(200).json({ instructors: instructors2 });
     return;
   }
-  
+
 
   res.status(404).end("Not Found");
 });

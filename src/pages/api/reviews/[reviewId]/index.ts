@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import { isUUIDv4 } from "../../../../lib/common/utils";
 import { getReviewByID } from "../../../../lib/backend/database-utils";
 
