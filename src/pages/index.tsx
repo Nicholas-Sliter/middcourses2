@@ -3,33 +3,34 @@ import PageTitle from "../components/common/PageTitle";
 import styles from "../styles/pages/Home.module.scss";
 import Feature from "../components/common/Feature";
 import FlexGroup from "../components/common/FlexGroup";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { FaBook, FaBuilding, FaUserGraduate } from "react-icons/fa";
 import SearchBar from "../components/common/SearchBox";
 
 
 export default function Home() {
-  const session = useSession();
+  //const session = useSession();
 
   return (
     <>
       <PageTitle pageTitle="Home" />
       <section className={styles.pageTop}>
         <SearchBar showResultDropdown />
+        <div style={{ height: '10rem' }}></div>
         <FlexGroup>
-          <Feature link="/courses">
+          <Feature link="/browse/courses">
             <FaBook />
             <h3>Browse Courses</h3>
             <p>
               MiddCourses is Middlebury&apos;s premier course discovery and review platform.  Browse from our complete catalogue to discover the perfect course for you.
             </p>
           </Feature>
-          <Feature link="/departments">
+          <Feature link="/browse/departments">
             <FaBuilding />
             <h3>Discover Departments</h3>
             <p>Find your perfect Major or Minor with ease. And within departments, discover top courses.</p>
           </Feature>
-          <Feature link="/instructors">
+          <Feature link="/browse/instructors">
             <FaUserGraduate />
             <h3>Meet Professors</h3>
             <p>

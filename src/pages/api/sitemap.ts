@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import fs from "fs";
 import {
   getAllCourses,
@@ -23,6 +23,21 @@ const handler = nc({
 }).get(async (req: NextApiRequest, res: NextApiResponse) => {
   const urls = [];
   await Promise.all([
+    //main page
+    urls.push("https://midd.courses/"),
+
+    //pivacy policy
+    urls.push("https://midd.courses/privacy-policy.html"),
+
+    //courses page
+    urls.push("https://midd.courses/browse/courses"),
+
+    //departments page
+    urls.push("https://midd.courses/browse/departments"),
+
+    //instructors page
+    urls.push("https://midd.courses/browse/instructors"),
+
     //get all courses
     getAllCourses().then((courses) => {
       courses.forEach((course) => {
@@ -44,15 +59,7 @@ const handler = nc({
         const slug = instructor?.slug?.toLowerCase();
         urls.push(`https://midd.courses/instructor/${slug}`);
       });
-    }),
-
-    //get all reviews?
-
-    //main page
-    urls.push("https://midd.courses/"),
-
-    //pivacy policy
-    urls.push("https://midd.courses/privacy-policy.html"),
+    })
   ]);
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
