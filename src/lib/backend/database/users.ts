@@ -2,6 +2,7 @@ import knex from "./knex";
 import { uuidv4 } from "../utils";
 import { Scraper } from "directory.js";
 import { checkIfFirstSemester } from "../../common/utils";
+import { User } from "../../common/types";
 
 
 /**
@@ -164,37 +165,6 @@ export async function __getFullUserByID(id: string) {
 export async function updateUserCheck(id: string) {
     //recheck if the user can read reviews
     const user = await __getFullUserByID(id);
-    if (!user) {
-        throw new Error("User does not exist");
-    }
-
-    if (user.numReviews >= 2) {
-        user.canReadReviews = true;
-    } else {
-        user.canReadReviews = false;
-    }
-
-    if (user.userType === "faculty") {
-        user.canReadReviews = true;
-    }
-
-    if (checkIfFirstSemester(user.graduationYear)) {
-        user.canReadReviews = true;
-    }
-
-    const result = await knex("User").where({ userID: user.userID }).update({
-        canReadReviews: user.canReadReviews,
-    });
-
-    if (!result) {
-        throw new Error("Failed to update user");
-    }
-}
-
-
-export async function batchUpdateUserCheck() {
-    //recheck if the user can read reviews
-    const user = await __getAllFullUsers();
     if (!user) {
         throw new Error("User does not exist");
     }

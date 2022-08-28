@@ -487,36 +487,6 @@ export async function updateUserCheck(id: string) {
 }
 
 
-export async function batchUpdateUserCheck() {
-  //recheck if the user can read reviews
-  const user = await __getAllFullUsers();
-  if (!user) {
-    throw new Error("User does not exist");
-  }
-
-  if (user.numReviews >= 2) {
-    user.canReadReviews = true;
-  } else {
-    user.canReadReviews = false;
-  }
-
-  if (user.userType === "faculty") {
-    user.canReadReviews = true;
-  }
-
-  if (checkIfFirstSemester(user.graduationYear)) {
-    user.canReadReviews = true;
-  }
-
-  const result = await knex("User").where({ userID: user.userID }).update({
-    canReadReviews: user.canReadReviews,
-  });
-
-  if (!result) {
-    throw new Error("Failed to update user");
-  }
-}
-
 /**
  * Search for courses like the given query.
  * @param query the query to search for
