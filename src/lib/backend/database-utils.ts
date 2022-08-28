@@ -256,14 +256,14 @@ export async function getCoursesByInstructorID(id: string) {
 export async function getCoursesByInstructorSlug(slug: string) {
   //search through the CourseInstructor table for all instructors associated with a course
   const courses = await knex("Instructor")
-  .where({
-    slug: slug,
-  })
-  .select(["Instructor.instructorID"])
-  .join("CourseInstructor", "CourseInstructor.instructorID", "Instructor.instructorID")
-  .select("term")
-  .join("Course", "Course.courseID", "CourseInstructor.courseID")
-  .select(["Course.courseID", "Course.courseName", "Course.courseDescription"]);
+    .where({
+      slug: slug,
+    })
+    .select(["Instructor.instructorID"])
+    .join("CourseInstructor", "CourseInstructor.instructorID", "Instructor.instructorID")
+    .select("term")
+    .join("Course", "Course.courseID", "CourseInstructor.courseID")
+    .select(["Course.courseID", "Course.courseName", "Course.courseDescription"]);
 
   if (!courses || courses.length == 0) {
     return null;
@@ -365,6 +365,28 @@ export async function __getFullUserByID(id: string) {
   return user;
 }
 
+
+/**
+ * Return all full users
+ * @authentication {backend only}
+ * @param
+ * @returns
+ */
+
+export async function __getAllFullUsers() {
+  const users = await knex("User")
+    .select("*");
+
+  if (!users) {
+    return [];
+  }
+
+  return users;
+}
+
+
+
+
 /**
  * Check if a user has already been created.
  * @param email
@@ -464,6 +486,37 @@ export async function updateUserCheck(id: string) {
   }
 }
 
+
+export async function batchUpdateUserCheck() {
+  //recheck if the user can read reviews
+  const user = await __getAllFullUsers();
+  if (!user) {
+    throw new Error("User does not exist");
+  }
+
+  if (user.numReviews >= 2) {
+    user.canReadReviews = true;
+  } else {
+    user.canReadReviews = false;
+  }
+
+  if (user.userType === "faculty") {
+    user.canReadReviews = true;
+  }
+
+  if (checkIfFirstSemester(user.graduationYear)) {
+    user.canReadReviews = true;
+  }
+
+  const result = await knex("User").where({ userID: user.userID }).update({
+    canReadReviews: user.canReadReviews,
+  });
+
+  if (!result) {
+    throw new Error("Failed to update user");
+  }
+}
+
 /**
  * Search for courses like the given query.
  * @param query the query to search for
@@ -481,17 +534,17 @@ export async function searchCourses(query: string) {
   const courses =
     query.length < 4
       ? await knex("Course")
-          .where("courseName", likeOperator, `%${query}%`)
-          .orWhere("courseID", likeOperator, `%${query}%`)
-          .limit(25)
-          .select(["courseID", "courseName", "courseDescription"])
+        .where("courseName", likeOperator, `%${query}%`)
+        .orWhere("courseID", likeOperator, `%${query}%`)
+        .limit(25)
+        .select(["courseID", "courseName", "courseDescription"])
       : await knex("Course")
-          .where("courseName", likeOperator, `%${query}%`)
-          .orWhere("courseID", likeOperator, `%${query}%`)
-          //.orWhere("courseID", likeOperator, `%${departmentMatch}%`) //this makes the results so much worse TODO: fix by use fuse on backend?
-          .orWhere("courseDescription", likeOperator, `%${query}%`)
-          .limit(25)
-          .select(["courseID", "courseName", "courseDescription"]);
+        .where("courseName", likeOperator, `%${query}%`)
+        .orWhere("courseID", likeOperator, `%${query}%`)
+        //.orWhere("courseID", likeOperator, `%${departmentMatch}%`) //this makes the results so much worse TODO: fix by use fuse on backend?
+        .orWhere("courseDescription", likeOperator, `%${query}%`)
+        .limit(25)
+        .select(["courseID", "courseName", "courseDescription"]);
 
   if (!courses || courses.length == 0) {
     return [];
@@ -570,7 +623,7 @@ export async function getInstructorsByDepartment(departmentID: string) {
  */
 export async function getInstructorsByDepartmentCourses(departmentID: string) {
   return await knex("Course")
-    .where({ "Course.departmentID" :departmentID })
+    .where({ "Course.departmentID": departmentID })
     .join("CourseInstructor", "Course.courseID", "CourseInstructor.courseID")
     .join("Instructor", "CourseInstructor.instructorID", "Instructor.instructorID")
     .select(["Instructor.name", "Instructor.slug", "Instructor.instructorID", "Instructor.email"])
@@ -598,7 +651,7 @@ export async function getRecentReviewsByDepartment(
     "reviewDate",
     "instructorID",
     "reviewID",
-];
+  ];
 
 
   //have to do this to support sqlite limit
@@ -607,20 +660,20 @@ export async function getRecentReviewsByDepartment(
     .select(["Course.courseID"])
     .join("Review", "Course.courseID", "Review.courseID")
     .orderBy("reviewDate")
-    .select(returns) 
+    .select(returns)
     : await knex("Course")
-    .where({ departmentID })
-    .select(["Course.courseID"])
-    .join("Review", "Course.courseID", "Review.courseID")
-    .orderBy("reviewDate")
-    .limit(limit)
-    .select(returns);
+      .where({ departmentID })
+      .select(["Course.courseID"])
+      .join("Review", "Course.courseID", "Review.courseID")
+      .orderBy("reviewDate")
+      .limit(limit)
+      .select(returns);
 
-    return reviews;
+  return reviews;
 
 }
 
-export async function getRecentReviewsByInstructor(slug:string, limit:number|null = null){
+export async function getRecentReviewsByInstructor(slug: string, limit: number | null = null) {
 
 
   const returns = [
@@ -636,18 +689,18 @@ export async function getRecentReviewsByInstructor(slug:string, limit:number|nul
   const reviews =
     limit === null
       ? await knex("Instructor")
-          .where({ slug })
-          .select("Instructor.instructorID")
-          .join("Review", "Instructor.instructorID", "Review.instructorID")
-          .orderBy("reviewDate")
-          .select(returns)
+        .where({ slug })
+        .select("Instructor.instructorID")
+        .join("Review", "Instructor.instructorID", "Review.instructorID")
+        .orderBy("reviewDate")
+        .select(returns)
       : await knex("Instructor")
-          .where({ slug })
-          .select(["Instructor.instructorID"])
-          .join("Review", "Instructor.instructorID", "Review.instructorID")
-          .orderBy("reviewDate")
-          .limit(limit)
-          .select(returns);
+        .where({ slug })
+        .select(["Instructor.instructorID"])
+        .join("Review", "Instructor.instructorID", "Review.instructorID")
+        .orderBy("reviewDate")
+        .limit(limit)
+        .select(returns);
 
   return reviews;
 
