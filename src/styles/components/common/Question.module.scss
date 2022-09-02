@@ -9,27 +9,33 @@
   border: $border-light;
   border-radius: $border-radius-small;
 
-  &:hover{
+
+  div>div {
+    top: 35%;
+  }
+
+  &:hover {
     border: $border-highlight;
   }
 
-  &:focus-within{
+  &:focus-within {
     //border: $border-focus;
     outline: $border-focus;
   }
-  
-  input, select {
+
+  input,
+  select {
     margin-bottom: 1rem;
   }
 
 
   .question {
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
-}
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
 
 
 }

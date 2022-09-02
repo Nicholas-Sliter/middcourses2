@@ -1,3 +1,4 @@
+import type { Session } from "next-auth";
 export interface public_review {
   reviewID: string;
   courseID: string;
@@ -22,12 +23,12 @@ export interface public_review {
 
 
 export interface public_course {
-   courseID: string;
-   courseName: string;
-   courseDescription: string;
-   departmentID?: string;
-   instructorID?: string;
-   term?: string;
+  courseID: string;
+  courseName: string;
+  courseDescription: string;
+  departmentID?: string;
+  instructorID?: string;
+  term?: string;
 };
 
 export interface public_instructor {
@@ -50,7 +51,7 @@ export interface User {
 }
 
 
-export interface Session {
+export interface CustomSession extends Session {
 
   user: {
     name: string;
@@ -58,7 +59,7 @@ export interface Session {
     image: string;
     id: string;
     role: string;
-    authroized: boolean;
+    authorized: boolean;
     admin: boolean;
 
   };

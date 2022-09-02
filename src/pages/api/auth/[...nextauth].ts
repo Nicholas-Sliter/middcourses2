@@ -1,12 +1,14 @@
 import NextAuth from "next-auth";
 //import Auth0Provider from "next-auth/providers/auth0";
 import GoogleProvider from "next-auth/providers/google";
+import type { Session } from "next-auth";
 
 import {
   checkIfUserExists,
   generateUser,
   getUserByEmail,
 } from "../../../lib/backend/database-utils";
+import { CustomSession } from "../../../lib/common/types";
 //import { canWriteReviews } from "../../../lib/backend/utils";
 
 async function signIn({ profile, user, account }) {
@@ -48,11 +50,9 @@ async function session({ session, user }) {
   session.user.id = u?.userID;
   session.user.role = u?.userType;
   session.user.authorized = u?.canReadReviews as boolean;
-  //session.user.canWriteReviews = canWriteReviews(u.userID);
   session.user.admin = u?.admin;
 
-
-  return session;
+  return session as CustomSession;
 }
 
 async function redirect({ url, baseUrl }) {

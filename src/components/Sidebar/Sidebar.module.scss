@@ -1,0 +1,14 @@
+.sidebar {
+    flex: 1;
+    border: 1px solid #e6e6e6;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    background: #f3f5f7;
+    margin-top: 2px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 2rem;
+    max-width: 400px;
+}

@@ -19,15 +19,15 @@ export default function SearchBar({ showResultDropdown = false }) {
       <Menu>
         {Array.isArray(results)
           ? results.map((result) =>
-              result?.courseID ? (
-                <CourseSearchResult course={result} key={result.courseID} />
-              ) : (
-                <InstructorSearchResult
-                  instructor={result}
-                  key={result.instructorId}
-                />
-              )
+            result?.courseID ? (
+              <CourseSearchResult course={result} key={result.courseID} />
+            ) : (
+              <InstructorSearchResult
+                instructor={result}
+                key={result.instructorId}
+              />
             )
+          )
           : null}
       </Menu>
     </div>
@@ -38,7 +38,7 @@ export default function SearchBar({ showResultDropdown = false }) {
       <input
         type="text"
         draggable={false}
-        placeholder="Search..."
+        placeholder="Search for courses or instructors"
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
