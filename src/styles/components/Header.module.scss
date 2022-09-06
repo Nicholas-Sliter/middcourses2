@@ -12,8 +12,9 @@
   padding: 0.2rem;
   padding-top: 0rem;
   vertical-align: middle;
-  box-shadow: 1px 1px 1px 1px $grey-light;
-  
+  //box-shadow: 1px 1px 1px 1px $grey-light;
+  border-bottom: 1px solid #e6e6e6;
+
   .logo {
     height: 2rem;
     padding: 0.2rem;

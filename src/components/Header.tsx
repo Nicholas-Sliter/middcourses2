@@ -40,8 +40,8 @@ export default function Header() {
         </li>
         <LoginButton header />
   </div>*/}
-  {/**<ProfileButton />*/}
-  <LoginProfileComponent/>
+      {/**<ProfileButton />*/}
+      <LoginProfileComponent />
     </header>
   );
 }
