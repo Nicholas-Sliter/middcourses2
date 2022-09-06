@@ -1,4 +1,3 @@
-
 @import "../common/_variables.scss";
 
 .container {
@@ -19,33 +18,16 @@
    color: #333;
    border: none;
    outline: $border-light;
-   font-size: 0.8rem;
-   font-weight: bold;
    text-align: center;
-   text-transform: uppercase;
-   box-shadow: $shadow-small-light;
    cursor: pointer;
 
-   &:hover{
+   &:hover {
       outline: $border-dark;
    }
 
 }
 
 .selected {
-   background-color: $logo-blue;
+   background-color: $main-blue;
    color: #fff;
-
-   &:hover{
-      outline: $border-blue;
-   }
 }
-
-@media screen and (max-width: $screen-small){
-   .badge{
-      font-size: 1rem;
-   }
-
-}
-
-
