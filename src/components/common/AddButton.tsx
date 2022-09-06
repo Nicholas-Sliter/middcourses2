@@ -4,7 +4,7 @@
  */
 
 import { Button, Portal } from "@chakra-ui/react";
-import {RiAddFill} from "react-icons/ri";
+import { RiEditFill } from "react-icons/ri";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 
@@ -16,18 +16,18 @@ export default function AddButton({ onClick }) {
 
   const signInToast = () => {
     toast({
-          title: 'Login to create a review',
-          description: "You must be logged in to create a review",
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
+      title: 'Login to create a review',
+      description: "You must be logged in to create a review",
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
 
-        })
+    })
   };
-  
+
   if (status === "loading") {
     return null;
-  } 
+  }
 
   if (session?.user?.role === "faculty") {
     return null;
@@ -38,15 +38,15 @@ export default function AddButton({ onClick }) {
 
   return (
     <Portal>
-    <div className={styles.container}>
-      <Button
-      title="Add a review"
-        onClick={onClick}
-      >
-        <span className={styles.expandedText}>Review</span>
-        <RiAddFill />
-      </Button>
-    </div>
+      <div className={styles.container}>
+        <Button
+          title="Add a review"
+          onClick={onClick}
+        >
+          <RiEditFill />
+          <span className={styles.expandedText}>Review</span>
+        </Button>
+      </div>
     </Portal>
   );
 }
