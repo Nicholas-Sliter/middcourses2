@@ -301,7 +301,7 @@ export default function AddReview({
                   />
                 </Question>
                 <Question
-                  label="How enthusatic was the instructor?"
+                  label="How enthusiastic was the instructor?"
                   htmlFor="instructorEnthusiasm"
                 >
                   <QuestionSlider
@@ -321,7 +321,7 @@ export default function AddReview({
                     register={register}
                     descriptor={
                       standardMapping?.[
-                        watch("instructorAccommodationLevel")
+                      watch("instructorAccommodationLevel")
                       ] ?? null
                     }
                   />
