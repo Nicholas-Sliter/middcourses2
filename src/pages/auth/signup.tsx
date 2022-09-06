@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Router from "next/router";
-import { Session } from "../../lib/common/types";
+import { CustomSession } from "../../lib/common/types";
 
 export default function SignUpPage() {
   //TODO: switch to using react hook form
@@ -16,7 +16,7 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm();
 
-  const { data: session } = useSession() as unknown as {data: Session};
+  const { data: session } = useSession() as unknown as { data: CustomSession };
   const [gradYr, setGradYr] = useState("");
   const [major, setMajor] = useState("");
 
