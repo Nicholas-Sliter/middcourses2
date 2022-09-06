@@ -85,3 +85,8 @@ export function formatTermObj(termObj) {
   const term: string = `${termObj.season}${termObj.year.toString().slice(2)}`;
   return term;
 }
+
+
+export function getCourseNumberFromID(courseID: string) {
+  return courseID.split(/[0-9]/)[1];
+}
