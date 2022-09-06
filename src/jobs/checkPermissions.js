@@ -1,8 +1,7 @@
-import knex from '../lib/backend/database/knex';
+//import knex from '../lib/backend/database/knex';
+const knex = require('../lib/backend/database/knex');
 
 function checkPermissions() {
-
-    const today = new Date();
 
     // Note: this can create invalid dates, but it's not a big deal as they can still be compared
     const SIX_MONTHS_AGO = new Date();
@@ -55,4 +54,5 @@ try {
 
 } catch (e) {
     console.log(e);
+    console.log('Permissions check failed');
 }
