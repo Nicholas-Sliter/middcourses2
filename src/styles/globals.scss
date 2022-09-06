@@ -9,6 +9,7 @@ body {
   font-family: $font-family-main;
   min-height: 100vh;
 }
+
 main {
   padding: 0;
   margin: 0;
@@ -18,4 +19,12 @@ main {
 
 @include headings {
   font-family: $font-family-heading;
+}
+
+.chakra-toast__inner>div>button {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 0.8rem;
+
 }
