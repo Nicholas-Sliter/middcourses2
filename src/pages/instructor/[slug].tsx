@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import PageTitle from "../../components/common/PageTitle";
 import CourseCardRow from "../../components/CourseCardRow";
@@ -5,15 +6,37 @@ import ReviewList from "../../components/ReviewList";
 import useInstructorBySlug from "../../hooks/useInstructorBySlug";
 import useInstructorCourses from "../../hooks/useInstructorCourses";
 import { useInstructorReviews } from "../../hooks/useInstructorReviews";
-import { public_instructor } from "../../lib/common/types";
+import { getCoursesByInstructorSlug, getInstructorBySlug, getRecentReviewsByInstructor } from "../../lib/backend/database-utils";
+import { CustomSession, public_course, public_instructor, public_review } from "../../lib/common/types";
 
 
-export default function InstructorPage() {
-  const slug = useRouter().query.slug as string;
-  const instructor = useInstructorBySlug(slug) as public_instructor | null;
-  const courses = useInstructorCourses(slug) ?? [];
-  const reviews = useInstructorReviews(slug) ?? [];
+export async function getServerSideProps(context) {
+  const slug = context.query.slug as string;
+  const session = await getSession(context) as CustomSession;
+  const authorized = session?.user?.authorized ?? false;
 
+  const [instructor, courses, reviews]:
+    [public_instructor, public_course[], public_review[]] = await Promise.all([
+      getInstructorBySlug(slug) ?? [],
+      getCoursesByInstructorSlug(slug) ?? [],
+      (authorized) ? getRecentReviewsByInstructor(slug, 5) : [],
+    ])
+
+  return {
+    props: {
+      slug: slug,
+      instructor: instructor,
+      courses: courses,
+      reviews: reviews,
+      authorized: authorized,
+    },
+  };
+
+}
+
+
+
+export default function InstructorPage({ slug, instructor, courses, reviews, authorized }) {
 
   return (
     <>
