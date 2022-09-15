@@ -1,15 +1,26 @@
-// Update with your config settings.
-
-//fix TS error considering files without import/export as legacy scripts
-//export{};
-
 module.exports = {
+  // development: {
+  //   client: "sqlite3",
+  //   connection: {
+  //     filename: "./dev.sqlite3",
+  //   },
+  //   useNullAsDefault: true
+  // },
+
   development: {
-    client: "sqlite3",
+    client: "postgresql",
     connection: {
-      filename: "./dev.sqlite3",
+      database: "middcourses_dev",
+      user: "postgres",
+      password: "dev",
     },
-  useNullAsDefault: true
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: "knex_migrations",
+    },
   },
 
   staging: {
