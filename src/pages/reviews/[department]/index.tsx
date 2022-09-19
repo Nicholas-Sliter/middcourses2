@@ -1,7 +1,5 @@
-import { StylesProvider } from "@chakra-ui/react";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import PageTitle from "../../../components/common/PageTitle";
-import CourseCard from "../../../components/common/CourseCard";
 import ReviewList from "../../../components/ReviewList";
 import useDepartment from "../../../hooks/useDepartment";
 import useDepartmentCourses from "../../../hooks/useDepartmentCourses";
@@ -9,35 +7,103 @@ import useInstructorsByDepartment from "../../../hooks/useInstructorsByDepartmen
 import useRecentReviewsByDepartment from "../../../hooks/useRecentReviewsByDepartment";
 import CourseCardRow from "../../../components/CourseCardRow";
 import Instructor from "../../../components/common/Instructor";
-import Row from "../../../components/common/Row";
 import ScrollableRow from "../../../components/common/ScrollableRow";
+import { getSession } from "next-auth/react";
+import { CustomSession, public_course, public_instructor, public_review } from "../../../lib/common/types";
+import { optimizedSSRDepartmentPage } from "../../../lib/backend/database/departments";
+import { departmentNameMapping } from "../../../lib/common/utils";
+import { BrowserView, MobileView } from "../../../components/DeviceViews";
+import SidebarLayout from "../../../layouts/SidebarLayout";
 
-export default function DepartmentPage({ }) {
-  const deptCode = useRouter().query.department as string;
-  const department = useDepartment(deptCode);
-  const reviews = useRecentReviewsByDepartment(deptCode) ?? [];
-  const instructors = useInstructorsByDepartment(deptCode) ?? [];
-  const courses = useDepartmentCourses(deptCode);
+interface DepartmentPageProps {
+  departmentID: string;
+  departmentName: string;
+  courses: public_course[];
+  instructors: public_instructor[];
+  reviews: public_review[];
+  authorized: boolean;
+}
+
+export async function getServerSideProps(context) {
+  const departmentID = context.query.department as string;
+  console.log(departmentID);
+  const session = await getSession(context) as CustomSession;
+
+  const data = await optimizedSSRDepartmentPage(departmentID.toUpperCase(), session?.user?.authorized ?? false);
+
+  return {
+    props: {
+      departmentID: departmentID,
+      departmentName: data.departmentName,
+      courses: data.courses,
+      instructors: data.instructors,
+      reviews: JSON.parse(JSON.stringify(data.reviews)),
+      authorized: session?.user?.authorized ?? false,
+    }
+  }
+}
+
+export default function DepartmentPage({
+  departmentID,
+  departmentName,
+  courses,
+  instructors,
+  reviews,
+  authorized,
+}: DepartmentPageProps) {
+
+  const numReviewSum = courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
+  const reviewText = numReviewSum === 1 ? "review" : "reviews";
 
   return (
     <>
-      <PageTitle pageTitle={`${department}`} />
-      <h2>{department}</h2>
-      <CourseCardRow courses={courses} showCount />
-      <div style={{ marginTop: "-1rem" }}>
-        <ScrollableRow>
-          {instructors.map((instructor) => (
-            <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
-          ))}
-        </ScrollableRow>
-      </div>
-      <h3>Most Recent Reviews:</h3>
-      <ReviewList
-        reviews={reviews}
-        instructors={instructors}
-        expandable={false}
-        identifyCourse
-      />
+      <PageTitle pageTitle={`${departmentName}`} />
+      <BrowserView>
+        <SidebarLayout>
+          <SidebarLayout.Sidebar>
+            <div>
+              <h2>{departmentName}</h2>
+              <p>{numReviewSum} {reviewText}</p>
+            </div>
+          </SidebarLayout.Sidebar>
+
+          <SidebarLayout.Main>
+            <CourseCardRow courses={courses} showCount />
+            <div style={{ marginTop: "-1rem" }}>
+              <ScrollableRow>
+                {instructors.map((instructor) => (
+                  <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
+                ))}
+              </ScrollableRow>
+            </div>
+            <h3>Most Recent Reviews:</h3>
+            <ReviewList
+              reviews={reviews}
+              instructors={instructors}
+              expandable={false}
+              identifyCourse
+            />
+          </SidebarLayout.Main>
+        </SidebarLayout>
+      </BrowserView>
+      <MobileView>
+        <h2>{departmentName}</h2>
+        <CourseCardRow courses={courses} showCount />
+        <div style={{ marginTop: "-1rem" }}>
+          <ScrollableRow>
+            {instructors.map((instructor) => (
+              <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
+            ))}
+          </ScrollableRow>
+        </div>
+        <h3>Most Recent Reviews:</h3>
+        <ReviewList
+          reviews={reviews}
+          instructors={instructors}
+          expandable={false}
+          identifyCourse
+        />
+      </MobileView>
     </>
   );
 }

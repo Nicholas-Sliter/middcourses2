@@ -29,7 +29,7 @@ export interface public_course {
   departmentID?: string;
   instructorID?: string;
   term?: string;
-  numReviews?: number;
+  numReviews?: number | string;
 };
 
 export interface public_instructor {

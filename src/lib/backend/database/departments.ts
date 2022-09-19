@@ -1,3 +1,4 @@
+import { reviewInfo } from "./common";
 import knex from "./knex";
 
 /**
@@ -10,15 +11,17 @@ export async function getAllDepartments() {
 
 }
 
-export async function getDepartmentByID(departmentID: number) {
+export async function getDepartmentByID(departmentID: string) {
     return await knex("Department")
         .select(["Department.departmentID", "Department.departmentName"])
+        .first()
         .where({ departmentID });
 }
 
 export async function getDepartmentByName(departmentName: string) {
     return await knex("Department")
         .select(["Department.departmentID", "Department.departmentName"])
+        .first()
         .where({ departmentName });
 }
 
@@ -51,3 +54,78 @@ export async function getTopRatedDepartments(limit: number) {
 }
 
 
+
+export async function getMostRecentReviewsByDepartment(departmentID: string, limit: number) {
+    return await knex("Course")
+        .where({ "Course.departmentID": departmentID })
+        .join("Review", "Course.courseID", "Review.courseID")
+        .where({
+            'Review.deleted': false,
+            'Review.archived': false,
+            'Review.approved': true
+        })
+        .select([
+            'Review.reviewID',
+            'Review.courseID',
+            'Review.instructorID',
+            'Review.rating',
+            'Review.reviewDate',
+            'Review.content',
+        ])
+        .orderBy("Review.reviewDate", "desc")
+        .limit(limit);
+}
+
+/**
+ * Get instructors who teach in a department
+ * @param departmentID 
+ * @returns a list of all instructors who teach in the given department
+ */
+export async function getInstructorsByDepartmentCourses(departmentID: string) {
+    return await knex("Course")
+        .where({ "Course.departmentID": departmentID })
+        .join("CourseInstructor", "Course.courseID", "CourseInstructor.courseID")
+        .join("Instructor", "CourseInstructor.instructorID", "Instructor.instructorID")
+        .select(["Instructor.name", "Instructor.slug", "Instructor.instructorID", "Instructor.email"])
+        .distinct("Instructor.instructorID");
+
+}
+
+/**
+ * Get courses by department.
+ * @param departmentID
+ * @returns a list of all courses in the given department
+ */
+export async function getCoursesByDepartment(departmentID: string) {
+    return await knex("Course")
+        .where({ departmentID })
+        .select(["Course.courseID", "Course.courseName", "Course.courseDescription"])
+        .groupBy("Course.courseID")
+        .leftJoin("Review", "Course.courseID", "Review.courseID")
+        .count("Review.reviewID as numReviews")
+}
+
+
+
+export async function optimizedSSRDepartmentPage(departmentID: string, authorized: boolean) {
+
+    if (!departmentID || departmentID.length > 10) {
+        return null;
+    }
+
+    const [departmentQuery, instructorQuery, reviewQuery, courseQuery] = await Promise.all([
+        getDepartmentByID(departmentID),
+        getInstructorsByDepartmentCourses(departmentID),
+        getMostRecentReviewsByDepartment(departmentID, 5),
+        getCoursesByDepartment(departmentID)
+    ]);
+
+    return {
+        departmentID: departmentID,
+        departmentName: departmentQuery.departmentName,
+        instructors: instructorQuery,
+        reviews: reviewQuery,
+        courses: courseQuery
+    }
+
+}

@@ -1,4 +1,6 @@
 import styles from "./SidebarLayout.module.scss";
+import Sidebar from "./Sidebar";
+import Main from "./Main";
 
 function SidebarLayout({ children }: { children: React.ReactNode }) {
 
@@ -12,5 +14,8 @@ function SidebarLayout({ children }: { children: React.ReactNode }) {
 
 
 }
+
+SidebarLayout.Sidebar = Sidebar;
+SidebarLayout.Main = Main;
 
 export default SidebarLayout;

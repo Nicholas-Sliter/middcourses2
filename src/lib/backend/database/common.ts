@@ -25,3 +25,14 @@ export const reviewInfo = [
     "Review.instructorEnthusiasm",
     "Review.instructorAgain",
 ];
+
+export const basicReviewInfo = [
+    "Review.reviewID",
+    "Review.courseID",
+    "Review.instructorID",
+    "Review.semester",
+    "Review.reviewDate",
+    "Review.rating",
+    "Review.content",
+    "Review.voteCount",
+];

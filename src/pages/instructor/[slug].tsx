@@ -5,9 +5,7 @@ import { TbArrowBackUp } from "react-icons/tb";
 import PageTitle from "../../components/common/PageTitle";
 import CourseCardRow from "../../components/CourseCardRow";
 import { BrowserView, MobileView } from "../../components/DeviceViews";
-import Main from "../../components/Main";
 import ReviewList from "../../components/ReviewList";
-import Sidebar from "../../components/Sidebar";
 import useInstructorBySlug from "../../hooks/useInstructorBySlug";
 import useInstructorCourses from "../../hooks/useInstructorCourses";
 import { useInstructorReviews } from "../../hooks/useInstructorReviews";
@@ -44,7 +42,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
       <PageTitle pageTitle={`${instructor?.name ?? ""}`} />
       <BrowserView>
         <SidebarLayout>
-          <Sidebar>
+          <SidebarLayout.Sidebar>
             <div>
               <h2>{instructor?.name}</h2>
               <p>{instructor?.departmentID}</p>
@@ -60,11 +58,11 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
                 <a style={{ color: "#333", marginRight: 'auto', marginLeft: 'auto' }}><TbArrowBackUp /> {instructor.departmentName} department</a>
               </Link> : null}
 
-          </Sidebar>
-          <Main>
+          </SidebarLayout.Sidebar>
+          <SidebarLayout.Main>
             <CourseCardRow courses={courses} />
             <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} />
-          </Main>
+          </SidebarLayout.Main>
         </SidebarLayout>
       </BrowserView>
       <MobileView>
