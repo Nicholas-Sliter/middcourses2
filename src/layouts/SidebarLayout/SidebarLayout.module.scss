@@ -1,4 +1,5 @@
 .sidebarLayout {
     display: flex;
     min-height: calc(100vh - 5rem);
+    max-height: calc(100vh - 5rem);
 }

@@ -1,3 +1,6 @@
+@import "../../../styles/common/_variables.scss";
+@import "../../../styles/common/_mixins.scss";
+
 .sidebar {
     flex: 1;
     border: 1px solid #e6e6e6;
@@ -11,4 +14,8 @@
     padding-bottom: 2rem;
     max-width: 400px;
     min-width: 260px;
+    overflow: auto;
+
+    @include hideScrollbar;
+
 }
