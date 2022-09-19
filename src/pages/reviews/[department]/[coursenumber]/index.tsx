@@ -14,9 +14,9 @@ import { BrowserView, MobileView } from "../../../../components/DeviceViews";
 import { TbArrowBackUp } from 'react-icons/tb';
 import Link from "next/link";
 import SidebarLayout from "../../../../layouts/SidebarLayout";
-import Sidebar from "../../../../components/Sidebar";
-import Main from "../../../../components/Main";
 import { optimizedSSRCoursePage } from "../../../../lib/backend/database/course";
+//import RatingBox from "../../../../components/RatingBox";
+import { useToast } from "@chakra-ui/react";
 
 // SSR is amazing
 export async function getServerSideProps(context) {
@@ -47,7 +47,8 @@ export async function getServerSideProps(context) {
         courseDescription: data.courseDescription,
       },
       instructors: dedupedInstructors,
-      reviews: data.reviews,
+      reviews: JSON.parse(JSON.stringify(data.reviews)),
+      authorized: session?.user?.authorized ?? false,
     }
   }
 }
@@ -60,6 +61,7 @@ interface CoursePageProps {
   course: public_course;
   instructors: public_instructor[];
   reviews: public_review[];
+  authorized: boolean;
 }
 
 export default function CoursePage({
@@ -69,18 +71,41 @@ export default function CoursePage({
   course,
   instructors,
   reviews,
+  authorized,
 }: CoursePageProps) {
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>([]);
   const [filteredReviews, setFilteredReviews] = useState<public_review[]>([]);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
+  const toast = useToast();
+
+  const filterInstructorToast = () => {
+    toast({
+      title: 'Review 2 courses to unlock instructor filtering',
+      description: "You must be a registered user with 2 or more reviews in the last 6 months to filter by instructor.",
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+
+    })
+  };
+
   const selectInstructor = (instructorID: string) => {
+    if (!authorized) {
+      filterInstructorToast();
+      return;
+    }
+
     const selected = [...new Set([...selectedInstructorIDs, instructorID])];
     setSelectedInstructorIDs(selected);
   };
 
   const deselectInstructor = (instructorID: string) => {
+    if (!authorized) {
+      filterInstructorToast();
+      return;
+    }
     const selected = selectedInstructorIDs.filter((id) => id !== instructorID);
     setSelectedInstructorIDs(selected);
   };
@@ -110,7 +135,7 @@ export default function CoursePage({
       <PageTitle pageTitle={`${course?.courseName}`} />
       <BrowserView>
         <SidebarLayout>
-          <Sidebar>
+          <SidebarLayout.Sidebar>
             <div>
               <CourseCard course={course} />
               <InstructorBar
@@ -129,13 +154,14 @@ export default function CoursePage({
             </Link>
 
 
-          </Sidebar>
+          </SidebarLayout.Sidebar>
 
-          <Main>
+          <SidebarLayout.Main>
+            {/* <RatingBox ratings={[{ title: "Difficulty", rating: 10 }, { title: "Hours per week", rating: 9 }]} /> */}
             <ReviewList
               reviews={filteredReviews}
               instructors={instructors} />
-          </Main>
+          </SidebarLayout.Main>
         </SidebarLayout>
         <AddButton onClick={() => { onOpen() }}></AddButton>
         <AddReview isOpen={isOpen} onClose={onClose} course={course} instructors={instructors} />
