@@ -23,7 +23,7 @@ export default function DepartmentPage({ }) {
     <>
       <PageTitle pageTitle={`${department}`} />
       <h2>{department}</h2>
-      <CourseCardRow courses={courses} />
+      <CourseCardRow courses={courses} showCount />
       <div style={{ marginTop: "-1rem" }}>
         <ScrollableRow>
           {instructors.map((instructor) => (
