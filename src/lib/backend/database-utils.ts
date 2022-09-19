@@ -571,7 +571,10 @@ export async function getAllInstructors() {
 export async function getCoursesByDepartment(departmentID: string) {
   return await knex("Course")
     .where({ departmentID })
-    .select(["courseID", "courseName", "courseDescription"]);
+    .select(["Course.courseID", "Course.courseName", "Course.courseDescription"])
+    .groupBy("Course.courseID")
+    .leftJoin("Review", "Course.courseID", "Review.courseID")
+    .count("Review.reviewID as numReviews")
 }
 
 /**

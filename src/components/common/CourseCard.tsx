@@ -9,14 +9,16 @@ import styles from "../../styles/components/common/CourseCard.module.scss";
 
 interface CourseCardProps {
   course: public_course;
+  showCount?: boolean;
 };
 
-export default function CourseCard({ course }: CourseCardProps) {
+export default function CourseCard({ course, showCount = false }: CourseCardProps) {
   const department = course.courseID.substring(0, 4);
   const courseNumber = course.courseID.substring(4);
   const url = `/reviews/${department.toLowerCase()}/${courseNumber}`;
-  //const n = Math.floor(Math.random() * 50000 *(1/parseInt(courseNumber,10)));
-  // {`${n} reviews`}
+  const reviewText = (course.numReviews == 1) ? 'review' : "reviews";
+  const count = (showCount && (course?.numReviews ?? -1 >= 0)) ? <span className={styles.count}>{`${course?.numReviews} ${reviewText}`}</span> : null;
+
   return (
     <div className={styles.container}>
       <button
@@ -32,6 +34,7 @@ export default function CourseCard({ course }: CourseCardProps) {
           <Skeleton count={1} />
         )}
         <p>{course.courseDescription}</p>
+        {count}
         {(course?.term) ? <Tooltip label={convertTermToFullString(course?.term)}>
           <span className={styles.term}>
             {course?.term ?? null}
