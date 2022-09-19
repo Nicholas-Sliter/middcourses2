@@ -29,7 +29,7 @@ export default function CourseCard({ course }: CourseCardProps) {
     <div className={styles.container}>
       <h1>{course?.courseName || <Skeleton />}</h1>
       <span>{breadcrumbs}</span>
-      <p>{course?.courseDescription || <Skeleton />}</p>{" "}
+      <p>{course?.courseDescription || <Skeleton count={5} />}</p>{" "}
     </div>
   );
 }
