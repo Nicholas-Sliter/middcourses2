@@ -286,7 +286,7 @@ export default function AddReview({
                   ></QuestionNumberInput>
                 </Question>
                 <hr />
-                <h4>{`Review ${instructor?.name}`}</h4>
+                <h4>{`Review ${(instructor?.name) ? instructor?.name : "instructor"}`}</h4>
                 <Question
                   label="How effective was the instructor?"
                   htmlFor="instructorEffectiveness"
