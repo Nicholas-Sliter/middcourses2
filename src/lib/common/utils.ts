@@ -1,3 +1,5 @@
+import { public_course } from "./types";
+
 /**
  * Get the current graduation year of first semester freshmen based on the current date.
  */
@@ -89,4 +91,21 @@ export function formatTermObj(termObj) {
 
 export function getCourseNumberFromID(courseID: string) {
   return courseID.split(/[0-9]/)[1];
+}
+
+
+export function sortCoursesByTerm(courses: public_course[]) {
+  const insertIfS = (x: string) => (x.includes("S") ? `${x}b` : x);
+  const insertIfF = (x: string) => (x.includes("F") ? `${x.replace("F", "S")}c` : x);
+  const insertIfW = (x: string) => (x.includes("W") ? `${x.replace("W", "S")}a` : x);
+
+  //sort by term
+  const sorted = courses.sort((a, b) => {
+    const aTerm = insertIfW(insertIfF(insertIfS(a.term)));
+    const bTerm = insertIfW(insertIfF(insertIfS(b.term)));
+
+    return (aTerm > bTerm) ? 1 : -1;
+  });
+
+  return sorted.reverse();
 }

@@ -648,11 +648,11 @@ export async function getRecentReviewsByInstructor(slug: string, limit: number |
 
   const returns = [
     "Review.courseID",
-    "content",
-    "rating",
-    "reviewDate",
+    "Review.content",
+    "Review.rating",
+    "Review.reviewDate",
     "Instructor.instructorID",
-    "reviewID",
+    "Review.reviewID",
   ];
 
   //have to do this to support sqlite limit
