@@ -1,8 +1,10 @@
+import { Tooltip } from "@chakra-ui/react";
 import Link from "next/link";
 import router, { Router } from "next/router";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { public_course } from "../../lib/common/types";
+import { convertTermToFullString } from "../../lib/frontend/utils";
 import styles from "../../styles/components/common/CourseCard.module.scss";
 
 interface CourseCardProps {
@@ -30,16 +32,13 @@ export default function CourseCard({ course }: CourseCardProps) {
           <Skeleton count={1} />
         )}
         <p>{course.courseDescription}</p>
-        {/*<Link href={url}>
-          <a className={styles.link}>{"View reviews"}</a>
-        </Link>*/}
-        <span className={styles.term}>
-          {course?.term ?? null}
-        </span>
+        {(course?.term) ? <Tooltip label={convertTermToFullString(course?.term)}>
+          <span className={styles.term}>
+            {course?.term ?? null}
+          </span>
+        </Tooltip> :
+          null}
       </button>
     </div>
   );
 }
-
-
-// <p>{course.courseDescription}</p>

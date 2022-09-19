@@ -139,7 +139,7 @@ const handler = nc({
       return res.status(400).end("Review contains profanity");
     }
 
-    const clamp = (x, min = 0, max = 10) => Math.max(Math.min(x, max), min);
+    const clamp = (x: number, min = 0, max = 10) => Math.max(Math.min(x, max), min);
 
     const parseReviewInt = (s, min = 1, max = 10) => {
       const x = parseInt(s, 10) ?? 5;

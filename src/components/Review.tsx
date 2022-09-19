@@ -22,6 +22,7 @@ interface ReviewProps {
   instructor: public_instructor;
   expandable?: boolean;
   identifyCourse?: boolean;
+  identifyInstructor?: boolean;
 }
 
 //map the ratings from 1-10 to emoji icons
@@ -56,10 +57,19 @@ export default function Review({
   instructor,
   expandable = true,
   identifyCourse = false,
+  identifyInstructor = true,
 }: ReviewProps) {
 
-  const department = review.courseID.slice(0,4).toLowerCase();
-  const courseNumber = review.courseID.slice(4);
+  const department = review?.courseID?.slice(0, 4)?.toLowerCase();
+  const courseNumber = review?.courseID?.slice(4);
+
+  const instructorElement = (identifyInstructor) ? (<>{" with "} <Link href={`/instructor/${instructor?.slug}`}>
+    <a className={styles.instructorLink}>{instructor?.name}</a>
+  </Link></>) : "";
+
+  if (!department || !courseNumber) {
+    return null;
+  }
 
   return (
     <div key={review.reviewID} className={styles.container}>
@@ -80,13 +90,8 @@ export default function Review({
             </Link>
           ) : (
             ""
-          )}{" "}
-          with{" "}
-          {
-            <Link href={`/instructor/${instructor?.slug}`}>
-              <a className={styles.instructorLink}>{instructor?.name}</a>
-            </Link>
-          }
+          )}
+          {instructorElement}
         </span>
         <DateString date={review.reviewDate} titlePrefix="Posted on" />
         <button

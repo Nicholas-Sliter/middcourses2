@@ -3,18 +3,19 @@
 .container {
   margin: 1rem;
   width: 80%;
-  max-width: 600px;
+  max-width: 700px;
   display: inline-block;
   //padding: 1rem;
   border-radius: $border-radius-medium;
   outline: $border-light;
   background-color: #fcfcfc;
-  box-shadow: $shadow-medium-light;
+  //box-shadow: $shadow-medium-light;
 
   .reviewMain {
     padding: 1rem;
     padding-bottom: 0;
-    & > span:first-of-type {
+
+    &>span:first-of-type {
       font-size: $font-size-large;
       vertical-align: middle;
       //border: $border-light;
@@ -88,6 +89,7 @@
 
 .green {
   $color: #048204;
+
   svg {
     fill: $white;
     background-color: $color;
@@ -98,6 +100,7 @@
 
 .light-green {
   $color: #a6d785;
+
   svg {
     fill: $white;
     background-color: $color;
@@ -108,6 +111,7 @@
 
 .yellow {
   $color: #ffc718;
+
   svg {
     fill: $white;
     background-color: $color;
@@ -118,6 +122,7 @@
 
 .orange {
   $color: #ffa500; //#ff6600
+
   svg {
     fill: $white;
     background-color: $color;
@@ -128,6 +133,7 @@
 
 .red {
   $color: #cc0404;
+
   svg {
     fill: $white;
     background-color: $color;
@@ -136,13 +142,12 @@
   }
 }
 
-.largeReview {
-}
+.largeReview {}
 
 
 
 
-@media screen and (max-width: $screen-small){
+@media screen and (max-width: $screen-small) {
   .reviewMain {
 
     span:nth-of-type(3) {
@@ -152,7 +157,7 @@
       top: -12px;
     }
 
-    .instructorLink{
+    .instructorLink {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -163,11 +168,11 @@
       top: 4px;
     }
 
-    & > p {
+    &>p {
       position: relative;
       top: -2rem;
       margin-bottom: -1rem;
-      
+
     }
 
     button {
@@ -175,10 +180,9 @@
       top: -3rem;
       transform: scale(1.5);
     }
-    button:nth-of-type(3){
+
+    button:nth-of-type(3) {
       padding-left: 0.6rem;
     }
   }
 }
-
-
