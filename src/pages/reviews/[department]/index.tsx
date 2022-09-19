@@ -10,8 +10,9 @@ import useRecentReviewsByDepartment from "../../../hooks/useRecentReviewsByDepar
 import CourseCardRow from "../../../components/CourseCardRow";
 import Instructor from "../../../components/common/Instructor";
 import Row from "../../../components/common/Row";
+import ScrollableRow from "../../../components/common/ScrollableRow";
 
-export default function DepartmentPage({}) {
+export default function DepartmentPage({ }) {
   const deptCode = useRouter().query.department as string;
   const department = useDepartment(deptCode);
   const reviews = useRecentReviewsByDepartment(deptCode) ?? [];
@@ -23,11 +24,13 @@ export default function DepartmentPage({}) {
       <PageTitle pageTitle={`${department}`} />
       <h2>{department}</h2>
       <CourseCardRow courses={courses} />
-      <Row style={{marginTop:"-1rem"}} >
-        {instructors.map((instructor) => (
-          <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
-        ))}
-      </Row>
+      <div style={{ marginTop: "-1rem" }}>
+        <ScrollableRow>
+          {instructors.map((instructor) => (
+            <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
+          ))}
+        </ScrollableRow>
+      </div>
       <h3>Most Recent Reviews:</h3>
       <ReviewList
         reviews={reviews}
