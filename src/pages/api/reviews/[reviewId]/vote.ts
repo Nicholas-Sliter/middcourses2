@@ -37,7 +37,7 @@ const handler = nc({
     }
 
     //instructors should not be able to vote on reviews
-    if (session.user.role === "instructor") {
+    if (session.user.role !== "student") {
         res.status(403).json({ message: "Instructors cannot vote on reviews" });
         return;
     }

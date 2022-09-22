@@ -13,6 +13,7 @@ import {
   containsProfanity,
   uuidv4,
 } from "../../../../../../lib/backend/utils";
+import { CustomSession } from "../../../../../../lib/common/types";
 
 /**
  * Get all course reviews for a specific course
@@ -74,7 +75,7 @@ const handler = nc({
   .post(async (req: NextApiRequest, res: NextApiResponse) => {
     //submit a review for a course
 
-    const session = (await getSession({ req })) as any;
+    const session = (await getSession({ req })) as CustomSession;
 
     console.log(req.body);
 
@@ -84,8 +85,8 @@ const handler = nc({
         .end("Unauthorized: You must be logged in to submit a review");
     }
 
-    if (session.user.type === "faculty" || ! await canWriteReviews(session.user.id)) {
-      return res.status(403).end("You cannot submit a review for courses");
+    if (session.user.role !== "student" || ! await canWriteReviews(session.user.id)) {
+      return res.status(403).json({ message: "You cannot submit a review for courses" });
     }
 
     const department = req.query.department as string;
@@ -96,24 +97,24 @@ const handler = nc({
     if (courseID !== req.body.courseID) {
       return res
         .status(400)
-        .end("Endpoint course id does not match course id in request body");
+        .json({ message: "Endpoint course ID does not match course ID in request body" });
     }
 
     //check if course id is valid
     if (!courseID || !req.body.courseID || await getCourseByID(courseID) === null) {
-      return res.status(400).end("Invalid course id");
+      return res.status(400).json({ message: "Invalid course ID" });
     }
 
     if (await checkReviewByUserAndCourse(session.user.id, courseID)) {
       console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
       return res
         .status(403)
-        .end("You have already submitted a review for this course");
+        .json({ message: "You have already submitted a review for this course" });
     }
 
     //check semester and instructor
     if (!req.body.semester || !req.body.instructor) {
-      return res.status(400).end("Invalid semester or instructor");
+      return res.status(400).json({ message: "Invalid semester or instructor" });
     }
 
     if (
@@ -123,7 +124,7 @@ const handler = nc({
         req.body.semester
       )
     ) {
-      return res.status(400).end("Invalid semester or instructor");
+      return res.status(400).json({ message: "Invalid semester or instructor" });
     }
 
     //check if review is valid
@@ -132,11 +133,11 @@ const handler = nc({
       req.body.content.length > 1000 ||
       req.body.content.length < 200
     ) {
-      return res.status(400).end("Invalid review length");
+      return res.status(400).json({ message: "Invalid review length" });
     }
 
     if (containsProfanity(req.body.content)) {
-      return res.status(400).end("Review contains profanity");
+      return res.status(400).json({ message: "Review contains profanity" });
     }
 
     const clamp = (x: number, min = 0, max = 10) => Math.max(Math.min(x, max), min);
