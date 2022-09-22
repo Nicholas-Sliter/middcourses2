@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import { BiChevronRight } from "react-icons/bi";
+import ReadMore from "./common/ReadMore";
 
 
 interface CourseCardProps {
@@ -29,7 +30,7 @@ export default function CourseCard({ course }: CourseCardProps) {
     <div className={styles.container}>
       <h1>{course?.courseName || <Skeleton />}</h1>
       <span>{breadcrumbs}</span>
-      <p>{course?.courseDescription || <Skeleton count={5} />}</p>{" "}
+      <ReadMore text={course?.courseDescription} maxLength={800} />
     </div>
   );
 }

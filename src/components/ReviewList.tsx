@@ -9,9 +9,10 @@ interface ReviewListProps {
   expandable?: boolean;
   identifyCourse?: boolean;
   identifyInstructor?: boolean;
+  hideVoting?: boolean;
 }
 
-export default function ReviewList({ reviews, instructors, expandable = true, identifyCourse = false, identifyInstructor = true }: ReviewListProps) {
+export default function ReviewList({ reviews, instructors, expandable = true, identifyCourse = false, identifyInstructor = true, hideVoting = false }: ReviewListProps) {
   return (
     <div className={styles.list}>
       {reviews?.length ? null : (
@@ -33,6 +34,7 @@ export default function ReviewList({ reviews, instructors, expandable = true, id
             expandable={expandable}
             identifyCourse={identifyCourse}
             identifyInstructor={identifyInstructor}
+            hideVoting={hideVoting}
           />
         );
       })}
