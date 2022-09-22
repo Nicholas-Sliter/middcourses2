@@ -6,7 +6,7 @@ export interface public_review {
   semester: string;
   reviewDate: string;
   rating: number;
-  voteCount: number;
+  //voteCount: number;
   content: string;
   difficulty: number;
   value: number;
@@ -19,6 +19,8 @@ export interface public_review {
   //swithc to understanding
   instructorEnthusiam: number;
   instructorAgain: boolean;
+  votes?: number;
+  userVoteType?: 1 | -1;
 }
 
 
@@ -62,6 +64,7 @@ export interface CustomSession extends Session {
     role: string;
     authorized: boolean;
     admin: boolean;
+    banned?: boolean;
 
   };
 

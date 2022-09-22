@@ -1,17 +1,11 @@
-import { useRouter } from "next/router";
 import PageTitle from "../../../components/common/PageTitle";
 import ReviewList from "../../../components/ReviewList";
-import useDepartment from "../../../hooks/useDepartment";
-import useDepartmentCourses from "../../../hooks/useDepartmentCourses";
-import useInstructorsByDepartment from "../../../hooks/useInstructorsByDepartment";
-import useRecentReviewsByDepartment from "../../../hooks/useRecentReviewsByDepartment";
 import CourseCardRow from "../../../components/CourseCardRow";
 import Instructor from "../../../components/common/Instructor";
 import ScrollableRow from "../../../components/common/ScrollableRow";
 import { getSession } from "next-auth/react";
 import { CustomSession, public_course, public_instructor, public_review } from "../../../lib/common/types";
 import { optimizedSSRDepartmentPage } from "../../../lib/backend/database/departments";
-import { departmentNameMapping } from "../../../lib/common/utils";
 import { BrowserView, MobileView } from "../../../components/DeviceViews";
 import SidebarLayout from "../../../layouts/SidebarLayout";
 
@@ -82,6 +76,7 @@ export default function DepartmentPage({
               instructors={instructors}
               expandable={false}
               identifyCourse
+              hideVoting
             />
           </SidebarLayout.Main>
         </SidebarLayout>

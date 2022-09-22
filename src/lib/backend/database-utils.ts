@@ -312,7 +312,7 @@ export async function getUserByEmail(email: string) {
       userEmail: email,
     })
     .first()
-    .select(["userID", "userEmail", "userType", "canReadReviews", "admin"]);
+    .select(["userID", "userEmail", "userType", "canReadReviews", "admin", "banned"]);
 
   if (!user) {
     return null;

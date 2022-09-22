@@ -1,6 +1,7 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { public_instructor, public_review } from "../../common/types";
+import { CustomSession, public_instructor, public_review } from "../../common/types";
+import { getReviewByCourseIDWithVotes } from "./review";
 
 export async function getCourse(id: string) {
     return await knex("Course")
@@ -8,14 +9,20 @@ export async function getCourse(id: string) {
         .first();
 }
 
-async function getCourseReviews(id: string, authorized: boolean) {
+async function getCourseReviews(id: string, session: CustomSession) {
+    const authorized: boolean = session?.user?.authorized
+        || session?.user?.role === "admin"
+        || session?.user?.role === "instructor";
+
     if (!authorized) {
         return [];
     }
 
-    return await knex("Review")
-        .where("Review.courseID", id)
-        .select(reviewInfo);
+    // return await knex("Review")
+    //     .where("Review.courseID", id)
+    //     .select(reviewInfo);
+    console.log(session?.user?.id);
+    return await getReviewByCourseIDWithVotes(id, session?.user?.id);
 }
 
 async function getCourseInfo(id: string) {
@@ -30,7 +37,7 @@ async function getCourseInfo(id: string) {
         .select(["Department.departmentName"])
 }
 
-export async function optimizedSSRCoursePage(id: string, authorized: boolean) {
+export async function optimizedSSRCoursePage(id: string, session: CustomSession) {
     const outputFormatter = (results, reviews) => {
         if (!results) {
             return null;
@@ -59,7 +66,7 @@ export async function optimizedSSRCoursePage(id: string, authorized: boolean) {
 
     // use PostgreSQL Array_agg in prod
 
-    const [mainQuery, reviewQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, authorized)]);
+    const [mainQuery, reviewQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session)]);
 
     // return {
     //     courseID: mainQuery.courseID,
