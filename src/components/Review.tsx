@@ -23,6 +23,7 @@ interface ReviewProps {
   expandable?: boolean;
   identifyCourse?: boolean;
   identifyInstructor?: boolean;
+  hideVoting?: boolean;
 }
 
 //map the ratings from 1-10 to emoji icons
@@ -58,6 +59,7 @@ export default function Review({
   expandable = true,
   identifyCourse = false,
   identifyInstructor = true,
+  hideVoting = false,
 }: ReviewProps) {
 
   const department = review?.courseID?.slice(0, 4)?.toLowerCase();
