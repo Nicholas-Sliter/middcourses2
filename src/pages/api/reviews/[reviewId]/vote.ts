@@ -36,6 +36,13 @@ const handler = nc({
         return;
     }
 
+    //instructors should not be able to vote on reviews
+    if (session.user.role === "instructor") {
+        res.status(403).json({ message: "Instructors cannot vote on reviews" });
+        return;
+    }
+
+
     const { success, removed, value } = await voteReviewByID(reviewId, session.user.id, voteType);
 
     if (success) {

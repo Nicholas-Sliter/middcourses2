@@ -93,6 +93,21 @@ export const difficultyMapping = {
   10: "Impossible",
 };
 
+export const ratingMapping = {
+  1: "Stay away",
+  2: "Terrible",
+  3: "Poor",
+  4: "Below average",
+  5: "Average",
+  6: "Above average",
+  7: "Good",
+  8: "Great",
+  9: "Excellent",
+  10: "Must take",
+};
+
+
+
 
 
 export const standardMapping = valueMapping;
@@ -159,11 +174,11 @@ export function orderSearchResults(
   results: any[],
   contentType: string,
   pattern: string
-){
+) {
   const keys =
     contentType === "instructor"
-      ? [{ name: "name", weight: 3 },"departmentID"]
-      : [{ name: "courseID", weight: 3 }, {name: "courseName", weight: 2}, "courseDescription"];
+      ? [{ name: "name", weight: 3 }, "departmentID"]
+      : [{ name: "courseID", weight: 3 }, { name: "courseName", weight: 2 }, "courseDescription"];
 
   //use Fuse.js
   const fuse = new Fuse(results, {
@@ -176,15 +191,15 @@ export function orderSearchResults(
 
 
   const orderedResults = fuse.search(pattern);
-  
+
   return orderedResults;
 }
 
 
 
-export function convertTermToFullString(term: string){
+export function convertTermToFullString(term: string) {
   let s = "";
-  switch(term[0]){
+  switch (term[0]) {
     case "F":
       s = "Fall";
       break;
@@ -197,5 +212,5 @@ export function convertTermToFullString(term: string){
   };
 
   s += ` 20${term.slice(1)}`;
-  return s; 
+  return s;
 }
