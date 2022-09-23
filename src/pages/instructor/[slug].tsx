@@ -1,7 +1,9 @@
+import { Avatar, styled } from "@chakra-ui/react";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { TbArrowBackUp } from "react-icons/tb";
+import InstructorCard from "../../components/common/InstructorCard";
 import PageTitle from "../../components/common/PageTitle";
 import CourseCardRow from "../../components/CourseCardRow";
 import { BrowserView, MobileView } from "../../components/DeviceViews";
@@ -37,18 +39,14 @@ export async function getServerSideProps(context) {
 
 export default function InstructorPage({ slug, instructor, courses, reviews, authorized }) {
 
+
   return (
     <>
       <PageTitle pageTitle={`${instructor?.name ?? ""}`} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
-            <div>
-              <h2>{instructor?.name}</h2>
-              <p>{instructor?.departmentID}</p>
-              {(authorized) ? <span><a href={`mailto://${instructor?.email}`}>{instructor?.email}</a></span> : null}
-            </div>
-
+            <InstructorCard instructor={instructor} authorized={authorized} />
             {(instructor.departmentID && instructor.departmentName) ?
 
               <Link
@@ -66,11 +64,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
         </SidebarLayout>
       </BrowserView>
       <MobileView>
-        <div>
-          <h2>{instructor?.name}</h2>
-          <p>{instructor?.departmentID}</p>
-          {(authorized) ? <span><a href={`mailto://${instructor?.email}`}>{instructor?.email}</a></span> : null}
-        </div>
+        <InstructorCard instructor={instructor} authorized={authorized} />
         <CourseCardRow courses={courses} />
         <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} />
       </MobileView>
