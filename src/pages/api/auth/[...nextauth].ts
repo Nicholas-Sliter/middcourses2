@@ -51,6 +51,7 @@ async function session({ session, user }) {
   session.user.role = u?.userType;
   session.user.authorized = u?.canReadReviews as boolean;
   session.user.admin = u?.admin;
+  session.user.banned = u?.banned;
 
   return session as CustomSession;
 }

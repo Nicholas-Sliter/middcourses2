@@ -84,6 +84,9 @@ exports.up = function (knex) {
       .boolean("archived")
       .notNullable()
       .defaultTo(false); /* Archived: Whether the review has been archived */
+    table.boolean("ignoreFlags")
+      .notNullable()
+      .defaultTo(false); /* Ignore Flags: Whether the review has been flagged */
 
     table.json(
       "upvotes"
@@ -96,7 +99,7 @@ exports.up = function (knex) {
     ); /* VoteCount: current non-fuzzied value equal to upvotes - downvotes*/
 
   })
-  .createTable("Flagged", (table) => {
+    .createTable("Flagged", (table) => {
       table.uuid("reviewID").notNullable();
       table
         .foreign("reviewID")
@@ -108,12 +111,37 @@ exports.up = function (knex) {
         .references("User.userID")
         .onDelete("CASCADE");
       table.timestamp("flaggedDate").notNullable();
-  });
-  
+      table.string("reason").notNullable();
+    })
+
+    // .createTable("ReviewTags", (table) => {
+    //   table.uuid("reviewID").notNullable();
+    //   table
+    //     .foreign("reviewID")
+    //     .references("Review.reviewID")
+    //     .onDelete("CASCADE");
+    //   table.string("tag").notNullable();
+    // });
+
+    .createTable("Vote", (table) => {
+      table.uuid("reviewID").notNullable();
+      table
+        .foreign("reviewID")
+        .references("Review.reviewID")
+        .onDelete("CASCADE");
+      table.uuid("votedBy").notNullable();
+      table
+        .foreign("votedBy")
+        .references("User.userID")
+        .onDelete("CASCADE");
+      table.integer("voteType").notNullable();
+    });
+
 };
 
 exports.down = function (knex) {
   return knex.schema
-  .dropTableIfExists("Flagged")
-  .dropTableIfExists("Review");
+    .dropTableIfExists("Flagged")
+    .dropTableIfExists("Vote")
+    .dropTableIfExists("Review");
 };

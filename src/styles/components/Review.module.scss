@@ -62,10 +62,20 @@
 
     &:hover {
       svg {
-        stroke: #0c46b1; //#048204
+        //stroke: #0c46b1; //#048204
+        color: #1a5acf;
         transform: scale(1.4);
         transition: ease-in-out 0.3s;
       }
+    }
+  }
+
+  .upvoted {
+    svg {
+      //stroke: #0c46b1; //#048204
+      color: #0c46b1;
+      //stroke-width: 0.3rem;
+      transform: scale(1.2)
     }
   }
 
@@ -79,10 +89,20 @@
 
     &:hover {
       svg {
-        stroke: #7f38ec;
+        //stroke: #7f38ec;
+        color: #d83c3c;
         transform: scale(1.4);
         transition: ease-in-out 0.3s;
       }
+    }
+  }
+
+  .downvoted {
+    svg {
+      //stroke: #7f38ec;
+      color: #e12e2e;
+      //stroke-width: 0.3rem;
+      transform: scale(1.2)
     }
   }
 }

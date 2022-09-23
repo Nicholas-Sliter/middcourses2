@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
   const courseID = `${departmentID.toUpperCase()}${courseNumber}`;
 
 
-  const data = await optimizedSSRCoursePage(courseID, session?.user?.authorized ?? false);
+  const data = await optimizedSSRCoursePage(courseID, session);
   const dedupedInstructors = data.instructors?.filter((instructor, index, self) => {
     return index === self.findIndex((t) => (
       t.instructorID === instructor.instructorID))

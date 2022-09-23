@@ -3,6 +3,7 @@ import DateString from "./common/DateString";
 import { FiFlag, FiChevronUp, FiChevronDown } from "react-icons/fi";
 import { public_review, public_instructor } from "../lib/common/types";
 import Link from "next/link";
+import { Tooltip, useToast } from "@chakra-ui/react";
 
 
 import {
@@ -15,6 +16,16 @@ import {
 } from "react-icons/fa";
 
 import ReviewDetail from "./ReviewDetail";
+import ReadMore from "./common/ReadMore";
+import voteFetch from "../lib/frontend/vote";
+import { useState } from "react";
+import {
+  MdThumbUp,
+  MdThumbDown,
+  MdThumbUpOffAlt,
+  MdThumbDownOffAlt,
+} from "react-icons/md";
+import { ratingMapping } from "../lib/frontend/utils";
 
 
 interface ReviewProps {
@@ -53,6 +64,43 @@ const ratingColorMapping = {
   10: "green",
 };
 
+const votingWithoutLoginToast = (toast) => {
+  toast({
+    title: "You must be logged in to vote",
+    status: "error",
+    duration: 5000,
+    isClosable: true,
+  });
+};
+
+const vote = async (review: public_review, voteType: string, toast, updateVoteType) => {
+  const { status, message, value } = await voteFetch(review.reviewID, voteType);
+  if (status) {
+    //update the review with the new value
+    //review.userVoteType = value;
+    updateVoteType(value);
+    review.userVoteType = value;
+    toast({
+      title: message,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  }
+  else {
+    toast({
+      title: message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+
+  }
+
+  //votingWithoutLoginToast(toast);
+
+}
+
 export default function Review({
   review,
   instructor,
@@ -61,29 +109,65 @@ export default function Review({
   identifyInstructor = true,
   hideVoting = false,
 }: ReviewProps) {
+  //chnage to like dislike icons
 
+  const [userVoteType, setUserVoteType] = useState(review.userVoteType);
   const department = review?.courseID?.slice(0, 4)?.toLowerCase();
   const courseNumber = review?.courseID?.slice(4);
-
-  const instructorElement = (identifyInstructor) ? (<>{" with "} <Link href={`/instructor/${instructor?.slug}`}>
-    <a className={styles.instructorLink}>{instructor?.name}</a>
-  </Link></>) : "";
+  const toast = useToast();
 
   if (!department || !courseNumber) {
     return null;
   }
 
+  const instructorElement = (identifyInstructor) ? (<>{" with "} <Link href={`/instructor/${instructor?.slug}`}>
+    <a className={styles.instructorLink}>{instructor?.name}</a>
+  </Link></>) : "";
+
+  const LikeIcon = () => (userVoteType === 1) ? <MdThumbUp /> : <MdThumbUpOffAlt />;
+  const DislikeIcon = () => (userVoteType === -1) ? <MdThumbDown /> : <MdThumbDownOffAlt />;
+
+  const LikeDislikeElement = () => (hideVoting) ? null : (
+    <><Tooltip label={`${(userVoteType === -1) ? "Remove " : ""}Downvote`}>
+
+      <button
+        aria-label="Downvote"
+        //title="Not helpful"
+        className={`${styles.downvoteButton} ${(userVoteType === -1) ? styles.downvoted : ""}`}
+        onClick={() => vote(review, "down", toast, setUserVoteType)}
+      >
+        <DislikeIcon />
+      </button>
+    </Tooltip>
+      <Tooltip label={`${(userVoteType === 1) ? "Remove " : ""}Upvote`}>
+        <button
+          aria-label="Upvote"
+          //title="Helpful"
+          className={`${styles.upvoteButton} ${(userVoteType === 1) ? styles.upvoted : ""}`}
+          onClick={() => vote(review, "up", toast, setUserVoteType)}
+        >
+          <LikeIcon />
+        </button>
+      </Tooltip>
+    </>
+
+  );
+
+
+
   return (
     <div key={review.reviewID} className={styles.container}>
       <div className={styles.reviewMain}>
-        <span
-          className={styles[ratingColorMapping[review.rating]]}
-          aria-label="Rating"
-          aria-valuetext={`${review.rating} out of 10`}
-          title={`${review.rating} out of 10`}
-        >
-          {ratingIconMapping[review.rating]}
-        </span>
+        <Tooltip placement="right" label={`${ratingMapping[review.rating]}: ${review.rating} out of 10`}>
+          <span
+            className={styles[ratingColorMapping[review.rating]]}
+            aria-label="Rating"
+            aria-valuetext={`${review.rating} out of 10`}
+          //title={`${review.rating} out of 10`}
+          >
+            {ratingIconMapping[review.rating]}
+          </span>
+        </Tooltip>
         <span>
           {" "}
           {identifyCourse ? (
@@ -96,29 +180,18 @@ export default function Review({
           {instructorElement}
         </span>
         <DateString date={review.reviewDate} titlePrefix="Posted on" />
-        <button
-          aria-label="Flag Review"
-          title="Flag harmful review"
-          className={styles.flagButton}
-        >
-          <FiFlag />
-        </button>
-        <button
-          aria-label="Downvote"
-          title="Not helpful"
-          className={styles.downvoteButton}
-        >
-          <FiChevronDown />
-        </button>
-        <button
-          aria-label="Upvote"
-          title="Helpful"
-          className={styles.upvoteButton}
-        >
-          <FiChevronUp />
-        </button>
+        <Tooltip label="Flag harmful review">
+          <button
+            aria-label="Flag Review"
+            //title="Flag harmful review"
+            className={styles.flagButton}
+          >
+            <FiFlag />
+          </button>
+        </Tooltip>
+        <LikeDislikeElement />
         <br />
-        <p>{review.content}</p>
+        <ReadMore text={review.content} maxLength={800} />
       </div>
       <ReviewDetail review={review} expandable={expandable} />
     </div>

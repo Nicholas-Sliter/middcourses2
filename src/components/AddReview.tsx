@@ -11,6 +11,7 @@ import {
   Stack,
   Textarea,
   Switch,
+  useToast,
 } from "@chakra-ui/react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { public_course, public_instructor } from "../lib/common/types";
@@ -54,6 +55,7 @@ export default function AddReview({
 
   const [instructorTerms, setInstructorTerms] = useState([]);
   const [filteredInstructors, setFilteredInstructors] = useState([]);
+  const toast = useToast();
 
   const onSubmit = async (data: Object) => {
     console.log(data);
@@ -61,6 +63,7 @@ export default function AddReview({
     const dept = course.courseID.slice(0, 4).toLowerCase();
     const code = course.courseID.slice(4);
 
+    //get contents so we can send it to a toast
     const res = await fetch(`/api/reviews/course/${dept}/${code}`, {
       method: "POST",
       headers: {
@@ -73,7 +76,18 @@ export default function AddReview({
     });
 
     if (!res.ok) {
-      throw new Error(`${res.status} ${res.statusText}`);
+      //throw new Error(`${res.status} ${res.statusText}`);
+      console.log("Error submitting review");
+      const data = await res.json();
+      console.log(data);
+      toast({
+        title: "Error submitting review",
+        description: `${res.statusText}: ${data.message}`,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
     }
 
     onClose();
