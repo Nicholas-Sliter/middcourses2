@@ -11,6 +11,7 @@ import { getSession } from "next-auth/react";
 import {
   canWriteReviews,
   containsProfanity,
+  isQualityReview,
   uuidv4,
 } from "../../../../../../lib/backend/utils";
 import { CustomSession } from "../../../../../../lib/common/types";
@@ -138,6 +139,10 @@ const handler = nc({
 
     if (containsProfanity(req.body.content)) {
       return res.status(400).json({ message: "Review contains profanity" });
+    }
+
+    if (!isQualityReview(req.body.content)) {
+      return res.status(400).json({ message: "Review quality is too low" });
     }
 
     const clamp = (x: number, min = 0, max = 10) => Math.max(Math.min(x, max), min);

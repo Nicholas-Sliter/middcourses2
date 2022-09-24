@@ -30,6 +30,15 @@ function averageWordLength(str: string) {
 }
 
 
+function composedOfSubstrings(str: string) {
+  /** Theorem:  a String is made of the repeated substrings if and only
+   *  if it's a nontrivial rotation of itself. */
+
+  return (str + str).indexOf(str, 1) !== str.length;
+
+}
+
+
 export function isQualityReview(str: string): boolean {
 
   // test for button mashing
@@ -45,7 +54,7 @@ export function isQualityReview(str: string): boolean {
   const entropy: number = metricEntropy(str);
   const sufficientEntropy: boolean = entropy < 0.1 && entropy > 0.002;
 
-  //check avg word length
+  // check avg word length is close on the English average
   const ENGLISH_AVG_WORD_LENGTH = 4.7;
   const wordLen = averageWordLength(str);
   const upperBound = ENGLISH_AVG_WORD_LENGTH * 2;
@@ -57,9 +66,13 @@ export function isQualityReview(str: string): boolean {
   const top5 = sortedFreqs.slice(0, 5);
   const sufficientLetterFrequency: boolean = top5.some((entry) => entry[0] === "e" || entry[0] === "E");
 
-  console.log({ hasJunk, sufficientAlphabetSize, sufficientEntropy, sufficientWordLength, sufficientLetterFrequency });
+  // check that the string is not composed of repeating substrings 
+  // (e.g. copy pasted "Sample Sample Sample")
+  const notComposedOfSubstrings: boolean = !composedOfSubstrings(str);
 
-  return !hasJunk && sufficientAlphabetSize && sufficientEntropy && sufficientWordLength && sufficientLetterFrequency;
+  console.log({ notHasJunk: !hasJunk, sufficientAlphabetSize, sufficientEntropy, sufficientWordLength, sufficientLetterFrequency, notComposedOfSubstrings });
+
+  return !hasJunk && sufficientAlphabetSize && sufficientEntropy && sufficientWordLength && sufficientLetterFrequency && notComposedOfSubstrings;
 
 }
 
