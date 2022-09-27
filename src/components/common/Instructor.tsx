@@ -14,15 +14,16 @@ export default function Instructor({
 }: InstructorProps) {
   const img_url = `https://directory.middlebury.edu/DirectoryImage.aspx?show=true&email=${instructor.email}`;
 
-  const src = instructor.email && instructor.email !== "" ? img_url : null;
+  const src = instructor.email && instructor.email !== "" ? img_url : undefined;
 
 
   return (
     <Link href={link} key={instructor.instructorID}>
       <Tag className={styles.container}>
-          <Avatar
+        <Avatar
           name={instructor.name}
-          src={null /*src*/}
+          // src={src}
+          // bg="white"
           size="sm"
           mr={2}
           mb={2}

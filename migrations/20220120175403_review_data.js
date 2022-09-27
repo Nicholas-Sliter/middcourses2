@@ -19,8 +19,7 @@ exports.up = function (knex) {
       "inMajorMinor"
     ); /* In Major or Minor: Whether the review is in the reviewers Major or Minor */
     table.enum("whyTake", [
-      "For my major",
-      "For my minor",
+      "Required for Major/Minor",
       "Specific interest",
       "Distribution elective",
       "Pre-requisite for later courses",
@@ -54,6 +53,7 @@ exports.up = function (knex) {
       "homework",
     ]); /* PrimaryComponent: Main Components of the course (exams, projects, writing, research, etc) */
 
+    table.array("tags"); /* Tags: Tags for the course (ex. "hard", "easy", "interesting", etc) */
     table.integer(
       "instructorEffectiveness"
     ); /* Teaching Quality of the instructor from 1-10 */
@@ -88,15 +88,15 @@ exports.up = function (knex) {
       .notNullable()
       .defaultTo(false); /* Ignore Flags: Whether the review has been flagged */
 
-    table.json(
-      "upvotes"
-    ); /* Upvotes: JSON Array of user IDs who upvoted the review */
-    table.json(
-      "downvotes"
-    ); /* Downvotes: JSON Array of user IDs who downvoted the review */
-    table.integer(
-      "voteCount"
-    ); /* VoteCount: current non-fuzzied value equal to upvotes - downvotes*/
+    // table.json(
+    //   "upvotes"
+    // ); /* Upvotes: JSON Array of user IDs who upvoted the review */
+    // table.json(
+    //   "downvotes"
+    // ); /* Downvotes: JSON Array of user IDs who downvoted the review */
+    // table.integer(
+    //   "voteCount"
+    // ); /* VoteCount: current non-fuzzied value equal to upvotes - downvotes*/
 
   })
     .createTable("Flagged", (table) => {
@@ -113,15 +113,6 @@ exports.up = function (knex) {
       table.timestamp("flaggedDate").notNullable();
       table.string("reason").notNullable();
     })
-
-    // .createTable("ReviewTags", (table) => {
-    //   table.uuid("reviewID").notNullable();
-    //   table
-    //     .foreign("reviewID")
-    //     .references("Review.reviewID")
-    //     .onDelete("CASCADE");
-    //   table.string("tag").notNullable();
-    // });
 
     .createTable("Vote", (table) => {
       table.uuid("reviewID").notNullable();

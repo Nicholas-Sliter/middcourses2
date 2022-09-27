@@ -15,9 +15,9 @@ export interface public_review {
   primaryComponent: string;
 
   instructorEffectiveness: number;
-  instructorAccomodationLevel: number;
+  instructorAccommodationLevel: number;
   //swithc to understanding
-  instructorEnthusiam: number;
+  instructorEnthusiasm: number;
   instructorAgain: boolean;
   votes?: number;
   userVoteType?: 1 | -1;

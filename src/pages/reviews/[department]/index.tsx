@@ -1,5 +1,5 @@
 import PageTitle from "../../../components/common/PageTitle";
-import ReviewList from "../../../components/ReviewList";
+import ReviewList from "../../../components/Review";
 import CourseCardRow from "../../../components/CourseCardRow";
 import Instructor from "../../../components/common/Instructor";
 import ScrollableRow from "../../../components/common/ScrollableRow";
@@ -77,6 +77,9 @@ export default function DepartmentPage({
               expandable={false}
               identifyCourse
               hideVoting
+              requireAuth={false}
+              context="department"
+
             />
           </SidebarLayout.Main>
         </SidebarLayout>

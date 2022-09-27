@@ -118,3 +118,17 @@ export function toTitleCase(str: string) {
     }
   );
 }
+
+
+export function parseCourseID(courseID: string) {
+  if (!courseID) {
+    return { courseNumber: null, department: null };
+  }
+  try {
+    const department = courseID.split(/[0-9]/)[0];
+    const courseNumber = courseID.slice(-4);
+    return { courseNumber, department };
+  } catch (e) {
+    return { courseNumber: null, department: null }; //invalid courseID
+  }
+}

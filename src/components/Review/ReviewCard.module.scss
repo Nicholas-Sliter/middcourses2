@@ -1,0 +1,25 @@
+@import "/src/styles//common/variables";
+@import "/src/styles//common/mixins";
+
+
+.container {
+    width: 80%;
+    max-width: 700px;
+    //min-width: 300px;
+    margin: 1rem;
+    display: inline-block;
+
+    .card {
+        padding: 1rem;
+        border-radius: $border-radius-medium;
+        outline: $border-light;
+        background-color: #fcfcfc;
+        word-break: break-all;
+
+
+
+
+    }
+
+
+}

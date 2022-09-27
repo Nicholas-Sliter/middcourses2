@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CustomSession, public_course, public_instructor, public_review } from "../../../../lib/common/types";
-import ReviewList from "../../../../components/ReviewList";
+import ReviewList from "../../../../components/Review";
 import CourseCard from "../../../../components/CourseCard";
 import BarChart from "../../../../components/BarChart";
 //import InstructorBar from "../../../../components/InstructorBar";
@@ -17,12 +17,13 @@ import SidebarLayout from "../../../../layouts/SidebarLayout";
 import { optimizedSSRCoursePage } from "../../../../lib/backend/database/course";
 //import RatingBox from "../../../../components/RatingBox";
 import { useToast } from "@chakra-ui/react";
+import RatingBox from "../../../../components/RatingBox";
+import RatingBar from "../../../../components/RatingBar";
 
 // SSR is amazing
 export async function getServerSideProps(context) {
 
   const session = await getSession(context) as CustomSession;
-  console.log(session)
 
   const departmentID = context.query.department as string;
   const courseNumber = context.query.coursenumber as string;
@@ -34,7 +35,6 @@ export async function getServerSideProps(context) {
     return index === self.findIndex((t) => (
       t.instructorID === instructor.instructorID))
   });
-  console.log(data)
 
   return {
     props: {
@@ -157,10 +157,10 @@ export default function CoursePage({
           </SidebarLayout.Sidebar>
 
           <SidebarLayout.Main>
-            {/* <RatingBox ratings={[{ title: "Difficulty", rating: 10 }, { title: "Hours per week", rating: 9 }]} /> */}
             <ReviewList
               reviews={filteredReviews}
-              instructors={instructors} />
+              instructors={instructors}
+              context="course" />
           </SidebarLayout.Main>
         </SidebarLayout>
         <AddButton onClick={() => { onOpen() }}></AddButton>
@@ -178,7 +178,7 @@ export default function CoursePage({
             deselect={deselectInstructor}
           />
           <div>
-            <ReviewList reviews={filteredReviews} instructors={instructors} />
+            <ReviewList reviews={filteredReviews} instructors={instructors} context="course" />
           </div>
         </div>
         <AddButton onClick={() => { onOpen() }}></AddButton>

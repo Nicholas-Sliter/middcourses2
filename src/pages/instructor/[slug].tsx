@@ -7,7 +7,7 @@ import InstructorCard from "../../components/common/InstructorCard";
 import PageTitle from "../../components/common/PageTitle";
 import CourseCardRow from "../../components/CourseCardRow";
 import { BrowserView, MobileView } from "../../components/DeviceViews";
-import ReviewList from "../../components/ReviewList";
+import ReviewList from "../../components/Review";
 import useInstructorBySlug from "../../hooks/useInstructorBySlug";
 import useInstructorCourses from "../../hooks/useInstructorCourses";
 import { useInstructorReviews } from "../../hooks/useInstructorReviews";
@@ -39,7 +39,6 @@ export async function getServerSideProps(context) {
 
 export default function InstructorPage({ slug, instructor, courses, reviews, authorized }) {
 
-
   return (
     <>
       <PageTitle pageTitle={`${instructor?.name ?? ""}`} />
@@ -59,14 +58,14 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
           </SidebarLayout.Sidebar>
           <SidebarLayout.Main>
             <CourseCardRow courses={courses} />
-            <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} />
+            <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" />
           </SidebarLayout.Main>
         </SidebarLayout>
       </BrowserView>
       <MobileView>
         <InstructorCard instructor={instructor} authorized={authorized} />
         <CourseCardRow courses={courses} />
-        <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} />
+        <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" />
       </MobileView>
     </>
   );

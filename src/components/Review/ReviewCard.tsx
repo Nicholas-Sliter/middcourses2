@@ -1,7 +1,7 @@
-import styles from "../styles/components/Review.module.scss";
-import DateString from "./common/DateString";
+import styles from "./Review.module.scss";
+import DateString from "../common/DateString";
 import { FiFlag, FiChevronUp, FiChevronDown } from "react-icons/fi";
-import { public_review, public_instructor } from "../lib/common/types";
+import { public_review, public_instructor } from "../../lib/common/types";
 import Link from "next/link";
 import { Tooltip, useToast } from "@chakra-ui/react";
 
@@ -16,8 +16,8 @@ import {
 } from "react-icons/fa";
 
 import ReviewDetail from "./ReviewDetail";
-import ReadMore from "./common/ReadMore";
-import voteFetch from "../lib/frontend/vote";
+import ReadMore from "../common/ReadMore";
+import voteFetch from "../../lib/frontend/vote";
 import { useState } from "react";
 import {
   MdThumbUp,
@@ -25,7 +25,7 @@ import {
   MdThumbUpOffAlt,
   MdThumbDownOffAlt,
 } from "react-icons/md";
-import { ratingMapping } from "../lib/frontend/utils";
+import { ratingMapping } from "../../lib/frontend/utils";
 
 
 interface ReviewProps {
@@ -101,7 +101,7 @@ const vote = async (review: public_review, voteType: string, toast, updateVoteTy
 
 }
 
-export default function Review({
+export default function ReviewCard({
   review,
   instructor,
   expandable = true,
@@ -191,7 +191,7 @@ export default function Review({
         </Tooltip>
         <LikeDislikeElement />
         <br />
-        <ReadMore text={review.content} maxLength={800} />
+        <ReadMore text={review.content} maxLength={256} />
       </div>
       <ReviewDetail review={review} expandable={expandable} />
     </div>

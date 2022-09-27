@@ -1,0 +1,38 @@
+.vertical {
+    display: flex;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    margin-left: 2rem;
+
+    >div {
+        margin-left: 0 !important;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    //margin-left: 2rem;
+    //margin-right: 2rem;
+    //center
+    justify-content: space-between;
+
+    >div {
+        //margin: 0.12rem;
+        margin: 0.1rem;
+        //scale: 0.92;
+    }
+
+    >div:first-child {
+        margin-left: 0;
+    }
+
+    >div:last-child {
+        margin-right: 0;
+    }
+}
