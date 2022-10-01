@@ -1,3 +1,7 @@
+
+const DATABASE_CONFIG_NAME = process.env.DATABASE_CONFIG_NAME;
+const DATABASE_URL = process.env[DATABASE_CONFIG_NAME] || process.env.DATABASE_URL;
+
 module.exports = {
   // development: {
   //   client: "sqlite3",
@@ -42,7 +46,7 @@ module.exports = {
   production: {
     client: "postgresql",
     connection: {
-      connectionString: process.env.DATABASE_URL,
+      connectionString: DATABASE_URL,
       ssl: { rejectUnauthorized: false },
     },
     pool: {
