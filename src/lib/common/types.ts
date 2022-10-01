@@ -46,8 +46,11 @@ export interface public_instructor {
   email?: string;
   slug: string;
   departmentID?: string;
-
-
+  avgEffectiveness?: number;
+  avgAccommodationLevel?: number;
+  avgEnthusiasm?: number;
+  avgAgain?: number;
+  numReviews?: number;
 }
 
 //TODO: finish this

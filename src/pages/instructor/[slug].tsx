@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
   const slug = context.query.slug as string;
   const session = await getSession(context) as CustomSession;
   const authorized = session?.user?.authorized ?? false;
-  const data = await optimizedSSRInstructorPage(slug, authorized);
+  const data = await optimizedSSRInstructorPage(slug, session);
 
   return {
     props: {

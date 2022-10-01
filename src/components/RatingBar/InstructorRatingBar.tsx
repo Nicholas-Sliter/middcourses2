@@ -14,28 +14,28 @@ function InstructorRatingBar({ instructor }) {
             /> */}
                 <RatingBox
                     title="Effective"
-                    value={instructor.instructorEffectiveness}
+                    value={instructor.avgEffectiveness}
                     suffix={"/10"}
                     helpText="Instructor effectiveness"
 
                 />
                 <RatingBox
                     title="Fun"
-                    value={instructor?.instructorEnthusiasm}
+                    value={instructor?.avgEnthusiasm}
                     suffix={"/10"}
                     helpText="Enthusiasm level of this instructor"
 
                 />
                 <RatingBox
                     title="Helpful"
-                    value={instructor?.instructorAccommodationLevel}
+                    value={instructor?.avgAccommodationLevel}
                     suffix={"/10"}
                     helpText="Accomodation level of this instructor"
 
                 />
                 <RatingBox
                     title="Again"
-                    value={instructor?.instructorAgain}
+                    value={instructor?.avgAgain}
                     suffix="%"
                     max={1}
                     min={0}
