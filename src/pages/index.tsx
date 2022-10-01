@@ -18,23 +18,23 @@ export default function Home() {
         <SearchBar showResultDropdown />
         <div style={{ height: '10rem' }}></div>
         <FlexGroup>
-          <Feature link="/browse/courses">
+          <Feature> {/* link="/browse/courses" */}
             <FaBook />
             <h3>Browse Courses</h3>
             <p>
               MiddCourses is Middlebury&apos;s premier course discovery and review platform.  Browse from our complete catalogue to discover the perfect course for you.
             </p>
           </Feature>
-          <Feature link="/browse/departments">
+          <Feature> {/* link="/browse/departments" */}
             <FaBuilding />
             <h3>Discover Departments</h3>
             <p>Find your perfect Major or Minor with ease. And within departments, discover top courses.</p>
           </Feature>
-          <Feature link="/browse/instructors">
+          <Feature> {/* link="/browse/instructors" */}
             <FaUserGraduate />
             <h3>Meet Professors</h3>
             <p>
-              Find accomodating, knowledgeable, and enthusiastic instructors for your next course.  Your new favorite instructor is here.
+              Find accommodating, knowledgeable, and enthusiastic instructors for your next course.  Your new favorite instructor is here.
             </p>
           </Feature>
         </FlexGroup>

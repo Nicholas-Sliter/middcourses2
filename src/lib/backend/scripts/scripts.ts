@@ -233,7 +233,11 @@ export async function processInstructors(rawInstructors: InstructorObject[]) {
     return a - b;
   });
   console.log({ sindexes });
-  return formattedInstructors;
+  //sort by instructorID
+  const sortedInstructors = formattedInstructors.sort((a, b) => {
+    return a.instructorID.localeCompare(b.instructorID);
+  });
+  return sortedInstructors;
 }
 
 export async function getInstructors(rawCourses) {

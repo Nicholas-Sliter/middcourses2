@@ -1,7 +1,8 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { public_instructor, public_review } from "../../common/types";
+import { CustomSession, public_instructor, public_review } from "../../common/types";
 import { sortCoursesByTerm } from "../../common/utils";
+import { getReviewByInstructorSlugWithVotes } from "./review";
 
 
 const DELIMITER = "|\0|";
@@ -9,7 +10,6 @@ const DELIMITER = "|\0|";
 const quote = (str: string) => {
     return (str.split(".").map((s) => `"${s}"`).join("."));
 }
-
 
 
 export async function getCoursesByInstructorSlug(slug: string) {
@@ -91,46 +91,43 @@ async function getRecentInstructorCourses() {
 
 
 
-export async function optimizedSSRInstructorPage(slug: string, authorized: boolean) {
+export async function optimizedSSRInstructorPage(slug: string, session: CustomSession) {
+
+    const userID = session?.user?.id ?? null;
+
+    // instead of recent reviews lets get all reviews, calculate the averages, then return a subset of the reviews
 
 
-    const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getRecentInstructorReviews(slug, authorized), getCoursesByInstructorSlug(slug)]);
+    //const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getRecentInstructorReviews(slug, authorized), getCoursesByInstructorSlug(slug)]);
+    const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getReviewByInstructorSlugWithVotes(slug, userID), getCoursesByInstructorSlug(slug)]);
+
 
     console.log(reviewQuery)
 
+    //remove the feilds from the reviews
+    const reviews = reviewQuery.map((r) => {
+        const newReview = { ...r };
+        delete newReview["avgEffectiveness"];
+        delete newReview["avgAccommodationLevel"];
+        delete newReview["avgEnthusiasm"];
+        delete newReview["avgInstructorAgain"];
+        return newReview;
+    });
+
     return {
-        instructor: mainQuery,
+        instructor: {
+            ...mainQuery,
+            avgEffectiveness: reviewQuery?.[0]?.avgEffectiveness,
+            avgAccommodationLevel: reviewQuery?.[0]?.avgAccommodationLevel,
+            avgEnthusiasm: reviewQuery?.[0]?.avgEnthusiasm,
+            avgAgain: reviewQuery?.[0]?.avgInstructorAgain,
+            numReviews: reviewQuery.length,
+        } as public_instructor,
         courses: sortCoursesByTerm(coursesQuery),
-        reviews: reviewQuery,
+        reviews: reviews as public_review[],
+
+
     }
-
-    //subQueryBuilder
-    // return await knex("Review")
-    //     .whereIn("Review.instructorID", (subQueryBuilder) => {
-    //         subQueryBuilder.select("Instructor.instructorID")
-    //             .from("Instructor")
-    //             .where("Instructor.slug", slug)
-    //     })
-    //     .select(reviewInfo)
-
-    // return await knex.raw(`SELECT json_build_object(
-    //                         'instructor', json_build_object(
-    //                             'name', "Instructor"."name",
-    //                             'instructorID', "Instructor"."instructorID",
-    //                             'slug', "Instructor"."slug",
-    //                             'departmentID', "Instructor"."departmentID",
-    //                             'email', "Instructor"."email"
-    //                         ),
-    //                         'reviews', ARRAY_AGG(json_build_object(
-    //                             'content', "Review"."content"
-    //                         ))) as "data"
-    //                         FROM "Instructor" 
-    //                         LEFT JOIN "Review" ON "Instructor"."instructorID" = "Review"."instructorID"
-    //                         WHERE "Instructor"."slug" = ?
-    //                         GROUP BY "Instructor"."instructorID", "Review"."reviewID"`
-    //     , [slug])
-
-    //this is getting too complicated, just use multiple queries
 
 }
 

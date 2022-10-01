@@ -1,4 +1,22 @@
-@import "../common/_variables.scss";
+@import "/src/styles/common/variables";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .container {
   width: 100%;
@@ -8,15 +26,17 @@
 }
 
 .bar {
-  width: 90%;
+  width: 100%;
   margin: 0;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0;
-  padding-left: 1rem;
-  padding-right: 10%;
+  //padding-left: 1rem;
+  //padding-right: 10%;
   border: none;
   display: flex;
+  flex-direction: row;
+  justify-content: left;
   min-height: 0.8rem;
 
   span {
@@ -39,6 +59,7 @@
     }
   }
 }
+
 .openButton {
   float: right;
   display: inline-flex;
@@ -92,6 +113,11 @@
       font-size: 0.9rem;
     }
   }
+}
+
+.divider {
+  border-left: 1px solid #e6e6e6;
+  height: 100%;
 }
 
 .separator {

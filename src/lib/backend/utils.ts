@@ -38,6 +38,16 @@ function composedOfSubstrings(str: string) {
 
 }
 
+function getWords(str: string) {
+  return str.toLowerCase().split(" ");
+}
+
+function getWordDiversity(str: string) {
+  const words = getWords(str);
+  const uniqueWords = new Set(words);
+  return uniqueWords.size / words.length;
+}
+
 
 export function isQualityReview(str: string): boolean {
 
@@ -70,9 +80,13 @@ export function isQualityReview(str: string): boolean {
   // (e.g. copy pasted "Sample Sample Sample")
   const notComposedOfSubstrings: boolean = !composedOfSubstrings(str);
 
-  console.log({ notHasJunk: !hasJunk, sufficientAlphabetSize, sufficientEntropy, sufficientWordLength, sufficientLetterFrequency, notComposedOfSubstrings });
+  // check that the string is not composed of the same few words
+  const wordDiversity = getWordDiversity(str);
+  const sufficientWordDiversity: boolean = wordDiversity > 0.4;
 
-  return !hasJunk && sufficientAlphabetSize && sufficientEntropy && sufficientWordLength && sufficientLetterFrequency && notComposedOfSubstrings;
+  console.log({ notHasJunk: !hasJunk, sufficientAlphabetSize, sufficientEntropy, sufficientWordLength, sufficientLetterFrequency, notComposedOfSubstrings, sufficientWordDiversity });
+
+  return !hasJunk && sufficientAlphabetSize && sufficientEntropy && sufficientWordLength && sufficientLetterFrequency && notComposedOfSubstrings && sufficientWordDiversity;
 
 }
 

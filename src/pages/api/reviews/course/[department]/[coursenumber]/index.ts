@@ -15,6 +15,7 @@ import {
   uuidv4,
 } from "../../../../../../lib/backend/utils";
 import { CustomSession } from "../../../../../../lib/common/types";
+import { courseTags } from "../../../../../../lib/common/utils";
 
 /**
  * Get all course reviews for a specific course
@@ -145,13 +146,26 @@ const handler = nc({
       return res.status(400).json({ message: "Review quality is too low" });
     }
 
+    //check that the course tags are valid
+    if (req.body.courseTags) {
+      if (req.body.courseTags.length > 3) {
+        return res.status(400).json({ message: "Too many course tags" });
+      }
+
+      req.body.courseTags.forEach((tag: string) => {
+        if (!courseTags.includes(tag)) {
+          return res.status(400).json({ message: "Invalid course tag" });
+        }
+      });
+    }
+
+
     const clamp = (x: number, min = 0, max = 10) => Math.max(Math.min(x, max), min);
 
     const parseReviewInt = (s, min = 1, max = 10) => {
       const x = parseInt(s, 10) ?? 5;
       return clamp(x, min, max);
     }
-
 
     const review = {
       reviewID: uuidv4(),
@@ -163,12 +177,12 @@ const handler = nc({
       rating: parseReviewInt(req.body.rating),
       reviewDate: new Date().toISOString(),
       approved: true,
-      voteCount: 0,
       difficulty: parseReviewInt(req.body.difficulty),
       value: parseReviewInt(req.body.value),
       hours: parseReviewInt(req.body.hours, 0, 30),
       again: req.body.again ?? false,
       primaryComponent: req.body.primaryComponent?.toLowerCase(),
+      tags: req.body.courseTags,
       instructorEffectiveness: parseReviewInt(req.body.instructorEffectiveness),
       instructorAccommodationLevel: parseReviewInt(
         req.body.instructorAccommodationLevel

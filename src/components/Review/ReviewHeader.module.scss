@@ -1,0 +1,151 @@
+@import "/src/styles/common/variables";
+@import "/src/styles/common/mixins";
+
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: unset;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+
+
+    .identity {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: left;
+        flex-wrap: wrap;
+        margin: 0;
+        vertical-align: middle;
+
+        span:not(:first-child) {
+            margin-bottom: 0.3rem;
+        }
+
+        >span a:any-link {
+            color: #333;
+        }
+
+        span svg {
+            font-size: $font-size-large;
+            margin-right: 0.5rem;
+            padding: 2px;
+        }
+
+
+    }
+
+    .controls {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        margin: 0;
+
+        button {
+            outline: none;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 1.1rem;
+            //margin-left: 1rem;
+
+            &:hover {
+                svg {
+                    transform: scale(1.4);
+                    transition: ease-in-out 0.12s;
+                }
+            }
+        }
+
+        .flag:hover {
+            svg {
+                color: $error-main;
+            }
+        }
+
+        .upvote:hover {
+            svg {
+                color: #1a5acf;
+            }
+        }
+
+        .downvote:hover {
+            svg {
+                color: #d83c3c;
+            }
+        }
+
+        .upvoted {
+            svg {
+                color: #0c46b1;
+                transform: scale(1.2)
+            }
+        }
+
+        .downvoted {
+            svg {
+                color: #e12e2e;
+                transform: scale(1.2);
+            }
+        }
+
+    }
+
+}
+
+
+
+.green {
+    $color: #048204;
+
+    svg {
+        fill: $white;
+        background-color: $color;
+        border-radius: 50%;
+    }
+}
+
+.light-green {
+    $color: #a6d785;
+
+    svg {
+        fill: $white;
+        background-color: $color;
+        border-radius: 50%;
+    }
+}
+
+.yellow {
+    $color: #ffc718;
+
+    svg {
+        fill: $white;
+        background-color: $color;
+        border-radius: 50%;
+    }
+}
+
+.orange {
+    $color: #ffa500; //#ff6600
+
+    svg {
+        fill: $white;
+        background-color: $color;
+        border-radius: 50%;
+    }
+}
+
+.red {
+    $color: #cc0404;
+
+    svg {
+        fill: $white;
+        background-color: $color;
+        border-radius: 50%;
+    }
+}

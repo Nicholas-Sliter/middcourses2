@@ -1,0 +1,36 @@
+@import "/src/styles//common/variables";
+@import "/src/styles//common/mixins";
+
+.missingFallback {
+    width: 100%;
+
+    &>svg {
+        //center
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+
+        height: 50%;
+        width: 50%;
+        max-width: 18rem;
+        color: $grey-light;
+
+    }
+
+    h4 {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        color: $grey-dark;
+        text-align: center;
+
+        @include noselect;
+    }
+
+
+    div {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

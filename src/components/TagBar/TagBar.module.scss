@@ -1,0 +1,12 @@
+.tagBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    span {
+        margin-right: 0.3rem;
+        cursor: default;
+    }
+}

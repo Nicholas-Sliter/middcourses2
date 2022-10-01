@@ -6,6 +6,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import { BiChevronRight } from "react-icons/bi";
 import ReadMore from "./common/ReadMore";
+import RatingBar, { CourseRatingBar } from "./RatingBar";
+import TagBar from "./TagBar";
 
 
 interface CourseCardProps {
@@ -30,7 +32,9 @@ export default function CourseCard({ course }: CourseCardProps) {
     <div className={styles.container}>
       <h1>{course?.courseName || <Skeleton />}</h1>
       <span>{breadcrumbs}</span>
-      <ReadMore text={course?.courseDescription} maxLength={800} />
+      <CourseRatingBar course={course} />
+      {/* <TagBar items={course?.topTags} /> */}
+      <ReadMore text={course?.courseDescription} maxLength={600} />
     </div>
   );
 }

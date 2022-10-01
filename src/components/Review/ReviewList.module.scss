@@ -1,5 +1,5 @@
-@import "../common/variables";
-@import "../common/mixins";
+@import "/src/styles/common/variables";
+@import "/src/styles/common/mixins";
 
 .list {
    display: flex;
@@ -7,8 +7,8 @@
    align-content: center;
    margin-bottom: 6rem;
 
-  //no review icon
-   & > svg {
+   //no review icon
+   &>svg {
       //center
       margin-left: auto;
       margin-right: auto;
@@ -21,14 +21,14 @@
 
    }
 
-   h4{
-     margin-left: auto;
-     margin-right: auto;
-     display: block;
-     color: $grey-dark;
+   h4 {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      color: $grey-dark;
 
-     @include noselect;
-    }
+      @include noselect;
+   }
 
 
    div {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { public_review } from "../lib/common/types";
+import { public_review } from "../../lib/common/types";
 import {
   FiClock,
   FiLayers,
@@ -8,18 +8,17 @@ import {
   FiChevronsDown,
   FiChevronsUp,
 } from "react-icons/fi";
-import { FaRegGem } from "react-icons/fa";
+import { FaHandsHelping, FaRegGem } from "react-icons/fa";
 import {
   valueMapping,
   difficultyMapping,
   getRelativeDifferenceText,
   getRelativeDifferenceColor,
   relativeDifference,
-} from "../lib/frontend/utils";
+} from "../../lib/frontend/utils";
 
-import styles from "../styles/components/ReviewDetail.module.scss";
-import Reviews from "../pages/profile/reviews";
-import { primaryComponents } from "../lib/common/utils";
+import styles from "./ReviewDetail.module.scss";
+import { primaryComponents, toTitleCase } from "../../lib/common/utils";
 
 interface ReviewDetailProps {
   review: public_review;
@@ -32,7 +31,7 @@ interface ReviewDetailProps {
     instructorAccomodationLevel: number;
     instructorEnthusiasm: number;
   };
-  expandable: boolean;
+  expandable?: boolean;
 }
 
 interface ReviewDetailNumericalElementProps {
@@ -112,7 +111,7 @@ function ReviewDetailFull({ review, averages }) {
   );
 }
 
-function ReviewDetailBar({ review }) {
+function ReviewDetailBar({ review }: { review: public_review }) {
   const hours =
     review?.hours || review?.hours == 0 ? (
       <span>
@@ -134,11 +133,23 @@ function ReviewDetailBar({ review }) {
       </span>
     ) : null;
 
-    const primaryComponent = review?.primaryComponent ? (
-      <span>
-        <FiLayers /> {`${review?.primaryComponent}-based`}
-      </span>
-    ) : null;
+  const primaryComponent = review?.primaryComponent ? (
+    <span>
+      <FiLayers /> {`${toTitleCase(review?.primaryComponent)}-based`}
+    </span>
+  ) : null;
+
+  const instructorEffectiveness = review?.instructorEffectiveness ? (
+    <span>
+      <FiMaximize /> {``}
+    </span>
+  ) : null;
+
+  const instructorAccomodationLevel = review?.instructorAccommodationLevel ? (
+    <span>
+      <FaHandsHelping /> {`${valueMapping[review?.instructorAccommodationLevel]} accomodations`}
+    </span>
+  ) : null;
 
   return (
     <div className={styles.bar}>
@@ -146,6 +157,8 @@ function ReviewDetailBar({ review }) {
       {difficulty}
       {value}
       {primaryComponent}
+      {instructorEffectiveness}
+      {instructorAccomodationLevel}
     </div>
   );
 }
@@ -153,7 +166,7 @@ function ReviewDetailBar({ review }) {
 export default function ReviewDetail({
   review,
   averages,
-  expandable,
+  expandable = false,
 }: ReviewDetailProps) {
   const [isOpen, setIsOpen] = useState(false);
 
