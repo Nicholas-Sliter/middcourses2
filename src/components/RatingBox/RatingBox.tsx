@@ -47,7 +47,7 @@ function RatingBox({
     const range = max - min;
 
     //let boundNormalizedValue = Math.round(rating.value);
-    const percentageValue = ((value - min) / range);
+    const percentageValue = ((Math.min(value, max) - min) / range);
     let boundNormalizedValue = Math.round(percentageValue * 10);
     if (!highIsGood) {
         boundNormalizedValue = 10 - boundNormalizedValue;
@@ -77,7 +77,23 @@ function RatingBox({
         return a + (b - a) * t;
     }
 
-    let displayValue = value?.toFixed(displayPrecision ?? 1) ?? "N/A";
+    //if value rounds to value equal or above 10, dont show any decimal places
+    const decimalPlaces = Math.round(value) >= 10 ? 0 : displayPrecision ?? 1;
+
+    let displayValue = Math.min(value, max)?.toFixed(decimalPlaces) ?? "N/A";
+    if (value === null || value === undefined || isNaN(value)) {
+        displayValue = "N/A";
+    }
+    //if display value end in 0, remove it
+    if (displayValue.endsWith(".0")) {
+        displayValue = displayValue.slice(0, -2);
+    }
+
+    if (value > max && !percent) {
+        //add a + to the end of display value
+        displayValue += "+";
+    }
+
     if (percent && value !== null && value !== undefined) {
         displayValue = (value * 100).toFixed(displayPrecision ?? 0) ?? "N/A";
     }

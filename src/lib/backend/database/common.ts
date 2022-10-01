@@ -12,13 +12,14 @@ export const reviewInfo = [
     "Review.reviewDate",
     "Review.rating",
     "Review.content",
-    "Review.voteCount",
+
 
     "Review.difficulty",
     "Review.value",
     "Review.hours",
     "Review.again",
     "Review.primaryComponent",
+    "Review.tags",
 
     "Review.instructorEffectiveness",
     "Review.instructorAccommodationLevel",
@@ -34,5 +35,4 @@ export const basicReviewInfo = [
     "Review.reviewDate",
     "Review.rating",
     "Review.content",
-    "Review.voteCount",
 ];

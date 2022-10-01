@@ -9,10 +9,10 @@ interface ReadMoreProps {
     baseBuffer?: number;
 }
 
-function ReadMore({ text, maxLength = 100, disabled = false, baseBuffer = 10 }: ReadMoreProps) {
+function ReadMore({ text, maxLength = 100, disabled = false, baseBuffer = 30 }: ReadMoreProps) {
     const [isTruncated, setIsTruncated] = useState(!disabled);
 
-    const buffer = baseBuffer + "…Read more".length;
+    const buffer = baseBuffer + "…Read more".length + 3;
     const totalLength = maxLength + buffer;
 
     const resultString = isTruncated ? text.slice(0, totalLength) : text;

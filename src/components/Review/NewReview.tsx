@@ -1,4 +1,4 @@
-import { public_instructor, public_review } from "../../lib/common/types";
+import { CustomSession, public_instructor, public_review } from "../../lib/common/types";
 import { parseCourseID } from "../../lib/common/utils";
 import ReadMore from "../common/ReadMore";
 import TagBar from "../TagBar";
@@ -8,6 +8,7 @@ import ReviewHeader from "./ReviewHeader";
 import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import voteFetch from "../../lib/frontend/vote";
+import { useSession } from "next-auth/react";
 
 
 interface ReviewCardProps {
@@ -19,7 +20,14 @@ interface ReviewCardProps {
     hideVoting?: boolean;
 }
 
-
+const votingWithoutLoginToast = (toast) => {
+    toast({
+        title: "You must be logged in to vote",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+    });
+};
 
 function ReviewCard({
     review,
@@ -30,11 +38,17 @@ function ReviewCard({
     hideVoting
 }: ReviewCardProps) {
 
-
+    const { data: session } = useSession() as { data: CustomSession };
     const [userVoteType, setUserVoteType] = useState(review.userVoteType);
     const toast = useToast();
 
     const vote = async (review: public_review, voteType: string, toast, updateVoteType) => {
+        //check if user is logged in
+        if (!session?.user) {
+            votingWithoutLoginToast(toast);
+            return;
+        }
+
         const { status, message, value } = await voteFetch(review.reviewID, voteType);
         if (status) {
             updateVoteType(value);
@@ -81,7 +95,7 @@ function ReviewCard({
                     vote={voteWrapper}
                 />
                 <ReadMore text={review.content} maxLength={335} />
-                <TagBar items={["Exciting course", "Lots of Homework"]} />
+                <TagBar items={review?.tags ?? []} />
                 <ReviewDetail review={review} />
             </div>
         </div>

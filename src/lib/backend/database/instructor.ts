@@ -94,6 +94,9 @@ async function getRecentInstructorCourses() {
 export async function optimizedSSRInstructorPage(slug: string, authorized: boolean) {
 
 
+    // instead of recent reviews lets get all reviews, calculate the averages, then return a subset of the reviews
+
+
     const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getRecentInstructorReviews(slug, authorized), getCoursesByInstructorSlug(slug)]);
 
     console.log(reviewQuery)

@@ -5,6 +5,7 @@ import { CustomSession, public_instructor, public_review } from "../../lib/commo
 import { FiXCircle } from "react-icons/fi";
 import { useSession } from "next-auth/react";
 import ReviewMissing from "./ReviewMissing";
+import { is100LevelCourse } from "../../lib/common/utils";
 
 interface ReviewListProps {
   reviews: public_review[];
@@ -32,7 +33,7 @@ export default function ReviewList({
 }: ReviewListProps) {
 
   const { data: session } = useSession() as { data: CustomSession };
-  const authorized = session?.user?.authorized ?? false;
+  const authorized = (session?.user?.authorized ?? false);
 
   const no_auth = requireAuth && !authorized;
   const no_reviews = error === "no_reviews" || (reviews?.length === 0 ?? true);
@@ -48,7 +49,7 @@ export default function ReviewList({
 
   return (
     <div className={styles.list}>
-      {no_auth || no_reviews ? <FallbackComponent /> :
+      {(!reviews.length && (no_auth || no_reviews)) ? <FallbackComponent /> :
 
         reviews.map((review) => {
           //match instructor by instructorID

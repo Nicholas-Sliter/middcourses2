@@ -1,26 +1,33 @@
+import { public_course } from "../../lib/common/types";
 import RatingBox from "../RatingBox";
 import RatingBar from "./RatingBar";
 
-function CourseRatingBar({ course }) {
+interface CourseRatingBarProps {
+    course: public_course
+}
+
+
+function CourseRatingBar({ course }: CourseRatingBarProps) {
+
     return (
         <RatingBar>
             <RatingBox
                 title="Overall"
-                value={course?.courseRating ?? 9.8}
+                value={course?.avgRating}
                 suffix={"/10"}
                 helpText="Average rating of all reviews"
 
             />
             <RatingBox
                 title="Value"
-                value={course?.courseValue ?? 7.2}
+                value={course?.avgValue}
                 suffix={"/10"}
                 helpText="Average value of all reviews"
 
             />
             <RatingBox
                 title="Difficulty"
-                value={course?.courseDifficulty ?? 3.4}
+                value={course?.avgDifficulty}
                 suffix={"/10"}
                 highIsGood={false}
                 helpText="Average difficulty of all reviews"
@@ -28,14 +35,16 @@ function CourseRatingBar({ course }) {
             />
             <RatingBox
                 title="Workload"
-                value={course?.courseHours ?? 8.2}
+                value={course?.avgHours}
                 suffix={"hrs"}
+                max={12}
+                highIsGood={false}
                 helpText="per week of work"
 
             />
             <RatingBox
                 title="Again"
-                value={0.941324}
+                value={course?.avgAgain}
                 suffix="%"
                 max={1}
                 min={0}

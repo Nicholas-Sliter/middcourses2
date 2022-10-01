@@ -77,6 +77,15 @@ export async function getReviewsByCourseIDs(courseIDs: string[]) {
 }
 
 export async function getReviewByCourseIDWithVotes(courseID: string, userID: string) {
+
+    interface extended_public_review extends public_review {
+        avgRating: number;
+        avgDifficulty: number;
+        avgHours: number;
+        avgValue: number;
+        avgAgain: number;
+    }
+
     const query = await knex("Review")
         .where({
             courseID: courseID
@@ -87,14 +96,29 @@ export async function getReviewByCourseIDWithVotes(courseID: string, userID: str
         .groupBy(reviewInfo)
         //check if userID has voted on this review
         .select(
-            knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "Review"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID])
+            knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "Review"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID ?? null])
         )
+        .orderBy("voteCount", "desc")
+        //summarize all review info into averages
+        .select(
+            knex.raw(`(SELECT AVG("difficulty") FROM "Review" WHERE "Review"."courseID" = ?) as "avgDifficulty"`, [courseID]),
+            knex.raw(`(SELECT AVG("hours") FROM "Review" WHERE "Review"."courseID" = ?) as "avgHours"`, [courseID]),
+            knex.raw(`(SELECT AVG("again"::int::float4) FROM "Review" WHERE "Review"."courseID" = ?) as "avgAgain"`, [courseID]),
+            knex.raw(`(SELECT AVG("value") FROM "Review" WHERE "Review"."courseID" = ?) as "avgValue"`, [courseID]),
+            knex.raw(`(SELECT AVG("rating") FROM "Review" WHERE "Review"."courseID" = ?) as "avgRating"`, [courseID])
 
-    //breaks if user has not voted on reivew
+        ) as extended_public_review[]
 
-    //how to combind with the user's vote?
+    /**
+     *         //get the average ratings for the course
+    .avg("Review.rating as avgRating")
+    .avg("Review.difficulty as avgDifficulty")
+    .avg("Review.hours as avgHours")
+    .avg("Review.value as avgValue")
+    .avg("Review.again as avgAgain");
+     */
 
-    console.log(query);
+
     const output = query.map((review) => {
         return {
             "reviewID": review.reviewID,
@@ -108,14 +132,24 @@ export async function getReviewByCourseIDWithVotes(courseID: string, userID: str
             "hours": review.hours,
             "again": review.again,
             "primaryComponent": review.primaryComponent,
+            "tags": review.tags,
             "instructorEffectiveness": review.instructorEffectiveness,
             "instructorAccommodationLevel": review.instructorAccommodationLevel,
             "instructorEnthusiasm": review.instructorEnthusiasm,
             "instructorAgain": review.instructorAgain,
             "rating": review.rating,
+            "avgRating": review.avgRating,
+            "avgDifficulty": review.avgDifficulty,
+            "avgHours": review.avgHours,
+            "avgValue": review.avgValue,
+            "avgAgain": review.avgAgain,
             votes: parseInt(review.voteCount ?? 0, 10),
             userVoteType: review?.userVoteType
         }
+    });
+
+    output.sort((a, b) => {
+        return b.votes - a.votes;
     });
 
     return output as unknown as public_review[];

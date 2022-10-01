@@ -9,7 +9,7 @@ import AddButton from "../../../../components/common/AddButton";
 import AddReview from "../../../../components/AddReview";
 import { useDisclosure } from "@chakra-ui/react";
 import PageTitle from "../../../../components/common/PageTitle";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { BrowserView, MobileView } from "../../../../components/DeviceViews";
 import { TbArrowBackUp } from 'react-icons/tb';
 import Link from "next/link";
@@ -19,6 +19,7 @@ import { optimizedSSRCoursePage } from "../../../../lib/backend/database/course"
 import { useToast } from "@chakra-ui/react";
 import RatingBox from "../../../../components/RatingBox";
 import RatingBar from "../../../../components/RatingBar";
+import { is100LevelCourse } from "../../../../lib/common/utils";
 
 // SSR is amazing
 export async function getServerSideProps(context) {
@@ -36,6 +37,8 @@ export async function getServerSideProps(context) {
       t.instructorID === instructor.instructorID))
   });
 
+  console.log(data);
+
   return {
     props: {
       departmentID: departmentID,
@@ -45,10 +48,17 @@ export async function getServerSideProps(context) {
         courseID: data.courseID,
         courseName: data.courseName,
         courseDescription: data.courseDescription,
+        avgRating: data.avgRating,
+        avgDifficulty: data.avgDifficulty,
+        avgHours: data.avgHours,
+        avgValue: data.avgValue,
+        avgAgain: data.avgAgain,
+        topTags: data.topTags,
       },
       instructors: dedupedInstructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
       authorized: session?.user?.authorized ?? false,
+      signedIn: session?.user ?? false,
     }
   }
 }
@@ -62,6 +72,7 @@ interface CoursePageProps {
   instructors: public_instructor[];
   reviews: public_review[];
   authorized: boolean;
+  signedIn: boolean;
 }
 
 export default function CoursePage({
@@ -72,6 +83,7 @@ export default function CoursePage({
   instructors,
   reviews,
   authorized,
+  signedIn,
 }: CoursePageProps) {
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>([]);
@@ -89,6 +101,28 @@ export default function CoursePage({
       isClosable: true,
 
     })
+  };
+
+  const signInToast = () => {
+    if (signedIn || authorized) {
+      return;
+    }
+    // two toasts, one for 100-level courses, one all others
+    if (is100LevelCourse(course.courseID)) {
+      toast({
+        title: 'You can access 100-level course reviews without signing in. Sign in to access reviews for other courses.',
+        status: 'info',
+        duration: 10000,
+        isClosable: true,
+      })
+    } else {
+      toast({
+        title: 'Sign in to access reviews for this course.',
+        status: 'info',
+        duration: 10000,
+        isClosable: true,
+      })
+    }
   };
 
   const selectInstructor = (instructorID: string) => {
@@ -130,6 +164,14 @@ export default function CoursePage({
     courseNumber,
   ]);
 
+  // run sign in toast 500ms after page load
+  useEffect(() => {
+    setTimeout(() => {
+      signInToast();
+    }, 500);
+  }, []);
+
+
   return (
     <>
       <PageTitle pageTitle={`${course?.courseName}`} />
@@ -160,7 +202,8 @@ export default function CoursePage({
             <ReviewList
               reviews={filteredReviews}
               instructors={instructors}
-              context="course" />
+              context="course"
+              requireAuth={!is100LevelCourse(course.courseID)} />
           </SidebarLayout.Main>
         </SidebarLayout>
         <AddButton onClick={() => { onOpen() }}></AddButton>
@@ -178,7 +221,11 @@ export default function CoursePage({
             deselect={deselectInstructor}
           />
           <div>
-            <ReviewList reviews={filteredReviews} instructors={instructors} context="course" />
+            <ReviewList
+              reviews={filteredReviews}
+              instructors={instructors}
+              context="course"
+              requireAuth={!is100LevelCourse(course.courseID)} />
           </div>
         </div>
         <AddButton onClick={() => { onOpen() }}></AddButton>

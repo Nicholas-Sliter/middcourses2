@@ -53,7 +53,7 @@ exports.up = function (knex) {
       "homework",
     ]); /* PrimaryComponent: Main Components of the course (exams, projects, writing, research, etc) */
 
-    table.array("tags"); /* Tags: Tags for the course (ex. "hard", "easy", "interesting", etc) */
+    table.specificType("tags", "text array"); /* Tags: Tags for the course (ex. "hard", "easy", "interesting", etc) */
     table.integer(
       "instructorEffectiveness"
     ); /* Teaching Quality of the instructor from 1-10 */

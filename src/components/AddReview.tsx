@@ -30,6 +30,8 @@ import QuestionNumberInput from "./common/QuestionNumberInput";
 import { useState, useEffect } from "react";
 import { RiContactsBookLine } from "react-icons/ri";
 import ReviewContentInput from "./common/ReviewContentInput";
+import { courseTags } from "../lib/common/utils";
+import TagBar from "./TagBar";
 
 interface AddReviewProps {
   course: public_course;
@@ -55,7 +57,30 @@ export default function AddReview({
 
   const [instructorTerms, setInstructorTerms] = useState([]);
   const [filteredInstructors, setFilteredInstructors] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
   const toast = useToast();
+
+  const selectTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
+      return;
+    }
+
+    //make sure the tags are unique, and there are no more than 3, and all tags in courseTags
+    const uniqueTags = [...new Set([tag, ...selectedTags])];
+    const validTags = uniqueTags.filter((tag) => courseTags.includes(tag));
+    if (validTags.length > 3) {
+      toast({
+        title: "You can only select up to 3 tags",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      setSelectedTags(validTags);
+    }
+  };
+
 
   const onSubmit = async (data: Object) => {
     console.log(data);
@@ -71,6 +96,7 @@ export default function AddReview({
       },
       body: JSON.stringify({
         ...data,
+        courseTags: selectedTags,
         courseID: course.courseID,
       }),
     });
@@ -298,6 +324,18 @@ export default function AddReview({
                     max={30}
                     step={1}
                   ></QuestionNumberInput>
+                </Question>
+                <Question
+                  label="Select up to 3 tags that best describe this course"
+                  htmlFor="courseTags"
+                >
+                  <TagBar
+                    items={courseTags.sort()}
+                    selectedTags={selectedTags}
+                    tagClick={selectTag}
+                    tagClassName={styles.tag}
+                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                  />
                 </Question>
                 <hr />
                 <h4>{`Review ${(instructor?.name) ? instructor?.name : "instructor"}`}</h4>

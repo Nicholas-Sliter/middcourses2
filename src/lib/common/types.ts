@@ -6,13 +6,13 @@ export interface public_review {
   semester: string;
   reviewDate: string;
   rating: number;
-  //voteCount: number;
   content: string;
   difficulty: number;
   value: number;
   hours: number;
   again: boolean;
   primaryComponent: string;
+  tags: string[];
 
   instructorEffectiveness: number;
   instructorAccommodationLevel: number;
@@ -32,6 +32,12 @@ export interface public_course {
   instructorID?: string;
   term?: string;
   numReviews?: number | string;
+  avgRating?: number;
+  avgDifficulty?: number;
+  avgHours?: number;
+  avgValue?: number;
+  avgAgain?: number
+  topTags?: string[];
 };
 
 export interface public_instructor {

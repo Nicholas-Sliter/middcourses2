@@ -20,13 +20,13 @@ const reviewInfo = [
   "reviewDate",
   "rating",
   "content",
-  "voteCount",
 
   "difficulty",
   "value",
   "hours",
   "again",
   "primaryComponent",
+  "tags",
 
   "instructorEffectiveness",
   "instructorAccommodationLevel",

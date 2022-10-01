@@ -81,6 +81,29 @@ export const primaryComponents = [
 ];
 
 
+export const courseTags = [
+  "Amazing Lectures",
+  "Exams are Easy",
+  "Difficult Exams",
+  "Lots of Work",
+  "Lots of Reading",
+  "Lots of Writing",
+  "Lots of Homework",
+  "High Expectations",
+  "Project Heavy",
+  "Must Take",
+  "Avoid",
+  "Super Fun",
+  "Super Boring",
+  "Clear Grading Criteria",
+  "Fair Grading",
+  "Group Work",
+  "Ungrading",
+  "Tough Grading",
+  "Easy Grading",
+  "Accessible Instructor",
+];
+
 
 
 export function formatTermObj(termObj) {
@@ -131,4 +154,10 @@ export function parseCourseID(courseID: string) {
   } catch (e) {
     return { courseNumber: null, department: null }; //invalid courseID
   }
+}
+
+
+export function is100LevelCourse(courseID: string) {
+  const { courseNumber } = parseCourseID(courseID);
+  return courseNumber.startsWith("01");
 }
