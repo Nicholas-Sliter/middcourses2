@@ -8,3 +8,5 @@ function DetailBar({ }) {
 
 
 }
+
+export default DetailBar;
