@@ -31,7 +31,7 @@ interface ReviewDetailProps {
     instructorAccomodationLevel: number;
     instructorEnthusiasm: number;
   };
-  expandable: boolean;
+  expandable?: boolean;
 }
 
 interface ReviewDetailNumericalElementProps {
@@ -166,7 +166,7 @@ function ReviewDetailBar({ review }: { review: public_review }) {
 export default function ReviewDetail({
   review,
   averages,
-  expandable,
+  expandable = false,
 }: ReviewDetailProps) {
   const [isOpen, setIsOpen] = useState(false);
 
