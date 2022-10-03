@@ -102,7 +102,11 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
     const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getReviewByInstructorSlugWithVotes(slug, userID), getCoursesByInstructorSlug(slug)]);
 
 
-    console.log(reviewQuery)
+    //only show averaged data is there are more than 5 reviews
+
+
+
+
 
     //remove the feilds from the reviews
     const reviews = reviewQuery.map((r) => {

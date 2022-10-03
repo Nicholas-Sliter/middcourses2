@@ -11,6 +11,20 @@ export function uuidv4() {
 }
 
 
+export function parseStringToInt(str: string | undefined | null) {
+  if (!str) {
+    return 0;
+  }
+
+  const parsed = parseInt(str, 10);
+  if (isNaN(parsed)) {
+    return 0;
+  }
+
+  return parsed;
+
+}
+
 
 export const DEPARTMENT_PADDING_PREFIX = "_";
 

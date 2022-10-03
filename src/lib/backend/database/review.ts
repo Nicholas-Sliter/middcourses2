@@ -1,6 +1,7 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
 import { public_instructor, public_review } from "../../common/types";
+import { parseStringToInt } from "../utils";
 
 
 export async function voteReviewByID(reviewID: string, voteBy: string, voteType: string) {
@@ -134,7 +135,7 @@ export async function getReviewByCourseIDWithVotes(courseID: string, userID: str
             "avgHours": review.avgHours,
             "avgValue": review.avgValue,
             "avgAgain": review.avgAgain,
-            votes: parseInt(review.voteCount, 10) ?? 0,
+            votes: parseStringToInt(review.voteCount),
             userVoteType: review?.userVoteType
         }
     });
@@ -203,7 +204,7 @@ export async function getReviewByInstructorIDWithVotes(instructorID: string, use
             "avgAccommodationLevel": review.avgAccommodationLevel,
             "avgEnthusiasm": review.avgEnthusiasm,
             "avgInstructorAgain": review.avgInstructorAgain,
-            votes: parseInt(review?.voteCount, 10) ?? 0,
+            votes: parseStringToInt(review.voteCount),
             userVoteType: review?.userVoteType
         }
     });
@@ -277,7 +278,7 @@ export async function getReviewByInstructorSlugWithVotes(slug: string, userID: s
             "avgAccommodationLevel": review.avgAccommodationLevel,
             "avgEnthusiasm": review.avgEnthusiasm,
             "avgInstructorAgain": review.avgInstructorAgain,
-            votes: parseInt(review.voteCount, 10) || 0,
+            votes: parseStringToInt(review.voteCount),
             userVoteType: review?.userVoteType
         }
     });
