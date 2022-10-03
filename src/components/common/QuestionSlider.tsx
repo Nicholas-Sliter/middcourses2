@@ -20,7 +20,7 @@ interface QuestionSliderProps {
 
 export default function QuestionSlider({
   registerName = "",
-  register = () => {},
+  register = () => { },
   validationObject = {},
   descriptor = "",
   min = 1,
@@ -44,21 +44,21 @@ export default function QuestionSlider({
 
   return (
     <>
-    {descriptorTag}
-    <Slider
-      name={registerName}
-      {...reg}
-      onChange={onChange}
-      defaultValue={DEFAULT_SLIDER_RATING}
-      min={min}
-      max={max}
-      step={step}
-    >
-      <SliderTrack>
-        <SliderFilledTrack className={styles.filledTrack} />
-      </SliderTrack>
-      <SliderThumb boxSize={6} className={styles.thumb} />
-    </Slider>
+      {descriptorTag}
+      <Slider
+        name={registerName}
+        {...reg}
+        onChange={onChange}
+        defaultValue={DEFAULT_SLIDER_RATING}
+        min={min}
+        max={max}
+        step={step}
+      >
+        <SliderTrack>
+          <SliderFilledTrack className={styles.filledTrack} />
+        </SliderTrack>
+        <SliderThumb boxSize={6} className={styles.thumb} />
+      </Slider>
     </>
   );
 }

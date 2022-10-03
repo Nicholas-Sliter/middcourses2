@@ -182,6 +182,24 @@ export default function AddReview({
     defaultValue: DEFAULT_SLIDER_RATING,
   });
 
+  const instructorEffectiveness = useWatch({
+    control,
+    name: "instructorEffectiveness",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const instructorAccommodationLevel = useWatch({
+    control,
+    name: "instructorAccommodationLevel",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const instructorEnthusiasm = useWatch({
+    control,
+    name: "instructorEnthusiasm",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
 
   if (!isOpen) {
     return null;
@@ -347,7 +365,7 @@ export default function AddReview({
                     registerName="instructorEffectiveness"
                     register={register}
                     descriptor={
-                      standardMapping?.[watch("instructorEffectiveness")] ??
+                      standardMapping?.[instructorEffectiveness] ??
                       null
                     }
                   />
@@ -360,7 +378,7 @@ export default function AddReview({
                     registerName="instructorEnthusiasm"
                     register={register}
                     descriptor={
-                      standardMapping?.[watch("instructorEnthusiasm")] ?? null
+                      standardMapping?.[instructorEnthusiasm] ?? null
                     }
                   />
                 </Question>
@@ -373,7 +391,7 @@ export default function AddReview({
                     register={register}
                     descriptor={
                       standardMapping?.[
-                      watch("instructorAccommodationLevel")
+                      instructorAccommodationLevel
                       ] ?? null
                     }
                   />
