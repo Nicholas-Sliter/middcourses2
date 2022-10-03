@@ -10,7 +10,9 @@ export const knex = knexInitializer(
   knexConfig[process.env.NODE_ENV || "development"]
 );
 
-const likeOperator = process.env.NODE_ENV === "production" ? "ilike" : "like";
+//const likeOperator = process.env.NODE_ENV === "production" ? "ilike" : "like";
+const likeOperator = process.env.NODE_ENV === "production" ? "ilike" : "ilike";
+
 
 const reviewInfo = [
   "reviewID",
@@ -494,25 +496,26 @@ export async function updateUserCheck(id: string) {
  */
 export async function searchCourses(query: string) {
   //helps with fuzzy search
-  query = query.replace(" ", "%");
+
+  const modifiedQuery = query.replace(" ", "%");
 
   //also search the query amoung the department names database for a partial match
   //then get the dept id for the matche and search for courses with that id
-  const departmentMatch = await getPartialDepartmentMatch(query, 1);
+  //const departmentMatch = await getPartialDepartmentMatch(query, 1);
 
   //if the size is too small then don't search in the description field
   const courses =
     query.length < 4
       ? await knex("Course")
-        .where("courseName", likeOperator, `%${query}%`)
-        .orWhere("courseID", likeOperator, `%${query}%`)
+        .where("courseName", likeOperator, `%${modifiedQuery}%`)
+        .orWhere("courseID", likeOperator, `%${modifiedQuery}%`)
         .limit(25)
         .select(["courseID", "courseName", "courseDescription"])
       : await knex("Course")
-        .where("courseName", likeOperator, `%${query}%`)
-        .orWhere("courseID", likeOperator, `%${query}%`)
+        .where("courseName", likeOperator, `%${modifiedQuery}%`)
+        .orWhere("courseID", likeOperator, `%${modifiedQuery}%`)
         //.orWhere("courseID", likeOperator, `%${departmentMatch}%`) //this makes the results so much worse TODO: fix by use fuse on backend?
-        .orWhere("courseDescription", likeOperator, `%${query}%`)
+        .orWhere("courseDescription", likeOperator, `%${modifiedQuery}%`)
         .limit(25)
         .select(["courseID", "courseName", "courseDescription"]);
 
@@ -539,18 +542,26 @@ export async function getAllCourses() {
  *
  */
 export async function searchInstructors(query: string) {
-  const departmentMatch = await getPartialDepartmentMatch(query, 1);
+  //const departmentMatch = await getPartialDepartmentMatch(query, 1);
 
   const instructors = await knex("Instructor")
-    .where("name", likeOperator, `%${query}%`)
-    .orWhere("departmentID", likeOperator, `%${query}%`)
-    .orWhere("departmentID", likeOperator, `%${departmentMatch}%`)
-    .limit(10)
-    .select(["name", "slug", "departmentID"]);
+    //.leftJoin("Department", "Instructor.departmentID", "Department.departmentID")
+    .whereRaw(`LOWER(name) LIKE ?`, [`%${query}%`])
+    .orWhere("name", likeOperator, `%${query}%`)
+    .orWhere("Instructor.departmentID", likeOperator, `%${query}%`) //this line is fine
+    // this line breaks it
+    //.orWhere("departmentID", likeOperator, `%${departmentMatch}%`)
+    //.orWhere("departmentName", likeOperator, `%${query}%`)
+    .limit(25)
+    .select(["name", "slug", "Instructor.departmentID"]);
+
+  //join is an expensive operation to do on each query...
 
   if (!instructors || instructors.length == 0) {
     return [];
   }
+
+  console.log(instructors);
 
   return instructors;
 }
