@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       slug: slug,
-      instructor: data.instructor,
+      instructor: JSON.parse(JSON.stringify(data.instructor)),
       courses: data.courses,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
       authorized: authorized,

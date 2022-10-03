@@ -246,7 +246,6 @@ export async function getReviewByInstructorSlugWithVotes(slug: string, userID: s
         .select(
             knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "Review"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID ?? null])
         )
-        .orderBy("voteCount", "desc")
         //summarize all review info into averages
         .select(
             knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgEffectiveness"`),
