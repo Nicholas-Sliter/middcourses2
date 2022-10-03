@@ -9,11 +9,12 @@ import { is100LevelCourse } from "../../lib/common/utils";
 
 interface ReviewListProps {
   reviews: public_review[];
-  instructors: public_instructor[];
+  instructors?: public_instructor[];
   expandable?: boolean;
   identifyCourse?: boolean;
   identifyInstructor?: boolean;
   hideVoting?: boolean;
+  hideFlag?: boolean;
   requireAuth?: boolean;
   error?: string;
   context?: "course" | "instructor" | "department" | "user";
@@ -27,6 +28,7 @@ export default function ReviewList({
   identifyCourse = false,
   identifyInstructor = true,
   hideVoting = false,
+  hideFlag = false,
   requireAuth = true,
   error = "",
   context = null
@@ -39,6 +41,11 @@ export default function ReviewList({
   const no_reviews = error === "no_reviews" || (reviews?.length === 0 ?? true);
 
   const reason = (no_auth) ? "Not authorized" : (no_reviews) ? "No reviews" : error;
+
+  if (!instructors) {
+    instructors = [];
+    identifyInstructor = false;
+  }
 
   const FallbackComponent = () => {
     return <ReviewMissing
@@ -65,6 +72,7 @@ export default function ReviewList({
               identifyCourse={identifyCourse}
               identifyInstructor={identifyInstructor}
               hideVoting={hideVoting}
+              hideFlag={hideFlag}
             />
           );
         })

@@ -72,6 +72,32 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
 export async function getReviewByID(reviewID: string) {
 }
 
+
+export async function getReviewsByUserID(userID: string) {
+    const reviews = await knex("Review")
+        .where({
+            reviewerID: userID
+        })
+        .leftJoin("Instructor", "Review.instructorID", "Instructor.instructorID")
+        .select("Instructor.name as instructorName", "Instructor.instructorID", "Instructor.slug as instructorSlug")
+        .select(reviewInfo) as public_review[];
+
+    return reviews;
+}
+
+
+export async function getReviewsByInstructorEmail(email: string) {
+    const reviews = await knex("Instructor")
+        .where({
+            email: email,
+        })
+        .leftJoin("Review", "Instructor.instructorID", "Review.instructorID")
+        .select(reviewInfo) as public_review[];
+
+    return reviews;
+}
+
+
 export async function getReviewsByCourseIDs(courseIDs: string[]) {
 
 }

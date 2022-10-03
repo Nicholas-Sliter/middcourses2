@@ -32,6 +32,7 @@ interface ReviewHeaderProps {
     hideDate?: boolean;
     userVoteType?: 1 | -1
     vote: (voteType: string) => void;
+    hideFlag?: boolean;
 }
 
 const ratingIconMapping = {
@@ -69,6 +70,7 @@ function ReviewHeader({
     hideVoting = false,
     userVoteType,
     hideDate = false,
+    hideFlag = false,
     vote,
 }: ReviewHeaderProps) {
     const [flagButtonOpen, setFlagButtonOpen] = useState(false);
@@ -87,6 +89,22 @@ function ReviewHeader({
 
     const LikeIcon = () => (userVoteType === 1) ? <MdThumbUp /> : <MdThumbUpOffAlt />;
     const DislikeIcon = () => (userVoteType === -1) ? <MdThumbDown /> : <MdThumbDownOffAlt />;
+
+    const FlagElement = () => {
+        if (hideFlag) return null;
+        return (
+            <Tooltip label="Flag harmful review">
+                <button
+                    aria-label="Flag Review"
+                    className={styles.flag}
+                    onClick={flagButtonClick}
+                >
+                    <FiFlag />
+                </button>
+            </Tooltip>
+        );
+    };
+
 
     const LikeDislikeElement = () => (hideVoting) ? null : (
         <>
@@ -144,15 +162,7 @@ function ReviewHeader({
 
             <div className={styles.controls}>
                 <LikeDislikeElement />
-                <Tooltip label="Flag harmful review">
-                    <button
-                        aria-label="Flag Review"
-                        className={styles.flag}
-                        onClick={flagButtonClick}
-                    >
-                        <FiFlag />
-                    </button>
-                </Tooltip>
+                <FlagElement />
                 <FlagDialog review={review} isOpen={flagButtonOpen} setOpen={setFlagButtonOpen} />
             </div>
         </div>
