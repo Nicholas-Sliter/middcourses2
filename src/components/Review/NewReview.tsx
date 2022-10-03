@@ -18,6 +18,7 @@ interface ReviewCardProps {
     identifyCourse?: boolean;
     identifyInstructor?: boolean;
     hideVoting?: boolean;
+    hideFlag?: boolean;
 }
 
 const votingWithoutLoginToast = (toast) => {
@@ -35,7 +36,8 @@ function ReviewCard({
     expandable,
     identifyCourse,
     identifyInstructor,
-    hideVoting
+    hideVoting,
+    hideFlag = false,
 }: ReviewCardProps) {
 
     const { data: session } = useSession() as { data: CustomSession };
@@ -91,6 +93,7 @@ function ReviewCard({
                     identifyInstructor={identifyInstructor}
                     hideVoting={hideVoting}
                     hideDate={true}
+                    hideFlag={hideFlag}
                     userVoteType={userVoteType}
                     vote={voteWrapper}
                 />

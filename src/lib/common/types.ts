@@ -3,6 +3,8 @@ export interface public_review {
   reviewID: string;
   courseID: string;
   instructorID: string;
+  instructorName?: string;
+  instructorSlug?: string;
   semester: string;
   reviewDate: string;
   rating: number;
