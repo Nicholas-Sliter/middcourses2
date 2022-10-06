@@ -22,11 +22,17 @@ export async function getCoursesByInstructorSlug(slug: string) {
         .join("CourseInstructor", "CourseInstructor.instructorID", "Instructor.instructorID")
         .select("term")
         .join("Course", "Course.courseID", "CourseInstructor.courseID")
-        .select(["Course.courseID", "Course.courseName", "Course.courseDescription"]);
+        .select(["Course.courseID", "Course.courseName", "Course.courseDescription"])
+        .leftJoin("Review", function () {
+            this.on("Course.courseID", "Review.courseID")
+                .andOn("Instructor.instructorID", "Review.instructorID")
+                .andOn("Review.semester", "CourseInstructor.term")
+        })
+        .groupBy(["Course.courseID", "CourseInstructor.term", "Review.semester", "Instructor.instructorID"])
+        .count("Review.reviewID as numReviews");
 
-    if (!courses || courses.length == 0) {
-        return null;
-    }
+
+    console.log(courses);
 
     return courses;
 }
@@ -93,19 +99,14 @@ async function getRecentInstructorCourses() {
 
 export async function optimizedSSRInstructorPage(slug: string, session: CustomSession) {
 
-    const userID = session?.user?.id ?? null;
+    const INSTRUCTOR_MIN_AVG_COUNT = 5;
+    const NUM_UNAUTH_REVIEWS = 3;
 
-    // instead of recent reviews lets get all reviews, calculate the averages, then return a subset of the reviews
+    const userID = session?.user?.id ?? null;
 
 
     //const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getRecentInstructorReviews(slug, authorized), getCoursesByInstructorSlug(slug)]);
     const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getReviewByInstructorSlugWithVotes(slug, userID), getCoursesByInstructorSlug(slug)]);
-
-
-    //only show averaged data is there are more than 5 reviews
-
-
-
 
 
     //remove the feilds from the reviews
@@ -118,7 +119,8 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
         return newReview;
     });
 
-    return {
+
+    const obj = {
         instructor: {
             ...mainQuery,
             avgEffectiveness: reviewQuery?.[0]?.avgEffectiveness,
@@ -129,9 +131,25 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
         } as public_instructor,
         courses: sortCoursesByTerm(coursesQuery),
         reviews: reviews as public_review[],
+    };
 
-
+    // We want at least INSTRUCTOR_MIN_AVG_COUNT reviews to show the averages
+    if (reviews.length < INSTRUCTOR_MIN_AVG_COUNT) {
+        delete obj.instructor.avgEffectiveness;
+        delete obj.instructor.avgAccommodationLevel;
+        delete obj.instructor.avgEnthusiasm;
+        delete obj.instructor.avgAgain;
     }
+
+
+    //If not authorized, we want to limit the number of reviews that can be seen
+    if (!session?.user?.authorized) {
+        obj.reviews = obj.reviews.slice(0, NUM_UNAUTH_REVIEWS);
+    }
+
+    console.log(obj.reviews.length)
+
+    return obj;
 
 }
 

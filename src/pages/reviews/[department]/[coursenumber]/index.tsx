@@ -17,8 +17,6 @@ import SidebarLayout from "../../../../layouts/SidebarLayout";
 import { optimizedSSRCoursePage } from "../../../../lib/backend/database/course";
 //import RatingBox from "../../../../components/RatingBox";
 import { useToast } from "@chakra-ui/react";
-import RatingBox from "../../../../components/RatingBox";
-import RatingBar from "../../../../components/RatingBar";
 import { is100LevelCourse } from "../../../../lib/common/utils";
 
 // SSR is amazing

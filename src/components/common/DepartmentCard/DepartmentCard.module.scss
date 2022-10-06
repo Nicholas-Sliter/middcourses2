@@ -1,0 +1,26 @@
+.container {
+    //margin: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #333;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    p {
+        font-weight: 400;
+        line-height: 1.2;
+        color: #333;
+        margin-bottom: 0;
+        margin-top: 0.2rem;
+    }
+
+}

@@ -57,8 +57,8 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
 
           </SidebarLayout.Sidebar>
           <SidebarLayout.Main>
-            <CourseCardRow courses={courses} />
-            <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" />
+            <CourseCardRow courses={courses} showCount />
+            <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" requireAuth={false} />
           </SidebarLayout.Main>
         </SidebarLayout>
       </BrowserView>
