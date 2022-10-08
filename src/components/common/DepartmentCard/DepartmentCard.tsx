@@ -14,7 +14,6 @@ function DepartmentCard({
     numReviews
 }: DepartmentCardProps) {
 
-    console.log(department);
 
     const reviewText = numReviews === 1 ? "review" : "reviews";
 

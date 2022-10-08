@@ -65,7 +65,6 @@ export default function AddReview({
   const [selectedTags, setSelectedTags] = useState([]);
   const toast = useToast();
 
-  console.log("Errors: ", errors);
 
   const selectTag = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -112,7 +111,6 @@ export default function AddReview({
       //throw new Error(`${res.status} ${res.statusText}`);
       console.log("Error submitting review");
       const data = await res.json();
-      console.log(data);
       toast({
         title: "Error submitting review",
         description: `${res.statusText}: ${data.message}`,

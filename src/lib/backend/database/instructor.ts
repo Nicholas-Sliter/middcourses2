@@ -32,7 +32,6 @@ export async function getCoursesByInstructorSlug(slug: string) {
         .count("Review.reviewID as numReviews");
 
 
-    console.log(courses);
 
     return courses;
 }
@@ -146,8 +145,6 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
     if (!session?.user?.authorized) {
         obj.reviews = obj.reviews.slice(0, NUM_UNAUTH_REVIEWS);
     }
-
-    console.log(obj.reviews.length)
 
     return obj;
 

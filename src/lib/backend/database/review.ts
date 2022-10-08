@@ -14,8 +14,6 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
         .first()
         .select("voteType");
 
-    console.log("hasVoted", hasVoted);
-
     const voteTypeInt = voteType === "up" ? 1 : -1;
     let success: boolean = false;
     let removed: boolean = false;
