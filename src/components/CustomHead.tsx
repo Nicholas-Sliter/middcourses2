@@ -27,6 +27,7 @@ export default function CustomHead() {
       <meta name="msapplication-config" content="/favicons/browserconfig.xml?v=2" />
       <meta name="theme-color" content="#fafafa" />
       <meta name="keywords" content={keywords} ></meta>
+      <meta name="content-language" content="en-us" />
     </Head>
   );
 }
