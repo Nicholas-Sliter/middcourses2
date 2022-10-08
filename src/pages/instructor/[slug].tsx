@@ -56,7 +56,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
             {(instructor.departmentID && instructor.departmentName) ?
 
               <Link
-                href={`/reviews/${instructor.departmentID}`}
+                href={`/reviews/${instructor.departmentID.toLowerCase()}`}
                 passHref
               >
                 <a style={{ color: "#333", marginRight: 'auto', marginLeft: 'auto' }}><TbArrowBackUp /> {instructor.departmentName} department</a>
