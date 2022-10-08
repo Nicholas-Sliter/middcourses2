@@ -67,6 +67,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             avgHours: parseAvg(reviews?.[0]?.avgHours),
             avgValue: parseAvg(reviews?.[0]?.avgValue),
             avgAgain: parseAvg(reviews?.[0]?.avgAgain),
+            numReviews: reviews.length,
             topTags: [] as string[],
 
         }
@@ -84,6 +85,11 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
 
 
         output.reviews.push(...updatedReviews);
+
+
+        if (!authorized) {
+            output.reviews = [];
+        }
 
 
         //build a freq list of tags, return the top 3 if they have a freq of 2 or more

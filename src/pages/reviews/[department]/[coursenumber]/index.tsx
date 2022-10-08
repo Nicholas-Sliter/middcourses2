@@ -52,6 +52,7 @@ export async function getServerSideProps(context) {
         avgValue: data.avgValue,
         avgAgain: data.avgAgain,
         topTags: data.topTags,
+        numReviews: data.numReviews,
       },
       instructors: dedupedInstructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
@@ -89,6 +90,11 @@ export default function CoursePage({
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const toast = useToast();
+
+  console.log(course.numReviews);
+
+  const ratingDescription = (course.numReviews) ? `This course has an overall rating of ${Math.trunc(course.avgRating)} out of 10 based on ${course.numReviews} reviews.` : "This course has not been reviewed yet.";
+  const metaDescription = `${course.courseName} is a ${courseNumber} level course offered in the ${departmentName} department at Middlebury College. ${ratingDescription}`;
 
   const filterInstructorToast = () => {
     toast({
@@ -172,7 +178,7 @@ export default function CoursePage({
 
   return (
     <>
-      <PageTitle pageTitle={`${course?.courseName}`} />
+      <PageTitle pageTitle={`${course?.courseName}`} description={metaDescription} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>

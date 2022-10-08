@@ -39,9 +39,13 @@ export async function getServerSideProps(context) {
 
 export default function InstructorPage({ slug, instructor, courses, reviews, authorized }) {
 
+
+  const metaDescription = (instructor?.name) ? `Reviews and ratings for ${instructor.name} at Middlebury College.  Explore top rated instructors and find the best for you. Is ${instructor.name} good? Find out on MiddCourses.` : "";
+
+
   return (
     <>
-      <PageTitle pageTitle={`${instructor?.name ?? ""}`} />
+      <PageTitle pageTitle={`${instructor?.name ?? ""}`} description={metaDescription} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>

@@ -65,9 +65,11 @@ export default function DepartmentPage({
   const numReviewSum = courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
   const reviewText = numReviewSum === 1 ? "review" : "reviews";
 
+  const metaDescription = `Read ${numReviewSum} ${reviewText} for ${departmentName} courses at Middlebury College. Find the best ${departmentName} professors and courses.  Discover your new major today!`;
+
   return (
     <>
-      <PageTitle pageTitle={`${departmentName}`} />
+      <PageTitle pageTitle={`${departmentName}`} description={metaDescription} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
