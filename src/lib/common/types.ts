@@ -31,6 +31,7 @@ export interface public_course {
   courseName: string;
   courseDescription: string;
   departmentID?: string;
+  departmentName?: string;
   instructorID?: string;
   term?: string;
   numReviews?: number | string;
