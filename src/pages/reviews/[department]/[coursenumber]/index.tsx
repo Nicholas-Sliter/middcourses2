@@ -91,7 +91,8 @@ export default function CoursePage({
 
   const toast = useToast();
 
-  console.log(course.numReviews);
+  course.departmentName = departmentName;
+
 
   const ratingDescription = (course.numReviews) ? `This course has an overall rating of ${Math.trunc(course.avgRating)} out of 10 based on ${course.numReviews} reviews.` : "This course has not been reviewed yet.";
   const metaDescription = `${course.courseName} is a ${courseNumber} level course offered in the ${departmentName} department at Middlebury College. ${ratingDescription}`;
@@ -178,7 +179,7 @@ export default function CoursePage({
 
   return (
     <>
-      <PageTitle pageTitle={`${course?.courseName}`} description={metaDescription} />
+      <PageTitle pageTitle={`${course?.courseName}`} description={metaDescription} courses={[course]} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
