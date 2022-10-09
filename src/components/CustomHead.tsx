@@ -31,17 +31,11 @@ export default function CustomHead() {
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://midd.courses/" />
-      <meta property="og:title" content="Home | MiddCourses" />
-      <meta property="og:description" content="MiddCourses is Middlebury's premier course discovery and anonymous course review platform. Browse our complete catalogue to discover Middlebury's top professors, courses, and departments." />
-      <meta property="og:image" content="/images/middcourses-social-card.png" />
+      <meta property="og:image" content="https://midd.courses/images/middcourses-social-card.png" />
 
       {/*  Twitter  */}
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content="https://midd.courses/" />
-      <meta property="twitter:title" content="Home | MiddCourses" />
-      <meta property="twitter:description" content="MiddCourses is Middlebury's premier course discovery and anonymous course review platform. Browse our complete catalogue to discover Middlebury's top professors, courses, and departments." />
-      <meta property="twitter:image" content="/images/middcourses-social-card.png" />
+      <meta property="twitter:image" content="https://midd.courses/images/middcourses-social-card.png" />
     </Head>
   );
 }

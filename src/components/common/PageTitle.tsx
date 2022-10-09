@@ -24,6 +24,14 @@ export default function PageTitle({ pageTitle, description }: PageTitleProps) {
     <Head>
       <title key={title}>{title}</title>
       <meta name="description" content={metaDescription} />
+
+      {/* Open Graph / Facebook */}
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={metaDescription} />
+
+      {/*  Twitter  */}
+      <meta property="twitter:title" content={title} />
+      <meta property="twitter:description" content={metaDescription} />
     </Head>
   );
 }
