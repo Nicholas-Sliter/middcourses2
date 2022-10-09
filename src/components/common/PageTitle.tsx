@@ -93,7 +93,7 @@ export default function PageTitle({ pageTitle, description, courses }: PageTitle
 
       {/* Structured Data */}
       <script type="application/ld+json">
-        {JSON.stringify(courseStructuredData)}
+        {JSON.stringify(courseStructuredData?.[0])}
       </script>
     </Head>
 
