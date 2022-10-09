@@ -28,6 +28,20 @@ export default function CustomHead() {
       <meta name="theme-color" content="#fafafa" />
       <meta name="keywords" content={keywords} ></meta>
       <meta name="content-language" content="en-us" />
+
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://midd.courses/" />
+      <meta property="og:title" content="Home | MiddCourses" />
+      <meta property="og:description" content="MiddCourses is Middlebury's premier course discovery and anonymous course review platform. Browse our complete catalogue to discover Middlebury's top professors, courses, and departments." />
+      <meta property="og:image" content="/images/middcourses-social-card.png" />
+
+      {/*  Twitter  */}
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://midd.courses/" />
+      <meta property="twitter:title" content="Home | MiddCourses" />
+      <meta property="twitter:description" content="MiddCourses is Middlebury's premier course discovery and anonymous course review platform. Browse our complete catalogue to discover Middlebury's top professors, courses, and departments." />
+      <meta property="twitter:image" content="/images/middcourses-social-card.png" />
     </Head>
   );
 }
