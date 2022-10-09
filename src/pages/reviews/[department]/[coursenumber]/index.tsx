@@ -94,7 +94,7 @@ export default function CoursePage({
   course.departmentName = departmentName;
 
 
-  const ratingDescription = (course.numReviews) ? `This course has an overall rating of ${Math.trunc(course.avgRating)} out of 10 based on ${course.numReviews} reviews.` : "This course has not been reviewed yet.";
+  const ratingDescription = (course.numReviews) ? `This course has an overall rating of ${parseFloat(course?.avgRating?.toFixed(1)) ?? null} out of 10 based on ${course.numReviews} reviews.` : "This course has not been reviewed yet.";
   const metaDescription = `${course.courseName} is a ${courseNumber} level course offered in the ${departmentName} department at Middlebury College. ${ratingDescription}`;
 
   const filterInstructorToast = () => {

@@ -8,7 +8,7 @@
 
 import Head from "next/head";
 import { public_course } from "../../lib/common/types";
-import { parseCourseID } from "../../lib/common/utils";
+import { parseCourseID, slugify } from "../../lib/common/utils";
 
 type PageTitleProps = {
   pageTitle?: string;
@@ -22,6 +22,9 @@ export default function PageTitle({ pageTitle, description, courses }: PageTitle
     : "MiddCourses";
 
   const metaDescription = description ? description : "MiddCourses is Middlebury's premier course discovery and anonymous course review platform. Browse our complete catalogue to discover Middlebury's top professors, courses, and departments.";
+
+  const pageTitleSlug = slugify(pageTitle);
+
 
   let courseStructuredData = [];
 
@@ -86,6 +89,7 @@ export default function PageTitle({ pageTitle, description, courses }: PageTitle
       {/*  Twitter  */}
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={metaDescription} />
+      <meta property="twitter:image" content={`https://midd.courses/images/middcourses-social-card.png?utm_source=${pageTitleSlug}`} />
 
       {/* Structured Data */}
       <script type="application/ld+json">

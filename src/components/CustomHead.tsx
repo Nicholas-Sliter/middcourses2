@@ -35,7 +35,7 @@ export default function CustomHead() {
 
       {/*  Twitter  */}
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:image" content="https://midd.courses/images/middcourses-social-card.png" />
+      {/* <meta property="twitter:image" content={`https://midd.courses/images/middcourses-social-card.png?utm_source${}}`} /> */}
     </Head>
   );
 }
