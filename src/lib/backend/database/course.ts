@@ -12,9 +12,9 @@ export async function getCourse(id: string) {
 
 async function getCourseReviews(id: string, session: CustomSession, authorized: boolean) {
 
-    if (!authorized) {
-        return [];
-    }
+    // if (!authorized) {
+    //     return [];
+    // }
 
     // return await knex("Review")
     //     .where("Review.courseID", id)
@@ -42,7 +42,6 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
         session?.user?.role === "instructor" ||
         is100LevelCourse(id);
 
-
     const outputFormatter = (results, reviews) => {
         if (!results) {
             return null;
@@ -68,6 +67,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             avgHours: parseAvg(reviews?.[0]?.avgHours),
             avgValue: parseAvg(reviews?.[0]?.avgValue),
             avgAgain: parseAvg(reviews?.[0]?.avgAgain),
+            numReviews: reviews.length,
             topTags: [] as string[],
 
         }
@@ -83,7 +83,13 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             return newReview;
         });
 
+
         output.reviews.push(...updatedReviews);
+
+
+        if (!authorized) {
+            output.reviews = [];
+        }
 
 
         //build a freq list of tags, return the top 3 if they have a freq of 2 or more

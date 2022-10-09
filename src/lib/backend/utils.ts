@@ -11,6 +11,19 @@ export function uuidv4() {
 }
 
 
+export const parseAvg = (avg: string | null | number) => {
+  if (!avg) {
+    return null;
+  }
+
+  if (typeof avg === "number") {
+    return avg;
+  }
+
+  return parseFloat(avg);
+}
+
+
 export function parseStringToInt(str: string | undefined | null) {
   if (!str) {
     return 0;

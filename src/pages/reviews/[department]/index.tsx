@@ -4,14 +4,16 @@ import CourseCardRow from "../../../components/CourseCardRow";
 import Instructor from "../../../components/common/Instructor";
 import ScrollableRow from "../../../components/common/ScrollableRow";
 import { getSession } from "next-auth/react";
-import { CustomSession, public_course, public_instructor, public_review } from "../../../lib/common/types";
+import { CustomSession, extended_department, public_course, public_instructor, public_review } from "../../../lib/common/types";
 import { optimizedSSRDepartmentPage } from "../../../lib/backend/database/departments";
 import { BrowserView, MobileView } from "../../../components/DeviceViews";
 import SidebarLayout from "../../../layouts/SidebarLayout";
+import DepartmentCard from "../../../components/common/DepartmentCard";
 
 interface DepartmentPageProps {
   departmentID: string;
   departmentName: string;
+  department: extended_department;
   courses: public_course[];
   instructors: public_instructor[];
   reviews: public_review[];
@@ -20,15 +22,28 @@ interface DepartmentPageProps {
 
 export async function getServerSideProps(context) {
   const departmentID = context.query.department as string;
-  console.log(departmentID);
+
   const session = await getSession(context) as CustomSession;
 
   const data = await optimizedSSRDepartmentPage(departmentID.toUpperCase(), session?.user?.authorized ?? false);
 
+
   return {
     props: {
+      department: {
+        ...data.department,
+        avgRating: data.avgRating,
+        avgValue: data.avgValue,
+        avgDifficulty: data.avgDifficulty,
+        avgHours: data.avgHours,
+        avgAgain: data.avgAgain,
+        avgEffectiveness: data.avgEffectiveness,
+        avgAccommodationLevel: data.avgAccommodationLevel,
+        avgEnthusiasm: data.avgEnthusiasm,
+        avgInstructorAgain: data.avgInstructorAgain,
+      } as extended_department,
       departmentID: departmentID,
-      departmentName: data.departmentName,
+      departmentName: data.department.departmentName ?? null,
       courses: data.courses,
       instructors: data.instructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
@@ -39,6 +54,7 @@ export async function getServerSideProps(context) {
 
 export default function DepartmentPage({
   departmentID,
+  department,
   departmentName,
   courses,
   instructors,
@@ -49,16 +65,15 @@ export default function DepartmentPage({
   const numReviewSum = courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
   const reviewText = numReviewSum === 1 ? "review" : "reviews";
 
+  const metaDescription = `Read ${numReviewSum} ${reviewText} for ${departmentName} courses at Middlebury College. Find the best ${departmentName} professors and courses.  Discover your new major today!`;
+
   return (
     <>
-      <PageTitle pageTitle={`${departmentName}`} />
+      <PageTitle pageTitle={`${departmentName}`} description={metaDescription} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
-            <div>
-              <h2>{departmentName}</h2>
-              <p>{numReviewSum} {reviewText}</p>
-            </div>
+            <DepartmentCard department={department} numReviews={numReviewSum} />
           </SidebarLayout.Sidebar>
 
           <SidebarLayout.Main>

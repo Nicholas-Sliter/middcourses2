@@ -1,5 +1,8 @@
+import { public_review } from "../../common/types";
+import { parseAvg } from "../utils";
 import { reviewInfo } from "./common";
 import knex from "./knex";
+import { getReviewsByDepartmentID } from "./review";
 
 /**
  * Get all the departments in the database.
@@ -113,19 +116,67 @@ export async function optimizedSSRDepartmentPage(departmentID: string, authorize
         return null;
     }
 
+    const MAX_DISPLAYED_REVIEWS = (authorized) ? 10 : 3;
+    const DEPARTMENT_MIN_AVG_COUNT = 1; // Minimum number of reviews for a department to display average ratings
+    //10
+
     const [departmentQuery, instructorQuery, reviewQuery, courseQuery] = await Promise.all([
         getDepartmentByID(departmentID),
         getInstructorsByDepartmentCourses(departmentID),
-        getMostRecentReviewsByDepartment(departmentID, 5),
+        // getMostRecentReviewsByDepartment(departmentID, 5),
+        getReviewsByDepartmentID(departmentID),
         getCoursesByDepartment(departmentID)
     ]);
 
-    return {
-        departmentID: departmentID,
-        departmentName: departmentQuery.departmentName,
+
+    const obj = {
+        department: departmentQuery,
         instructors: instructorQuery,
-        reviews: reviewQuery,
-        courses: courseQuery
+        reviews: [] as public_review[],
+        courses: courseQuery,
+        avgRating: parseAvg(reviewQuery?.[0]?.avgRating),
+        avgDifficulty: parseAvg(reviewQuery?.[0]?.avgDifficulty),
+        avgHours: parseAvg(reviewQuery?.[0]?.avgHours),
+        avgValue: parseAvg(reviewQuery?.[0]?.avgValue),
+        avgAgain: parseAvg(reviewQuery?.[0]?.avgAgain),
+        avgAccommodationLevel: parseAvg(reviewQuery?.[0]?.avgAccommodationLevel),
+        avgEffectiveness: parseAvg(reviewQuery?.[0]?.avgEffectiveness),
+        avgEnthusiasm: parseAvg(reviewQuery?.[0]?.avgEnthusiasm),
+        avgInstructorAgain: parseAvg(reviewQuery?.[0]?.avgInstructorAgain),
+
     }
+
+    const reviews = reviewQuery.map((r) => {
+        const newReview = { ...r };
+        delete newReview["avgRating"];
+        delete newReview["avgDifficulty"];
+        delete newReview["avgValue"];
+        delete newReview["avgAgain"];
+        delete newReview["avgHours"];
+        delete newReview["avgAccommodationLevel"];
+        delete newReview["avgEffectiveness"];
+        delete newReview["avgEnthusiasm"];
+        delete newReview["avgInstructorAgain"];
+        return newReview;
+    });
+
+    const numReviews = reviews.length;
+    obj.reviews = reviews.splice(0, MAX_DISPLAYED_REVIEWS);
+
+    if (numReviews < DEPARTMENT_MIN_AVG_COUNT) {
+        obj.avgRating = null;
+        obj.avgDifficulty = null;
+        obj.avgValue = null;
+        obj.avgAgain = null;
+        obj.avgHours = null;
+        obj.avgAccommodationLevel = null;
+        obj.avgEffectiveness = null;
+        obj.avgEnthusiasm = null;
+        obj.avgInstructorAgain = null;
+    }
+
+
+
+    return obj;
 
 }

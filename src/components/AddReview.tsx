@@ -12,6 +12,9 @@ import {
   Textarea,
   Switch,
   useToast,
+  Spacer,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { public_course, public_instructor } from "../lib/common/types";
@@ -32,6 +35,8 @@ import { RiContactsBookLine } from "react-icons/ri";
 import ReviewContentInput from "./common/ReviewContentInput";
 import { courseTags } from "../lib/common/utils";
 import TagBar from "./TagBar";
+import { ErrorMessage } from '@hookform/error-message';
+import FormErrorMessage from "./common/FormErrorMessage";
 
 interface AddReviewProps {
   course: public_course;
@@ -59,6 +64,7 @@ export default function AddReview({
   const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const toast = useToast();
+
 
   const selectTag = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -105,7 +111,6 @@ export default function AddReview({
       //throw new Error(`${res.status} ${res.statusText}`);
       console.log("Error submitting review");
       const data = await res.json();
-      console.log(data);
       toast({
         title: "Error submitting review",
         description: `${res.statusText}: ${data.message}`,
@@ -229,7 +234,7 @@ export default function AddReview({
                   <Select
                     name="semester"
                     placeholder="Select the semester"
-                    {...register("semester", { required: true })}
+                    {...register("semester", { required: { value: true, message: "A semester must be selected" } })}
                   >
                     {terms
                       .filter((term, index) => {
@@ -243,11 +248,12 @@ export default function AddReview({
                         );
                       })}
                   </Select>
+                  <FormErrorMessage errors={errors} name="semester" />
                   <Select
                     name="instructor"
                     isDisabled={!selectedTerm || selectedTerm === ""}
                     placeholder="Choose your instructor"
-                    {...register("instructor", { required: true })}
+                    {...register("instructor", { required: { value: true, message: "An instructor must be selected" } })}
                   >
                     {filteredInstructors.map((instructor) => (
                       <option
@@ -258,22 +264,8 @@ export default function AddReview({
                       </option>
                     ))}
                   </Select>
+                  <FormErrorMessage errors={errors} name="instructor" />
                 </Question>
-                <Controller
-                  control={control}
-                  name="content"
-                  render={({
-                    field: { onChange, onBlur, value, name, ref },
-                    fieldState: { invalid, isTouched, isDirty, error },
-                    formState,
-                  }) => (
-                    <ReviewContentInput
-                      onChange={onChange}
-                      value={value}
-                      className={styles.characterCount}
-                    />
-                  )}
-                />
                 <Question
                   label="Would you take this course again?"
                   htmlFor="again"
@@ -291,17 +283,7 @@ export default function AddReview({
                   />
                 </Question>
                 <Question
-                  label="How would you rate the course?"
-                  htmlFor="rating"
-                >
-                  <QuestionSlider
-                    registerName="rating"
-                    register={register}
-                    descriptor={valueMapping?.[rating] ?? null}
-                  />
-                </Question>
-                <Question
-                  label="How valuable did you find this course?"
+                  label="How valuable did you find the material from this course?"
                   htmlFor="value"
                 >
                   <QuestionSlider
@@ -317,7 +299,7 @@ export default function AddReview({
                   <Select
                     name="primaryComponent"
                     placeholder="Choose a primary component"
-                    {...register("primaryComponent", { required: true })}
+                    {...register("primaryComponent", { required: { value: true, message: "A primary component must be selected" } })}
                   >
                     {primaryComponents.map((component) => (
                       <option key={component} value={component}>
@@ -325,6 +307,7 @@ export default function AddReview({
                       </option>
                     ))}
                   </Select>
+                  <FormErrorMessage errors={errors} name="primaryComponent" />
                 </Question>
                 <Question
                   label="How many hours per week do you spend on this course outside of class?"
@@ -334,9 +317,10 @@ export default function AddReview({
                     registerName="hours"
                     register={register}
                     validationObject={{
-                      required: true,
-                      min: 0,
-                      max: 30,
+                      inRange: (value: number) => {
+                        return value >= 0 && value <= 30;
+                      }
+
                     }}
                     min={0}
                     max={30}
@@ -355,10 +339,23 @@ export default function AddReview({
                     selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
                   />
                 </Question>
-                <hr />
-                <h4>{`Review ${(instructor?.name) ? instructor?.name : "instructor"}`}</h4>
                 <Question
-                  label="How effective was the instructor?"
+                  label="How would you rate your overall experience in this course?"
+                  htmlFor="rating"
+                >
+                  <QuestionSlider
+                    registerName="rating"
+                    register={register}
+                    descriptor={valueMapping?.[rating] ?? null}
+                  />
+                </Question>
+                <Spacer />
+                <hr />
+                <Spacer />
+                <h4>{`Review ${(instructor?.name) ? instructor?.name : "instructor"}`}</h4>
+                <p>Please answer the following questions based on how much you agree with the statements.</p>
+                <Question
+                  label="I felt the instructor was effective and clear in their teaching."
                   htmlFor="instructorEffectiveness"
                 >
                   <QuestionSlider
@@ -371,7 +368,7 @@ export default function AddReview({
                   />
                 </Question>
                 <Question
-                  label="How enthusiastic was the instructor?"
+                  label="I felt the instructor had enthusiasm for the course material."
                   htmlFor="instructorEnthusiasm"
                 >
                   <QuestionSlider
@@ -383,7 +380,7 @@ export default function AddReview({
                   />
                 </Question>
                 <Question
-                  label="How accommodating was the instructor?"
+                  label="I felt the instructor was accommodating to students' needs."
                   htmlFor="instructorAccommodationLevel"
                 >
                   <QuestionSlider
@@ -397,14 +394,51 @@ export default function AddReview({
                   />
                 </Question>
                 <Question
-                  label="Would you take a course with this instructor again?"
+                  label="I enjoyed the instructor's teaching style." //teaching style
                   htmlFor="instructorAgain"
                 >
                   <Switch name="instructorAgain" />
                 </Question>
+                <Question
+                  label="I would take a course with this instructor again if I had the chance."
+                  htmlFor="instructorAgain"
+                >
+                  <Switch name="instructorAgain" />
+                </Question>
+                <Spacer />
+                <hr />
+                <Spacer />
+                <h4>{`Final comments`}</h4>
+                <Controller
+                  control={control}
+                  name="content"
+                  rules={{
+                    required: { value: true, message: "A review must be provided" },
+                    minLength: { value: 200, message: "Your review must be at least 200 characters long" },
+                    maxLength: { value: 2048, message: "Your review must be less than 2048 characters long" }
+                  }}
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                    fieldState: { invalid, isTouched, isDirty, error },
+                    formState,
+                  }) => (
+                    <>
+                      <ReviewContentInput
+                        onChange={onChange}
+                        value={value}
+                        className={styles.characterCount}
+                      />
+                      <FormErrorMessage errors={errors} name="content" />
+                    </>
+                  )}
+                />
+                <Spacer />
+                <Spacer />
+
                 <input
                   className={styles.submitButton}
                   type="submit"
+                  disabled={!errors}
                   onClick={handleSubmit(onSubmit)}
                 />
               </Stack>

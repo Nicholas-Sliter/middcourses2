@@ -1,0 +1,20 @@
+@import "src/styles/common/variables";
+
+.formError {
+    font-size: 0.8rem;
+    margin-top: -0.8rem;
+    margin-bottom: 0.5rem;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    min-height: 1.2rem;
+    text-align: center;
+    border-radius: $border-radius-small;
+    box-sizing: border-box;
+    font-weight: bold;
+
+}

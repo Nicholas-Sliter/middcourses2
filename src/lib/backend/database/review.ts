@@ -14,8 +14,6 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
         .first()
         .select("voteType");
 
-    console.log("hasVoted", hasVoted);
-
     const voteTypeInt = voteType === "up" ? 1 : -1;
     let success: boolean = false;
     let removed: boolean = false;
@@ -244,9 +242,6 @@ export async function getReviewByInstructorIDWithVotes(instructorID: string, use
 }
 
 
-
-
-
 export async function getReviewByInstructorSlugWithVotes(slug: string, userID: string) {
 
     interface extended_public_review extends public_review {
@@ -306,6 +301,78 @@ export async function getReviewByInstructorSlugWithVotes(slug: string, userID: s
             "avgInstructorAgain": review.avgInstructorAgain,
             votes: parseStringToInt(review.voteCount),
             userVoteType: review?.userVoteType
+        }
+    });
+
+    //sort by reviewDate
+    output.sort((a, b) => {
+        return new Date(b.reviewDate).getTime() - new Date(a.reviewDate).getTime();
+    });
+
+    return output as unknown as extended_public_review[];
+}
+
+
+export async function getReviewsByDepartmentID(departmentID: string) {
+
+    interface extended_public_review extends public_review {
+        avgEffectiveness: number | string | null;
+        avgAccommodationLevel: number | string | null;
+        avgEnthusiasm: number | string | null;
+        avgInstructorAgain: number | string | null;
+        avgDifficulty: number | string | null;
+        avgValue: number | string | null;
+        avgHours: number | string | null;
+        avgRating: number | string | null;
+        avgAgain: number | string | null;
+    }
+
+    const query = await knex("Review")
+        .whereRaw(`"Review"."courseID" IN (SELECT "Course"."courseID" FROM "Course" WHERE "Course"."departmentID" = ?)`, [departmentID])
+        .select(reviewInfo)
+        .groupBy(reviewInfo)
+        //summarize all review info into averages
+        .select(
+            knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review") as "avgEffectiveness"`),
+            knex.raw(`(SELECT AVG("instructorAccommodationLevel") FROM "Review") as "avgAccommodationLevel"`),
+            knex.raw(`(SELECT AVG("instructorEnthusiasm") FROM "Review") as "avgEnthusiasm"`),
+            knex.raw(`(SELECT AVG("instructorAgain"::int::float4) FROM "Review") as "avgInstructorAgain"`),
+            knex.raw(`(SELECT AVG("difficulty") FROM "Review") as "avgDifficulty"`),
+            knex.raw(`(SELECT AVG("hours") FROM "Review") as "avgHours"`),
+            knex.raw(`(SELECT AVG("again"::int::float4) FROM "Review") as "avgAgain"`),
+            knex.raw(`(SELECT AVG("value") FROM "Review") as "avgValue"`),
+            knex.raw(`(SELECT AVG("rating") FROM "Review") as "avgRating"`)
+
+        ) as extended_public_review[];
+
+    const output = query.map((review) => {
+        return {
+            "reviewID": review.reviewID,
+            "courseID": review.courseID,
+            "instructorID": review.instructorID,
+            "semester": review.semester,
+            "reviewDate": review.reviewDate,
+            "content": review.content,
+            "difficulty": review.difficulty,
+            "value": review.value,
+            "hours": review.hours,
+            "again": review.again,
+            "primaryComponent": review.primaryComponent,
+            "tags": review.tags,
+            "instructorEffectiveness": review.instructorEffectiveness,
+            "instructorAccommodationLevel": review.instructorAccommodationLevel,
+            "instructorEnthusiasm": review.instructorEnthusiasm,
+            "instructorAgain": review.instructorAgain,
+            "rating": review.rating,
+            "avgEffectiveness": review.avgEffectiveness,
+            "avgAccommodationLevel": review.avgAccommodationLevel,
+            "avgEnthusiasm": review.avgEnthusiasm,
+            "avgInstructorAgain": review.avgInstructorAgain,
+            "avgDifficulty": review.avgDifficulty,
+            "avgValue": review.avgValue,
+            "avgHours": review.avgHours,
+            "avgRating": review.avgRating,
+            "avgAgain": review.avgAgain,
         }
     });
 

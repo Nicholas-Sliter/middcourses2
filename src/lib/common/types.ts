@@ -93,4 +93,23 @@ export interface Department {
 };
 
 
+export interface extended_department extends Department {
+  numCourses?: number;
+  numReviews?: number;
+  avgRating?: number;
+  avgDifficulty?: number;
+  avgHours?: number;
+  avgValue?: number;
+  avgAgain?: number;
+  topTags?: string[];
+
+  avgEffectiveness?: number;
+  avgAccommodationLevel?: number;
+  avgEnthusiasm?: number;
+  avgInstructorAgain?: number;
+
+
+}
+
+
 

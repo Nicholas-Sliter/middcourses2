@@ -39,9 +39,16 @@ export async function getServerSideProps(context) {
 
 export default function InstructorPage({ slug, instructor, courses, reviews, authorized }) {
 
+
+  const threeRecentUniqueCourseNames = Array.from(new Set(courses.map((course) => course.courseName))).slice(0, 3).join(", ");
+
+  const coursesDescription = (threeRecentUniqueCourseNames) ? `${instructor.name} teaches ${threeRecentUniqueCourseNames} and more.` : `${instructor.name} has not taught any courses yet.`;
+  const metaDescription = (instructor?.name) ? `Reviews and ratings for ${instructor.name} at Middlebury College. ${coursesDescription}  Explore top rated instructors and find the best for you. Is ${instructor.name} good? Find out on MiddCourses.` : "";
+
+
   return (
     <>
-      <PageTitle pageTitle={`${instructor?.name ?? ""}`} />
+      <PageTitle pageTitle={`${instructor?.name ?? ""}`} description={metaDescription} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
@@ -49,7 +56,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
             {(instructor.departmentID && instructor.departmentName) ?
 
               <Link
-                href={`/reviews/${instructor.departmentID}`}
+                href={`/reviews/${instructor.departmentID.toLowerCase()}`}
                 passHref
               >
                 <a style={{ color: "#333", marginRight: 'auto', marginLeft: 'auto' }}><TbArrowBackUp /> {instructor.departmentName} department</a>
@@ -57,8 +64,8 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
 
           </SidebarLayout.Sidebar>
           <SidebarLayout.Main>
-            <CourseCardRow courses={courses} />
-            <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" />
+            <CourseCardRow courses={courses} showCount />
+            <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" requireAuth={false} />
           </SidebarLayout.Main>
         </SidebarLayout>
       </BrowserView>

@@ -32,6 +32,7 @@ const handler = nc({
       searchInstructors(query)
     ]);
 
+
     res.status(200).json({ courses, instructors });
 
 
