@@ -67,9 +67,16 @@ export default function DepartmentPage({
 
   const metaDescription = `Read ${numReviewSum} ${reviewText} for ${departmentName} courses at Middlebury College. Find the best ${departmentName} professors and courses.  Discover your new major today!`;
 
+  const canonicalURL = `https://midd.courses/reviews/${departmentID.toLowerCase()}`;
+
   return (
     <>
-      <PageTitle pageTitle={`${departmentName}`} description={metaDescription} courses={courses} />
+      <PageTitle
+        pageTitle={`${departmentName}`}
+        description={metaDescription}
+        courses={courses}
+        canonicalURL={canonicalURL}
+      />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>

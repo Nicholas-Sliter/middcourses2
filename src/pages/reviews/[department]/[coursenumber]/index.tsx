@@ -97,6 +97,8 @@ export default function CoursePage({
   const ratingDescription = (course.numReviews) ? `This course has an overall rating of ${parseFloat(course?.avgRating?.toFixed(1)) ?? null} out of 10 based on ${course.numReviews} reviews.` : "This course has not been reviewed yet.";
   const metaDescription = `${course.courseName} is a ${courseNumber} level course offered in the ${departmentName} department at Middlebury College. ${ratingDescription}`;
 
+  const canonicalURL = `https://midd.courses/reviews/${departmentID.toLowerCase()}/${courseNumber}`;
+
   const filterInstructorToast = () => {
     toast({
       title: 'Review 2 courses to unlock instructor filtering',
@@ -179,7 +181,12 @@ export default function CoursePage({
 
   return (
     <>
-      <PageTitle pageTitle={`${course?.courseName}`} description={metaDescription} courses={[course]} />
+      <PageTitle
+        pageTitle={`${course?.courseName}`}
+        description={metaDescription}
+        courses={[course]}
+        canonicalURL={canonicalURL}
+      />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>

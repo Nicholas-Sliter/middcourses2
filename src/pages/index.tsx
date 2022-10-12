@@ -11,9 +11,11 @@ import SearchBar from "../components/common/SearchBox";
 export default function Home() {
   //const session = useSession();
 
+  const canonicalURL = "https://midd.courses";
+
   return (
     <>
-      <PageTitle pageTitle="Home" />
+      <PageTitle pageTitle="Home" canonicalURL={canonicalURL} />
       <section className={styles.pageTop}>
         <SearchBar showResultDropdown />
         <div style={{ height: '10rem' }}></div>
