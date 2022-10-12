@@ -69,7 +69,7 @@ export default function DepartmentPage({
 
   return (
     <>
-      <PageTitle pageTitle={`${departmentName}`} description={metaDescription} />
+      <PageTitle pageTitle={`${departmentName}`} description={metaDescription} courses={courses} />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
