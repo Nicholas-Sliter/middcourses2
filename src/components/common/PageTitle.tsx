@@ -59,6 +59,7 @@ export default function PageTitle({ pageTitle, description, courses }: PageTitle
 
   }
 
+
   if (courses?.length > 1) {
     // need to include ItemList and ListItem around the courseStructuredData
     courseStructuredData = [{
@@ -92,9 +93,7 @@ export default function PageTitle({ pageTitle, description, courses }: PageTitle
       <meta property="twitter:image" content={`https://midd.courses/images/middcourses-social-card.png?utm_source=${pageTitleSlug}`} />
 
       {/* Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify(courseStructuredData?.[0])}
-      </script>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseStructuredData?.[0]) }} />
     </Head>
 
   );

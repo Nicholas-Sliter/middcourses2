@@ -36,6 +36,17 @@ export default function CustomHead() {
       {/*  Twitter  */}
       <meta property="twitter:card" content="summary_large_image" />
       {/* <meta property="twitter:image" content={`https://midd.courses/images/middcourses-social-card.png?utm_source${}}`} /> */}
+
+      {/* Structured Data */}
+      {/* <script type="application/ld+json">
+        {`
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "url": "https://midd.courses/",
+          "logo": "https://midd.courses/favicon.svg"
+        `
+        }
+      </script> */}
     </Head>
   );
 }
