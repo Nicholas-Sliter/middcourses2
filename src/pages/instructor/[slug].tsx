@@ -45,10 +45,15 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
   const coursesDescription = (threeRecentUniqueCourseNames) ? `${instructor.name} teaches ${threeRecentUniqueCourseNames} and more.` : `${instructor.name} has not taught any courses yet.`;
   const metaDescription = (instructor?.name) ? `Reviews and ratings for ${instructor.name} at Middlebury College. ${coursesDescription}  Explore top rated instructors and find the best for you. Is ${instructor.name} good? Find out on MiddCourses.` : "";
 
+  const canonicalURL = `https://midd.courses/instructor/${slug}`;
 
   return (
     <>
-      <PageTitle pageTitle={`${instructor?.name ?? ""}`} description={metaDescription} />
+      <PageTitle
+        pageTitle={`${instructor?.name ?? ""}`}
+        description={metaDescription}
+        canonicalURL={canonicalURL}
+      />
       <BrowserView>
         <SidebarLayout>
           <SidebarLayout.Sidebar>

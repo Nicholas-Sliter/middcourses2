@@ -14,9 +14,11 @@ type PageTitleProps = {
   pageTitle?: string;
   description?: string;
   courses?: public_course[];
+  // isCanonical?: boolean;
+  canonicalURL?: string;
 };
 
-export default function PageTitle({ pageTitle, description, courses }: PageTitleProps) {
+export default function PageTitle({ pageTitle, description, courses, canonicalURL }: PageTitleProps) {
   const title: string = pageTitle
     ? `${pageTitle} | MiddCourses`
     : "MiddCourses";
@@ -24,6 +26,11 @@ export default function PageTitle({ pageTitle, description, courses }: PageTitle
   const metaDescription = description ? description : "MiddCourses is Middlebury's premier course discovery and anonymous course review platform. Browse our complete catalogue to discover Middlebury's top professors, courses, and departments.";
 
   const pageTitleSlug = slugify(pageTitle);
+
+
+  const canonicalLink = canonicalURL ?
+    <link rel="canonical" href={canonicalURL} /> :
+    null;
 
 
   let courseStructuredData = [];
@@ -94,6 +101,8 @@ export default function PageTitle({ pageTitle, description, courses }: PageTitle
 
       {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseStructuredData?.[0]) }} />
+
+      {canonicalLink}
     </Head>
 
   );
