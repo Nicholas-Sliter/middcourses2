@@ -4,3 +4,9 @@
 http://midd.courses &nbsp;
 
 This repository will serve as the base for the new MiddCourses web application.  Currently under development by the MiddDev team.
+
+<a href="https://github.com/Nicholas-Sliter/middcourses2/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Nicholas-Sliter/middcourses2" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
