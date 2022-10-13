@@ -191,7 +191,12 @@ const handler = nc({
       instructorAgain: req.body.instructorAgain ?? false,
     };
 
-    await addReview(review);
+    try {
+      await addReview(review);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: "Internal server error" });
+    }
 
     res.status(200).end("Review submitted");
   });
