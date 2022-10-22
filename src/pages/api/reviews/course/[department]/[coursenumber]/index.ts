@@ -15,7 +15,8 @@ import {
   uuidv4,
 } from "../../../../../../lib/backend/utils";
 import { CustomSession } from "../../../../../../lib/common/types";
-import { courseTags } from "../../../../../../lib/common/utils";
+import { courseTags, primaryComponents } from "../../../../../../lib/common/utils";
+import { voteReviewByID } from "../../../../../../lib/backend/database/review";
 
 /**
  * Get all course reviews for a specific course
@@ -87,6 +88,10 @@ const handler = nc({
         .end("Unauthorized: You must be logged in to submit a review");
     }
 
+    if (session.user.role === "faculty") {
+      return res.status(403).json({ message: "Instructors cannot review courses!" });
+    }
+
     if (session.user.role !== "student" || ! await canWriteReviews(session.user.id)) {
       return res.status(403).json({ message: "You cannot submit a review for courses" });
     }
@@ -152,12 +157,32 @@ const handler = nc({
         return res.status(400).json({ message: "Too many course tags" });
       }
 
+      //also add the non-contradictory tag check here
+
       req.body.courseTags.forEach((tag: string) => {
         if (!courseTags.includes(tag)) {
           return res.status(400).json({ message: "Invalid course tag" });
         }
       });
     }
+
+    //check the primary components are valid
+    if (req.body.primaryComponent) {
+      if (!Array.isArray(req.body.primaryComponent)) {
+        return res.status(400).json({ message: "Invalid primary components" });
+      }
+
+      if (req.body.primaryComponent.length > 3) {
+        return res.status(400).json({ message: "Too many primary components" });
+      }
+
+      req.body.primaryComponent.forEach((component: string) => {
+        if (!primaryComponents.includes(component)) {
+          return res.status(400).json({ message: "Invalid primary component" });
+        }
+      });
+    }
+
 
 
     const clamp = (x: number, min = 0, max = 10) => Math.max(Math.min(x, max), min);
@@ -173,6 +198,8 @@ const handler = nc({
       courseID: courseID,
       semester: req.body.semester,
       instructorID: req.body.instructor,
+      whyTake: req.body.whyTake,
+      inMajorMinor: req.body.inMajorMinor,
       content: req.body.content,
       rating: parseReviewInt(req.body.rating),
       reviewDate: new Date().toISOString(),
@@ -181,7 +208,7 @@ const handler = nc({
       value: parseReviewInt(req.body.value),
       hours: parseReviewInt(req.body.hours, 0, 30),
       again: req.body.again ?? false,
-      primaryComponent: req.body.primaryComponent?.toLowerCase(),
+      primaryComponent: req.body.primaryComponent,
       tags: req.body.courseTags,
       instructorEffectiveness: parseReviewInt(req.body.instructorEffectiveness),
       instructorAccommodationLevel: parseReviewInt(
@@ -189,10 +216,14 @@ const handler = nc({
       ),
       instructorEnthusiasm: parseReviewInt(req.body.instructorEnthusiasm),
       instructorAgain: req.body.instructorAgain ?? false,
+      instructorEnjoyed: req.body?.instructorEnjoyed ?? false,
     };
 
     try {
       await addReview(review);
+      // await updateCourseRating(courseID);
+      // add user vote
+      await voteReviewByID(review.reviewID, session.user.id, "up");
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Internal server error" });

@@ -25,16 +25,16 @@ exports.up = function (knex) {
       .boolean("archived")
       .notNullable()
       .defaultTo(false); /* Archived: Whether the user is archived */
-    table
-      .integer("numReviews")
-      .notNullable()
-      .defaultTo(0); /* Num Reviews: Number of reviews the user has written */
-    table
-      .integer("numReviewsThisTerm")
-      .notNullable()
-      .defaultTo(
-        0
-      ); /* Num Reviews this term: Number of reviews the user has written since the last reset */
+    // table
+    //   .integer("numReviews")
+    //   .notNullable()
+    //   .defaultTo(0); /* Num Reviews: Number of reviews the user has written */
+    // table
+    //   .integer("numReviewsThisTerm")
+    //   .notNullable()
+    //   .defaultTo(
+    //     0
+    //   ); /* Num Reviews this term: Number of reviews the user has written since the last reset */
     table.string(
       "graduationYear"
     ); /* Graduation Year: Graduation year of the user, null when user is an instructor */

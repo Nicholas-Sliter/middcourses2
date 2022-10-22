@@ -115,6 +115,7 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
         delete newReview["avgAccommodationLevel"];
         delete newReview["avgEnthusiasm"];
         delete newReview["avgInstructorAgain"];
+        delete newReview["avgInstructorEnjoyed"];
         return newReview;
     });
 
@@ -126,6 +127,7 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
             avgAccommodationLevel: reviewQuery?.[0]?.avgAccommodationLevel,
             avgEnthusiasm: reviewQuery?.[0]?.avgEnthusiasm,
             avgAgain: reviewQuery?.[0]?.avgInstructorAgain,
+            avgEnjoyed: reviewQuery?.[0]?.avgInstructorEnjoyed,
             numReviews: reviewQuery.length,
         } as public_instructor,
         courses: sortCoursesByTerm(coursesQuery),
@@ -138,6 +140,7 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
         delete obj.instructor.avgAccommodationLevel;
         delete obj.instructor.avgEnthusiasm;
         delete obj.instructor.avgAgain;
+        delete obj.instructor.avgEnjoyed;
     }
 
 
@@ -145,6 +148,7 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
     if (!session?.user?.authorized) {
         obj.reviews = obj.reviews.slice(0, NUM_UNAUTH_REVIEWS);
     }
+
 
     return obj;
 

@@ -1,9 +1,9 @@
 exports.up = function (knex) {
   return knex.schema
-      .createTable("Department", (table) => {
+    .createTable("Department", (table) => {
       table
         .string("departmentID", 4).primary()
-        /* Department ID: 4-letter department abbreviation */
+      /* Department ID: 4-letter department abbreviation */
       table
         .string("departmentName")
         .notNullable(); /* Department Name: Department name */
@@ -25,6 +25,7 @@ exports.up = function (knex) {
       table.string("instructorID").primary();
       table.string("email");
       table.string("departmentID").defaultTo("");
+      table.boolean("archived").defaultTo(false);
     })
     .createTable("CourseInstructor", (table) => {
       table.string("courseID");

@@ -117,8 +117,7 @@ export async function optimizedSSRDepartmentPage(departmentID: string, authorize
     }
 
     const MAX_DISPLAYED_REVIEWS = (authorized) ? 10 : 3;
-    const DEPARTMENT_MIN_AVG_COUNT = 1; // Minimum number of reviews for a department to display average ratings
-    //10
+    const DEPARTMENT_MIN_AVG_COUNT = 10; // Minimum number of reviews for a department to display average ratings
 
     const [departmentQuery, instructorQuery, reviewQuery, courseQuery] = await Promise.all([
         getDepartmentByID(departmentID),
@@ -143,6 +142,7 @@ export async function optimizedSSRDepartmentPage(departmentID: string, authorize
         avgEffectiveness: parseAvg(reviewQuery?.[0]?.avgEffectiveness),
         avgEnthusiasm: parseAvg(reviewQuery?.[0]?.avgEnthusiasm),
         avgInstructorAgain: parseAvg(reviewQuery?.[0]?.avgInstructorAgain),
+        avgInstructorEnjoyed: parseAvg(reviewQuery?.[0]?.avgInstructorEnjoyed),
 
     }
 

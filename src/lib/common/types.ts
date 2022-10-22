@@ -21,6 +21,7 @@ export interface public_review {
   //swithc to understanding
   instructorEnthusiasm: number;
   instructorAgain: boolean;
+  instructorEnjoyed: boolean;
   votes?: number;
   userVoteType?: 1 | -1;
 }
@@ -53,6 +54,7 @@ export interface public_instructor {
   avgAccommodationLevel?: number;
   avgEnthusiasm?: number;
   avgAgain?: number;
+  avgEnjoyed?: number;
   numReviews?: number;
 }
 
@@ -108,6 +110,7 @@ export interface extended_department extends Department {
   avgAccommodationLevel?: number;
   avgEnthusiasm?: number;
   avgInstructorAgain?: number;
+  avgInstructorEnjoyed?: number;
 
 
 }

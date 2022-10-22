@@ -15,16 +15,20 @@ exports.up = function (knex) {
     table
       .string("semester")
       .notNullable(); /* Semester: Semester of the review */
-    table.boolean(
-      "inMajorMinor"
+    table.enum(
+      "inMajorMinor",
+      ["major", "minor", "was_major", "was_minor", "neither"],
     ); /* In Major or Minor: Whether the review is in the reviewers Major or Minor */
     table.enum("whyTake", [
       "Required for Major/Minor",
+      "Elective for Major/Minor",
       "Specific interest",
       "Distribution elective",
       "Pre-requisite for later courses",
       "Someone recommended it",
       "To try something new",
+      "Needed to fill schedule",
+      "Other",
     ]); /* Why Take: Why the student took the course */
 
     table.text("content").notNullable(); /* Content: Text of the review */
@@ -34,7 +38,7 @@ exports.up = function (knex) {
     table.integer(
       "difficulty"
     ); /* Difficulty: Difficulty and workload of the course from 1-10 */
-    table.integer("value"); /* Value: value gained from the course from 1-10 */
+    table.integer("value"); /* Value: value gained from the course content from 1-10 */
     table.integer(
       "hours"
     ); /* Number of hours spent on the course per week outside of class */
@@ -42,16 +46,7 @@ exports.up = function (knex) {
       "again"
     ); /* Again: Whether or not the student would take the course again */
 
-    //TODO: make this take multiple choices as a joined string or array
-    table.enu("primaryComponent", [
-      "exam",
-      "project",
-      "writing",
-      "research",
-      "lab",
-      "discussion",
-      "homework",
-    ]); /* PrimaryComponent: Main Components of the course (exams, projects, writing, research, etc) */
+    table.specificType("primaryComponent", "text array"); /* PrimaryComponent: Main Components of the course (exams, projects, writing, research, etc) */
 
     table.specificType("tags", "text array"); /* Tags: Tags for the course (ex. "hard", "easy", "interesting", etc) */
     table.integer(
@@ -66,6 +61,10 @@ exports.up = function (knex) {
     table.boolean(
       "instructorAgain"
     ); /* Would the student take another course from this instructor */
+
+    table.boolean(
+      "instructorEnjoyed"
+    ); /* Did the student enjoy the instructor */
 
     //instructor rating is constructed from weighted average of the instructor quality and helpfulness
 

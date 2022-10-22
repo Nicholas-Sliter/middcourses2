@@ -25,6 +25,7 @@ export const reviewInfo = [
     "Review.instructorAccommodationLevel",
     "Review.instructorEnthusiasm",
     "Review.instructorAgain",
+    "Review.instructorEnjoyed",
 ];
 
 export const basicReviewInfo = [
