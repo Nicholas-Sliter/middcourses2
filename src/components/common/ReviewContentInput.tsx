@@ -6,8 +6,8 @@ export default function ReviewContentInput({ onChange, value, className }) {
 
   //  const descriptionText = "Briefly describe your experience in this course and highlight things that might be helpful for perspective students. This review will be visible to other students and will help them make informed decisions about their courses. Please be respectful and do not include any personal information.";
   //All reviews are anonymous, please be respectful and do not include any personal information.
-  const descriptionText = "Briefly describe your experience in this course and highlight things that might be helpful for prospective students";
-
+  // const descriptionText = "Briefly describe your experience in this course and highlight things that might be helpful for prospective students";
+  const descriptionText = "All reviews are anonymous, please be respectful and do not include any personal information.";
 
   return (
     <>
