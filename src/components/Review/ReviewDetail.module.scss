@@ -6,18 +6,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 .container {
   width: 100%;
   margin: 0;
@@ -36,11 +24,13 @@
   border: none;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: left;
   min-height: 0.8rem;
 
   span {
     //all: unset;
+    margin-top: 0.2rem;
     font-size: 0.7rem !important;
     font-weight: bold;
     color: #333;
@@ -50,7 +40,7 @@
     }
 
     &:not(:last-child) {
-      margin-right: 0.5rem;
+      margin-right: 0.6rem;
     }
 
     svg {
