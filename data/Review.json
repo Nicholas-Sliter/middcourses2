@@ -13,7 +13,9 @@
       "value": 8,
       "hours": 10,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 8,
       "instructorAccommodationLevel": 9,
       "instructorEnthusiasm": 7,
@@ -33,7 +35,9 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
@@ -53,7 +57,9 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
@@ -73,7 +79,9 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
@@ -93,7 +101,9 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
@@ -113,7 +123,9 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
@@ -133,7 +145,9 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
