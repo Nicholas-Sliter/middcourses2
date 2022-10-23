@@ -9,6 +9,7 @@ import { optimizedSSRDepartmentPage } from "../../../lib/backend/database/depart
 import { BrowserView, MobileView } from "../../../components/DeviceViews";
 import SidebarLayout from "../../../layouts/SidebarLayout";
 import DepartmentCard from "../../../components/common/DepartmentCard";
+import { departmentCodeChangedMapping } from "../../../lib/common/utils";
 
 interface DepartmentPageProps {
   departmentID: string;
@@ -22,6 +23,17 @@ interface DepartmentPageProps {
 
 export async function getServerSideProps(context) {
   const departmentID = context.query.department as string;
+
+  // check if dept code has changed
+  if (departmentCodeChangedMapping(departmentID, "lower") !== departmentID) {
+    //redirect to new dept code
+    return {
+      redirect: {
+        destination: `/reviews/${departmentCodeChangedMapping(departmentID, "lower")}`,
+        permanent: true,
+      },
+    };
+  }
 
   const session = await getSession(context) as CustomSession;
 
