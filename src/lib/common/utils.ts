@@ -189,3 +189,22 @@ export function isInMajorMinorText(str: string) {
 export function isNeitherText(str: string) {
   return str?.includes("Neither") ?? false;
 }
+
+
+//This function is necessarily duplicated
+export const departmentCodeChangedMapping = (code: string, returnCase: "upper" | "lower" = "upper") => {
+  let ret: string = "";
+  switch (code.toUpperCase()) {
+    case "ENAM": //English & American Literatures => English (2022)
+      ret = "ENGL";
+      break;
+    case "GEOL": //Geology => Earth & Climate Sciences (2022)
+      ret = "ECSC";
+      break;
+    default:
+      ret = code;
+      break;
+  }
+
+  return returnCase === "upper" ? ret.toUpperCase() : ret.toLowerCase();
+};
