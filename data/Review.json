@@ -13,11 +13,14 @@
       "value": 8,
       "hours": 10,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 8,
       "instructorAccommodationLevel": 9,
       "instructorEnthusiasm": 7,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb4",
@@ -33,11 +36,14 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": false
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb5",
@@ -53,11 +59,14 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb6",
@@ -73,11 +82,14 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb7",
@@ -93,11 +105,14 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb8",
@@ -113,11 +128,14 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb9",
@@ -133,10 +151,13 @@
       "value": 9,
       "hours": 12,
       "again": true,
-      "primaryComponent": "exam",
+      "primaryComponent": [
+         "Exams"
+      ],
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": false
    }
 ]

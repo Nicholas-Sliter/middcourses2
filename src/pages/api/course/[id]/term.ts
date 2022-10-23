@@ -1,6 +1,7 @@
 import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getInstructorsAndTermsByCourseID } from "../../../../lib/backend/database-utils";
+import { isValidCourseID } from "../../../../lib/common/utils";
 
 const handler = nc({
   onError: (err, req: NextApiRequest, res: NextApiResponse) => {
@@ -16,7 +17,7 @@ const handler = nc({
     //validate the course id is 4 uppercase letters followed by 4 digits
     //use regex pattern
 
-    if (!courseID || !/^[A-Z]{4}[0-9]{4}$/.test(courseID)) {
+    if (!isValidCourseID(courseID)) {
       res.status(400).end("Invalid course id");
       return;
     }

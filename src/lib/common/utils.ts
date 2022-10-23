@@ -70,38 +70,49 @@ export const slugify = (text) => {
 };
 
 export const primaryComponents = [
-  "Exam",
-  "Project",
-  "Writing",
+  "Exams",
+  "Projects",
+  "Papers",
   "Research",
-  "Lab",
-  "Discussion",
+  "Lab/Fieldwork",
+  "Discussions",
   "Homework",
-  "Lecture",
+  "Lectures",
+  "Screenings",
+  "Presentations",
+  "Readings",
+  "Group work"
+
 ];
 
 
 export const courseTags = [
-  "Amazing Lectures",
-  "Exams are Easy",
-  "Difficult Exams",
-  "Lots of Work",
-  "Lots of Reading",
-  "Lots of Writing",
-  "Lots of Homework",
-  "High Expectations",
-  "Project Heavy",
-  "Must Take",
-  "Avoid",
-  "Super Fun",
-  "Super Boring",
-  "Clear Grading Criteria",
-  "Fair Grading",
-  "Group Work",
-  "Ungrading",
-  "Tough Grading",
-  "Easy Grading",
-  "Accessible Instructor",
+  // "Amazing Lectures",
+  // "Exams are Easy",
+  // "Difficult Exams",
+  // "Lots of Work",
+  // "Lots of Reading",
+  // "Lots of Writing",
+  // "Lots of Homework",
+  // "High Expectations",
+  // "Project Heavy",
+  // "Must Take",
+  // "Avoid",
+  // "Super Fun",
+  // "Super Boring",
+  // "Clear Grading Criteria",
+  // "Fair Grading",
+  // "Group Work",
+  // "Ungrading",
+  // "Tough Grading",
+  // "Easy Grading",
+  // "Accessible Instructor",
+  ...["Fast-Paced", "Chill and Relaxed", "Slow-Paced"],
+  // ...["Small Class Size", "Medium Class Size", "Large Class Size"],
+  ...["Project-Heavy", "Lots of Homework", "Constant Reading", "Endless Writing"],
+  ...["Tough Grading", "Fair Grading", "Easy Grading", "Ungrading"],
+  ...["Difficult Exams", "Easy Exams", "Project Exams", "No Exams"],
+
 ];
 
 
@@ -142,6 +153,14 @@ export function toTitleCase(str: string) {
   );
 }
 
+export function isValidCourseID(courseID: string) {
+  if (!courseID) {
+    return false;
+  }
+  //is of form ABCD0123 or _ABC0123
+  const re = /^([A-Z]{4}[0-9]{4}|_[A-Z]{3}[0-9]{4})$/;
+  return re.test(courseID.toUpperCase());
+}
 
 export function parseCourseID(courseID: string) {
   if (!courseID) {
@@ -160,4 +179,13 @@ export function parseCourseID(courseID: string) {
 export function is100LevelCourse(courseID: string) {
   const { courseNumber } = parseCourseID(courseID);
   return courseNumber.startsWith("01");
+}
+
+
+export function isInMajorMinorText(str: string) {
+  return str?.includes("Major") || str?.includes("Minor");
+}
+
+export function isNeitherText(str: string) {
+  return str?.includes("Neither") ?? false;
 }

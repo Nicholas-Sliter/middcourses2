@@ -41,6 +41,7 @@ export async function getServerSideProps(context) {
         avgAccommodationLevel: data.avgAccommodationLevel,
         avgEnthusiasm: data.avgEnthusiasm,
         avgInstructorAgain: data.avgInstructorAgain,
+        avgInstructorEnjoyed: data.avgInstructorEnjoyed,
       } as extended_department,
       departmentID: departmentID,
       departmentName: data.department.departmentName ?? null,
@@ -122,6 +123,7 @@ export default function DepartmentPage({
           instructors={instructors}
           expandable={false}
           identifyCourse
+          hideVoting
         />
       </MobileView>
     </>

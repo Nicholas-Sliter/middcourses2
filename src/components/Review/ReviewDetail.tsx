@@ -8,6 +8,7 @@ import {
   FiChevronsDown,
   FiChevronsUp,
 } from "react-icons/fi";
+import { MdOutlineThumbUp, MdOutlineThumbDown } from "react-icons/md";
 import { FaHandsHelping, FaRegGem } from "react-icons/fa";
 import {
   valueMapping,
@@ -133,32 +134,30 @@ function ReviewDetailBar({ review }: { review: public_review }) {
       </span>
     ) : null;
 
-  const primaryComponent = review?.primaryComponent ? (
-    <span>
-      <FiLayers /> {`${toTitleCase(review?.primaryComponent)}-based`}
-    </span>
-  ) : null;
+  const again =
+    review?.again || review?.again == false ? (
+      <span title="Would take again">
+        {review?.again ? (
+          <>
+            <MdOutlineThumbUp className={styles.again} />
+            {" Would take again"}
+          </>
+        ) : (
+          <>
+            <MdOutlineThumbDown className={styles.notAgain} />
+            {` Would not take again`}
+          </>
+        )}
 
-  const instructorEffectiveness = review?.instructorEffectiveness ? (
-    <span>
-      <FiMaximize /> {``}
-    </span>
-  ) : null;
-
-  const instructorAccomodationLevel = review?.instructorAccommodationLevel ? (
-    <span>
-      <FaHandsHelping /> {`${valueMapping[review?.instructorAccommodationLevel]} accomodations`}
-    </span>
-  ) : null;
+      </span>
+    ) : null;
 
   return (
     <div className={styles.bar}>
       {hours}
       {difficulty}
       {value}
-      {primaryComponent}
-      {instructorEffectiveness}
-      {instructorAccomodationLevel}
+      {again}
     </div>
   );
 }

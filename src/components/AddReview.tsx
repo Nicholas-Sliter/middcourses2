@@ -15,6 +15,7 @@ import {
   Spacer,
   Alert,
   AlertIcon,
+  Text,
 } from "@chakra-ui/react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { public_course, public_instructor } from "../lib/common/types";
@@ -28,7 +29,7 @@ import {
 import Question from "./common/Question";
 import QuestionSlider from "./common/QuestionSlider";
 import CharacterCount from "./common/CharacterCount";
-import { primaryComponents } from "../lib/common/utils";
+import { isInMajorMinorText, isNeitherText, primaryComponents } from "../lib/common/utils";
 import QuestionNumberInput from "./common/QuestionNumberInput";
 import { useState, useEffect } from "react";
 import { RiContactsBookLine } from "react-icons/ri";
@@ -57,23 +58,34 @@ export default function AddReview({
     watch,
     reset,
     control,
+    setFocus,
     formState: { errors },
   } = useForm();
 
   const [instructorTerms, setInstructorTerms] = useState([]);
   const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedComponentTags, setSelectedComponentTags] = useState([]);
+
   const toast = useToast();
 
 
-  const selectTag = (tag) => {
+  const selectTag = (tag: string, tagGroup: string[] = []) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
       return;
     }
 
+    let newTags = [...selectedTags];
+    // check if another tag in the same group is already selected, if so, remove it
+    if (tagGroup) {
+      newTags = selectedTags.filter((t) => !tagGroup.includes(t));
+    }
+
+    newTags.push(tag);
+
     //make sure the tags are unique, and there are no more than 3, and all tags in courseTags
-    const uniqueTags = [...new Set([tag, ...selectedTags])];
+    const uniqueTags = [...new Set(newTags)];
     const validTags = uniqueTags.filter((tag) => courseTags.includes(tag));
     if (validTags.length > 3) {
       toast({
@@ -87,10 +99,34 @@ export default function AddReview({
     }
   };
 
+  const selectComponentTag = (tag: string, value: string[] = []) => {
+    if (value.includes(tag)) {
+      const newTags = value.filter((t) => t !== tag);
+      // setSelectedComponentTags(newTags);
+      return newTags;
+    }
+
+    //make sure the tags are unique, and there are no more than 3, and all tags in componentTags
+    const uniqueTags = [...new Set([tag, ...value])];
+    const validTags = uniqueTags.filter((tag) => primaryComponents.includes(tag));
+    if (validTags.length > 3) {
+      toast({
+        title: "You can only select up to 3 tags",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return value;
+    }
+    else {
+      // setSelectedComponentTags(validTags);
+      return validTags;
+    }
+
+  };
 
   const onSubmit = async (data: Object) => {
     console.log(data);
-
     const dept = course.courseID.slice(0, 4).toLowerCase();
     const code = course.courseID.slice(4);
 
@@ -205,6 +241,13 @@ export default function AddReview({
     defaultValue: DEFAULT_SLIDER_RATING,
   });
 
+  const inMajorMinor = useWatch({
+    control,
+    name: "inMajorMinor",
+    defaultValue: "---",
+  });
+
+  //const inMajorMinor: string = watch("inMajorMinor");
 
   if (!isOpen) {
     return null;
@@ -224,13 +267,13 @@ export default function AddReview({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Review {course?.courseName ?? "a course"}</ModalHeader>
+        <ModalHeader className={styles.header}>Review {course?.courseName ?? "a course"}</ModalHeader>
         <ModalCloseButton className={styles.closeButton} />
         <ModalBody>
           <form className={styles.form}>
             <FormControl>
               <Stack>
-                <Question label="Course information" htmlFor="courseinfo">
+                <Question label="Course identification" htmlFor="courseinfo">
                   <Select
                     name="semester"
                     placeholder="Select the semester"
@@ -266,12 +309,51 @@ export default function AddReview({
                   </Select>
                   <FormErrorMessage errors={errors} name="instructor" />
                 </Question>
-                <Question
-                  label="Would you take this course again?"
-                  htmlFor="again"
-                >
-                  <Switch name="again" />
+
+                <Question label="Is or was this course in your intended major or minor?" htmlFor="inMajorMinor">
+                  <Select
+                    name="inMajorMinor"
+                    placeholder="Choose major/minor status"
+                    {...register("inMajorMinor", { required: { value: true, message: "You must select if this course is in your major or minor" } })}
+                  >
+                    <option value="major">I intend to major in {course.departmentName}</option>
+                    <option value="minor">I intend to minor in {course.departmentName}</option>
+                    <option value="major">I formerly intended to major in {course.departmentName}</option>
+                    <option value="minor">I formerly intended to minor in {course.departmentName}</option>
+                    <option value="neither">Neither</option>
+                  </Select>
+                  <FormErrorMessage errors={errors} name="inMajorMinor" />
                 </Question>
+
+                <Question label="Why did you choose to take this course?" htmlFor="whyTake">
+                  <Select
+                    name="whyTake"
+                    placeholder="Choose why you took this course"
+                    {...register("whyTake", {
+                      required: { value: true, message: "You must select why you took this course." },
+                      validate: {
+                        notConflicting: (value) => {
+                          if (inMajorMinor === "neither" && (value.includes("Major") || value.includes("Minor"))) {
+                            return "You cannot select this reason if the course is not in your major or minor.";
+                          }
+                          return true;
+                        }
+                      }
+                    })}
+                  >
+                    <option value="Required for Major/Minor" disabled={inMajorMinor === "neither"}>Required for Major/Minor</option>
+                    <option value="Elective for Major/Minor" disabled={inMajorMinor === "neither"}>Elective for Major/Minor</option>
+                    <option value="Specific interest">Specific interest</option>
+                    <option value="Distribution Requirements">Distribution Requirements</option>
+                    <option value="Pre-requisite for later courses">Pre-requisite for later courses</option>
+                    <option value="Someone recommended it">Someone recommended it</option>
+                    <option value="To try something new">To try something new</option>
+                    <option value="Needed to fill schedule">Needed to fill schedule</option>
+
+                  </Select>
+                  <FormErrorMessage errors={errors} name="whyTake" />
+                </Question>
+
                 <Question
                   label="How difficult was the course?"
                   htmlFor="difficulty"
@@ -282,6 +364,7 @@ export default function AddReview({
                     descriptor={difficultyMapping?.[difficulty] ?? null}
                   />
                 </Question>
+
                 <Question
                   label="How valuable did you find the material from this course?"
                   htmlFor="value"
@@ -292,7 +375,8 @@ export default function AddReview({
                     descriptor={valueMapping?.[value] ?? null}
                   />
                 </Question>
-                <Question
+
+                {/* <Question
                   label="What is the primary component of the course?"
                   htmlFor="primaryComponent"
                 >
@@ -308,9 +392,70 @@ export default function AddReview({
                     ))}
                   </Select>
                   <FormErrorMessage errors={errors} name="primaryComponent" />
-                </Question>
+                </Question> */}
+
+                {/* 
                 <Question
-                  label="How many hours per week do you spend on this course outside of class?"
+                  label="Select between 1 and 3 major component of this course."
+                  htmlFor="primaryComponent"
+                >
+                  <TagBar
+                    items={primaryComponents.sort()}
+                    selectedTags={selectedComponentTags}
+                    tagClick={selectComponentTag}
+                    tagClassName={styles.tag}
+                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                  />
+                  <FormErrorMessage errors={errors} name="primaryComponent" />
+                </Question> */}
+
+                <Question
+                  label="Select between 1 and 3 major components of this course."
+                  htmlFor="primaryComponent"
+                >
+                  <Controller
+                    control={control}
+                    name="primaryComponent"
+                    rules={{
+                      required: { value: true, message: "You must select between 1 and 3 components" },
+                      minLength: { value: 1, message: "You must select at least 1 component" },
+                      maxLength: { value: 3, message: "You cannot select more than 3 components" }
+                    }}
+                    render={({
+                      field: { onChange, value, onBlur, ref },
+                    }) => (
+                      <>
+                        <TagBar
+                          items={primaryComponents.sort()}
+                          selectedTags={value}
+                          tagClick={(tag, tagGroup) => {
+                            const tags = selectComponentTag(tag, value);
+                            onChange(tags);
+                          }}
+                          tagClassName={styles.tag}
+                          selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                        // renderButton
+                        />
+                        <div className={styles.spacer} />
+                        <FormErrorMessage errors={errors} name="primaryComponent" />
+                      </>
+                    )}
+                  />
+                </Question>
+
+
+
+
+
+
+
+
+
+
+
+
+                <Question
+                  label="Approximately many hours per week do you normally spend on this course outside of class?"
                   htmlFor="hours"
                 >
                   <QuestionNumberInput
@@ -328,15 +473,98 @@ export default function AddReview({
                   ></QuestionNumberInput>
                 </Question>
                 <Question
-                  label="Select up to 3 tags that best describe this course"
+                  label="Select up to one tag per category that best describes this course for a total of at most 3 tags."
                   htmlFor="courseTags"
                 >
+                  {/*  */}
+                  <div className={styles.spacer} />
+                  {/* 
+                  <p>Lecture usefulness</p>
                   <TagBar
-                    items={courseTags.sort()}
+                    items={["Skip Lectures", "Mandatory Attendance", "Incredible Lectures"]}
                     selectedTags={selectedTags}
                     tagClick={selectTag}
                     tagClassName={styles.tag}
                     selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                    hasGroup
+                  />
+                  <hr /> */}
+                  {/* Course pacing */}
+                  <p>Course pacing</p>
+                  <TagBar
+                    items={["Fast-Paced", "Chill and Relaxed", "Slow-Paced"]}
+                    selectedTags={selectedTags}
+                    tagClick={selectTag}
+                    tagClassName={styles.tag}
+                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                    hasGroup
+                  // renderButton
+                  />
+                  <hr />
+                  {/* Course contents */}
+                  <p>Coursework distribution</p>
+                  <TagBar
+                    items={["Project-Heavy", "Lots of Homework", "Constant Reading", "Endless Writing"]}
+                    selectedTags={selectedTags}
+                    tagClick={selectTag}
+                    tagClassName={styles.tag}
+                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                    hasGroup
+                  // renderButton
+                  />
+                  <hr />
+                  {/* Grading style */}
+                  <p>Grading style</p>
+                  <TagBar
+                    items={["Tough Grading", "Fair Grading", "Easy Grading", "Ungrading"]}
+                    selectedTags={selectedTags}
+                    tagClick={selectTag}
+                    tagClassName={styles.tag}
+                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                    hasGroup
+                  // renderButton
+                  />
+                  <hr />
+                  {/* Examination style */}
+                  <p>Exam style</p>
+                  <TagBar
+                    items={["Difficult Exams", "Easy Exams", "Project Exams", "No Exams"]}
+                    selectedTags={selectedTags}
+                    tagClick={selectTag}
+                    tagClassName={styles.tag}
+                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                    hasGroup
+                  // renderButton
+                  />
+                  {/* 
+                  <hr />
+                  <p>Advice</p>
+                  <TagBar
+                    items={["Avoid this course", "Take with a different professor", "Must Take",]}
+                    selectedTags={selectedTags}
+                    tagClick={selectTag}
+                    tagClassName={styles.tag}
+                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
+                    hasGroup
+                  /> */}
+
+
+                </Question>
+                <Question
+                  label="Would you take this course again?"
+                  htmlFor="again"
+                >
+                  <Controller
+                    control={control}
+                    name="again"
+                    defaultValue={false}
+                    render={({
+                      field: { onChange, value, onBlur, ref },
+                    }) => (
+                      <>
+                        <Switch name="again" value={value} onChange={onChange} />
+                      </>
+                    )}
                   />
                 </Question>
                 <Question
@@ -395,20 +623,44 @@ export default function AddReview({
                 </Question>
                 <Question
                   label="I enjoyed the instructor's teaching style." //teaching style
-                  htmlFor="instructorAgain"
+                  htmlFor="instructorEnjoyed"
                 >
-                  <Switch name="instructorAgain" />
+                  <Controller
+                    control={control}
+
+                    name="instructorEnjoyed"
+                    defaultValue={false}
+                    render={({
+                      field: { onChange, value, onBlur, ref },
+                    }) => (
+                      <>
+                        <Switch name="instructorEnjoyed" value={value} onChange={onChange} />
+                      </>
+                    )}
+                  />
                 </Question>
                 <Question
                   label="I would take a course with this instructor again if I had the chance."
                   htmlFor="instructorAgain"
                 >
-                  <Switch name="instructorAgain" />
+                  <Controller
+                    control={control}
+                    name="instructorAgain"
+                    defaultValue={false}
+                    render={({
+                      field: { onChange, value, onBlur, ref, name },
+                    }) => (
+                      <>
+                        <Switch name="instructorAgain" value={value} onChange={onChange} />
+                      </>
+                    )}
+                  />
                 </Question>
                 <Spacer />
                 <hr />
                 <Spacer />
-                <h4>{`Final comments`}</h4>
+                <h4>{`Course experience`}</h4>
+                <p>Briefly describe your experience in this course and highlight things that might be helpful for prospective students.</p>
                 <Controller
                   control={control}
                   name="content"
@@ -419,7 +671,7 @@ export default function AddReview({
                   }}
                   render={({
                     field: { onChange, onBlur, value, name, ref },
-                    fieldState: { invalid, isTouched, isDirty, error },
+                    fieldState: { isTouched, isDirty, error },
                     formState,
                   }) => (
                     <>
@@ -447,7 +699,7 @@ export default function AddReview({
         </ModalBody>
         <ModalFooter></ModalFooter>
       </ModalContent>
-    </Modal>
+    </Modal >
   );
 }
 

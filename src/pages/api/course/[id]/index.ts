@@ -1,6 +1,7 @@
 import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getCourseByID } from "../../../../lib/backend/database-utils";
+import { isValidCourseID } from "../../../../lib/common/utils";
 
 const handler = nc({
    onError: (err, req: NextApiRequest, res: NextApiResponse) => {
@@ -20,7 +21,7 @@ const handler = nc({
       //or underscore followed by 3 letters and 4 digits, thanks ART.
       //use regex pattern
 
-      if (!courseID || !/^[_|A-Z]{1}[A-Z]{3}[0-9]{4}$/.test(courseID)) {
+      if (!isValidCourseID(courseID)) {
          console.log("invalid course id");
          res.status(400).end("Invalid course id");
          return;

@@ -19,9 +19,16 @@ function DepartmentRatingBar({ department, mode }: DepartmentRatingBarProps) {
         )
     }
     if (mode == "instructor") {
-        const instructor = department as unknown as public_instructor;
+        const instructor = {
+            avgEffectiveness: department.avgEffectiveness,
+            avgEnthusiasm: department.avgEnthusiasm,
+            avgAccommodationLevel: department.avgAccommodationLevel,
+            avgAgain: department.avgInstructorAgain,
+            avgEnjoyed: department.avgInstructorEnjoyed,
+        } as unknown as public_instructor;
+        //const instructor = department as unknown as public_instructor;
         return (
-            <InstructorRatingBar instructor={instructor} />
+            <InstructorRatingBar instructor={instructor} noMargin />
         )
     }
 
