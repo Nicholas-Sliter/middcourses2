@@ -3,7 +3,7 @@
  *
  */
 
-import { Button, Portal } from "@chakra-ui/react";
+import { Button, Portal, Tooltip } from "@chakra-ui/react";
 import { RiEditFill } from "react-icons/ri";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
@@ -29,7 +29,7 @@ export default function AddButton({ onClick }) {
     return null;
   }
 
-  if (session?.user?.role === "faculty") {
+  if (session?.user?.role !== "student") {
     return null;
   }
 
@@ -39,13 +39,15 @@ export default function AddButton({ onClick }) {
   return (
     <Portal>
       <div className={styles.container}>
-        <Button
-          title="Add a review"
-          onClick={onClick}
-        >
-          <RiEditFill />
-          <span className={styles.expandedText}>Review</span>
-        </Button>
+        <Tooltip label="Write a review" placement="top">
+          <Button
+            // title="Add a review"
+            onClick={onClick}
+          >
+            <RiEditFill />
+            <span className={styles.expandedText}>Review</span>
+          </Button>
+        </Tooltip>
       </div>
     </Portal>
   );
