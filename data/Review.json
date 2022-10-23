@@ -19,7 +19,8 @@
       "instructorEffectiveness": 8,
       "instructorAccommodationLevel": 9,
       "instructorEnthusiasm": 7,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb4",
@@ -41,7 +42,8 @@
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": false
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb5",
@@ -63,7 +65,8 @@
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb6",
@@ -85,7 +88,8 @@
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb7",
@@ -107,7 +111,8 @@
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb8",
@@ -129,7 +134,8 @@
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": true
    },
    {
       "reviewID": "ec9c733d-0d56-42e5-b75a-e43ca575cfb9",
@@ -151,6 +157,7 @@
       "instructorEffectiveness": 7,
       "instructorAccommodationLevel": 10,
       "instructorEnthusiasm": 8,
-      "instructorAgain": true
+      "instructorAgain": true,
+      "instructorEnjoyed": false
    }
 ]

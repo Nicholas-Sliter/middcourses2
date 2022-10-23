@@ -75,6 +75,7 @@ exports.seed = async function (knex) {
   const users = JSON.parse(fs.readFileSync("./data/User.json", "utf8"));
   await knex.batchInsert("User", users, MAX_TEST_DATA);
 
+  //TODO: add check to skip this in production, actually add a production seed file
   const reviews = JSON.parse(fs.readFileSync("./data/Review.json", "utf8"));
   await knex.batchInsert("Review", reviews, MAX_TEST_DATA);
 };
