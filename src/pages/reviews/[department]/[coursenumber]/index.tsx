@@ -35,7 +35,6 @@ export async function getServerSideProps(context) {
       t.instructorID === instructor.instructorID))
   });
 
-  console.log(data);
 
   return {
     props: {
