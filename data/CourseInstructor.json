@@ -7087,12 +7087,12 @@
   {
     "courseID": "AMST0264",
     "term": "S22",
-    "instructorID": "88D1680887AE0661D5A798F901003B2F"
+    "instructorID": "BBED25313DB31B7F912B2D5089848C50"
   },
   {
     "courseID": "AMST0264",
     "term": "S22",
-    "instructorID": "BBED25313DB31B7F912B2D5089848C50"
+    "instructorID": "88D1680887AE0661D5A798F901003B2F"
   },
   {
     "courseID": "AMST0273",
@@ -9973,5 +9973,3700 @@
     "courseID": "WRPR0334",
     "term": "S22",
     "instructorID": "CEA61494686073E71ED939F0517D4FF2"
+  },
+  {
+    "courseID": "AMST0101",
+    "term": "F22",
+    "instructorID": "E1AA26EECE8D090367FF654D1F517C7A"
+  },
+  {
+    "courseID": "AMST0175",
+    "term": "F22",
+    "instructorID": "F86D802267249A01F24AED3F3AAA917F"
+  },
+  {
+    "courseID": "AMST0203",
+    "term": "F22",
+    "instructorID": "CEA61494686073E71ED939F0517D4FF2"
+  },
+  {
+    "courseID": "AMST0206",
+    "term": "F22",
+    "instructorID": "E34554346788B8778EA8B40079C181C4"
+  },
+  {
+    "courseID": "AMST0209",
+    "term": "F22",
+    "instructorID": "38281666015C523B87B3FB8F52EC48DA"
+  },
+  {
+    "courseID": "AMST0216",
+    "term": "F22",
+    "instructorID": "BAC5FFA7864D7D99323624DECFE0E5BF"
+  },
+  {
+    "courseID": "AMST0234",
+    "term": "F22",
+    "instructorID": "EB22314A852970F29D9C828DEC3265D2"
+  },
+  {
+    "courseID": "AMST0252",
+    "term": "F22",
+    "instructorID": "2F62DD619168364AA9BDC01556AF2A51"
+  },
+  {
+    "courseID": "AMST0253",
+    "term": "F22",
+    "instructorID": "3314AC56F1073624BB5C3C2B9DD346D3"
+  },
+  {
+    "courseID": "AMST0264",
+    "term": "F22",
+    "instructorID": "BBED25313DB31B7F912B2D5089848C50"
+  },
+  {
+    "courseID": "AMST0264",
+    "term": "F22",
+    "instructorID": "88D1680887AE0661D5A798F901003B2F"
+  },
+  {
+    "courseID": "AMST0282",
+    "term": "F22",
+    "instructorID": "88D1680887AE0661D5A798F901003B2F"
+  },
+  {
+    "courseID": "AMST0287",
+    "term": "F22",
+    "instructorID": "3314AC56F1073624BB5C3C2B9DD346D3"
+  },
+  {
+    "courseID": "AMST0291",
+    "term": "F22",
+    "instructorID": "DBA7682E041FDF869E2BBE507852B0CD"
+  },
+  {
+    "courseID": "AMST0301",
+    "term": "F22",
+    "instructorID": "3415A6AFA51EDCD9F9CD4013A2C68E36"
+  },
+  {
+    "courseID": "AMST0307",
+    "term": "F22",
+    "instructorID": "3415A6AFA51EDCD9F9CD4013A2C68E36"
+  },
+  {
+    "courseID": "AMST0314",
+    "term": "F22",
+    "instructorID": "E1AA26EECE8D090367FF654D1F517C7A"
+  },
+  {
+    "courseID": "AMST0358",
+    "term": "F22",
+    "instructorID": "2F62DD619168364AA9BDC01556AF2A51"
+  },
+  {
+    "courseID": "AMST0400",
+    "term": "F22",
+    "instructorID": "EB22314A852970F29D9C828DEC3265D2"
+  },
+  {
+    "courseID": "ANTH0103",
+    "term": "F22",
+    "instructorID": "36ABE68689916ED6DC9A628709F5CD8C"
+  },
+  {
+    "courseID": "ANTH0125",
+    "term": "F22",
+    "instructorID": "8724BFF3B8EDED3EF4589B469BDCB965"
+  },
+  {
+    "courseID": "ANTH0221",
+    "term": "F22",
+    "instructorID": "7E0BD22F5C7614074D42AF59C4A17705"
+  },
+  {
+    "courseID": "ANTH0230",
+    "term": "F22",
+    "instructorID": "64B1BD910C848B837FB5E3F91CE1665D"
+  },
+  {
+    "courseID": "ANTH0232",
+    "term": "F22",
+    "instructorID": "31713591786A52B234FBF2AF71849977"
+  },
+  {
+    "courseID": "ANTH0241",
+    "term": "F22",
+    "instructorID": "7E0BD22F5C7614074D42AF59C4A17705"
+  },
+  {
+    "courseID": "ANTH0287",
+    "term": "F22",
+    "instructorID": "63B20E6912C46B8F991A396BB8B96DFA"
+  },
+  {
+    "courseID": "ANTH0302",
+    "term": "F22",
+    "instructorID": "63B20E6912C46B8F991A396BB8B96DFA"
+  },
+  {
+    "courseID": "ANTH0304",
+    "term": "F22",
+    "instructorID": "36ABE68689916ED6DC9A628709F5CD8C"
+  },
+  {
+    "courseID": "ARBC0101",
+    "term": "F22",
+    "instructorID": "C18B43860BECC98255C81AE287D89299"
+  },
+  {
+    "courseID": "ARBC0101",
+    "term": "F22",
+    "instructorID": "4A56D8EC8C51010A47F5D7444D22FB84"
+  },
+  {
+    "courseID": "ARBC0201",
+    "term": "F22",
+    "instructorID": "A40FB0EDD244631A5ABE05B9DB8C59B7"
+  },
+  {
+    "courseID": "ARBC0201",
+    "term": "F22",
+    "instructorID": "6A4690E148F4EF2A0767AFCB7011AEC2"
+  },
+  {
+    "courseID": "ARBC0245",
+    "term": "F22",
+    "instructorID": "4A56D8EC8C51010A47F5D7444D22FB84"
+  },
+  {
+    "courseID": "ARBC0301",
+    "term": "F22",
+    "instructorID": "6A4690E148F4EF2A0767AFCB7011AEC2"
+  },
+  {
+    "courseID": "ARBC0413",
+    "term": "F22",
+    "instructorID": "A40FB0EDD244631A5ABE05B9DB8C59B7"
+  },
+  {
+    "courseID": "ARDV0116",
+    "term": "F22",
+    "instructorID": "4BB20753F5BF03248FCA33807F56D94D"
+  },
+  {
+    "courseID": "_ART0156",
+    "term": "F22",
+    "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF"
+  },
+  {
+    "courseID": "_ART0159",
+    "term": "F22",
+    "instructorID": "4839CB3B489DA33A457CA972F901AF41"
+  },
+  {
+    "courseID": "_ART0174",
+    "term": "F22",
+    "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
+  },
+  {
+    "courseID": "_ART0315",
+    "term": "F22",
+    "instructorID": "4839CB3B489DA33A457CA972F901AF41"
+  },
+  {
+    "courseID": "_ART0348",
+    "term": "F22",
+    "instructorID": "084D3FDB44C7EB904917ECCD4DE708E6"
+  },
+  {
+    "courseID": "_ART0371",
+    "term": "F22",
+    "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
+  },
+  {
+    "courseID": "_ART0380",
+    "term": "F22",
+    "instructorID": "2A3612F3931E8BDE207BA2F553506727"
+  },
+  {
+    "courseID": "BIOL0140",
+    "term": "F22",
+    "instructorID": "51BFF5832BD6A9CB1D88964D045F9798"
+  },
+  {
+    "courseID": "BIOL0140",
+    "term": "F22",
+    "instructorID": "1989E0DDB6CE0526043CB3EBC4324F1F"
+  },
+  {
+    "courseID": "BIOL0140",
+    "term": "F22",
+    "instructorID": "8AF3AB029898FE58B2B539487A841978"
+  },
+  {
+    "courseID": "BIOL0140",
+    "term": "F22",
+    "instructorID": "13B1C12B60906E7CDCF868FBB8CB4C73"
+  },
+  {
+    "courseID": "BIOL0145",
+    "term": "F22",
+    "instructorID": "604CEF681674D80FFA4E6601001E065F"
+  },
+  {
+    "courseID": "BIOL0145",
+    "term": "F22",
+    "instructorID": "E82A3376ABD68AE9B0DA115A49CA1403"
+  },
+  {
+    "courseID": "BIOL0145",
+    "term": "F22",
+    "instructorID": "13B1C12B60906E7CDCF868FBB8CB4C73"
+  },
+  {
+    "courseID": "BIOL0145",
+    "term": "F22",
+    "instructorID": "0EEF5FFBF80E26E890DBAFB5B3966DEA"
+  },
+  {
+    "courseID": "BIOL0204",
+    "term": "F22",
+    "instructorID": "E80C2851E876713CF9FBF73A30ED977D"
+  },
+  {
+    "courseID": "BIOL0211",
+    "term": "F22",
+    "instructorID": "7BAAEF7AFCBE354564B9E003B32AB499"
+  },
+  {
+    "courseID": "BIOL0304",
+    "term": "F22",
+    "instructorID": "B8254EED4F08BDC932184E2EBD4E7D34"
+  },
+  {
+    "courseID": "BIOL0308",
+    "term": "F22",
+    "instructorID": "B1EFA2C8D3C58A19538445BF723BF868"
+  },
+  {
+    "courseID": "BIOL0314",
+    "term": "F22",
+    "instructorID": "E82A3376ABD68AE9B0DA115A49CA1403"
+  },
+  {
+    "courseID": "BIOL0324",
+    "term": "F22",
+    "instructorID": "7B8FAD3878ACF41ECDD8CA6580275951"
+  },
+  {
+    "courseID": "BIOL0365",
+    "term": "F22",
+    "instructorID": "2E3AF6AA5F7AB28F3192090EAA3232CA"
+  },
+  {
+    "courseID": "BLST0101",
+    "term": "F22",
+    "instructorID": "608426B96A7E0EC1A3BD3032DE87A40A"
+  },
+  {
+    "courseID": "BLST0105",
+    "term": "F22",
+    "instructorID": "948BB9387B70B84E336E856E03AE3206"
+  },
+  {
+    "courseID": "BLST0115",
+    "term": "F22",
+    "instructorID": "5AB6B5E762B3BF514617D18E5B4C6667"
+  },
+  {
+    "courseID": "BLST0174",
+    "term": "F22",
+    "instructorID": "8BE2436CF461459DDE1FC12563D1B822"
+  },
+  {
+    "courseID": "BLST0215",
+    "term": "F22",
+    "instructorID": "6AF32EA7C0382BDE59813BC0AD625ABE"
+  },
+  {
+    "courseID": "BLST0224",
+    "term": "F22",
+    "instructorID": "4FDA4C70C292DB4B19918B16B2DD1FCD"
+  },
+  {
+    "courseID": "BLST0225",
+    "term": "F22",
+    "instructorID": "428F7699A17A3A80BA016EEA90D3A1D4"
+  },
+  {
+    "courseID": "BLST0232",
+    "term": "F22",
+    "instructorID": "608426B96A7E0EC1A3BD3032DE87A40A"
+  },
+  {
+    "courseID": "BLST0248",
+    "term": "F22",
+    "instructorID": "4BB20753F5BF03248FCA33807F56D94D"
+  },
+  {
+    "courseID": "BLST0374",
+    "term": "F22",
+    "instructorID": "63A480028991D84CB6078ADCBD34C71E"
+  },
+  {
+    "courseID": "BLST0375",
+    "term": "F22",
+    "instructorID": "E5FDFE9D40A9ABE98A45F9DAC570615E"
+  },
+  {
+    "courseID": "CHEM0103",
+    "term": "F22",
+    "instructorID": "82BC2F99BBA7A6AB086BB2602F08E656"
+  },
+  {
+    "courseID": "CHEM0103",
+    "term": "F22",
+    "instructorID": "A58FA55DB62D78E291987302BC26CE93"
+  },
+  {
+    "courseID": "CHEM0103",
+    "term": "F22",
+    "instructorID": "F67E87DD30752A0E2C50AE2842D97939"
+  },
+  {
+    "courseID": "CHEM0103",
+    "term": "F22",
+    "instructorID": "847A9A9587A7C5D713207402B3AFD9CA"
+  },
+  {
+    "courseID": "CHEM0104",
+    "term": "F22",
+    "instructorID": "289055D7CEB6125D296208129D25706D"
+  },
+  {
+    "courseID": "CHEM0104",
+    "term": "F22",
+    "instructorID": "B2A7D3ACE466FCF1450A98EEFEDAB0B4"
+  },
+  {
+    "courseID": "CHEM0203",
+    "term": "F22",
+    "instructorID": "961270A9AA151057D32C1D01461D4F72"
+  },
+  {
+    "courseID": "CHEM0203",
+    "term": "F22",
+    "instructorID": "86BCD9720C0724AFB4E8EC6E9B79033D"
+  },
+  {
+    "courseID": "CHEM0204",
+    "term": "F22",
+    "instructorID": "A1D7F0A8321DE769F4F8F8416167CD3E"
+  },
+  {
+    "courseID": "CHEM0204",
+    "term": "F22",
+    "instructorID": "F67E87DD30752A0E2C50AE2842D97939"
+  },
+  {
+    "courseID": "CHEM0311",
+    "term": "F22",
+    "instructorID": "62CF0939951D55F5D2F5E7CCA0BBD33A"
+  },
+  {
+    "courseID": "CHEM0322",
+    "term": "F22",
+    "instructorID": "A58FA55DB62D78E291987302BC26CE93"
+  },
+  {
+    "courseID": "CHEM0351",
+    "term": "F22",
+    "instructorID": "62CF0939951D55F5D2F5E7CCA0BBD33A"
+  },
+  {
+    "courseID": "CHEM0400",
+    "term": "F22",
+    "instructorID": "B2A0FABC474E9D5533212AFA3288FFD0"
+  },
+  {
+    "courseID": "CHEM0425",
+    "term": "F22",
+    "instructorID": "B2A0FABC474E9D5533212AFA3288FFD0"
+  },
+  {
+    "courseID": "CHEM0431",
+    "term": "F22",
+    "instructorID": "4E7673C836EDA9A6ADDAFCC5E76499C6"
+  },
+  {
+    "courseID": "CHNS0101",
+    "term": "F22",
+    "instructorID": "B8D0B556359BE9D67A4612496DD07E77"
+  },
+  {
+    "courseID": "CHNS0101",
+    "term": "F22",
+    "instructorID": "2D7A16E1446B245011C9D95A5DB3A10A"
+  },
+  {
+    "courseID": "CHNS0201",
+    "term": "F22",
+    "instructorID": "F7C30CBB20769B5CE99A67636303DE5D"
+  },
+  {
+    "courseID": "CHNS0201",
+    "term": "F22",
+    "instructorID": "FC69F550E1515F2D00D1BC8CF490FDA0"
+  },
+  {
+    "courseID": "CHNS0219",
+    "term": "F22",
+    "instructorID": "F7C30CBB20769B5CE99A67636303DE5D"
+  },
+  {
+    "courseID": "CHNS0220",
+    "term": "F22",
+    "instructorID": "740E9587BF8057D0039828F54DDAF546"
+  },
+  {
+    "courseID": "CHNS0301",
+    "term": "F22",
+    "instructorID": "2D7A16E1446B245011C9D95A5DB3A10A"
+  },
+  {
+    "courseID": "CHNS0301",
+    "term": "F22",
+    "instructorID": "3F5ABBA04C178BFF8B7C8F248AA4C4CC"
+  },
+  {
+    "courseID": "CHNS0350",
+    "term": "F22",
+    "instructorID": "740E9587BF8057D0039828F54DDAF546"
+  },
+  {
+    "courseID": "CHNS0411",
+    "term": "F22",
+    "instructorID": "FC69F550E1515F2D00D1BC8CF490FDA0"
+  },
+  {
+    "courseID": "CHNS0425",
+    "term": "F22",
+    "instructorID": "3F5ABBA04C178BFF8B7C8F248AA4C4CC"
+  },
+  {
+    "courseID": "CLAS0131",
+    "term": "F22",
+    "instructorID": "F2549A47ECAE7C1FEDBC926514656672"
+  },
+  {
+    "courseID": "CLAS0143",
+    "term": "F22",
+    "instructorID": "42179414C25D051A55B61D24EA934542"
+  },
+  {
+    "courseID": "CLAS0150",
+    "term": "F22",
+    "instructorID": "0B704A1B96BB076EE496F5F70B8D3F31"
+  },
+  {
+    "courseID": "CLAS0450",
+    "term": "F22",
+    "instructorID": "DBCD8307315D8F33DAB24BD2ABDC0B30"
+  },
+  {
+    "courseID": "CLAS0701",
+    "term": "F22",
+    "instructorID": "DBCD8307315D8F33DAB24BD2ABDC0B30"
+  },
+  {
+    "courseID": "CMLT0123",
+    "term": "F22",
+    "instructorID": "F8D24630B317241DC15E1AF9E407B499"
+  },
+  {
+    "courseID": "CMLT0150",
+    "term": "F22",
+    "instructorID": "0B704A1B96BB076EE496F5F70B8D3F31"
+  },
+  {
+    "courseID": "CMLT0205",
+    "term": "F22",
+    "instructorID": "353B68F9AF880E7CA768B19AEB2B9953"
+  },
+  {
+    "courseID": "CMLT0238",
+    "term": "F22",
+    "instructorID": "4126E0ADF7A8944EFD02D220C6C70D49"
+  },
+  {
+    "courseID": "CMLT0286",
+    "term": "F22",
+    "instructorID": "335D089E7A89AF096BD4CFA093D2E40A"
+  },
+  {
+    "courseID": "CMLT0386",
+    "term": "F22",
+    "instructorID": "1759D0B4EAFB2A3A93D708EDF5FAE185"
+  },
+  {
+    "courseID": "CMLT0450",
+    "term": "F22",
+    "instructorID": "DBCD8307315D8F33DAB24BD2ABDC0B30"
+  },
+  {
+    "courseID": "CMLT0451",
+    "term": "F22",
+    "instructorID": "353B68F9AF880E7CA768B19AEB2B9953"
+  },
+  {
+    "courseID": "CRWR0106",
+    "term": "F22",
+    "instructorID": "5B102D1255929DBA4A202E7C0EDED6D4"
+  },
+  {
+    "courseID": "CRWR0170",
+    "term": "F22",
+    "instructorID": "DD194645B18E4DE168BBAF237E0F3D27"
+  },
+  {
+    "courseID": "CRWR0170",
+    "term": "F22",
+    "instructorID": "B60F66808A2CC54F616BCFBBF409DD13"
+  },
+  {
+    "courseID": "CRWR0175",
+    "term": "F22",
+    "instructorID": "B60F66808A2CC54F616BCFBBF409DD13"
+  },
+  {
+    "courseID": "CRWR0218",
+    "term": "F22",
+    "instructorID": "90338E439DA4652A2BDE2AC3F327A563"
+  },
+  {
+    "courseID": "CRWR0370",
+    "term": "F22",
+    "instructorID": "4B2EA87CFDECC2A1C584557A278166EF"
+  },
+  {
+    "courseID": "CRWR0375",
+    "term": "F22",
+    "instructorID": "80AC323ED5135D1BD1126DB9E351DA2E"
+  },
+  {
+    "courseID": "CRWR0380",
+    "term": "F22",
+    "instructorID": "A26123211EA944E7FBB18561CC0AA144"
+  },
+  {
+    "courseID": "CRWR0454",
+    "term": "F22",
+    "instructorID": "5011AC4F149EF67446B2091C65118AD6"
+  },
+  {
+    "courseID": "CSCI0145",
+    "term": "F22",
+    "instructorID": "D1DD64CB9304DC1C3D9816341A6214FC"
+  },
+  {
+    "courseID": "CSCI0150",
+    "term": "F22",
+    "instructorID": "A2AC71171F0C0CF8D1E502B2DCBF4DAB"
+  },
+  {
+    "courseID": "CSCI0200",
+    "term": "F22",
+    "instructorID": "775EF6B5D466E85B040334FBC42FF7AC"
+  },
+  {
+    "courseID": "CSCI0201",
+    "term": "F22",
+    "instructorID": "F574C0807AA68D774B95DA064BA1475A"
+  },
+  {
+    "courseID": "CSCI0202",
+    "term": "F22",
+    "instructorID": "F6822B69DB1BFEF738BC8FF68C068640"
+  },
+  {
+    "courseID": "CSCI0301",
+    "term": "F22",
+    "instructorID": "775EF6B5D466E85B040334FBC42FF7AC"
+  },
+  {
+    "courseID": "CSCI0311",
+    "term": "F22",
+    "instructorID": "A2AC71171F0C0CF8D1E502B2DCBF4DAB"
+  },
+  {
+    "courseID": "CSCI0312",
+    "term": "F22",
+    "instructorID": "0000B179AB1F457FE988C16085F42DDE"
+  },
+  {
+    "courseID": "CSCI0315",
+    "term": "F22",
+    "instructorID": "F6822B69DB1BFEF738BC8FF68C068640"
+  },
+  {
+    "courseID": "CSCI0433",
+    "term": "F22",
+    "instructorID": "3DE304B2C7C354D212CCF64D8FC3919A"
+  },
+  {
+    "courseID": "CSCI0465",
+    "term": "F22",
+    "instructorID": "0000B179AB1F457FE988C16085F42DDE"
+  },
+  {
+    "courseID": "CSCI0701",
+    "term": "F22",
+    "instructorID": "3DE304B2C7C354D212CCF64D8FC3919A"
+  },
+  {
+    "courseID": "DANC0160",
+    "term": "F22",
+    "instructorID": "C3C422BB4E056217116CF5F47CC66F2A"
+  },
+  {
+    "courseID": "DANC0260",
+    "term": "F22",
+    "instructorID": "3F1285F4DD81824CB42A177D0893577D"
+  },
+  {
+    "courseID": "DANC0261",
+    "term": "F22",
+    "instructorID": "82D1FBA48381E1ADCEBD72E320987EAC"
+  },
+  {
+    "courseID": "DANC0277",
+    "term": "F22",
+    "instructorID": "3F1285F4DD81824CB42A177D0893577D"
+  },
+  {
+    "courseID": "DANC0360",
+    "term": "F22",
+    "instructorID": "CF429294CAC43EBB71EA77B2BB5391CF"
+  },
+  {
+    "courseID": "DANC0380",
+    "term": "F22",
+    "instructorID": "C3C422BB4E056217116CF5F47CC66F2A"
+  },
+  {
+    "courseID": "ECON0111",
+    "term": "F22",
+    "instructorID": "41A9AE26E0CFD30EF48A0BA512363F4E"
+  },
+  {
+    "courseID": "ECON0111",
+    "term": "F22",
+    "instructorID": "7D4C6B2D9F24BDB5809D5947FC7338BC"
+  },
+  {
+    "courseID": "ECON0150",
+    "term": "F22",
+    "instructorID": "4DF105E073C84E5F6E7327E7051DFF77"
+  },
+  {
+    "courseID": "ECON0150",
+    "term": "F22",
+    "instructorID": "5E14E6768ADB88CB41EE61FC82F958AF"
+  },
+  {
+    "courseID": "ECON0150",
+    "term": "F22",
+    "instructorID": "09DAF2E83F6528BF828786C82BB39FB9"
+  },
+  {
+    "courseID": "ECON0150",
+    "term": "F22",
+    "instructorID": "247A9113F6FEF7D8ADD5D2813807F5C8"
+  },
+  {
+    "courseID": "ECON0155",
+    "term": "F22",
+    "instructorID": "0E206A3DE3E62AAF4BBDBD358AA65EBE"
+  },
+  {
+    "courseID": "ECON0155",
+    "term": "F22",
+    "instructorID": "E808A04D206258FB3D31F2D8FF7BE285"
+  },
+  {
+    "courseID": "ECON0155",
+    "term": "F22",
+    "instructorID": "36C0FFC8FBF0B8830027CB0B726E96E9"
+  },
+  {
+    "courseID": "ECON0211",
+    "term": "F22",
+    "instructorID": "3DAE4B8382EE810A238661903DCDA2B7"
+  },
+  {
+    "courseID": "ECON0228",
+    "term": "F22",
+    "instructorID": "87EE090F0826CE5E23FBD81B605B22F6"
+  },
+  {
+    "courseID": "ECON0229",
+    "term": "F22",
+    "instructorID": "7D4C6B2D9F24BDB5809D5947FC7338BC"
+  },
+  {
+    "courseID": "ECON0250",
+    "term": "F22",
+    "instructorID": "513216CEA24B3B8A593F60149D9B501B"
+  },
+  {
+    "courseID": "ECON0255",
+    "term": "F22",
+    "instructorID": "45341434052C76031F1138C6B4276B68"
+  },
+  {
+    "courseID": "ECON0255",
+    "term": "F22",
+    "instructorID": "4B9522045037EEB1760C552B0B57C04D"
+  },
+  {
+    "courseID": "ECON0260",
+    "term": "F22",
+    "instructorID": "A89E904BE46BDB734080D0AB85AF2B8A"
+  },
+  {
+    "courseID": "ECON0265",
+    "term": "F22",
+    "instructorID": "41A9AE26E0CFD30EF48A0BA512363F4E"
+  },
+  {
+    "courseID": "ECON0350",
+    "term": "F22",
+    "instructorID": "A89E904BE46BDB734080D0AB85AF2B8A"
+  },
+  {
+    "courseID": "ECON0360",
+    "term": "F22",
+    "instructorID": "247A9113F6FEF7D8ADD5D2813807F5C8"
+  },
+  {
+    "courseID": "ECON0365",
+    "term": "F22",
+    "instructorID": "4B9522045037EEB1760C552B0B57C04D"
+  },
+  {
+    "courseID": "ECON0411",
+    "term": "F22",
+    "instructorID": "E808A04D206258FB3D31F2D8FF7BE285"
+  },
+  {
+    "courseID": "ECON0425",
+    "term": "F22",
+    "instructorID": "AE8B7891A56495B614A4430A64B10F24"
+  },
+  {
+    "courseID": "ECON0431",
+    "term": "F22",
+    "instructorID": "513216CEA24B3B8A593F60149D9B501B"
+  },
+  {
+    "courseID": "ECON0453",
+    "term": "F22",
+    "instructorID": "09DAF2E83F6528BF828786C82BB39FB9"
+  },
+  {
+    "courseID": "ECON0465",
+    "term": "F22",
+    "instructorID": "A792424EFB52FEA9D8C3BFD15666E20B"
+  },
+  {
+    "courseID": "ECON0485",
+    "term": "F22",
+    "instructorID": "0E206A3DE3E62AAF4BBDBD358AA65EBE"
+  },
+  {
+    "courseID": "ECON0499",
+    "term": "F22",
+    "instructorID": "8D41AF182DA0A6CD7526D7033B665801"
+  },
+  {
+    "courseID": "ECON0701",
+    "term": "F22",
+    "instructorID": "45341434052C76031F1138C6B4276B68"
+  },
+  {
+    "courseID": "ECON0701",
+    "term": "F22",
+    "instructorID": "998F4652D1E3166AEE65B5F3C40B7A94"
+  },
+  {
+    "courseID": "ECSC0112",
+    "term": "F22",
+    "instructorID": "43DA1DC94A5922C840F11461809C1B91"
+  },
+  {
+    "courseID": "ECSC0161",
+    "term": "F22",
+    "instructorID": "A6EAF29B25268B44AD172D87A64684B5"
+  },
+  {
+    "courseID": "ECSC0201",
+    "term": "F22",
+    "instructorID": "5FBA0531A015AE3486D6B3B286296726"
+  },
+  {
+    "courseID": "ECSC0202",
+    "term": "F22",
+    "instructorID": "7BB0EEEA4E65A6DC3EE1D8BCDD653CE5"
+  },
+  {
+    "courseID": "ECSC0357",
+    "term": "F22",
+    "instructorID": "58281F423FB805EE2CD1E978C4572352"
+  },
+  {
+    "courseID": "ECSC0400",
+    "term": "F22",
+    "instructorID": "A6EAF29B25268B44AD172D87A64684B5"
+  },
+  {
+    "courseID": "EDST0102",
+    "term": "F22",
+    "instructorID": "ADF8F2A8FA7AFD6CCC0572A4D09D9BDD"
+  },
+  {
+    "courseID": "EDST0111",
+    "term": "F22",
+    "instructorID": "5AB6B5E762B3BF514617D18E5B4C6667"
+  },
+  {
+    "courseID": "EDST0115",
+    "term": "F22",
+    "instructorID": "5AB6B5E762B3BF514617D18E5B4C6667"
+  },
+  {
+    "courseID": "EDST0210",
+    "term": "F22",
+    "instructorID": "DBA7682E041FDF869E2BBE507852B0CD"
+  },
+  {
+    "courseID": "EDST0213",
+    "term": "F22",
+    "instructorID": "87CED3FD7AF0C13BF53EEA002D5E787F"
+  },
+  {
+    "courseID": "EDST0215",
+    "term": "F22",
+    "instructorID": "6AF32EA7C0382BDE59813BC0AD625ABE"
+  },
+  {
+    "courseID": "EDST0237",
+    "term": "F22",
+    "instructorID": "AB24D3022A48F2C394E118CB47F04879"
+  },
+  {
+    "courseID": "EDST0305",
+    "term": "F22",
+    "instructorID": "725949FA28731758E8AF2FDC72AFA34F"
+  },
+  {
+    "courseID": "EDST0405",
+    "term": "F22",
+    "instructorID": "725949FA28731758E8AF2FDC72AFA34F"
+  },
+  {
+    "courseID": "EDST0406",
+    "term": "F22",
+    "instructorID": "725949FA28731758E8AF2FDC72AFA34F"
+  },
+  {
+    "courseID": "EDST0407",
+    "term": "F22",
+    "instructorID": "725949FA28731758E8AF2FDC72AFA34F"
+  },
+  {
+    "courseID": "EDST0410",
+    "term": "F22",
+    "instructorID": "725949FA28731758E8AF2FDC72AFA34F"
+  },
+  {
+    "courseID": "EDST0415",
+    "term": "F22",
+    "instructorID": "F5948C3AACAEB4B52C12BE6027568A20"
+  },
+  {
+    "courseID": "EDST0416",
+    "term": "F22",
+    "instructorID": "F5948C3AACAEB4B52C12BE6027568A20"
+  },
+  {
+    "courseID": "EDST0417",
+    "term": "F22",
+    "instructorID": "F5948C3AACAEB4B52C12BE6027568A20"
+  },
+  {
+    "courseID": "ENGL0103",
+    "term": "F22",
+    "instructorID": "8E9E0EBC961731CCC79C281611143831"
+  },
+  {
+    "courseID": "ENGL0103",
+    "term": "F22",
+    "instructorID": "8014BD7E5A4FF1E898CA1CDA431D41CA"
+  },
+  {
+    "courseID": "ENGL0103",
+    "term": "F22",
+    "instructorID": "2C15FF264E152A310A896055692CAB5F"
+  },
+  {
+    "courseID": "ENGL0108",
+    "term": "F22",
+    "instructorID": "9FBE17ED74F41AB70C5A36067B5A00DF"
+  },
+  {
+    "courseID": "ENGL0112",
+    "term": "F22",
+    "instructorID": "1DAF2F53B85EC4561E658926C6B070B6"
+  },
+  {
+    "courseID": "ENGL0115",
+    "term": "F22",
+    "instructorID": "1DAF2F53B85EC4561E658926C6B070B6"
+  },
+  {
+    "courseID": "ENGL0123",
+    "term": "F22",
+    "instructorID": "F8D24630B317241DC15E1AF9E407B499"
+  },
+  {
+    "courseID": "ENGL0205",
+    "term": "F22",
+    "instructorID": "353B68F9AF880E7CA768B19AEB2B9953"
+  },
+  {
+    "courseID": "ENGL0206",
+    "term": "F22",
+    "instructorID": "E34554346788B8778EA8B40079C181C4"
+  },
+  {
+    "courseID": "ENGL0209",
+    "term": "F22",
+    "instructorID": "38281666015C523B87B3FB8F52EC48DA"
+  },
+  {
+    "courseID": "ENGL0225",
+    "term": "F22",
+    "instructorID": "64EE9CEED2BA9392E7FA9CFD9C05E48B"
+  },
+  {
+    "courseID": "ENGL0242",
+    "term": "F22",
+    "instructorID": "8014BD7E5A4FF1E898CA1CDA431D41CA"
+  },
+  {
+    "courseID": "ENGL0244",
+    "term": "F22",
+    "instructorID": "4B2EA87CFDECC2A1C584557A278166EF"
+  },
+  {
+    "courseID": "ENGL0252",
+    "term": "F22",
+    "instructorID": "2F62DD619168364AA9BDC01556AF2A51"
+  },
+  {
+    "courseID": "ENGL0253",
+    "term": "F22",
+    "instructorID": "3314AC56F1073624BB5C3C2B9DD346D3"
+  },
+  {
+    "courseID": "ENGL0282",
+    "term": "F22",
+    "instructorID": "88D1680887AE0661D5A798F901003B2F"
+  },
+  {
+    "courseID": "ENGL0287",
+    "term": "F22",
+    "instructorID": "3314AC56F1073624BB5C3C2B9DD346D3"
+  },
+  {
+    "courseID": "ENGL0291",
+    "term": "F22",
+    "instructorID": "DBA7682E041FDF869E2BBE507852B0CD"
+  },
+  {
+    "courseID": "ENGL0316",
+    "term": "F22",
+    "instructorID": "80AC323ED5135D1BD1126DB9E351DA2E"
+  },
+  {
+    "courseID": "ENGL0320",
+    "term": "F22",
+    "instructorID": "2C15FF264E152A310A896055692CAB5F"
+  },
+  {
+    "courseID": "ENGL0358",
+    "term": "F22",
+    "instructorID": "2F62DD619168364AA9BDC01556AF2A51"
+  },
+  {
+    "courseID": "ENGL0451",
+    "term": "F22",
+    "instructorID": "353B68F9AF880E7CA768B19AEB2B9953"
+  },
+  {
+    "courseID": "ENGL0454",
+    "term": "F22",
+    "instructorID": "5011AC4F149EF67446B2091C65118AD6"
+  },
+  {
+    "courseID": "ENVS0112",
+    "term": "F22",
+    "instructorID": "58281F423FB805EE2CD1E978C4572352"
+  },
+  {
+    "courseID": "ENVS0112",
+    "term": "F22",
+    "instructorID": "CBBEB5459B95503AA26C8B7A9FF330BF"
+  },
+  {
+    "courseID": "ENVS0112",
+    "term": "F22",
+    "instructorID": "6F0CA1E1A2F9C76B001750B3570D4FBA"
+  },
+  {
+    "courseID": "ENVS0118",
+    "term": "F22",
+    "instructorID": "06F96738C1E011D5B87BA6D64FA1784A"
+  },
+  {
+    "courseID": "ENVS0150",
+    "term": "F22",
+    "instructorID": "04971DA03D394CCDCE57432B237242D2"
+  },
+  {
+    "courseID": "ENVS0166",
+    "term": "F22",
+    "instructorID": "B1EFA2C8D3C58A19538445BF723BF868"
+  },
+  {
+    "courseID": "ENVS0209",
+    "term": "F22",
+    "instructorID": "CF858B7BED9EB2485AB8EF2ED16FB5CB"
+  },
+  {
+    "courseID": "ENVS0211",
+    "term": "F22",
+    "instructorID": "A792424EFB52FEA9D8C3BFD15666E20B"
+  },
+  {
+    "courseID": "ENVS0215",
+    "term": "F22",
+    "instructorID": "8E9E0EBC961731CCC79C281611143831"
+  },
+  {
+    "courseID": "ENVS0220",
+    "term": "F22",
+    "instructorID": "7E956EED64F609D9E16DC3C6A3DE9B67"
+  },
+  {
+    "courseID": "ENVS0245",
+    "term": "F22",
+    "instructorID": "4A56D8EC8C51010A47F5D7444D22FB84"
+  },
+  {
+    "courseID": "ENVS0401",
+    "term": "F22",
+    "instructorID": "06F96738C1E011D5B87BA6D64FA1784A"
+  },
+  {
+    "courseID": "ENVS0401",
+    "term": "F22",
+    "instructorID": "FBF944C3D7E428F4425AE5414C9B4C06"
+  },
+  {
+    "courseID": "FMMC0101",
+    "term": "F22",
+    "instructorID": "A316A7E912B054980B7CD3ACFD5949CF"
+  },
+  {
+    "courseID": "FMMC0102",
+    "term": "F22",
+    "instructorID": "31725A9574D633FFACF1F1E5C5560C74"
+  },
+  {
+    "courseID": "FMMC0105",
+    "term": "F22",
+    "instructorID": "5B102D1255929DBA4A202E7C0EDED6D4"
+  },
+  {
+    "courseID": "FMMC0106",
+    "term": "F22",
+    "instructorID": "5B102D1255929DBA4A202E7C0EDED6D4"
+  },
+  {
+    "courseID": "FMMC0224",
+    "term": "F22",
+    "instructorID": "4FDA4C70C292DB4B19918B16B2DD1FCD"
+  },
+  {
+    "courseID": "FMMC0252",
+    "term": "F22",
+    "instructorID": "31725A9574D633FFACF1F1E5C5560C74"
+  },
+  {
+    "courseID": "FMMC0276",
+    "term": "F22",
+    "instructorID": "DF5327E57DC65C9CA22E0045B842BBA0"
+  },
+  {
+    "courseID": "FMMC0304",
+    "term": "F22",
+    "instructorID": "293BC30459A1F9F7F1265E77F9A163D9"
+  },
+  {
+    "courseID": "FMMC0334",
+    "term": "F22",
+    "instructorID": "9C807581A92322DDF2AB21BDA6036168"
+  },
+  {
+    "courseID": "FMMC0350",
+    "term": "F22",
+    "instructorID": "740E9587BF8057D0039828F54DDAF546"
+  },
+  {
+    "courseID": "FMMC0351",
+    "term": "F22",
+    "instructorID": "37FBA9B1E77BFB032B8144ADCEBA8A46"
+  },
+  {
+    "courseID": "FMMC0358",
+    "term": "F22",
+    "instructorID": "DF5327E57DC65C9CA22E0045B842BBA0"
+  },
+  {
+    "courseID": "FOOD0280",
+    "term": "F22",
+    "instructorID": "AD898008B7D240406B58EE1A24EC6973"
+  },
+  {
+    "courseID": "FOOD0310",
+    "term": "F22",
+    "instructorID": "AD898008B7D240406B58EE1A24EC6973"
+  },
+  {
+    "courseID": "FREN0101",
+    "term": "F22",
+    "instructorID": "2AF098F38F961D1F5956AAF020E505BA"
+  },
+  {
+    "courseID": "FREN0101",
+    "term": "F22",
+    "instructorID": "313ED23082C62818B6A1CAAB011E5A8D"
+  },
+  {
+    "courseID": "FREN0201",
+    "term": "F22",
+    "instructorID": "6DDE7CA27B41F261BFBA83E9A17DA480"
+  },
+  {
+    "courseID": "FREN0205",
+    "term": "F22",
+    "instructorID": "6DDE7CA27B41F261BFBA83E9A17DA480"
+  },
+  {
+    "courseID": "FREN0205",
+    "term": "F22",
+    "instructorID": "943ECA4FC732B31E4F1E816A3704589A"
+  },
+  {
+    "courseID": "FREN0209",
+    "term": "F22",
+    "instructorID": "6074A33BD5C38DCEBFBEE837FAE7C87E"
+  },
+  {
+    "courseID": "FREN0224",
+    "term": "F22",
+    "instructorID": "2AF098F38F961D1F5956AAF020E505BA"
+  },
+  {
+    "courseID": "FREN0230",
+    "term": "F22",
+    "instructorID": "943ECA4FC732B31E4F1E816A3704589A"
+  },
+  {
+    "courseID": "FREN0330",
+    "term": "F22",
+    "instructorID": "2208D1206F85F534C4BD84628A8A56D4"
+  },
+  {
+    "courseID": "FREN0335",
+    "term": "F22",
+    "instructorID": "313ED23082C62818B6A1CAAB011E5A8D"
+  },
+  {
+    "courseID": "FYSE1001",
+    "term": "F22",
+    "instructorID": "428F7699A17A3A80BA016EEA90D3A1D4"
+  },
+  {
+    "courseID": "FYSE1002",
+    "term": "F22",
+    "instructorID": "B91A11C5F210206CA33093F381406DAF"
+  },
+  {
+    "courseID": "FYSE1004",
+    "term": "F22",
+    "instructorID": "411DE1A776E995B3AF89D611BA7E09CB"
+  },
+  {
+    "courseID": "FYSE1005",
+    "term": "F22",
+    "instructorID": "F06933E27725230518C5BD5100E2D021"
+  },
+  {
+    "courseID": "FYSE1006",
+    "term": "F22",
+    "instructorID": "E80C2851E876713CF9FBF73A30ED977D"
+  },
+  {
+    "courseID": "FYSE1007",
+    "term": "F22",
+    "instructorID": "64EE9CEED2BA9392E7FA9CFD9C05E48B"
+  },
+  {
+    "courseID": "FYSE1008",
+    "term": "F22",
+    "instructorID": "C18B43860BECC98255C81AE287D89299"
+  },
+  {
+    "courseID": "FYSE1009",
+    "term": "F22",
+    "instructorID": "2A3612F3931E8BDE207BA2F553506727"
+  },
+  {
+    "courseID": "FYSE1010",
+    "term": "F22",
+    "instructorID": "CF858B7BED9EB2485AB8EF2ED16FB5CB"
+  },
+  {
+    "courseID": "FYSE1011",
+    "term": "F22",
+    "instructorID": "20BB18F56A41D6C8F3E9DBF6F51BFA9D"
+  },
+  {
+    "courseID": "FYSE1012",
+    "term": "F22",
+    "instructorID": "2018712E1D4848B28D059AA3B0BE4760"
+  },
+  {
+    "courseID": "FYSE1013",
+    "term": "F22",
+    "instructorID": "6AF32EA7C0382BDE59813BC0AD625ABE"
+  },
+  {
+    "courseID": "FYSE1014",
+    "term": "F22",
+    "instructorID": "DB0B7E063649E3F27FD17B2647FC894D"
+  },
+  {
+    "courseID": "FYSE1015",
+    "term": "F22",
+    "instructorID": "9C807581A92322DDF2AB21BDA6036168"
+  },
+  {
+    "courseID": "FYSE1016",
+    "term": "F22",
+    "instructorID": "948BB9387B70B84E336E856E03AE3206"
+  },
+  {
+    "courseID": "FYSE1017",
+    "term": "F22",
+    "instructorID": "2208D1206F85F534C4BD84628A8A56D4"
+  },
+  {
+    "courseID": "FYSE1018",
+    "term": "F22",
+    "instructorID": "A26123211EA944E7FBB18561CC0AA144"
+  },
+  {
+    "courseID": "FYSE1019",
+    "term": "F22",
+    "instructorID": "68C8D326BEDC2E16088A2E161583BCF3"
+  },
+  {
+    "courseID": "FYSE1020",
+    "term": "F22",
+    "instructorID": "04971DA03D394CCDCE57432B237242D2"
+  },
+  {
+    "courseID": "FYSE1029",
+    "term": "F22",
+    "instructorID": "38281666015C523B87B3FB8F52EC48DA"
+  },
+  {
+    "courseID": "FYSE1038",
+    "term": "F22",
+    "instructorID": "AB24D3022A48F2C394E118CB47F04879"
+  },
+  {
+    "courseID": "FYSE1041",
+    "term": "F22",
+    "instructorID": "DE1DDE977272E8B8D75E391E76AE93F1"
+  },
+  {
+    "courseID": "FYSE1120",
+    "term": "F22",
+    "instructorID": "5FBA0531A015AE3486D6B3B286296726"
+  },
+  {
+    "courseID": "FYSE1154",
+    "term": "F22",
+    "instructorID": "0B704A1B96BB076EE496F5F70B8D3F31"
+  },
+  {
+    "courseID": "FYSE1167",
+    "term": "F22",
+    "instructorID": "F8D24630B317241DC15E1AF9E407B499"
+  },
+  {
+    "courseID": "FYSE1269",
+    "term": "F22",
+    "instructorID": "B8D0B556359BE9D67A4612496DD07E77"
+  },
+  {
+    "courseID": "FYSE1292",
+    "term": "F22",
+    "instructorID": "F86D802267249A01F24AED3F3AAA917F"
+  },
+  {
+    "courseID": "FYSE1308",
+    "term": "F22",
+    "instructorID": "E4931EE5E19F27BC9C45B36C97D3E89B"
+  },
+  {
+    "courseID": "FYSE1309",
+    "term": "F22",
+    "instructorID": "2E6C1B042D6893794CFD5DA35C15B72B"
+  },
+  {
+    "courseID": "FYSE1317",
+    "term": "F22",
+    "instructorID": "2ECA27B5F3CED31181268AED7EBBD287"
+  },
+  {
+    "courseID": "FYSE1323",
+    "term": "F22",
+    "instructorID": "31713591786A52B234FBF2AF71849977"
+  },
+  {
+    "courseID": "FYSE1419",
+    "term": "F22",
+    "instructorID": "FCB3561BB007EF02906627759D017C26"
+  },
+  {
+    "courseID": "FYSE1453",
+    "term": "F22",
+    "instructorID": "5BF99E8B7F619EE65C57E3B07E011A68"
+  },
+  {
+    "courseID": "FYSE1461",
+    "term": "F22",
+    "instructorID": "C13F62CF78B4B50ADBBF33756DF71128"
+  },
+  {
+    "courseID": "FYSE1464",
+    "term": "F22",
+    "instructorID": "7C85D384A845D8094BFDC46237DF3B07"
+  },
+  {
+    "courseID": "FYSE1479",
+    "term": "F22",
+    "instructorID": "E34554346788B8778EA8B40079C181C4"
+  },
+  {
+    "courseID": "FYSE1491",
+    "term": "F22",
+    "instructorID": "5011AC4F149EF67446B2091C65118AD6"
+  },
+  {
+    "courseID": "FYSE1511",
+    "term": "F22",
+    "instructorID": "EA677E6759BC87089DA2763DC47DAE9B"
+  },
+  {
+    "courseID": "FYSE1554",
+    "term": "F22",
+    "instructorID": "DD194645B18E4DE168BBAF237E0F3D27"
+  },
+  {
+    "courseID": "FYSE1560",
+    "term": "F22",
+    "instructorID": "2E3AF6AA5F7AB28F3192090EAA3232CA"
+  },
+  {
+    "courseID": "FYSE1575",
+    "term": "F22",
+    "instructorID": "E663FBC963E64FE586F1815E5EE3E69D"
+  },
+  {
+    "courseID": "FYSE1580",
+    "term": "F22",
+    "instructorID": "A316A7E912B054980B7CD3ACFD5949CF"
+  },
+  {
+    "courseID": "FYSE1585",
+    "term": "F22",
+    "instructorID": "1128BC3BEC9B32BB9275A5B36127526B"
+  },
+  {
+    "courseID": "GEOG0100",
+    "term": "F22",
+    "instructorID": "290C9BCEFD0C8F278E72785ECFF6C392"
+  },
+  {
+    "courseID": "GEOG0139",
+    "term": "F22",
+    "instructorID": "A6F4F0D8197CCCBFCEE4A6CE9645FFE7"
+  },
+  {
+    "courseID": "GEOG0150",
+    "term": "F22",
+    "instructorID": "04971DA03D394CCDCE57432B237242D2"
+  },
+  {
+    "courseID": "GEOG0201",
+    "term": "F22",
+    "instructorID": "798336D763BAF962081BCC85267BD218"
+  },
+  {
+    "courseID": "GEOG0210",
+    "term": "F22",
+    "instructorID": "798336D763BAF962081BCC85267BD218"
+  },
+  {
+    "courseID": "GEOG0221",
+    "term": "F22",
+    "instructorID": "5D7A85224D895117373A9B10F4F30DEA"
+  },
+  {
+    "courseID": "GEOG0225",
+    "term": "F22",
+    "instructorID": "A6F4F0D8197CCCBFCEE4A6CE9645FFE7"
+  },
+  {
+    "courseID": "GEOG0232",
+    "term": "F22",
+    "instructorID": "608426B96A7E0EC1A3BD3032DE87A40A"
+  },
+  {
+    "courseID": "GEOG0351",
+    "term": "F22",
+    "instructorID": "5D7A85224D895117373A9B10F4F30DEA"
+  },
+  {
+    "courseID": "GEOG0413",
+    "term": "F22",
+    "instructorID": "290C9BCEFD0C8F278E72785ECFF6C392"
+  },
+  {
+    "courseID": "GHLT0232",
+    "term": "F22",
+    "instructorID": "7BAAEF7AFCBE354564B9E003B32AB499"
+  },
+  {
+    "courseID": "GHLT0235",
+    "term": "F22",
+    "instructorID": "ED7B73CCE3292B075FD7382C30BFFEB5"
+  },
+  {
+    "courseID": "GHLT0257",
+    "term": "F22",
+    "instructorID": "87EEC3A387C12918B5559E21A0F6A387"
+  },
+  {
+    "courseID": "GREK0201",
+    "term": "F22",
+    "instructorID": "F2549A47ECAE7C1FEDBC926514656672"
+  },
+  {
+    "courseID": "GRMN0101",
+    "term": "F22",
+    "instructorID": "63A480028991D84CB6078ADCBD34C71E"
+  },
+  {
+    "courseID": "GRMN0101",
+    "term": "F22",
+    "instructorID": "955358ECE78CE73A328BA57180418DD8"
+  },
+  {
+    "courseID": "GRMN0201",
+    "term": "F22",
+    "instructorID": "3634F15F36D6F25A08B4BB0203078FF8"
+  },
+  {
+    "courseID": "GRMN0201",
+    "term": "F22",
+    "instructorID": "399298C5CCA9AAF2E29C0EE3D43B7FCE"
+  },
+  {
+    "courseID": "GRMN0350",
+    "term": "F22",
+    "instructorID": "3634F15F36D6F25A08B4BB0203078FF8"
+  },
+  {
+    "courseID": "GRMN0370",
+    "term": "F22",
+    "instructorID": "955358ECE78CE73A328BA57180418DD8"
+  },
+  {
+    "courseID": "GRMN0421",
+    "term": "F22",
+    "instructorID": "399298C5CCA9AAF2E29C0EE3D43B7FCE"
+  },
+  {
+    "courseID": "GSFS0191",
+    "term": "F22",
+    "instructorID": "2C7CF1C500B1611C390F509167D049D0"
+  },
+  {
+    "courseID": "GSFS0209",
+    "term": "F22",
+    "instructorID": "CF858B7BED9EB2485AB8EF2ED16FB5CB"
+  },
+  {
+    "courseID": "GSFS0210",
+    "term": "F22",
+    "instructorID": "A1254A934DA9A43687CCFFA052E45058"
+  },
+  {
+    "courseID": "GSFS0242",
+    "term": "F22",
+    "instructorID": "8014BD7E5A4FF1E898CA1CDA431D41CA"
+  },
+  {
+    "courseID": "GSFS0288",
+    "term": "F22",
+    "instructorID": "6AFD31847CCDD6AE6577AFAA62C2E03C"
+  },
+  {
+    "courseID": "GSFS0289",
+    "term": "F22",
+    "instructorID": "908485A2FA661010AA86B854469E40E2"
+  },
+  {
+    "courseID": "GSFS0304",
+    "term": "F22",
+    "instructorID": "36ABE68689916ED6DC9A628709F5CD8C"
+  },
+  {
+    "courseID": "GSFS0358",
+    "term": "F22",
+    "instructorID": "DF5327E57DC65C9CA22E0045B842BBA0"
+  },
+  {
+    "courseID": "GSFS0373",
+    "term": "F22",
+    "instructorID": "FCB3561BB007EF02906627759D017C26"
+  },
+  {
+    "courseID": "GSFS0374",
+    "term": "F22",
+    "instructorID": "63A480028991D84CB6078ADCBD34C71E"
+  },
+  {
+    "courseID": "GSFS0389",
+    "term": "F22",
+    "instructorID": "2C7CF1C500B1611C390F509167D049D0"
+  },
+  {
+    "courseID": "GSFS0435",
+    "term": "F22",
+    "instructorID": "908485A2FA661010AA86B854469E40E2"
+  },
+  {
+    "courseID": "GSFS0443",
+    "term": "F22",
+    "instructorID": "E5FDFE9D40A9ABE98A45F9DAC570615E"
+  },
+  {
+    "courseID": "GSFS0458",
+    "term": "F22",
+    "instructorID": "B4D34C135EA69007C2A5EA1B70DBD78A"
+  },
+  {
+    "courseID": "HARC0100",
+    "term": "F22",
+    "instructorID": "B2C46E0B6A1FA07FAE11C562146BFEF4"
+  },
+  {
+    "courseID": "HARC0130",
+    "term": "F22",
+    "instructorID": "243888F88F4B248808BB0703E7F9130B"
+  },
+  {
+    "courseID": "HARC0202",
+    "term": "F22",
+    "instructorID": "3F0CE7A513ED17EB66A4B8ADF782BD6D"
+  },
+  {
+    "courseID": "HARC0219",
+    "term": "F22",
+    "instructorID": "2A8D69E7767D3516B0F757D62366F21C"
+  },
+  {
+    "courseID": "HARC0254",
+    "term": "F22",
+    "instructorID": "5FAD334DD5F1CF994EFD116A90B05319"
+  },
+  {
+    "courseID": "HARC0259",
+    "term": "F22",
+    "instructorID": "5EA9655FD99D097BB6AFB108FA779435"
+  },
+  {
+    "courseID": "HARC0260",
+    "term": "F22",
+    "instructorID": "005DA2AD086C543D5979380D1F4B7114"
+  },
+  {
+    "courseID": "HARC0301",
+    "term": "F22",
+    "instructorID": "005DA2AD086C543D5979380D1F4B7114"
+  },
+  {
+    "courseID": "HARC0330",
+    "term": "F22",
+    "instructorID": "36B1BFF06C9D5CBABA5441C5506A9752"
+  },
+  {
+    "courseID": "HARC0364",
+    "term": "F22",
+    "instructorID": "B2C46E0B6A1FA07FAE11C562146BFEF4"
+  },
+  {
+    "courseID": "HARC0373",
+    "term": "F22",
+    "instructorID": "B43211984226D5695DBD68CC56D6794C"
+  },
+  {
+    "courseID": "HARC0374",
+    "term": "F22",
+    "instructorID": "3F0CE7A513ED17EB66A4B8ADF782BD6D"
+  },
+  {
+    "courseID": "HARC0710",
+    "term": "F22",
+    "instructorID": "5FAD334DD5F1CF994EFD116A90B05319"
+  },
+  {
+    "courseID": "HARC0731",
+    "term": "F22",
+    "instructorID": "C9D5B575937C9853D39DF06192F91274"
+  },
+  {
+    "courseID": "HEBM0101",
+    "term": "F22",
+    "instructorID": "B08C0725FED9D9AECD7CD5094149492F"
+  },
+  {
+    "courseID": "HEBM0201",
+    "term": "F22",
+    "instructorID": "B08C0725FED9D9AECD7CD5094149492F"
+  },
+  {
+    "courseID": "HEBM0237",
+    "term": "F22",
+    "instructorID": "64DC47D2D4DE6E6B676B09D6770A02F0"
+  },
+  {
+    "courseID": "HEBM0238",
+    "term": "F22",
+    "instructorID": "64DC47D2D4DE6E6B676B09D6770A02F0"
+  },
+  {
+    "courseID": "HIST0103",
+    "term": "F22",
+    "instructorID": "D2A10AF977306BF58B10DC58EEA6A640"
+  },
+  {
+    "courseID": "HIST0105",
+    "term": "F22",
+    "instructorID": "948BB9387B70B84E336E856E03AE3206"
+  },
+  {
+    "courseID": "HIST0109",
+    "term": "F22",
+    "instructorID": "0162432A5673641A2E0E92AD63FFFA3F"
+  },
+  {
+    "courseID": "HIST0110",
+    "term": "F22",
+    "instructorID": "A3562A2BE42408A9A1ACAD71CE693B14"
+  },
+  {
+    "courseID": "HIST0131",
+    "term": "F22",
+    "instructorID": "F2549A47ECAE7C1FEDBC926514656672"
+  },
+  {
+    "courseID": "HIST0210",
+    "term": "F22",
+    "instructorID": "A1254A934DA9A43687CCFFA052E45058"
+  },
+  {
+    "courseID": "HIST0216",
+    "term": "F22",
+    "instructorID": "BAC5FFA7864D7D99323624DECFE0E5BF"
+  },
+  {
+    "courseID": "HIST0225",
+    "term": "F22",
+    "instructorID": "428F7699A17A3A80BA016EEA90D3A1D4"
+  },
+  {
+    "courseID": "HIST0231",
+    "term": "F22",
+    "instructorID": "2E6C1B042D6893794CFD5DA35C15B72B"
+  },
+  {
+    "courseID": "HIST0240",
+    "term": "F22",
+    "instructorID": "A3562A2BE42408A9A1ACAD71CE693B14"
+  },
+  {
+    "courseID": "HIST0248",
+    "term": "F22",
+    "instructorID": "38D7C6796CCDF1F71B975265908DBF9C"
+  },
+  {
+    "courseID": "HIST0253",
+    "term": "F22",
+    "instructorID": "C2BFE054FAB66D96DCD4D3D8E27640A0"
+  },
+  {
+    "courseID": "HIST0264",
+    "term": "F22",
+    "instructorID": "BBED25313DB31B7F912B2D5089848C50"
+  },
+  {
+    "courseID": "HIST0264",
+    "term": "F22",
+    "instructorID": "88D1680887AE0661D5A798F901003B2F"
+  },
+  {
+    "courseID": "HIST0330",
+    "term": "F22",
+    "instructorID": "A1254A934DA9A43687CCFFA052E45058"
+  },
+  {
+    "courseID": "HIST0333",
+    "term": "F22",
+    "instructorID": "A3562A2BE42408A9A1ACAD71CE693B14"
+  },
+  {
+    "courseID": "HIST0334",
+    "term": "F22",
+    "instructorID": "38D7C6796CCDF1F71B975265908DBF9C"
+  },
+  {
+    "courseID": "HIST0346",
+    "term": "F22",
+    "instructorID": "D2A10AF977306BF58B10DC58EEA6A640"
+  },
+  {
+    "courseID": "HIST0373",
+    "term": "F22",
+    "instructorID": "FCB3561BB007EF02906627759D017C26"
+  },
+  {
+    "courseID": "HIST0375",
+    "term": "F22",
+    "instructorID": "E5FDFE9D40A9ABE98A45F9DAC570615E"
+  },
+  {
+    "courseID": "HIST0380",
+    "term": "F22",
+    "instructorID": "7B2012334C1FA1DEB4147DF1AB431F1A"
+  },
+  {
+    "courseID": "HIST0380",
+    "term": "F22",
+    "instructorID": "E4A28AA344AF0CCC1F602126E482A0D9"
+  },
+  {
+    "courseID": "HIST0435",
+    "term": "F22",
+    "instructorID": "7B2012334C1FA1DEB4147DF1AB431F1A"
+  },
+  {
+    "courseID": "HIST0443",
+    "term": "F22",
+    "instructorID": "E5FDFE9D40A9ABE98A45F9DAC570615E"
+  },
+  {
+    "courseID": "HIST0600",
+    "term": "F22",
+    "instructorID": "C2BFE054FAB66D96DCD4D3D8E27640A0"
+  },
+  {
+    "courseID": "HIST0600",
+    "term": "F22",
+    "instructorID": "BAC5FFA7864D7D99323624DECFE0E5BF"
+  },
+  {
+    "courseID": "IGST0101",
+    "term": "F22",
+    "instructorID": "E4931EE5E19F27BC9C45B36C97D3E89B"
+  },
+  {
+    "courseID": "IGST0101",
+    "term": "F22",
+    "instructorID": "184298D4561DB6C8A2E7C6C09ACDE8D8"
+  },
+  {
+    "courseID": "IGST0231",
+    "term": "F22",
+    "instructorID": "36C0FFC8FBF0B8830027CB0B726E96E9"
+  },
+  {
+    "courseID": "IGST0237",
+    "term": "F22",
+    "instructorID": "64DC47D2D4DE6E6B676B09D6770A02F0"
+  },
+  {
+    "courseID": "IGST0238",
+    "term": "F22",
+    "instructorID": "64DC47D2D4DE6E6B676B09D6770A02F0"
+  },
+  {
+    "courseID": "IGST0407",
+    "term": "F22",
+    "instructorID": "5DB8463D3011463D6393C4EAF1F09584"
+  },
+  {
+    "courseID": "IGST0427",
+    "term": "F22",
+    "instructorID": "6A6F6A8F0A1686D4AD3BFA45FB359454"
+  },
+  {
+    "courseID": "INTD0116",
+    "term": "F22",
+    "instructorID": "1128BC3BEC9B32BB9275A5B36127526B"
+  },
+  {
+    "courseID": "INTD0120",
+    "term": "F22",
+    "instructorID": "21DAF706828C069DF748066F13602365"
+  },
+  {
+    "courseID": "INTD0121",
+    "term": "F22",
+    "instructorID": "1EAAAE39F482C9B5940FAE38F31B35D4"
+  },
+  {
+    "courseID": "INTD0130",
+    "term": "F22",
+    "instructorID": "898D906EB3F7564D953E340CE43FD2B8"
+  },
+  {
+    "courseID": "INTD0204",
+    "term": "F22",
+    "instructorID": "EEEF0BBBCD32D1AF8F9BBB441944AAC9"
+  },
+  {
+    "courseID": "INTD0204",
+    "term": "F22",
+    "instructorID": "458B8319CC93032A2D62C31376167F7F"
+  },
+  {
+    "courseID": "INTD0205",
+    "term": "F22",
+    "instructorID": "21DAF706828C069DF748066F13602365"
+  },
+  {
+    "courseID": "INTD0208",
+    "term": "F22",
+    "instructorID": "898D906EB3F7564D953E340CE43FD2B8"
+  },
+  {
+    "courseID": "INTD0210",
+    "term": "F22",
+    "instructorID": "DBA7682E041FDF869E2BBE507852B0CD"
+  },
+  {
+    "courseID": "INTD0216",
+    "term": "F22",
+    "instructorID": "3E637AD148F82CA4D93345DE7DBB2603"
+  },
+  {
+    "courseID": "INTD0217",
+    "term": "F22",
+    "instructorID": "B8E748AD19E33787FEA2FD1F51365D3F"
+  },
+  {
+    "courseID": "INTD0222",
+    "term": "F22",
+    "instructorID": "7AD2121A8B9C6C0C5BD12C3CBA124E3F"
+  },
+  {
+    "courseID": "INTD0225",
+    "term": "F22",
+    "instructorID": "FAC0A346A86F832BFDEA1C217D90EE96"
+  },
+  {
+    "courseID": "INTD0319",
+    "term": "F22",
+    "instructorID": "B8E748AD19E33787FEA2FD1F51365D3F"
+  },
+  {
+    "courseID": "INTD0407",
+    "term": "F22",
+    "instructorID": "5DB8463D3011463D6393C4EAF1F09584"
+  },
+  {
+    "courseID": "IPEC0240",
+    "term": "F22",
+    "instructorID": "E663FBC963E64FE586F1815E5EE3E69D"
+  },
+  {
+    "courseID": "IPEC0304",
+    "term": "F22",
+    "instructorID": "F87DC808A105CC9C85FCAB074414134E"
+  },
+  {
+    "courseID": "ITAL0101",
+    "term": "F22",
+    "instructorID": "B8A96BEC095A5C2BA7C6579D5CC2D69C"
+  },
+  {
+    "courseID": "ITAL0101",
+    "term": "F22",
+    "instructorID": "8426360FB13F67DF39939686DBE10863"
+  },
+  {
+    "courseID": "ITAL0101",
+    "term": "F22",
+    "instructorID": "7DD4BF380396C5F7FBD2055592D434B3"
+  },
+  {
+    "courseID": "ITAL0251",
+    "term": "F22",
+    "instructorID": "7DD4BF380396C5F7FBD2055592D434B3"
+  },
+  {
+    "courseID": "ITAL0251",
+    "term": "F22",
+    "instructorID": "B8A96BEC095A5C2BA7C6579D5CC2D69C"
+  },
+  {
+    "courseID": "ITAL0354",
+    "term": "F22",
+    "instructorID": "F06933E27725230518C5BD5100E2D021"
+  },
+  {
+    "courseID": "ITAL0425",
+    "term": "F22",
+    "instructorID": "C13F62CF78B4B50ADBBF33756DF71128"
+  },
+  {
+    "courseID": "JAPN0101",
+    "term": "F22",
+    "instructorID": "64B1BD910C848B837FB5E3F91CE1665D"
+  },
+  {
+    "courseID": "JAPN0201",
+    "term": "F22",
+    "instructorID": "C8759DEF7A9DC6F20D6A221565DDA30D"
+  },
+  {
+    "courseID": "JAPN0230",
+    "term": "F22",
+    "instructorID": "64B1BD910C848B837FB5E3F91CE1665D"
+  },
+  {
+    "courseID": "JAPN0301",
+    "term": "F22",
+    "instructorID": "AF447BBF7AAA4D008D807A660462F04B"
+  },
+  {
+    "courseID": "JAPN0310",
+    "term": "F22",
+    "instructorID": "AF447BBF7AAA4D008D807A660462F04B"
+  },
+  {
+    "courseID": "JAPN0401",
+    "term": "F22",
+    "instructorID": "C8759DEF7A9DC6F20D6A221565DDA30D"
+  },
+  {
+    "courseID": "JAPN0475",
+    "term": "F22",
+    "instructorID": "C8759DEF7A9DC6F20D6A221565DDA30D"
+  },
+  {
+    "courseID": "JWST0160",
+    "term": "F22",
+    "instructorID": "3282CCCBD97076DE3DF9FC82D8787427"
+  },
+  {
+    "courseID": "JWST0330",
+    "term": "F22",
+    "instructorID": "A1254A934DA9A43687CCFFA052E45058"
+  },
+  {
+    "courseID": "LATN0301",
+    "term": "F22",
+    "instructorID": "DBCD8307315D8F33DAB24BD2ABDC0B30"
+  },
+  {
+    "courseID": "LATN0501",
+    "term": "F22",
+    "instructorID": "42179414C25D051A55B61D24EA934542"
+  },
+  {
+    "courseID": "LITS0705",
+    "term": "F22",
+    "instructorID": "68C8D326BEDC2E16088A2E161583BCF3"
+  },
+  {
+    "courseID": "LNGT0102",
+    "term": "F22",
+    "instructorID": "ADF8F2A8FA7AFD6CCC0572A4D09D9BDD"
+  },
+  {
+    "courseID": "LNGT0125",
+    "term": "F22",
+    "instructorID": "8724BFF3B8EDED3EF4589B469BDCB965"
+  },
+  {
+    "courseID": "LNGT0310",
+    "term": "F22",
+    "instructorID": "AF447BBF7AAA4D008D807A660462F04B"
+  },
+  {
+    "courseID": "LNGT0370",
+    "term": "F22",
+    "instructorID": "955358ECE78CE73A328BA57180418DD8"
+  },
+  {
+    "courseID": "LNGT0422",
+    "term": "F22",
+    "instructorID": "23AD54E2211067FADC7DDC3C447C031E"
+  },
+  {
+    "courseID": "MATH0101",
+    "term": "F22",
+    "instructorID": "57BA30C8994F105D7527A84FBA23A906"
+  },
+  {
+    "courseID": "MATH0106",
+    "term": "F22",
+    "instructorID": "24D40C0872F9CE5ED2CDF6F2F9CB82EA"
+  },
+  {
+    "courseID": "MATH0110",
+    "term": "F22",
+    "instructorID": "458B8319CC93032A2D62C31376167F7F"
+  },
+  {
+    "courseID": "MATH0116",
+    "term": "F22",
+    "instructorID": "24D40C0872F9CE5ED2CDF6F2F9CB82EA"
+  },
+  {
+    "courseID": "MATH0118",
+    "term": "F22",
+    "instructorID": "552086838C44282876CF205B42345EE7"
+  },
+  {
+    "courseID": "MATH0118",
+    "term": "F22",
+    "instructorID": "C3177E57E2B4E380E08925E92F272599"
+  },
+  {
+    "courseID": "MATH0121",
+    "term": "F22",
+    "instructorID": "AFAD3A8CB5139A7ADC53AA9B390E331D"
+  },
+  {
+    "courseID": "MATH0121",
+    "term": "F22",
+    "instructorID": "C3177E57E2B4E380E08925E92F272599"
+  },
+  {
+    "courseID": "MATH0122",
+    "term": "F22",
+    "instructorID": "2D0A8479D7326245AE4234AECA465D8C"
+  },
+  {
+    "courseID": "MATH0122",
+    "term": "F22",
+    "instructorID": "5F406A21162C0AF535E22849CF8BB8CF"
+  },
+  {
+    "courseID": "MATH0200",
+    "term": "F22",
+    "instructorID": "BCBA68AEB3B1C7D9F8A69E3CBAA98374"
+  },
+  {
+    "courseID": "MATH0200",
+    "term": "F22",
+    "instructorID": "28E83009AF31F36A15B5A75BC2643EA1"
+  },
+  {
+    "courseID": "MATH0218",
+    "term": "F22",
+    "instructorID": "552086838C44282876CF205B42345EE7"
+  },
+  {
+    "courseID": "MATH0223",
+    "term": "F22",
+    "instructorID": "D3CD48D2B8CAD51ACB0F48C000189315"
+  },
+  {
+    "courseID": "MATH0223",
+    "term": "F22",
+    "instructorID": "C13BB2BE4E7F885F54ED380FE9E93B05"
+  },
+  {
+    "courseID": "MATH0226",
+    "term": "F22",
+    "instructorID": "D3CD48D2B8CAD51ACB0F48C000189315"
+  },
+  {
+    "courseID": "MATH0302",
+    "term": "F22",
+    "instructorID": "C13BB2BE4E7F885F54ED380FE9E93B05"
+  },
+  {
+    "courseID": "MATH0310",
+    "term": "F22",
+    "instructorID": "FE02890B0656E74799D3311D486B4412"
+  },
+  {
+    "courseID": "MATH0315",
+    "term": "F22",
+    "instructorID": "5F406A21162C0AF535E22849CF8BB8CF"
+  },
+  {
+    "courseID": "MATH0323",
+    "term": "F22",
+    "instructorID": "AFAD3A8CB5139A7ADC53AA9B390E331D"
+  },
+  {
+    "courseID": "MATH0328",
+    "term": "F22",
+    "instructorID": "BCBA68AEB3B1C7D9F8A69E3CBAA98374"
+  },
+  {
+    "courseID": "MATH0703",
+    "term": "F22",
+    "instructorID": "57BA30C8994F105D7527A84FBA23A906"
+  },
+  {
+    "courseID": "MATH0745",
+    "term": "F22",
+    "instructorID": "2D0A8479D7326245AE4234AECA465D8C"
+  },
+  {
+    "courseID": "MUSC0160",
+    "term": "F22",
+    "instructorID": "195B554A9E61B496B1A68AF2B468319C"
+  },
+  {
+    "courseID": "MUSC0205",
+    "term": "F22",
+    "instructorID": "7BCE396E4A1B040CE6DF1B9399F0B217"
+  },
+  {
+    "courseID": "MUSC0205",
+    "term": "F22",
+    "instructorID": "82A174E1B86FBEB8115DCDE1CA6E915E"
+  },
+  {
+    "courseID": "MUSC0205",
+    "term": "F22",
+    "instructorID": "B19C3ACFBD148B22EE59295A9EFD6B5F"
+  },
+  {
+    "courseID": "MUSC0205",
+    "term": "F22",
+    "instructorID": "19ED4E4FAD257D24A7E6E27A5E9A56F9"
+  },
+  {
+    "courseID": "MUSC0205",
+    "term": "F22",
+    "instructorID": "71165CB6B3F17B9A7E49316C481A40E8"
+  },
+  {
+    "courseID": "MUSC0209",
+    "term": "F22",
+    "instructorID": "195B554A9E61B496B1A68AF2B468319C"
+  },
+  {
+    "courseID": "MUSC0260",
+    "term": "F22",
+    "instructorID": "20BB18F56A41D6C8F3E9DBF6F51BFA9D"
+  },
+  {
+    "courseID": "MUSC0309",
+    "term": "F22",
+    "instructorID": "195B554A9E61B496B1A68AF2B468319C"
+  },
+  {
+    "courseID": "MUSC0333",
+    "term": "F22",
+    "instructorID": "9E5141BF44152930FC18CA846C2ABD19"
+  },
+  {
+    "courseID": "MUSC0400",
+    "term": "F22",
+    "instructorID": "71165CB6B3F17B9A7E49316C481A40E8"
+  },
+  {
+    "courseID": "NSCI0206",
+    "term": "F22",
+    "instructorID": "E8A82F65E8FD9F7380A931E6FFB51888"
+  },
+  {
+    "courseID": "NSCI0251",
+    "term": "F22",
+    "instructorID": "F08F952F80699F836242F7A719673438"
+  },
+  {
+    "courseID": "NSCI0252",
+    "term": "F22",
+    "instructorID": "6092FF719F9ED014EB91C7EE975B7F59"
+  },
+  {
+    "courseID": "NSCI0309",
+    "term": "F22",
+    "instructorID": "6D7E704E5075E3A39713B5834042B150"
+  },
+  {
+    "courseID": "NSCI0317",
+    "term": "F22",
+    "instructorID": "6092FF719F9ED014EB91C7EE975B7F59"
+  },
+  {
+    "courseID": "NSCI0353",
+    "term": "F22",
+    "instructorID": "B1F95A32F9AD98473D9B9C9EB7E9FA6E"
+  },
+  {
+    "courseID": "NSCI0410",
+    "term": "F22",
+    "instructorID": "F08F952F80699F836242F7A719673438"
+  },
+  {
+    "courseID": "PGSE0115",
+    "term": "F22",
+    "instructorID": "6720980EC30B1A7897597F69B00559FE"
+  },
+  {
+    "courseID": "PGSE0115",
+    "term": "F22",
+    "instructorID": "37FBA9B1E77BFB032B8144ADCEBA8A46"
+  },
+  {
+    "courseID": "PGSE0315",
+    "term": "F22",
+    "instructorID": "6720980EC30B1A7897597F69B00559FE"
+  },
+  {
+    "courseID": "PGSE0351",
+    "term": "F22",
+    "instructorID": "37FBA9B1E77BFB032B8144ADCEBA8A46"
+  },
+  {
+    "courseID": "PHIL0160",
+    "term": "F22",
+    "instructorID": "153F4504816359C25AB11AFD711E0318"
+  },
+  {
+    "courseID": "PHIL0170",
+    "term": "F22",
+    "instructorID": "B9899E9EA78BEBA315D4102B2281326B"
+  },
+  {
+    "courseID": "PHIL0180",
+    "term": "F22",
+    "instructorID": "AD22A6254E9040A5FFA33FF0812B5137"
+  },
+  {
+    "courseID": "PHIL0201",
+    "term": "F22",
+    "instructorID": "335D089E7A89AF096BD4CFA093D2E40A"
+  },
+  {
+    "courseID": "PHIL0306",
+    "term": "F22",
+    "instructorID": "2ECA27B5F3CED31181268AED7EBBD287"
+  },
+  {
+    "courseID": "PHIL0360",
+    "term": "F22",
+    "instructorID": "E600DA74523730513EF85F481AD2E2B6"
+  },
+  {
+    "courseID": "PHIL0435",
+    "term": "F22",
+    "instructorID": "B9899E9EA78BEBA315D4102B2281326B"
+  },
+  {
+    "courseID": "PHIL0710",
+    "term": "F22",
+    "instructorID": "AD22A6254E9040A5FFA33FF0812B5137"
+  },
+  {
+    "courseID": "PHYS0109",
+    "term": "F22",
+    "instructorID": "0AE98163FCEB16146689F8D9CE3F7357"
+  },
+  {
+    "courseID": "PHYS0110",
+    "term": "F22",
+    "instructorID": "69F19D762DFB22DEA3436F4B2F0671C5"
+  },
+  {
+    "courseID": "PHYS0110",
+    "term": "F22",
+    "instructorID": "E098EA309474EF6F36348A2DFFFCA479"
+  },
+  {
+    "courseID": "PHYS0111",
+    "term": "F22",
+    "instructorID": "2E9B35780F113280253B3C6B3E42B712"
+  },
+  {
+    "courseID": "PHYS0111",
+    "term": "F22",
+    "instructorID": "E098EA309474EF6F36348A2DFFFCA479"
+  },
+  {
+    "courseID": "PHYS0155",
+    "term": "F22",
+    "instructorID": "F16ADCB6066D31DAF05DD3D79133CD18"
+  },
+  {
+    "courseID": "PHYS0201",
+    "term": "F22",
+    "instructorID": "69F19D762DFB22DEA3436F4B2F0671C5"
+  },
+  {
+    "courseID": "PHYS0255",
+    "term": "F22",
+    "instructorID": "F16ADCB6066D31DAF05DD3D79133CD18"
+  },
+  {
+    "courseID": "PHYS0301",
+    "term": "F22",
+    "instructorID": "0AAE8C22D8324D2266634917327A42FA"
+  },
+  {
+    "courseID": "PHYS0321",
+    "term": "F22",
+    "instructorID": "5858CF90D5FCB6BAB2634638E75E833A"
+  },
+  {
+    "courseID": "PHYS0350",
+    "term": "F22",
+    "instructorID": "B3622D4060AE5D5CC4CB029AC5671E79"
+  },
+  {
+    "courseID": "PHYS0704",
+    "term": "F22",
+    "instructorID": "B3622D4060AE5D5CC4CB029AC5671E79"
+  },
+  {
+    "courseID": "PSCI0101",
+    "term": "F22",
+    "instructorID": "076325FE8E9D69193C080B0052AB9561"
+  },
+  {
+    "courseID": "PSCI0103",
+    "term": "F22",
+    "instructorID": "6A6F6A8F0A1686D4AD3BFA45FB359454"
+  },
+  {
+    "courseID": "PSCI0103",
+    "term": "F22",
+    "instructorID": "A2421666BC17C4B8CAC8CACCDABF861E"
+  },
+  {
+    "courseID": "PSCI0104",
+    "term": "F22",
+    "instructorID": "B4D34C135EA69007C2A5EA1B70DBD78A"
+  },
+  {
+    "courseID": "PSCI0109",
+    "term": "F22",
+    "instructorID": "B1A409175A04AEE202DA483F6AD6EE53"
+  },
+  {
+    "courseID": "PSCI0204",
+    "term": "F22",
+    "instructorID": "63F41E336B54F6A579DBDAC795BD58D7"
+  },
+  {
+    "courseID": "PSCI0206",
+    "term": "F22",
+    "instructorID": "97425AB3688238ADD570AAD81A34CA6E"
+  },
+  {
+    "courseID": "PSCI0213",
+    "term": "F22",
+    "instructorID": "55A9F72F76FB46FBB03BF810E7982F5A"
+  },
+  {
+    "courseID": "PSCI0221",
+    "term": "F22",
+    "instructorID": "55A9F72F76FB46FBB03BF810E7982F5A"
+  },
+  {
+    "courseID": "PSCI0242",
+    "term": "F22",
+    "instructorID": "42542D9E8079DE75A64A6AC90A8A66F4"
+  },
+  {
+    "courseID": "PSCI0253",
+    "term": "F22",
+    "instructorID": "42542D9E8079DE75A64A6AC90A8A66F4"
+  },
+  {
+    "courseID": "PSCI0290",
+    "term": "F22",
+    "instructorID": "A826A18A4E638CE4880F8C245CF68D80"
+  },
+  {
+    "courseID": "PSCI0292",
+    "term": "F22",
+    "instructorID": "A826A18A4E638CE4880F8C245CF68D80"
+  },
+  {
+    "courseID": "PSCI0304",
+    "term": "F22",
+    "instructorID": "F87DC808A105CC9C85FCAB074414134E"
+  },
+  {
+    "courseID": "PSCI0306",
+    "term": "F22",
+    "instructorID": "076325FE8E9D69193C080B0052AB9561"
+  },
+  {
+    "courseID": "PSCI0307",
+    "term": "F22",
+    "instructorID": "E4D014379D428C941E40E8571920E70B"
+  },
+  {
+    "courseID": "PSCI0308",
+    "term": "F22",
+    "instructorID": "97425AB3688238ADD570AAD81A34CA6E"
+  },
+  {
+    "courseID": "PSCI0314",
+    "term": "F22",
+    "instructorID": "A826A18A4E638CE4880F8C245CF68D80"
+  },
+  {
+    "courseID": "PSCI0407",
+    "term": "F22",
+    "instructorID": "E4D014379D428C941E40E8571920E70B"
+  },
+  {
+    "courseID": "PSCI0409",
+    "term": "F22",
+    "instructorID": "63F41E336B54F6A579DBDAC795BD58D7"
+  },
+  {
+    "courseID": "PSCI0427",
+    "term": "F22",
+    "instructorID": "6A6F6A8F0A1686D4AD3BFA45FB359454"
+  },
+  {
+    "courseID": "PSCI0443",
+    "term": "F22",
+    "instructorID": "FAC0A346A86F832BFDEA1C217D90EE96"
+  },
+  {
+    "courseID": "PSCI0450",
+    "term": "F22",
+    "instructorID": "A2421666BC17C4B8CAC8CACCDABF861E"
+  },
+  {
+    "courseID": "PSCI0458",
+    "term": "F22",
+    "instructorID": "B4D34C135EA69007C2A5EA1B70DBD78A"
+  },
+  {
+    "courseID": "PSYC0105",
+    "term": "F22",
+    "instructorID": "26F18A3229D0E81990D7171A00027493"
+  },
+  {
+    "courseID": "PSYC0105",
+    "term": "F22",
+    "instructorID": "6D7E704E5075E3A39713B5834042B150"
+  },
+  {
+    "courseID": "PSYC0105",
+    "term": "F22",
+    "instructorID": "3A6B3237C93AB85B9E623817AEA8D7A7"
+  },
+  {
+    "courseID": "PSYC0201",
+    "term": "F22",
+    "instructorID": "E8A82F65E8FD9F7380A931E6FFB51888"
+  },
+  {
+    "courseID": "PSYC0201",
+    "term": "F22",
+    "instructorID": "1641BA5F8F8DAB211330DAF99D724EDF"
+  },
+  {
+    "courseID": "PSYC0202",
+    "term": "F22",
+    "instructorID": "0276CA37F898194094DF14FA4FDABC78"
+  },
+  {
+    "courseID": "PSYC0202",
+    "term": "F22",
+    "instructorID": "0F37CF2CB1F657446BF9FFBD72EDEB69"
+  },
+  {
+    "courseID": "PSYC0206",
+    "term": "F22",
+    "instructorID": "E8A82F65E8FD9F7380A931E6FFB51888"
+  },
+  {
+    "courseID": "PSYC0220",
+    "term": "F22",
+    "instructorID": "EE47DF9B8935F48BA2A312D84688561B"
+  },
+  {
+    "courseID": "PSYC0224",
+    "term": "F22",
+    "instructorID": "32A0F54B8F0EBC79BCF945F9F43329BD"
+  },
+  {
+    "courseID": "PSYC0225",
+    "term": "F22",
+    "instructorID": "1641BA5F8F8DAB211330DAF99D724EDF"
+  },
+  {
+    "courseID": "PSYC0226",
+    "term": "F22",
+    "instructorID": "B1F95A32F9AD98473D9B9C9EB7E9FA6E"
+  },
+  {
+    "courseID": "PSYC0309",
+    "term": "F22",
+    "instructorID": "6D7E704E5075E3A39713B5834042B150"
+  },
+  {
+    "courseID": "PSYC0317",
+    "term": "F22",
+    "instructorID": "6092FF719F9ED014EB91C7EE975B7F59"
+  },
+  {
+    "courseID": "PSYC0320",
+    "term": "F22",
+    "instructorID": "0F37CF2CB1F657446BF9FFBD72EDEB69"
+  },
+  {
+    "courseID": "PSYC0322",
+    "term": "F22",
+    "instructorID": "658831BAE0991BB1A58941F5E9C0A9B9"
+  },
+  {
+    "courseID": "PSYC0323",
+    "term": "F22",
+    "instructorID": "CF5F5E369CABD4D360C47E31AD761720"
+  },
+  {
+    "courseID": "PSYC0353",
+    "term": "F22",
+    "instructorID": "B1F95A32F9AD98473D9B9C9EB7E9FA6E"
+  },
+  {
+    "courseID": "PSYC0413",
+    "term": "F22",
+    "instructorID": "32A0F54B8F0EBC79BCF945F9F43329BD"
+  },
+  {
+    "courseID": "PSYC0423",
+    "term": "F22",
+    "instructorID": "EE47DF9B8935F48BA2A312D84688561B"
+  },
+  {
+    "courseID": "RELI0100",
+    "term": "F22",
+    "instructorID": "B91A11C5F210206CA33093F381406DAF"
+  },
+  {
+    "courseID": "RELI0100",
+    "term": "F22",
+    "instructorID": "0AD8E115DEDC0EDC35BBD58E4BD21010"
+  },
+  {
+    "courseID": "RELI0121",
+    "term": "F22",
+    "instructorID": "EAB584A8331F02DFDA15E844A9F20D72"
+  },
+  {
+    "courseID": "RELI0130",
+    "term": "F22",
+    "instructorID": "A4B8F95413AED0F4A12C13EF4849317D"
+  },
+  {
+    "courseID": "RELI0150",
+    "term": "F22",
+    "instructorID": "0BFF1BB2800101A08938FEED075BFA61"
+  },
+  {
+    "courseID": "RELI0160",
+    "term": "F22",
+    "instructorID": "3282CCCBD97076DE3DF9FC82D8787427"
+  },
+  {
+    "courseID": "RELI0170",
+    "term": "F22",
+    "instructorID": "7C1142898FAE872E26C99907CA3B8872"
+  },
+  {
+    "courseID": "RELI0210",
+    "term": "F22",
+    "instructorID": "EAB584A8331F02DFDA15E844A9F20D72"
+  },
+  {
+    "courseID": "RELI0221",
+    "term": "F22",
+    "instructorID": "5BF99E8B7F619EE65C57E3B07E011A68"
+  },
+  {
+    "courseID": "RELI0238",
+    "term": "F22",
+    "instructorID": "4126E0ADF7A8944EFD02D220C6C70D49"
+  },
+  {
+    "courseID": "RELI0242",
+    "term": "F22",
+    "instructorID": "3282CCCBD97076DE3DF9FC82D8787427"
+  },
+  {
+    "courseID": "RELI0255",
+    "term": "F22",
+    "instructorID": "0BFF1BB2800101A08938FEED075BFA61"
+  },
+  {
+    "courseID": "RELI0264",
+    "term": "F22",
+    "instructorID": "0AD8E115DEDC0EDC35BBD58E4BD21010"
+  },
+  {
+    "courseID": "RELI0273",
+    "term": "F22",
+    "instructorID": "7C1142898FAE872E26C99907CA3B8872"
+  },
+  {
+    "courseID": "RELI0283",
+    "term": "F22",
+    "instructorID": "9BED9057BADE6F21DC7958B307E06B6E"
+  },
+  {
+    "courseID": "RELI0285",
+    "term": "F22",
+    "instructorID": "9BED9057BADE6F21DC7958B307E06B6E"
+  },
+  {
+    "courseID": "RELI0338",
+    "term": "F22",
+    "instructorID": "A4B8F95413AED0F4A12C13EF4849317D"
+  },
+  {
+    "courseID": "RELI0400",
+    "term": "F22",
+    "instructorID": "00A67761BCF3FFC83EAC4EE36A5D2ADB"
+  },
+  {
+    "courseID": "RUSS0101",
+    "term": "F22",
+    "instructorID": "F382C1007D96210770BEA299BB90D396"
+  },
+  {
+    "courseID": "RUSS0101",
+    "term": "F22",
+    "instructorID": "6B08BC59E0211B5A3EC9D684D5F151C2"
+  },
+  {
+    "courseID": "RUSS0151",
+    "term": "F22",
+    "instructorID": "F382C1007D96210770BEA299BB90D396"
+  },
+  {
+    "courseID": "RUSS0201",
+    "term": "F22",
+    "instructorID": "6B08BC59E0211B5A3EC9D684D5F151C2"
+  },
+  {
+    "courseID": "RUSS0219",
+    "term": "F22",
+    "instructorID": "6E66B13A321113E025AB8B372B63A599"
+  },
+  {
+    "courseID": "RUSS0241",
+    "term": "F22",
+    "instructorID": "2018712E1D4848B28D059AA3B0BE4760"
+  },
+  {
+    "courseID": "RUSS0311",
+    "term": "F22",
+    "instructorID": "6E66B13A321113E025AB8B372B63A599"
+  },
+  {
+    "courseID": "RUSS0414",
+    "term": "F22",
+    "instructorID": "293D4B7A7401F56541320CE7C1388AC1"
+  },
+  {
+    "courseID": "RUSS0704",
+    "term": "F22",
+    "instructorID": "293D4B7A7401F56541320CE7C1388AC1"
+  },
+  {
+    "courseID": "SOCI0105",
+    "term": "F22",
+    "instructorID": "471FAB199FE5BEF5891FC1B69D63A2E4"
+  },
+  {
+    "courseID": "SOCI0191",
+    "term": "F22",
+    "instructorID": "2C7CF1C500B1611C390F509167D049D0"
+  },
+  {
+    "courseID": "SOCI0201",
+    "term": "F22",
+    "instructorID": "F4588AA52B12EE804AA7D201056A8E79"
+  },
+  {
+    "courseID": "SOCI0240",
+    "term": "F22",
+    "instructorID": "FD8491D395699875D36BD627480466E1"
+  },
+  {
+    "courseID": "SOCI0275",
+    "term": "F22",
+    "instructorID": "15481BA5D75AB76DD951FD5D1BCDC275"
+  },
+  {
+    "courseID": "SOCI0288",
+    "term": "F22",
+    "instructorID": "8F03093486627D4075577A89C0185CC3"
+  },
+  {
+    "courseID": "SOCI0305",
+    "term": "F22",
+    "instructorID": "F4588AA52B12EE804AA7D201056A8E79"
+  },
+  {
+    "courseID": "SOCI0318",
+    "term": "F22",
+    "instructorID": "8F03093486627D4075577A89C0185CC3"
+  },
+  {
+    "courseID": "SOCI0356",
+    "term": "F22",
+    "instructorID": "471FAB199FE5BEF5891FC1B69D63A2E4"
+  },
+  {
+    "courseID": "SOCI0485",
+    "term": "F22",
+    "instructorID": "FD8491D395699875D36BD627480466E1"
+  },
+  {
+    "courseID": "SPAN0101",
+    "term": "F22",
+    "instructorID": "417A8D39757151EE1F064CD12B090FB8"
+  },
+  {
+    "courseID": "SPAN0104",
+    "term": "F22",
+    "instructorID": "23AD54E2211067FADC7DDC3C447C031E"
+  },
+  {
+    "courseID": "SPAN0104",
+    "term": "F22",
+    "instructorID": "9B7DF7493908B6FD994192E2DD7EB246"
+  },
+  {
+    "courseID": "SPAN0201",
+    "term": "F22",
+    "instructorID": "D641EEB98927F8CDEE8F2C89AB43BF18"
+  },
+  {
+    "courseID": "SPAN0201",
+    "term": "F22",
+    "instructorID": "1759D0B4EAFB2A3A93D708EDF5FAE185"
+  },
+  {
+    "courseID": "SPAN0220",
+    "term": "F22",
+    "instructorID": "D4FDAB73021E533907907BCD2F5131B3"
+  },
+  {
+    "courseID": "SPAN0220",
+    "term": "F22",
+    "instructorID": "CEA9F75B39CA2A867ABB252B6E686FD6"
+  },
+  {
+    "courseID": "SPAN0300",
+    "term": "F22",
+    "instructorID": "CEA9F75B39CA2A867ABB252B6E686FD6"
+  },
+  {
+    "courseID": "SPAN0300",
+    "term": "F22",
+    "instructorID": "D4FDAB73021E533907907BCD2F5131B3"
+  },
+  {
+    "courseID": "SPAN0307",
+    "term": "F22",
+    "instructorID": "D641EEB98927F8CDEE8F2C89AB43BF18"
+  },
+  {
+    "courseID": "SPAN0315",
+    "term": "F22",
+    "instructorID": "417A8D39757151EE1F064CD12B090FB8"
+  },
+  {
+    "courseID": "SPAN0331",
+    "term": "F22",
+    "instructorID": "DB0B7E063649E3F27FD17B2647FC894D"
+  },
+  {
+    "courseID": "SPAN0386",
+    "term": "F22",
+    "instructorID": "1759D0B4EAFB2A3A93D708EDF5FAE185"
+  },
+  {
+    "courseID": "SPAN0389",
+    "term": "F22",
+    "instructorID": "D4E6141C8BB521E67CB656E841A030A8"
+  },
+  {
+    "courseID": "SPAN0422",
+    "term": "F22",
+    "instructorID": "23AD54E2211067FADC7DDC3C447C031E"
+  },
+  {
+    "courseID": "SPAN0433",
+    "term": "F22",
+    "instructorID": "9B7DF7493908B6FD994192E2DD7EB246"
+  },
+  {
+    "courseID": "SPAN0491",
+    "term": "F22",
+    "instructorID": "D4E6141C8BB521E67CB656E841A030A8"
+  },
+  {
+    "courseID": "THEA0101",
+    "term": "F22",
+    "instructorID": "F9E1C9B5283AFB7E9842BB4F12C19718"
+  },
+  {
+    "courseID": "THEA0102",
+    "term": "F22",
+    "instructorID": "1A274F82ED75B6D6F67CE65CBAA731EE"
+  },
+  {
+    "courseID": "THEA0102",
+    "term": "F22",
+    "instructorID": "41552955D84CF1F42ADD9013A69AD42F"
+  },
+  {
+    "courseID": "THEA0111",
+    "term": "F22",
+    "instructorID": "F9E1C9B5283AFB7E9842BB4F12C19718"
+  },
+  {
+    "courseID": "THEA0119",
+    "term": "F22",
+    "instructorID": "F9E1C9B5283AFB7E9842BB4F12C19718"
+  },
+  {
+    "courseID": "THEA0119",
+    "term": "F22",
+    "instructorID": "742DAAA87F40328510A77B62A37E58E9"
+  },
+  {
+    "courseID": "THEA0202",
+    "term": "F22",
+    "instructorID": "41552955D84CF1F42ADD9013A69AD42F"
+  },
+  {
+    "courseID": "THEA0205",
+    "term": "F22",
+    "instructorID": "742DAAA87F40328510A77B62A37E58E9"
+  },
+  {
+    "courseID": "THEA0208",
+    "term": "F22",
+    "instructorID": "C31F68F5FFA66FD9ED5E6B958261E5D7"
+  },
+  {
+    "courseID": "THEA0210",
+    "term": "F22",
+    "instructorID": "1A274F82ED75B6D6F67CE65CBAA731EE"
+  },
+  {
+    "courseID": "THEA0210",
+    "term": "F22",
+    "instructorID": "C31F68F5FFA66FD9ED5E6B958261E5D7"
+  },
+  {
+    "courseID": "THEA0214",
+    "term": "F22",
+    "instructorID": "C31F68F5FFA66FD9ED5E6B958261E5D7"
+  },
+  {
+    "courseID": "THEA0218",
+    "term": "F22",
+    "instructorID": "90338E439DA4652A2BDE2AC3F327A563"
+  },
+  {
+    "courseID": "THEA0248",
+    "term": "F22",
+    "instructorID": "4BB20753F5BF03248FCA33807F56D94D"
+  },
+  {
+    "courseID": "THEA0406",
+    "term": "F22",
+    "instructorID": "41552955D84CF1F42ADD9013A69AD42F"
+  },
+  {
+    "courseID": "WRPR0100",
+    "term": "F22",
+    "instructorID": "293BC30459A1F9F7F1265E77F9A163D9"
+  },
+  {
+    "courseID": "WRPR0102",
+    "term": "F22",
+    "instructorID": "ADF8F2A8FA7AFD6CCC0572A4D09D9BDD"
+  },
+  {
+    "courseID": "WRPR0202",
+    "term": "F22",
+    "instructorID": "CEA61494686073E71ED939F0517D4FF2"
+  },
+  {
+    "courseID": "WRPR0203",
+    "term": "F22",
+    "instructorID": "CEA61494686073E71ED939F0517D4FF2"
+  },
+  {
+    "courseID": "WRPR0288",
+    "term": "F22",
+    "instructorID": "6AFD31847CCDD6AE6577AFAA62C2E03C"
+  },
+  {
+    "courseID": "WRPR0304",
+    "term": "F22",
+    "instructorID": "293BC30459A1F9F7F1265E77F9A163D9"
+  },
+  {
+    "courseID": "AMST1015",
+    "term": "W23",
+    "instructorID": "3415A6AFA51EDCD9F9CD4013A2C68E36"
+  },
+  {
+    "courseID": "AMST1017",
+    "term": "W23",
+    "instructorID": "E1AA26EECE8D090367FF654D1F517C7A"
+  },
+  {
+    "courseID": "AMST1020",
+    "term": "W23",
+    "instructorID": "F86D802267249A01F24AED3F3AAA917F"
+  },
+  {
+    "courseID": "AMST1055",
+    "term": "W23",
+    "instructorID": "9E5141BF44152930FC18CA846C2ABD19"
+  },
+  {
+    "courseID": "ANTH1035",
+    "term": "W23",
+    "instructorID": "7E0BD22F5C7614074D42AF59C4A17705"
+  },
+  {
+    "courseID": "ANTH1224",
+    "term": "W23",
+    "instructorID": "42A9CB8324F71CCD6673DDBEBCD67492"
+  },
+  {
+    "courseID": "ARBC0102",
+    "term": "W23",
+    "instructorID": "C18B43860BECC98255C81AE287D89299"
+  },
+  {
+    "courseID": "ARBC0102",
+    "term": "W23",
+    "instructorID": "4A56D8EC8C51010A47F5D7444D22FB84"
+  },
+  {
+    "courseID": "_ART0156",
+    "term": "W23",
+    "instructorID": "D559ACA0CBBDF7EE37C93292D7FA34EF"
+  },
+  {
+    "courseID": "_ART1031",
+    "term": "W23",
+    "instructorID": "697808EC815F245BB49809C246638696"
+  },
+  {
+    "courseID": "BIOL1007",
+    "term": "W23",
+    "instructorID": "1989E0DDB6CE0526043CB3EBC4324F1F"
+  },
+  {
+    "courseID": "BLST1152",
+    "term": "W23",
+    "instructorID": "FC9094508A17C3B2415B6DB743633184"
+  },
+  {
+    "courseID": "CHEM0230",
+    "term": "W23",
+    "instructorID": "3EBE9A3F3248ECE0121CCA31D2E12AD5"
+  },
+  {
+    "courseID": "CHNS0102",
+    "term": "W23",
+    "instructorID": "2D7A16E1446B245011C9D95A5DB3A10A"
+  },
+  {
+    "courseID": "CHNS0102",
+    "term": "W23",
+    "instructorID": "3F5ABBA04C178BFF8B7C8F248AA4C4CC"
+  },
+  {
+    "courseID": "CHNS0102",
+    "term": "W23",
+    "instructorID": "F7C30CBB20769B5CE99A67636303DE5D"
+  },
+  {
+    "courseID": "CHNS0102",
+    "term": "W23",
+    "instructorID": "FC69F550E1515F2D00D1BC8CF490FDA0"
+  },
+  {
+    "courseID": "CMLT0200",
+    "term": "W23",
+    "instructorID": "EA677E6759BC87089DA2763DC47DAE9B"
+  },
+  {
+    "courseID": "CRWR0175",
+    "term": "W23",
+    "instructorID": "B60F66808A2CC54F616BCFBBF409DD13"
+  },
+  {
+    "courseID": "CRWR0217",
+    "term": "W23",
+    "instructorID": "5011AC4F149EF67446B2091C65118AD6"
+  },
+  {
+    "courseID": "CRWR1014",
+    "term": "W23",
+    "instructorID": "CB5CEBA122782D87943502A06D7A8AF4"
+  },
+  {
+    "courseID": "CSCI0390",
+    "term": "W23",
+    "instructorID": "FF5EAE40C3FC9F2AE50BE07E65D4142C"
+  },
+  {
+    "courseID": "CSCI1005",
+    "term": "W23",
+    "instructorID": "F6822B69DB1BFEF738BC8FF68C068640"
+  },
+  {
+    "courseID": "CSCI1051",
+    "term": "W23",
+    "instructorID": "1334802FF0552EBC6B24A5323C3CE317"
+  },
+  {
+    "courseID": "DANC0240",
+    "term": "W23",
+    "instructorID": "CE6767E8AC2F03D570AF496D26252B3C"
+  },
+  {
+    "courseID": "DANC0317",
+    "term": "W23",
+    "instructorID": "82D1FBA48381E1ADCEBD72E320987EAC"
+  },
+  {
+    "courseID": "DANC0381",
+    "term": "W23",
+    "instructorID": "C3C422BB4E056217116CF5F47CC66F2A"
+  },
+  {
+    "courseID": "ECON0701",
+    "term": "W23",
+    "instructorID": "CDD160ACBA4863F038731B1F6E5EC717"
+  },
+  {
+    "courseID": "ECON0701",
+    "term": "W23",
+    "instructorID": "5E14E6768ADB88CB41EE61FC82F958AF"
+  },
+  {
+    "courseID": "ECON0702",
+    "term": "W23",
+    "instructorID": "998F4652D1E3166AEE65B5F3C40B7A94"
+  },
+  {
+    "courseID": "ECON1232",
+    "term": "W23",
+    "instructorID": "D3F207217E217D85BAF4FA6686CD5CA1"
+  },
+  {
+    "courseID": "ECON1232",
+    "term": "W23",
+    "instructorID": "DE1DDE977272E8B8D75E391E76AE93F1"
+  },
+  {
+    "courseID": "ECSC1010",
+    "term": "W23",
+    "instructorID": "43DA1DC94A5922C840F11461809C1B91"
+  },
+  {
+    "courseID": "EDST0306",
+    "term": "W23",
+    "instructorID": "725949FA28731758E8AF2FDC72AFA34F"
+  },
+  {
+    "courseID": "EDST0317",
+    "term": "W23",
+    "instructorID": "82D1FBA48381E1ADCEBD72E320987EAC"
+  },
+  {
+    "courseID": "EDST1125",
+    "term": "W23",
+    "instructorID": "C6839D12F9853B68CD9AE1291DD417AE"
+  },
+  {
+    "courseID": "ENGL0217",
+    "term": "W23",
+    "instructorID": "5011AC4F149EF67446B2091C65118AD6"
+  },
+  {
+    "courseID": "ENGL0313",
+    "term": "W23",
+    "instructorID": "7C85D384A845D8094BFDC46237DF3B07"
+  },
+  {
+    "courseID": "ENGL1010",
+    "term": "W23",
+    "instructorID": "1B39DCF8E0FA4E43CA93A9924F839492"
+  },
+  {
+    "courseID": "ENVS1044",
+    "term": "W23",
+    "instructorID": "87F0848B3EC4DF58F7AF7ED61EB35BB1"
+  },
+  {
+    "courseID": "ENVS1052",
+    "term": "W23",
+    "instructorID": "37201179B6DC7F84F1FA2F6EF3836523"
+  },
+  {
+    "courseID": "ENVS1053",
+    "term": "W23",
+    "instructorID": "24A150A746C54051DC54759D0C3919C5"
+  },
+  {
+    "courseID": "FMMC1020",
+    "term": "W23",
+    "instructorID": "5B102D1255929DBA4A202E7C0EDED6D4"
+  },
+  {
+    "courseID": "FMMC1030",
+    "term": "W23",
+    "instructorID": "665E37EBB7ECFA7F618B6ED72A21DA42"
+  },
+  {
+    "courseID": "FOOD1044",
+    "term": "W23",
+    "instructorID": "87F0848B3EC4DF58F7AF7ED61EB35BB1"
+  },
+  {
+    "courseID": "FOOD1052",
+    "term": "W23",
+    "instructorID": "37201179B6DC7F84F1FA2F6EF3836523"
+  },
+  {
+    "courseID": "FREN0102",
+    "term": "W23",
+    "instructorID": "6074A33BD5C38DCEBFBEE837FAE7C87E"
+  },
+  {
+    "courseID": "FREN0102",
+    "term": "W23",
+    "instructorID": "2208D1206F85F534C4BD84628A8A56D4"
+  },
+  {
+    "courseID": "GEOG0120",
+    "term": "W23",
+    "instructorID": "FC6C3240A839C35576E8B541984C7CAF"
+  },
+  {
+    "courseID": "GEOG0120",
+    "term": "W23",
+    "instructorID": "AE6B68CCB1F92CF0E471D44762CF266D"
+  },
+  {
+    "courseID": "GEOG1230",
+    "term": "W23",
+    "instructorID": "A6F4F0D8197CCCBFCEE4A6CE9645FFE7"
+  },
+  {
+    "courseID": "GEOG1230",
+    "term": "W23",
+    "instructorID": "51BFF5832BD6A9CB1D88964D045F9798"
+  },
+  {
+    "courseID": "GHLT1014",
+    "term": "W23",
+    "instructorID": "350AE2355A837DBBEE9FAF48E08F834D"
+  },
+  {
+    "courseID": "GHLT1015",
+    "term": "W23",
+    "instructorID": "3BBA0F345699739BCC3C3D71A2BDC394"
+  },
+  {
+    "courseID": "GHLT1016",
+    "term": "W23",
+    "instructorID": "ED7B73CCE3292B075FD7382C30BFFEB5"
+  },
+  {
+    "courseID": "GHLT1224",
+    "term": "W23",
+    "instructorID": "42A9CB8324F71CCD6673DDBEBCD67492"
+  },
+  {
+    "courseID": "GRMN0102",
+    "term": "W23",
+    "instructorID": "A392B22FC71DFDA563379925E5E33984"
+  },
+  {
+    "courseID": "GRMN0102",
+    "term": "W23",
+    "instructorID": "955358ECE78CE73A328BA57180418DD8"
+  },
+  {
+    "courseID": "HARC0130",
+    "term": "W23",
+    "instructorID": "1AEEC3EADF5C72204FC55AB5AAC03066"
+  },
+  {
+    "courseID": "HARC0371",
+    "term": "W23",
+    "instructorID": "B43211984226D5695DBD68CC56D6794C"
+  },
+  {
+    "courseID": "HARC0711",
+    "term": "W23",
+    "instructorID": "B2C46E0B6A1FA07FAE11C562146BFEF4"
+  },
+  {
+    "courseID": "HARC0732",
+    "term": "W23",
+    "instructorID": "C9D5B575937C9853D39DF06192F91274"
+  },
+  {
+    "courseID": "HARC1010",
+    "term": "W23",
+    "instructorID": "3DFE1F5094C7E489374B093527626D77"
+  },
+  {
+    "courseID": "HARC1026",
+    "term": "W23",
+    "instructorID": "1ADEE061F5E38F04774A7C8815314564"
+  },
+  {
+    "courseID": "HEBM0102",
+    "term": "W23",
+    "instructorID": "B08C0725FED9D9AECD7CD5094149492F"
+  },
+  {
+    "courseID": "INTD1002",
+    "term": "W23",
+    "instructorID": "1A7C843DF48B27B8DD2C16ACC67FF1D0"
+  },
+  {
+    "courseID": "INTD1004",
+    "term": "W23",
+    "instructorID": "648362120AD035EA0D5A4078A62FFE1C"
+  },
+  {
+    "courseID": "INTD1005",
+    "term": "W23",
+    "instructorID": "38281666015C523B87B3FB8F52EC48DA"
+  },
+  {
+    "courseID": "INTD1012",
+    "term": "W23",
+    "instructorID": "AD205147273F79A4AB485B33D38127A0"
+  },
+  {
+    "courseID": "INTD1012",
+    "term": "W23",
+    "instructorID": "333CC009863F97E08EBEDC02364ACFF2"
+  },
+  {
+    "courseID": "INTD1014",
+    "term": "W23",
+    "instructorID": "B96B9A81CF065621FCC8AAE2EAF1770D"
+  },
+  {
+    "courseID": "INTD1029",
+    "term": "W23",
+    "instructorID": "C471A9C18AC0C4FA489E57415325B416"
+  },
+  {
+    "courseID": "INTD1035",
+    "term": "W23",
+    "instructorID": "90338E439DA4652A2BDE2AC3F327A563"
+  },
+  {
+    "courseID": "INTD1074",
+    "term": "W23",
+    "instructorID": "0F37CF2CB1F657446BF9FFBD72EDEB69"
+  },
+  {
+    "courseID": "INTD1089",
+    "term": "W23",
+    "instructorID": "7CF4D521D2664BBB1E76AA4E3308B5D6"
+  },
+  {
+    "courseID": "INTD1089",
+    "term": "W23",
+    "instructorID": "81004303A5EEED05DBA63F1FC108B820"
+  },
+  {
+    "courseID": "INTD1125",
+    "term": "W23",
+    "instructorID": "C6839D12F9853B68CD9AE1291DD417AE"
+  },
+  {
+    "courseID": "INTD1127",
+    "term": "W23",
+    "instructorID": "389D002F396CF6568D23AC3816DC3D74"
+  },
+  {
+    "courseID": "INTD1152",
+    "term": "W23",
+    "instructorID": "FC9094508A17C3B2415B6DB743633184"
+  },
+  {
+    "courseID": "INTD1184",
+    "term": "W23",
+    "instructorID": "77C223A04D742A8614C95F3CCE4E4214"
+  },
+  {
+    "courseID": "INTD1184",
+    "term": "W23",
+    "instructorID": "941C444B1345C0B482AB2BECE09C0473"
+  },
+  {
+    "courseID": "INTD1184",
+    "term": "W23",
+    "instructorID": "C695597C01B345B21E9CF62D15419167"
+  },
+  {
+    "courseID": "INTD1208",
+    "term": "W23",
+    "instructorID": "E440AFB4D74F2812991B0548513E0262"
+  },
+  {
+    "courseID": "INTD1210",
+    "term": "W23",
+    "instructorID": "915243F29C51C4132B14B75A09E0D010"
+  },
+  {
+    "courseID": "INTD1227",
+    "term": "W23",
+    "instructorID": "E9BBE20403A437991594AB47E50DEABC"
+  },
+  {
+    "courseID": "INTD1227",
+    "term": "W23",
+    "instructorID": "5B175C7BBE7D8D75B5BC4A4FD8F7A407"
+  },
+  {
+    "courseID": "INTD1234",
+    "term": "W23",
+    "instructorID": "94B394B6171AD905FFF2F912D145C417"
+  },
+  {
+    "courseID": "INTD1235",
+    "term": "W23",
+    "instructorID": "55B25325E99641C0B158E4815E23DE93"
+  },
+  {
+    "courseID": "INTD1243",
+    "term": "W23",
+    "instructorID": "9600AEE877581C04B3CA16A7263EA8EA"
+  },
+  {
+    "courseID": "INTD1243",
+    "term": "W23",
+    "instructorID": "FAEDFA74FCB33A8D663E5DDF99E30725"
+  },
+  {
+    "courseID": "INTD1249",
+    "term": "W23",
+    "instructorID": "323C941C85BDD45CECBCD522D3705F7A"
+  },
+  {
+    "courseID": "INTD1250",
+    "term": "W23",
+    "instructorID": "27FDB8EDB5E9A2E5C5671E49C4D29867"
+  },
+  {
+    "courseID": "INTD1252",
+    "term": "W23",
+    "instructorID": "B1A409175A04AEE202DA483F6AD6EE53"
+  },
+  {
+    "courseID": "INTD1253",
+    "term": "W23",
+    "instructorID": "DBA7682E041FDF869E2BBE507852B0CD"
+  },
+  {
+    "courseID": "INTD1256",
+    "term": "W23",
+    "instructorID": "96E91E13BF88BD2A5F38E740A7E04966"
+  },
+  {
+    "courseID": "INTD1258",
+    "term": "W23",
+    "instructorID": "1A3ACF51A8939FB0A69D92F4A3DE36C4"
+  },
+  {
+    "courseID": "INTD1259",
+    "term": "W23",
+    "instructorID": "F87DC808A105CC9C85FCAB074414134E"
+  },
+  {
+    "courseID": "INTD1259",
+    "term": "W23",
+    "instructorID": "2ECA27B5F3CED31181268AED7EBBD287"
+  },
+  {
+    "courseID": "INTD1259",
+    "term": "W23",
+    "instructorID": "62813BF23D85E152B6AC2C6A9727207C"
+  },
+  {
+    "courseID": "INTD1261",
+    "term": "W23",
+    "instructorID": "B8AEADCC39D46C165601EA579874CA78"
+  },
+  {
+    "courseID": "ITAL0102",
+    "term": "W23",
+    "instructorID": "7DD4BF380396C5F7FBD2055592D434B3"
+  },
+  {
+    "courseID": "ITAL0102",
+    "term": "W23",
+    "instructorID": "B8A96BEC095A5C2BA7C6579D5CC2D69C"
+  },
+  {
+    "courseID": "JAPN0102",
+    "term": "W23",
+    "instructorID": "AF447BBF7AAA4D008D807A660462F04B"
+  },
+  {
+    "courseID": "JWST1019",
+    "term": "W23",
+    "instructorID": "AB1BDB43776D150BB28CBD3CA980E273"
+  },
+  {
+    "courseID": "LATN0101",
+    "term": "W23",
+    "instructorID": "F2549A47ECAE7C1FEDBC926514656672"
+  },
+  {
+    "courseID": "LATN0101",
+    "term": "W23",
+    "instructorID": "42179414C25D051A55B61D24EA934542"
+  },
+  {
+    "courseID": "LITS0700",
+    "term": "W23",
+    "instructorID": "68C8D326BEDC2E16088A2E161583BCF3"
+  },
+  {
+    "courseID": "LNGT1005",
+    "term": "W23",
+    "instructorID": "50FCA9C1571453AB81A233FB26841610"
+  },
+  {
+    "courseID": "LNGT1230",
+    "term": "W23",
+    "instructorID": "51BFF5832BD6A9CB1D88964D045F9798"
+  },
+  {
+    "courseID": "LNGT1230",
+    "term": "W23",
+    "instructorID": "313ED23082C62818B6A1CAAB011E5A8D"
+  },
+  {
+    "courseID": "MUSC1013",
+    "term": "W23",
+    "instructorID": "68ED42EC2E4BAC346E6C140B72C2B61F"
+  },
+  {
+    "courseID": "MUSC1013",
+    "term": "W23",
+    "instructorID": "74287995F932BE725E21546900569483"
+  },
+  {
+    "courseID": "MUSC1023",
+    "term": "W23",
+    "instructorID": "7BCE396E4A1B040CE6DF1B9399F0B217"
+  },
+  {
+    "courseID": "MUSC1025",
+    "term": "W23",
+    "instructorID": "4AA435A3DAC0E4D71453EC3A1969DCD6"
+  },
+  {
+    "courseID": "MUSC1027",
+    "term": "W23",
+    "instructorID": "20BB18F56A41D6C8F3E9DBF6F51BFA9D"
+  },
+  {
+    "courseID": "MUSC1029",
+    "term": "W23",
+    "instructorID": "887563BCE0089BFECD55E59B51FFB1AB"
+  },
+  {
+    "courseID": "MUSC1055",
+    "term": "W23",
+    "instructorID": "9E5141BF44152930FC18CA846C2ABD19"
+  },
+  {
+    "courseID": "NSCI1270",
+    "term": "W23",
+    "instructorID": "F08F952F80699F836242F7A719673438"
+  },
+  {
+    "courseID": "PHIL0214",
+    "term": "W23",
+    "instructorID": "AD22A6254E9040A5FFA33FF0812B5137"
+  },
+  {
+    "courseID": "PHIL1019",
+    "term": "W23",
+    "instructorID": "AB1BDB43776D150BB28CBD3CA980E273"
+  },
+  {
+    "courseID": "PHIL1073",
+    "term": "W23",
+    "instructorID": "0AD8E115DEDC0EDC35BBD58E4BD21010"
+  },
+  {
+    "courseID": "PHYS0225",
+    "term": "W23",
+    "instructorID": "C6CF3BBB54E270E49CECB8F4AF71865A"
+  },
+  {
+    "courseID": "PHYS0225",
+    "term": "W23",
+    "instructorID": "0AAE8C22D8324D2266634917327A42FA"
+  },
+  {
+    "courseID": "PHYS0325",
+    "term": "W23",
+    "instructorID": "C6CF3BBB54E270E49CECB8F4AF71865A"
+  },
+  {
+    "courseID": "PHYS0325",
+    "term": "W23",
+    "instructorID": "0AAE8C22D8324D2266634917327A42FA"
+  },
+  {
+    "courseID": "PHYS1105",
+    "term": "W23",
+    "instructorID": "F16ADCB6066D31DAF05DD3D79133CD18"
+  },
+  {
+    "courseID": "PSCI1003",
+    "term": "W23",
+    "instructorID": "7B5E7F243F1B2DC7CA2007B122F54930"
+  },
+  {
+    "courseID": "PSCI1029",
+    "term": "W23",
+    "instructorID": "B21A41EE4D7FCB498B346B435DE7FE5F"
+  },
+  {
+    "courseID": "PSCI1230",
+    "term": "W23",
+    "instructorID": "51BFF5832BD6A9CB1D88964D045F9798"
+  },
+  {
+    "courseID": "PSCI1230",
+    "term": "W23",
+    "instructorID": "42542D9E8079DE75A64A6AC90A8A66F4"
+  },
+  {
+    "courseID": "RELI1045",
+    "term": "W23",
+    "instructorID": "7C1142898FAE872E26C99907CA3B8872"
+  },
+  {
+    "courseID": "RELI1053",
+    "term": "W23",
+    "instructorID": "24A150A746C54051DC54759D0C3919C5"
+  },
+  {
+    "courseID": "RELI1055",
+    "term": "W23",
+    "instructorID": "B91A11C5F210206CA33093F381406DAF"
+  },
+  {
+    "courseID": "RELI1073",
+    "term": "W23",
+    "instructorID": "0AD8E115DEDC0EDC35BBD58E4BD21010"
+  },
+  {
+    "courseID": "RUSS0102",
+    "term": "W23",
+    "instructorID": "2018712E1D4848B28D059AA3B0BE4760"
+  },
+  {
+    "courseID": "RUSS0102",
+    "term": "W23",
+    "instructorID": "6E66B13A321113E025AB8B372B63A599"
+  },
+  {
+    "courseID": "THEA1235",
+    "term": "W23",
+    "instructorID": "726BB2CEFA94ACBDDD7F241BC1573637"
+  },
+  {
+    "courseID": "WRPR1230",
+    "term": "W23",
+    "instructorID": "51BFF5832BD6A9CB1D88964D045F9798"
+  },
+  {
+    "courseID": "WRPR1230",
+    "term": "W23",
+    "instructorID": "411DE1A776E995B3AF89D611BA7E09CB"
   }
 ]
