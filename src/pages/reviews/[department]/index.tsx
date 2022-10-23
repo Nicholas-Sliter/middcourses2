@@ -123,6 +123,7 @@ export default function DepartmentPage({
           instructors={instructors}
           expandable={false}
           identifyCourse
+          hideVoting
         />
       </MobileView>
     </>
