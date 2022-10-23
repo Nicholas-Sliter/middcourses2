@@ -3,6 +3,47 @@ const fs = require("fs");
 //chunk size for batch insert
 const MAX_TEST_DATA = 100;
 
+
+const departmentCodeChangedMapping = (code, returnCase = "upper") => {
+  let ret = "";
+  switch (code.toUpperCase()) {
+    case "ENAM": //English & American Literatures => English (2022)
+      ret = "ENGL";
+      break;
+    case "GEOL": //Geology => Earth & Climate Sciences (2022)
+      ret = "ECSC";
+      break;
+    default:
+      ret = code;
+      break;
+  }
+
+  return returnCase === "upper" ? ret.toUpperCase() : ret.toLowerCase();
+};
+
+function parseCourseID(courseID) {
+  if (!courseID) {
+    return { courseNumber: null, department: null };
+  }
+  try {
+    const department = courseID.split(/[0-9]/)[0];
+    const courseNumber = courseID.slice(-4);
+    return { courseNumber, department };
+  } catch (e) {
+    return { courseNumber: null, department: null }; //invalid courseID
+  }
+}
+
+
+const courseIDChangedMapping = (courseID) => {
+  let ret = "";
+  const { courseNumber, department } = parseCourseID(courseID);
+  ret = (departmentCodeChangedMapping(department) + courseNumber) ?? courseID;
+  return ret;
+};
+
+
+
 exports.seed = async function (knex) {
   //Delete ALL existing table entries
   await knex("User").del();
@@ -26,17 +67,21 @@ exports.seed = async function (knex) {
   const courseData = JSON.parse(fs.readFileSync("./data/Course.json", "utf8"));
   const courses = courseData.map((course) => {
     return {
-      courseID: course.courseID,
+      courseID: courseIDChangedMapping(course.courseID),
       courseName: course.courseName,
       courseDescription: course.courseDescription,
       departmentID:
-        course.departmentID ?? course.courseID.slice(0, 4).toUpperCase(),
+        departmentCodeChangedMapping(course.departmentID ?? course.courseID.slice(0, 4).toUpperCase()),
     };
   });
   //await knex.batchInsert("Course", courses, MAX_TEST_DATA);
+  //do upsert
   courses.forEach(async (course) => {
     await knex("Course")
       .insert(course)
+      .onConflict("courseID") //upsert
+      .merge()
+      .returning("*")
       .catch((err) => console.log(err));;
   });
 
@@ -52,7 +97,7 @@ exports.seed = async function (knex) {
       name: instructor.name,
       slug: instructor.slug,
       email: instructor.email,
-      departmentID: instructor.departmentID ?? "",
+      departmentID: departmentCodeChangedMapping(instructor.departmentID ?? ""),
     };
   });
 
@@ -65,8 +110,12 @@ exports.seed = async function (knex) {
   );
 
   //await knex.batchInsert("CourseInstructor", courseInstructors, MAX_TEST_DATA);
-  //much slower
+  //much slower, but better error handling
   courseInstructors.forEach(async (courseInstructor) => {
+    //check if course id has a dept that needs to be changed
+    courseInstructor.courseID = courseIDChangedMapping(courseInstructor.courseID);
+
+
     knex("CourseInstructor")
       .insert(courseInstructor)
       .catch((err) => console.log(err));

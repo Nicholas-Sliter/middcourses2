@@ -11,7 +11,7 @@ import { formatTermObj } from "../../common/utils";
 
 export default async function getBaseData() {
   //use previous 4 terms
-  const terms = ["S21", "F21", "W22", "S22"];
+  const terms = ["S21", "F21", "W22", "S22", "F22", "W23"];
 
   const scrapers = [];
 

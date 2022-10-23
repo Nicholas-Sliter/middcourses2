@@ -56,12 +56,20 @@
     "departmentName": "Economics"
   },
   {
+    "departmentID": "ECSC",
+    "departmentName": "Earth and Climate Sciences"
+  },
+  {
     "departmentID": "EDST",
     "departmentName": "Education Studies"
   },
   {
     "departmentID": "ENAM",
     "departmentName": "English & American Literatures"
+  },
+  {
+    "departmentID": "ENGL",
+    "departmentName": "English"
   },
   {
     "departmentID": "ENVS",

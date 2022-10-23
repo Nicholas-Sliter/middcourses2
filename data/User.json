@@ -5,8 +5,6 @@
       "userType": "student",
       "graduationYear": "2026",
       "createdAt": "2022-04-01T00:00:00.000Z",
-      "numReviews": 1,
-      "numReviewsThisTerm": 0,
       "canReadReviews": true,
       "admin": false,
       "banned": false
@@ -17,22 +15,18 @@
       "userType": "student",
       "graduationYear": "2025",
       "createdAt": "2022-04-02T00:00:00.000Z",
-      "numReviews": 1,
-      "numReviewsThisTerm": 0,
       "canReadReviews": true,
       "admin": false,
       "banned": false
    },
-      {
-         "userID": "c72887ef-52fb-4024-a66d-c6d87739f002",
-         "userEmail": "nsliter@middlebury.edu",
-         "userType": "student",
-         "graduationYear": "2023",
-         "createdAt": "2022-04-02T00:00:00.000Z",
-         "numReviews": 1,
-         "numReviewsThisTerm": 0,
-         "canReadReviews": true,
-         "admin": true,
-         "banned": false
-      }
+   {
+      "userID": "c72887ef-52fb-4024-a66d-c6d87739f002",
+      "userEmail": "nsliter@middlebury.edu",
+      "userType": "student",
+      "graduationYear": "2023",
+      "createdAt": "2022-04-02T00:00:00.000Z",
+      "canReadReviews": true,
+      "admin": true,
+      "banned": false
+   }
 ]

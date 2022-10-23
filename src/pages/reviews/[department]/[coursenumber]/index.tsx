@@ -17,7 +17,7 @@ import SidebarLayout from "../../../../layouts/SidebarLayout";
 import { optimizedSSRCoursePage } from "../../../../lib/backend/database/course";
 //import RatingBox from "../../../../components/RatingBox";
 import { useToast } from "@chakra-ui/react";
-import { is100LevelCourse } from "../../../../lib/common/utils";
+import { departmentCodeChangedMapping, is100LevelCourse } from "../../../../lib/common/utils";
 
 // SSR is amazing
 export async function getServerSideProps(context) {
@@ -27,6 +27,18 @@ export async function getServerSideProps(context) {
   const departmentID = context.query.department as string;
   const courseNumber = context.query.coursenumber as string;
   const courseID = `${departmentID.toUpperCase()}${courseNumber}`;
+
+  // check if dept. code has changed
+  if (departmentCodeChangedMapping(departmentID, "lower") !== departmentID) {
+    //check if redirect course exists, if not, skip redirect
+    return {
+      redirect: {
+        destination: `/reviews/${departmentCodeChangedMapping(departmentID, "lower")}/${courseNumber}`,
+        permanent: true,
+      },
+    };
+
+  }
 
 
   const data = await optimizedSSRCoursePage(courseID, session);
