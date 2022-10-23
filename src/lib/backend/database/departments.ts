@@ -157,6 +157,7 @@ export async function optimizedSSRDepartmentPage(departmentID: string, authorize
         delete newReview["avgEffectiveness"];
         delete newReview["avgEnthusiasm"];
         delete newReview["avgInstructorAgain"];
+        delete newReview["avgInstructorEnjoyed"];
         return newReview;
     });
 
@@ -173,6 +174,7 @@ export async function optimizedSSRDepartmentPage(departmentID: string, authorize
         obj.avgEffectiveness = null;
         obj.avgEnthusiasm = null;
         obj.avgInstructorAgain = null;
+        obj.avgInstructorEnjoyed = null;
     }
 
 
