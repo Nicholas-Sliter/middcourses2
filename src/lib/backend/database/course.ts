@@ -19,7 +19,7 @@ async function getCourseReviews(id: string, session: CustomSession, authorized: 
     // return await knex("Review")
     //     .where("Review.courseID", id)
     //     .select(reviewInfo);
-    console.log(session?.user?.id);
+    //console.log(session?.user?.id);
     return await getReviewByCourseIDWithVotes(id, session?.user?.id);
 }
 
@@ -36,6 +36,8 @@ async function getCourseInfo(id: string) {
 }
 
 export async function optimizedSSRCoursePage(id: string, session: CustomSession) {
+
+    const COURSE_MIN_AVG_COUNT = 3; // require 3 reviews to show avgs
 
     const authorized: boolean = session?.user?.authorized ||
         session?.user?.role === "admin" ||
@@ -120,6 +122,14 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
                 slug: result.slug,
             });
         });
+
+        if (output.reviews.length < COURSE_MIN_AVG_COUNT) {
+            output.avgRating = null;
+            output.avgDifficulty = null;
+            output.avgHours = null;
+            output.avgValue = null;
+            output.avgAgain = null;
+        }
 
         return output;
 
