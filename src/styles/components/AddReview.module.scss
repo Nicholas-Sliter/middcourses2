@@ -7,6 +7,17 @@
   cursor: pointer;
 }
 
+.header {
+  padding-right: 2.2rem !important;
+}
+
+.spacer {
+  margin-top: 1rem;
+  width: 0;
+  height: 0;
+  background-color: transparent;
+}
+
 .form {
   textarea {
     width: 90%;
@@ -71,4 +82,5 @@
       color: $black;
     }
   }
+
 }

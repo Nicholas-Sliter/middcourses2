@@ -10,6 +10,19 @@
   border-radius: $border-radius-small;
 
 
+  hr {
+    border: $border-light;
+    color: $grey-light;
+
+  }
+
+  &>p {
+    margin: 0.2rem;
+    font-size: 0.85rem;
+    color: $grey-dark;
+    font-weight: 600;
+  }
+
   div>div {
     top: 35%;
   }

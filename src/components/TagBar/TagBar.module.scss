@@ -8,5 +8,40 @@
     span {
         margin-right: 0.3rem;
         cursor: default;
+        pointer-events: auto;
+    }
+
+    .buttonWrapper {
+        //remove style
+        background-color: transparent;
+        border: none;
+        outline: none;
+        width: auto;
+        height: auto;
+        pointer-events: none;
+        margin: 0;
+        padding: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        box-sizing: content-box;
+
+
+
+
+        border-radius: 0.375rem;
+        margin: 0.25rem;
+        margin-right: 0.3rem;
+
+
+        span {
+            margin: 0;
+        }
+
+
+        &:focus-within {
+            box-shadow: var(--chakra-shadows-outline);
+        }
+
     }
 }
