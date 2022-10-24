@@ -39,7 +39,9 @@ export async function getServerSideProps(context) {
     }
 
 
-    const users = await __getAllFullUsers();
+    const users = (await __getAllFullUsers()).sort((a, b) => {
+        return a.createdAt < b.createdAt ? 1 : -1;
+    });
 
 
     return {
@@ -102,7 +104,7 @@ function AdminDashboard({
                         {users.map((user) => {
                             return (
                                 <tr key={user.userEmail}>
-                                    <td>{user.useremail}</td>
+                                    <td>{user.userEmail}</td>
                                     <td>{user.userType}</td>
                                     <td>{user.createdAt}</td>
                                 </tr>
