@@ -1,13 +1,27 @@
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
+    TableContainer,
+    Spacer,
+} from '@chakra-ui/react'
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useIsMount from "../../hooks/useIsMount";
+import { __getAllFullReviews } from "../../lib/backend/database/review";
 import { __getAllFullUsers } from "../../lib/backend/database/users";
 import { CustomSession } from "../../lib/common/types";
 import signInRedirectHandler from "../../lib/frontend/login";
 
 interface AdminDashboardProps {
     users: any[];
+    reviews: any[];
 
 }
 
@@ -23,7 +37,7 @@ export async function getServerSideProps(context) {
     if (!session) {
         return {
             redirect: {
-                destination: "/auth/signin",
+                destination: "/auTh/signin",
                 permanent: false,
             }
         }
@@ -43,10 +57,14 @@ export async function getServerSideProps(context) {
         return a.createdAt < b.createdAt ? 1 : -1;
     });
 
+    const reviews = (await __getAllFullReviews()).sort((a, b) => {
+        return a.createdAt < b.createdAt ? 1 : -1;
+    });
 
     return {
         props: {
             users: JSON.parse(JSON.stringify(users)),
+            reviews: JSON.parse(JSON.stringify(reviews))
         }
     }
 
@@ -56,7 +74,8 @@ export async function getServerSideProps(context) {
 
 
 function AdminDashboard({
-    users
+    users,
+    reviews
 
 }: AdminDashboardProps) {
 
@@ -80,6 +99,23 @@ function AdminDashboard({
     }, [session, isMount]);
 
 
+    const deleteFun = (id, permanent = false) => {
+        console.log(id);
+
+        confirm(`Are you sure you want to delete this review with id: ${id}? This action is ${permanent ? "permanent" : "temporary"}.`);
+
+
+        fetch(`/api/reviews/${id}/delete?permanent=${permanent.toString()}`, {
+            method: "POST", //change to delete and move to reviews/[id]
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+            })
+        })
+
+    }
 
 
     console.log(users);
@@ -92,30 +128,67 @@ function AdminDashboard({
             {/* Users table */}
             <div>
                 <h2>Users</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Type</th>
-                            <th>Created</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <Table>
+                    <Thead>
+                        <Tr>
+                            <Th>Email</Th>
+                            <Th>Type</Th>
+                            <Th>Read</Th>
+                            <Th>Created</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
                         {users.map((user) => {
                             return (
-                                <tr key={user.userEmail}>
-                                    <td>{user.userEmail}</td>
-                                    <td>{user.userType}</td>
-                                    <td>{user.createdAt}</td>
-                                </tr>
+                                <Tr key={user.userEmail}>
+                                    <Td>{user.userEmail}</Td>
+                                    <Td>{user.userType}</Td>
+                                    <Td>{user.canReadReviews.toString()}</Td>
+                                    <Td>{user.createdAt}</Td>
+                                </Tr>
                             )
                         })}
-                    </tbody>
-                </table>
+                    </Tbody>
+                </Table>
             </div>
             {/* Reviews table */}
-        </div>
+            <div>
+                <h2>Reviews</h2>
+                <Table>
+                    <Thead>
+                        <Tr>
+                            <Th>Review ID</Th>
+                            <Th>Reviewer</Th>
+                            <Th>Instructor ID</Th>
+                            <Th>Course ID</Th>
+                            <Th>Created</Th>
+                            <Th>DELETE</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {reviews.map((review) => {
+                            return (
+                                <Tr key={review.reviewID}>
+                                    <Td>{review.reviewID}</Td>
+                                    <Td>{review.reviewerID}</Td>
+                                    <Td>{review.instructorID}</Td>
+                                    <Td>{review.courseID}</Td>
+                                    <Td>{review.reviewDate}</Td>
+                                    <Td><button
+                                        onClick={() => {
+                                            deleteFun(review.reviewID, true);
+                                        }}
+                                    >DELETE</button></Td>
+                                </Tr>
+                            )
+                        })}
+                    </Tbody>
+                </Table>
+            </div>
+
+            <div style={{ height: "3rem" }} />
+        </div >
     )
 }
 
-export default AdminDashboard
+export default AdminDashboard;

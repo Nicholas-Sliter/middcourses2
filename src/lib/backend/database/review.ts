@@ -1,6 +1,6 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { public_instructor, public_review } from "../../common/types";
+import { full_review, public_instructor, public_review } from "../../common/types";
 import { parseStringToInt } from "../utils";
 
 
@@ -68,7 +68,59 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
 }
 
 
+export async function __getAllFullReviews() {
+    const reviews = await knex("Review")
+        .select("*");
+
+    return reviews;
+}
+
+
 export async function getReviewByID(reviewID: string) {
+    const review = await knex("Review")
+        .where({
+            reviewID: reviewID
+        })
+        .first()
+        .select(reviewInfo);
+
+    return review as public_review;
+}
+
+export async function __getFullReviewByID(reviewID: string) {
+    const review = await knex("Review")
+        .where({
+            reviewID: reviewID
+        })
+        .first()
+        .select("*");
+
+    return review as full_review;
+}
+
+
+export async function deleteReviewByID(reviewID: string, permanent: boolean = false) {
+    if (permanent) {
+        await knex("Review")
+            .where({
+                reviewID: reviewID
+            })
+            .del();
+        console.log(`Deleted review ${reviewID} permanently`);
+    }
+    else {
+        //set deleted boolean to true
+        await knex("Review")
+            .where({
+                reviewID: reviewID
+            })
+            .update({
+                deleted: true
+            });
+        console.log(`Deleted review ${reviewID} temporarily`);
+    }
+
+    return;
 }
 
 
@@ -336,6 +388,10 @@ export async function getReviewsByDepartmentID(departmentID: string) {
 
     const query = await knex("Review")
         .whereRaw(`"Review"."courseID" IN (SELECT "Course"."courseID" FROM "Course" WHERE "Course"."departmentID" = ?)`, [departmentID])
+        .andWhere({
+            "Review.deleted": false
+        }
+        )
         .select(reviewInfo)
         .groupBy(reviewInfo)
         //summarize all review info into averages
