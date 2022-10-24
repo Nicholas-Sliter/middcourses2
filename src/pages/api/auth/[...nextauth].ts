@@ -27,7 +27,7 @@ async function signIn({ profile, user, account }) {
   }
 
   //make sure that the user is registered in the db and get role and id
-  const bool = checkIfUserExists(user.email);
+  const bool: boolean = await checkIfUserExists(user.email);
 
   if (!bool) {
     //do signup stuff
@@ -41,6 +41,7 @@ async function signIn({ profile, user, account }) {
     }
   }
 
+  console.log(`User ${user.email} signed in`);
   return true;
 }
 
@@ -67,6 +68,7 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      checks: "state",
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,

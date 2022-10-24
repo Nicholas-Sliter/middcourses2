@@ -417,9 +417,14 @@ export async function generateUser(email: string) {
     admin: false,
   };
 
+
   //get verified user info from the Middlebury directory
   const S = new Scraper(email);
-  await S.init();
+  try {
+    await S.init();
+  } catch (e) {
+    console.log(e);
+  }
 
   user.userType = S.person.type.toLowerCase() ?? "student";
   user.graduationYear = S.person?.gradYear ?? null;
@@ -434,6 +439,10 @@ export async function generateUser(email: string) {
   }
 
   const result = await knex("User").insert(user).returning("*");
+
+  console.log(
+    `Created user ${user.userEmail} with type ${user.userType}`
+  )
 
   if (!result) {
     throw new Error("Failed to create user");
