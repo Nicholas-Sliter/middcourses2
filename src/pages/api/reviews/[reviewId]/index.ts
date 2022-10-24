@@ -2,6 +2,9 @@ import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next/types";
 import { isUUIDv4 } from "../../../../lib/common/utils";
 import { getReviewByID } from "../../../../lib/backend/database-utils";
+import { getSession } from "next-auth/react";
+import { CustomSession, full_review } from "../../../../lib/common/types";
+import { __insertReview } from "../../../../lib/backend/database/review";
 
 const handler = nc({
   onError: (err, req: NextApiRequest, res: NextApiResponse) => {
@@ -36,6 +39,25 @@ const handler = nc({
   res.status(200).json({
     message: review,
   });
-});
+})
+
+  .post(async (req: NextApiRequest, res: NextApiResponse) => {
+    //allow admin to submit a review for a user manually
+    const reviewID = req.query.reviewId as string;
+    //check session
+    const session = (await getSession({ req })) as CustomSession;
+    //check user is admin
+    if (!session || !session.user.admin) {
+      res.status(401).end("You must be an admin to use this endpoint");
+      return;
+    }
+
+    //given a review in the post body, insert it into the database
+    const review = req.body as full_review;
+    await __insertReview(review);
+
+    res.status(200).end("Review inserted");
+
+  });
 
 export default handler;

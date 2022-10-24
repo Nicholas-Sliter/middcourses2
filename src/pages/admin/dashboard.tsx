@@ -38,7 +38,7 @@ export async function getServerSideProps(context) {
     if (!session) {
         return {
             redirect: {
-                destination: "/auTh/signin",
+                destination: "/auth/signin",
                 permanent: false,
             }
         }
@@ -128,6 +128,21 @@ function AdminDashboard({
         })
 
     }
+
+    const insertReviewToDB = (review) => {
+        fetch(`/api/reviews/${review.reviewID}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                ...review,
+            })
+        })
+    }
+
+    console.log(insertReviewToDB);
+
 
 
     console.log(users);

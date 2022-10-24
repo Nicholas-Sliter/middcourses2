@@ -99,6 +99,12 @@ export async function __getFullReviewByID(reviewID: string) {
 }
 
 
+export async function __insertReview(review: full_review) {
+    const reviewID = await knex("Review").insert(review);
+    return reviewID;
+}
+
+
 export async function deleteReviewByID(reviewID: string, permanent: boolean = false) {
     if (permanent) {
         await knex("Review")
