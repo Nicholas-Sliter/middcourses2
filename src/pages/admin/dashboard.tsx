@@ -141,6 +141,16 @@ function AdminDashboard({
         })
     }
 
+    const refreshUser = (id) => {
+        console.log(`refreshing user ${id}`);
+        fetch(`/api/profile/${id}/refresh`, { //change to POST and users
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+    }
+
     console.log(insertReviewToDB);
 
 
@@ -162,6 +172,7 @@ function AdminDashboard({
                             <Th>Type</Th>
                             <Th>Read</Th>
                             <Th>Created</Th>
+                            <Th>Refresh</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -172,6 +183,7 @@ function AdminDashboard({
                                     <Td>{user.userType}</Td>
                                     <Td>{user.canReadReviews.toString()}</Td>
                                     <Td>{user.createdAt}</Td>
+                                    <Td><button onClick={() => refreshUser(user.userID)}>Refresh</button></Td>
                                 </Tr>
                             )
                         })}
