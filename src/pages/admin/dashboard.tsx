@@ -129,6 +129,21 @@ function AdminDashboard({
 
     }
 
+    const insertReviewToDB = (review) => {
+        fetch(`/api/reviews/${review.reviewID}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                ...review,
+            })
+        })
+    }
+
+    console.log(insertReviewToDB);
+
+
 
     console.log(users);
 
