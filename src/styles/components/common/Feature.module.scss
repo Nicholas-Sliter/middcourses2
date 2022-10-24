@@ -16,8 +16,8 @@
    background-color: #ffffff;
    border: $border-light;
    box-shadow: $shadow-small-light;
-   cursor: pointer;
-   @include feelHover;
+   // cursor: pointer; 
+   // @include feelHover;
 
    &:hover {
       box-shadow: $shadow-medium-light;
