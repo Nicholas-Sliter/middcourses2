@@ -76,6 +76,20 @@ function getWordDiversity(str: string) {
 }
 
 
+
+function checkForRepeatedCharSubstrings(str: string) {
+  const words = getWords(str);
+  for (const word of words) {
+    //check if there are strings of the same char in a sequence > 5
+    const matches = word.match(/(.)\1{5,}/g);
+    if (matches) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
 export function isQualityReview(str: string): boolean {
 
   // test for button mashing
@@ -111,9 +125,19 @@ export function isQualityReview(str: string): boolean {
   const wordDiversity = getWordDiversity(str);
   const sufficientWordDiversity: boolean = wordDiversity > 0.4;
 
-  console.log({ notHasJunk: !hasJunk, sufficientAlphabetSize, sufficientEntropy, sufficientWordLength, sufficientLetterFrequency, notComposedOfSubstrings, sufficientWordDiversity });
+  // check that a review does not have repeated char substrings
+  const noRepeatedCharSubstrings: boolean = !checkForRepeatedCharSubstrings(str);
 
-  return !hasJunk && sufficientAlphabetSize && sufficientEntropy && sufficientWordLength && sufficientLetterFrequency && notComposedOfSubstrings && sufficientWordDiversity;
+  console.log({ notHasJunk: !hasJunk, sufficientAlphabetSize, sufficientEntropy, sufficientWordLength, sufficientLetterFrequency, notComposedOfSubstrings, sufficientWordDiversity, noRepeatedCharSubstrings });
+
+  return !hasJunk &&
+    sufficientAlphabetSize &&
+    sufficientEntropy &&
+    sufficientWordLength &&
+    sufficientLetterFrequency &&
+    notComposedOfSubstrings &&
+    sufficientWordDiversity &&
+    noRepeatedCharSubstrings;
 
 }
 
