@@ -26,6 +26,14 @@ export interface public_review {
   userVoteType?: 1 | -1;
 }
 
+export interface full_review extends public_review {
+  reviewerID: string;
+  approved: boolean;
+  deleted: boolean;
+  archived: boolean;
+  ignoreFlags: boolean;
+}
+
 
 export interface public_course {
   courseID: string;

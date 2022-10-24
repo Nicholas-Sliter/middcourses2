@@ -6,6 +6,7 @@ import {
   checkReviewByUserAndCourse,
   getCourseByID,
   getReviewsByCourseID,
+  updateUserCheck,
 } from "../../../../../../lib/backend/database-utils";
 import { getSession } from "next-auth/react";
 import {
@@ -17,6 +18,7 @@ import {
 import { CustomSession } from "../../../../../../lib/common/types";
 import { courseTags, primaryComponents } from "../../../../../../lib/common/utils";
 import { voteReviewByID } from "../../../../../../lib/backend/database/review";
+import { updateUserPermissions } from "../../../../../../lib/backend/database/users";
 
 /**
  * Get all course reviews for a specific course
@@ -227,6 +229,8 @@ const handler = nc({
       // await updateCourseRating(courseID);
       // add user vote
       await voteReviewByID(review.reviewID, session.user.id, "up");
+      // update user permissions
+      await updateUserPermissions(session.user.id)
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Internal server error" });

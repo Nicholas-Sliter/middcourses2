@@ -23,7 +23,7 @@ exports.up = function (knex) {
       "Required for Major/Minor",
       "Elective for Major/Minor",
       "Specific interest",
-      "Distribution elective",
+      "Distribution requirement",
       "Pre-requisite for later courses",
       "Someone recommended it",
       "To try something new",
