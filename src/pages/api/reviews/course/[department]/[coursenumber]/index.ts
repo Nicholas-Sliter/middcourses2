@@ -187,7 +187,10 @@ const handler = nc({
 
     const clamp = (x: number, min = 0, max = 10) => Math.max(Math.min(x, max), min);
 
-    const parseReviewInt = (s, min = 1, max = 10) => {
+    const parseReviewInt = (s, min = 0, max = 10, def = 5) => {
+      if (!s) {
+        return def;
+      }
       const x = parseInt(s, 10) ?? 5;
       return clamp(x, min, max);
     }
@@ -206,7 +209,7 @@ const handler = nc({
       approved: true,
       difficulty: parseReviewInt(req.body.difficulty),
       value: parseReviewInt(req.body.value),
-      hours: parseReviewInt(req.body.hours, 0, 30),
+      hours: parseReviewInt(req.body?.hours, 0, 30, 0),
       again: req.body.again ?? false,
       primaryComponent: req.body.primaryComponent,
       tags: req.body.courseTags,
