@@ -412,6 +412,9 @@ export async function generateUser(email: string) {
     canReadReviews: false,
     graduationYear: "",
     createdAt: new Date().toISOString(),
+    archived: false,
+    banned: false,
+    admin: false,
   };
 
   //get verified user info from the Middlebury directory
