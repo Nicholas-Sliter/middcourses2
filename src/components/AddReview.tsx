@@ -344,7 +344,7 @@ export default function AddReview({
                     <option value="Required for Major/Minor" disabled={inMajorMinor === "neither"}>Required for Major/Minor</option>
                     <option value="Elective for Major/Minor" disabled={inMajorMinor === "neither"}>Elective for Major/Minor</option>
                     <option value="Specific interest">Specific interest</option>
-                    <option value="Distribution requirement">Distribution requirement</option>
+                    <option value="Distribution elective">Distribution requirement</option>
                     <option value="Pre-requisite for later courses">Pre-requisite for later courses</option>
                     <option value="Someone recommended it">Someone recommended it</option>
                     <option value="To try something new">To try something new</option>
