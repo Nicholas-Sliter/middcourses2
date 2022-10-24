@@ -102,8 +102,15 @@ function AdminDashboard({
     const deleteFun = (id, permanent = false) => {
         console.log(id);
 
-        confirm(`Are you sure you want to delete this review with id: ${id}? This action is ${permanent ? "permanent" : "temporary"}.`);
+        //type the last 5 characters of the id to confirm
+        //if correct, delete
 
+        const res = prompt(`Are you sure you want to delete this review with id: ${id}? This action is ${permanent ? "permanent" : "temporary"}. Type ${id.slice(-5)} of the id to confirm`);
+
+
+        if (res !== id.slice(-5)) {
+            return;
+        }
 
         fetch(`/api/reviews/${id}/delete?permanent=${permanent.toString()}`, {
             method: "POST", //change to delete and move to reviews/[id]
