@@ -145,7 +145,7 @@ export async function updateUserPermissions(id: string) {
             userID: id,
 
         })
-        .select(["userID", "userEmail", "userType"])
+        .select(["userID", "userEmail", "userType", "admin"])
         .first();
 
     const userReviews = await knex("Review")
@@ -204,6 +204,10 @@ export async function updateUserPermissions(id: string) {
         if (userReviews[0].reviewCount >= 2) {
             bool = true;
         }
+    }
+
+    if (user.usertType === "faculty" || user.admin) {
+        bool = true;
     }
 
     const result = await knex("User")
