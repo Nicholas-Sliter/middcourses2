@@ -10,6 +10,8 @@ const handler = nc<NextApiRequest, NextApiResponse>()
         const session = (await getSession({ req })) as CustomSession;
         const userID = req.query.userId as string;
 
+        console.log(`Request to update permissions for user ${userID}`);
+
         // check if user is user or admin
         if (!session?.user?.id) {
             res.status(401).end("You are not logged in");

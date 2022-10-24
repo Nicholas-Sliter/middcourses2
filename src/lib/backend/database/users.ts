@@ -139,47 +139,84 @@ export async function updateUserPermissions(id: string) {
     const SIX_MONTHS_AGO = new Date();
     SIX_MONTHS_AGO.setMonth(SIX_MONTHS_AGO.getMonth() - 6);
 
-    const usersAndReviews = await knex('User')
-        .where({
-            'User.userID': id,
-            'User.banned': false,
-            'User.archived': false,
-            'User.userType': 'student',
-            'User.admin': false,
-        })
-        .fullOuterJoin('Review', 'User.userID', 'Review.reviewerID')
-        .where({
-            'Review.deleted': false,
-            'Review.archived': false,
-            'Review.approved': true,
-            'Review.reviewDate': {
-                '>=': SIX_MONTHS_AGO
-            }
-        })
-        .groupBy('User.userID', "User.userType")
-        .count('Review.reviewID as reviewCount')
-        .select('User.userID', 'User.userType');
 
-    for (const user of usersAndReviews) {
-        let bool = false;
+    const user = await knex("User")
+        .where({
+            userID: id,
 
-        if (user.userType === 'student') {
-            if (user.reviewCount >= 2) {
-                bool = true;
-            }
+        })
+        .select(["userID", "userEmail", "userType"])
+        .first();
+
+    const userReviews = await knex("Review")
+        .where({
+            "Review.reviewerID": id,
+            "Review.deleted": false,
+            "Review.archived": false
+        })
+        .andWhere("reviewDate", ">", SIX_MONTHS_AGO.toISOString())
+        .count("reviewID as reviewCount");
+
+
+
+    // const usersAndReviews = await knex('User')
+    //     .where({
+    //         'User.userID': id,
+    //         'User.banned': false,
+    //         'User.archived': false,
+    //         'User.userType': 'student',
+    //         // 'User.admin': false,
+    //     })
+    //     .leftJoin('Review', 'User.userID', 'Review.reviewerID')
+    //     .andWhere({
+    //         'Review.deleted': false,
+    //         'Review.archived': false,
+    //         'Review.approved': true,
+    //     })
+    //     .andWhere('Review.reviewDate', '>', SIX_MONTHS_AGO)
+    //     .groupBy('User.userID', "User.userType")
+    //     .count('Review.reviewID as reviewCount')
+    //     .select('User.userID', 'User.userType');
+
+    // console.log(usersAndReviews);
+
+    // for (const user of usersAndReviews) {
+    //     let bool = false;
+
+    //     if (user.userType === 'student') {
+    //         if (user.reviewCount >= 2) {
+    //             bool = true;
+    //         }
+    //     }
+
+    //     knex('User')
+    //         .where({
+    //             'User.userID': user.userID
+    //         })
+    //         .update({
+    //             'User.canReadReviews': bool
+    //         });
+    //     console.log(`Updated user ${user.userID} to ${bool}`);
+    // }
+
+    let bool = false;
+    if (user.userType === "student") {
+        if (userReviews[0].reviewCount >= 2) {
+            bool = true;
         }
-
-        knex('User')
-            .where({
-                'User.userID': user.userID
-            })
-            .update({
-                'User.canReadReviews': bool
-            });
-        console.log(`Updated user ${user.userID} to ${bool}`);
     }
 
-    return;
+    const result = await knex("User")
+        .where({
+            userID: id,
+        })
+        .update({
+            canReadReviews: bool,
+        })
+        .returning("*");
+
+    console.log(`Updated user ${id} to ${bool}`);
+    return result;
 
 }
 
