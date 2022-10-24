@@ -30,10 +30,6 @@ interface AdminDashboardProps {
 export async function getServerSideProps(context) {
     const session = await getSession(context) as CustomSession;
 
-    //get all users
-
-    //get all reviews
-
 
     if (!session) {
         return {
@@ -150,13 +146,6 @@ function AdminDashboard({
             },
         })
     }
-
-    console.log(insertReviewToDB);
-
-
-
-    console.log(users);
-
 
 
     return (

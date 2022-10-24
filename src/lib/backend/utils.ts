@@ -134,7 +134,7 @@ export function isQualityReview(str: string): boolean {
     sufficientAlphabetSize &&
     sufficientEntropy &&
     sufficientWordLength &&
-    sufficientLetterFrequency &&
+    // sufficientLetterFrequency && //too many false positives
     notComposedOfSubstrings &&
     sufficientWordDiversity &&
     noRepeatedCharSubstrings;
