@@ -22,6 +22,7 @@ import signInRedirectHandler from "../../lib/frontend/login";
 interface AdminDashboardProps {
     users: any[];
     reviews: any[];
+    mode: string;
 
 }
 
@@ -61,10 +62,13 @@ export async function getServerSideProps(context) {
         return a.createdAt < b.createdAt ? 1 : -1;
     });
 
+    const mode = process.env.NODE_ENV;
+
     return {
         props: {
             users: JSON.parse(JSON.stringify(users)),
-            reviews: JSON.parse(JSON.stringify(reviews))
+            reviews: JSON.parse(JSON.stringify(reviews)),
+            mode: mode
         }
     }
 
@@ -75,7 +79,8 @@ export async function getServerSideProps(context) {
 
 function AdminDashboard({
     users,
-    reviews
+    reviews,
+    mode
 
 }: AdminDashboardProps) {
 
@@ -102,8 +107,15 @@ function AdminDashboard({
     const deleteFun = (id, permanent = false) => {
         console.log(id);
 
-        confirm(`Are you sure you want to delete this review with id: ${id}? This action is ${permanent ? "permanent" : "temporary"}.`);
+        //type the last 5 characters of the id to confirm
+        //if correct, delete
 
+        const res = prompt(`Are you sure you want to delete this review with id: ${id}? This action is ${permanent ? "permanent" : "temporary"}. Type ${id.slice(-5)} of the id to confirm`);
+
+
+        if (res !== id.slice(-5)) {
+            return;
+        }
 
         fetch(`/api/reviews/${id}/delete?permanent=${permanent.toString()}`, {
             method: "POST", //change to delete and move to reviews/[id]
@@ -124,7 +136,7 @@ function AdminDashboard({
 
     return (
         <div>
-            <h1>Admin Dashboard</h1>
+            <h1>Admin Dashboard - {mode}</h1>
             {/* Users table */}
             <div>
                 <h2>Users</h2>
