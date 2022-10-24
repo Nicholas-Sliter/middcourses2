@@ -10,7 +10,6 @@ import {
     TableContainer,
     Spacer,
 } from '@chakra-ui/react'
-import { m } from 'framer-motion';
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
