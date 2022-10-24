@@ -10,6 +10,7 @@ import {
     TableContainer,
     Spacer,
 } from '@chakra-ui/react'
+import { m } from 'framer-motion';
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -22,6 +23,7 @@ import signInRedirectHandler from "../../lib/frontend/login";
 interface AdminDashboardProps {
     users: any[];
     reviews: any[];
+    mode: string;
 
 }
 
@@ -61,10 +63,13 @@ export async function getServerSideProps(context) {
         return a.createdAt < b.createdAt ? 1 : -1;
     });
 
+    const mode = process.env.NODE_ENV;
+
     return {
         props: {
             users: JSON.parse(JSON.stringify(users)),
-            reviews: JSON.parse(JSON.stringify(reviews))
+            reviews: JSON.parse(JSON.stringify(reviews)),
+            mode: mode
         }
     }
 
@@ -75,7 +80,8 @@ export async function getServerSideProps(context) {
 
 function AdminDashboard({
     users,
-    reviews
+    reviews,
+    mode
 
 }: AdminDashboardProps) {
 
@@ -131,7 +137,7 @@ function AdminDashboard({
 
     return (
         <div>
-            <h1>Admin Dashboard</h1>
+            <h1>Admin Dashboard - {mode}</h1>
             {/* Users table */}
             <div>
                 <h2>Users</h2>
