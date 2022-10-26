@@ -6,10 +6,30 @@ import FlexGroup from "../components/common/FlexGroup";
 // import { useSession } from "next-auth/react";
 import { FaBook, FaBuilding, FaUserGraduate } from "react-icons/fa";
 import SearchBar from "../components/common/SearchBox";
+import { CustomSession } from "../lib/common/types";
+import { useSession } from "next-auth/react";
+import { useToast } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 
 export default function Home() {
-  //const session = useSession();
+  const { data: session } = useSession() as { data: CustomSession };
+  const toast = useToast();
+
+  useEffect(() => {
+
+    if (session?.user && !session?.user?.authorized) {
+      toast({
+        title: "To view course reviews you must submit at least 2 reviews.",
+        status: "info",
+        duration: 100000,
+        isClosable: true,
+
+      })
+    }
+
+  }, [session]) // eslint-disable-line react-hooks/exhaustive-deps
+
 
   const canonicalURL = "https://midd.courses";
 

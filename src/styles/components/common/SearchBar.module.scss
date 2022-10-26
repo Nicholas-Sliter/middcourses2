@@ -25,10 +25,12 @@
     margin: 0;
     margin-left: auto;
     margin-right: auto;
-    height: 1.2rem;
+    // height: 1.2rem;
+    height: 2rem;
     outline: none;
     border: $border-light;
-    border-radius: $border-radius-large;
+    // border-radius: $border-radius-large;
+    border-radius: 32px;
     padding: $padding-half;
     padding-left: $padding-medium;
     padding-right: $padding-medium;
@@ -57,7 +59,7 @@
     background-color: #fcfcfc;
     border: $border-light;
     border-radius: $border-radius-large;
-    top: 0.5rem;
+    top: 1rem;
     left: calc((100% - min(80%, 600px))/2 - 0.85rem);
     padding-top: 2rem;
 

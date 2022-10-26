@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import {
     AlertDialog,
     AlertDialogBody,
@@ -10,7 +10,10 @@ import {
     Button,
     useDisclosure,
     Input,
-    Textarea
+    Textarea,
+    Select,
+    Spacer,
+    Box
 } from "@chakra-ui/react";
 import React from 'react';
 import TextInput from '../common/TextInput';
@@ -50,11 +53,60 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn, isOpen]);
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
-        handleSubmit(data);
+
+        const body = {
+            reviewID: review.reviewID,
+            reason: data.reasonOther || data.reason,
+        }
+
+        if (body.reason === "") {
+            toast({
+                title: "Please specify a reason.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        const res = await fetch(`/api/reviews/${review.reviewID}/flag`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+
+        if (res.ok) {
+            toast({
+                title: "Review flagged.",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            });
+            setOpen(false);
+        }
+        else {
+            toast({
+                title: "Error flagging review.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+        }
+
 
     }
+
+
+    const selectReason = useWatch({
+        control,
+        name: "reason",
+        defaultValue: "Select a reason"
+    });
+
 
     if (!isOpen) {
         return null;
@@ -66,13 +118,40 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
                 <AlertDialogContent className={styles.content}>
                     <AlertDialogHeader>Flag Review</AlertDialogHeader>
                     <AlertDialogBody className={styles.body}>
-                        <Textarea
-                            name="Report reason"
-                            placeholder="Please describe why this review should be removed."
-                            {...register("reason")}
-                            resize="none"
-                        />
+                        <form onSubmit={handleSubmit(onSubmit)}>
 
+                            <Select
+                                style={{ marginBottom: "1rem" }}
+                                name="reason"
+                                {...register("reason")}
+                                placeholder="Select a reason for flagging this review"
+                            >
+                                {[
+                                    "This review contains hateful or obscene language.",
+                                    "This review threatens or encourages violence.",
+                                    "This review is spam or is otherwise inappropriate.",
+                                    "This review is a duplicate of another review.",
+                                    "This review is not related to this course or instructor.",
+                                    'Other, please specify'
+
+                                ].map((reason) => {
+                                    return (
+                                        <option key={reason} value={reason}>{reason}</option>)
+                                }
+                                )}
+
+
+                            </Select>
+
+                            {(selectReason === "Other, please specify") ? (<Textarea
+                                name="Report reason"
+                                placeholder="Please describe why this review should be removed."
+                                {...register("reasonOther")}
+                                resize="none"
+                            />) : null}
+
+
+                        </form>
                     </AlertDialogBody>
                     <AlertDialogFooter>
                         <Button
@@ -81,7 +160,7 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
                             onClick={() => setOpen(false)}>Cancel</Button>
                         <Button
                             colorScheme="red"
-                            onClick={onSubmit}>Flag</Button>
+                            onClick={handleSubmit(onSubmit)}>Flag</Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialogOverlay>

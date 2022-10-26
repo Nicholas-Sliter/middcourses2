@@ -563,7 +563,7 @@ export default function AddReview({
                       field: { onChange, value, onBlur, ref },
                     }) => (
                       <>
-                        <Switch name="again" value={value} onChange={onChange} />
+                        <Switch size="lg" name="again" value={value} onChange={onChange} />
                       </>
                     )}
                   />
@@ -635,7 +635,7 @@ export default function AddReview({
                       field: { onChange, value, onBlur, ref },
                     }) => (
                       <>
-                        <Switch name="instructorEnjoyed" value={value} onChange={onChange} />
+                        <Switch name="instructorEnjoyed" size="lg" value={value} onChange={onChange} />
                       </>
                     )}
                   />
@@ -652,7 +652,7 @@ export default function AddReview({
                       field: { onChange, value, onBlur, ref, name },
                     }) => (
                       <>
-                        <Switch name="instructorAgain" value={value} onChange={onChange} />
+                        <Switch name="instructorAgain" size="lg" value={value} onChange={onChange} />
                       </>
                     )}
                   />

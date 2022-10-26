@@ -1,6 +1,6 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { full_review, public_instructor, public_review } from "../../common/types";
+import { CustomSession, full_review, public_instructor, public_review } from "../../common/types";
 import { parseStringToInt } from "../utils";
 
 
@@ -64,6 +64,48 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
     }
 
     return { success, removed, value };
+
+}
+
+
+export async function flagReviewByID(reviewID: string, flagReason: string, session: CustomSession) {
+    const user = session?.user;
+    if (!user) {
+        return { success: false, error: "Not logged in" };
+    }
+
+    const review = await knex("Review")
+        .where("reviewID", reviewID)
+        .first();
+
+    if (!review) {
+        return { success: false, error: "Review does not exist" };
+    }
+
+    const flag = await knex("Flagged")
+        .where({
+            reviewID: reviewID,
+            flaggedBy: user.id
+        })
+        .first();
+
+    if (flag) {
+        return { success: false, error: "Already flagged" };
+    }
+
+    try {
+        await knex("Flagged").insert({
+            reviewID: reviewID,
+            flaggedBy: user.id,
+            reason: flagReason,
+            flaggedDate: new Date().toISOString()
+        });
+        return { success: true };
+    }
+    catch (err) {
+        console.error(err);
+        return { success: false, error: "Failed to flag review" };
+    }
 
 }
 
