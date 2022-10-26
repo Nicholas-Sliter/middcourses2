@@ -9,13 +9,25 @@ interface ReadMoreProps {
     baseBuffer?: number;
 }
 
-function ReadMore({ text, maxLength = 100, disabled = false, baseBuffer = 30 }: ReadMoreProps) {
+function ReadMore({ text, maxLength = 100, disabled = false, baseBuffer = 36 }: ReadMoreProps) {
     const [isTruncated, setIsTruncated] = useState(!disabled);
 
     const buffer = baseBuffer + "…Read more".length + 3;
     const totalLength = maxLength + buffer;
 
-    const resultString = isTruncated ? text.slice(0, totalLength) : text;
+
+    if (text.length <= totalLength) {
+        return <Text className={style.displayText}>{text}</Text>
+    }
+
+    let resultString = '';
+    if (text.length > totalLength && isTruncated) {
+        resultString = text.slice(0, maxLength);
+    }
+    else {
+        resultString = text;
+    }
+
     const toggleIsTruncated = () => setIsTruncated(!isTruncated);
 
 
@@ -25,7 +37,7 @@ function ReadMore({ text, maxLength = 100, disabled = false, baseBuffer = 30 }: 
             <Text className={style.fullText}>
                 {text}
             </Text>
-            <Text>
+            <Text className={style.displayText}>
                 {resultString}
                 {text.length > totalLength && (
                     <>
