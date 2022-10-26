@@ -69,9 +69,10 @@ export function getUserReviewedDepartmentCourseCodes(qb: Knex.QueryBuilder, user
                     .select(["Course.courseID"])
                     .distinct("Course.courseID")
             })
-            .whereNotIn("Course.courseID", "userReviews.courseID")
+            .whereNotIn("Course.courseID", knex.select("userReviews.courseID").from("userReviews"))
     }
-    }
+    )
+}
 
 
 
@@ -154,7 +155,7 @@ export async function getTopCoursesByTagAgg(session: CustomSession, limit: numbe
                 knex.raw(`count("Review"."tags") as "count"`),
             ])
             //check if the course has the same tags as the user's liked courses
-            .whereIn("Review.tags", knex.raw(`(SELECT "UserTags"."tags" FROM "UserTags")`))
+            // .whereIn("Review.tags", knex.raw(`(SELECT "UserTags"."tags" FROM "UserTags")`))
 
         )
 
