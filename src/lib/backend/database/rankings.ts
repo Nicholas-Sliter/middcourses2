@@ -11,66 +11,15 @@ import { Knex } from "knex";
 
 
 
-// LET's do a buider pattern where the base avg query is already complete, then we can add on to it
 
-
-export function generateBaseCourseAverages(qb: Knex.QueryBuilder) {
-    //return a knex query builder (run with no await)
-    // return knex("Review")
-    // .with("courseAverages", function () {
-    //     this.from("Review")
-    //         .where({
-    //             "Review.deleted": false,
-    //             "Review.archived": false
-    //         })
-    //         .groupBy("Review.courseID")
-    //         .havingRaw(`count("Review"."courseID") >= 3`)
-    //         .select([
-    //             knex.raw(`(SELECT AVG("difficulty") FROM "Review") as "avgDifficulty"`),
-    //             knex.raw(`(SELECT AVG("hours") FROM "Review") as "avgHours"`),
-    //             knex.raw(`(SELECT AVG("again"::int::float4) FROM "Review") as "avgAgain"`),
-    //             knex.raw(`(SELECT AVG("rating") FROM "Review") as "avgRating"`),
-    //             knex.raw(`(SELECT AVG("value") FROM "Review") as "avgValue"`),
-    //             knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review") as "avgInstructorEffectiveness"`),
-    //             knex.raw(`(SELECT AVG("instructorAccommodationLevel") FROM "Review") as "avgInstructorAccommodationLevel"`),
-    //             knex.raw(`(SELECT AVG("instructorEnthusiasm") FROM "Review") as "avgInstructorEnthusiasm"`),
-    //             knex.raw(`(SELECT AVG("instructorAgain"::int::float4) FROM "Review") as "avgInstructorAgain"`),
-    //             knex.raw(`(SELECT AVG("instructorEnjoyed"::int::float4) FROM "Review") as "avgInstructorEnjoyed"`),
-    //         ])
-    // })
-    // .as("baseCourseAverages");
-
-
-
-
-    // .where({
-    //     "Review.deleted": false,
-    //     "Review.archived": false
-    // })
-    // .groupBy("Review.courseID")
-    // /* ensure that the course has at least 3 reviews */
-    // .havingRaw(`count("Review"."courseID") >= 3`)
-    // .select([
-    //     knex.raw(`(SELECT AVG("difficulty") FROM "Review") as "avgDifficulty"`),
-    //     knex.raw(`(SELECT AVG("hours") FROM "Review") as "avgHours"`),
-    //     knex.raw(`(SELECT AVG("again"::int::float4) FROM "Review") as "avgAgain"`),
-    //     knex.raw(`(SELECT AVG("rating") FROM "Review") as "avgRating"`),
-    //     knex.raw(`(SELECT AVG("value") FROM "Review") as "avgValue"`),
-    //     knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review") as "avgInstructorEffectiveness"`),
-    //     knex.raw(`(SELECT AVG("instructorAccommodationLevel") FROM "Review") as "avgInstructorAccommodationLevel"`),
-    //     knex.raw(`(SELECT AVG("instructorEnthusiasm") FROM "Review") as "avgInstructorEnthusiasm"`),
-    //     knex.raw(`(SELECT AVG("instructorAgain"::int::float4) FROM "Review") as "avgInstructorAgain"`),
-    //     knex.raw(`(SELECT AVG("instructorEnjoyed"::int::float4) FROM "Review") as "avgInstructorEnjoyed"`),
-    // ])
-    // .select("Review.courseID")
-    // .as("courseAverages");
+export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number = 3) {
 
     return qb.from("Review").where({
         "Review.deleted": false,
         "Review.archived": false
     })
         .groupBy(["Review.courseID"])
-        .havingRaw(`count("Review"."courseID") >= 3`)
+        .havingRaw(`count("Review"."courseID") >= ?`, [count])
         .select(["Review.courseID"])
         .select([
             knex.raw(`(SELECT AVG("difficulty") FROM "Review") as "avgDifficulty"`),
@@ -85,8 +34,44 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder) {
             knex.raw(`(SELECT AVG("instructorEnjoyed"::int::float4) FROM "Review") as "avgInstructorEnjoyed"`)
         ])
 
-
 }
+
+
+export function getUserReviews(qb: Knex.QueryBuilder, userID: string) {
+    return qb.from("Review")
+        .where({
+            "Review.deleted": false,
+            "Review.archived": false,
+            "Review.reviewerID": userID
+        })
+        .select(reviewInfo);
+}
+
+
+export function getUserReviewedDepartments(qb: Knex.QueryBuilder, userID: string) {
+    return qb.with("userReviews", (qb) => getUserReviews(qb, userID))
+        .from("userReviews")
+        .leftJoin("Course", "userReviews.courseID", "Course.courseID")
+        .select(["Course.departmentID"])
+        .distinct("Course.departmentID");
+}
+
+
+export function getUserReviewedDepartmentCourseCodes(qb: Knex.QueryBuilder, userID: string) {
+    return knex.with("reviewedDepartments", (qb) => {
+        qb.from("reviewedDepartments")
+            .join("Course", "reviewedDepartments.departmentID", "Course.departmentID")
+            .select(["Course.departmentID", "Course.courseID"])
+            /* Make sure courses have not already been reviewed */
+            .with("userReviews", (qb) => {
+                qb.from("userReviews")
+                    .join("Course", "userReviews.courseID", "Course.courseID")
+                    .select(["Course.courseID"])
+                    .distinct("Course.courseID")
+            })
+            .whereNotIn("Course.courseID", "userReviews.courseID")
+    }
+    }
 
 
 
@@ -96,55 +81,128 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder) {
  * @returns A list of such courses
  */
 
-export async function getTopValueForDifficultyCourses(limit: number): Promise<public_instructor[]> {
-    //get the base query
-    // const baseQuery = generateBaseCourseAverages();
-
-    // console.log(await baseQuery);
-
-    // const courses = await (baseQuery
-    //     .andHaving("avgDifficulty", "<=", 5)
-    //     .andHaving("avgValue", ">=", 7)
-    //     /* sort by value-for-difficulty, avoid zero division */
-    //     .orderByRaw(`("avgValue" + 1) / ("avgDifficulty" + 1) DESC`)
-    //     .limit(limit))
-
-    // const courses = await knex
-    //     .from(baseQuery)
-    //     .having("avgDifficulty", "<=", 5)
-    //     .having("avgValue", ">=", 7)
-    //     /* sort by value-for-difficulty, avoid zero division */
-    //     .orderByRaw(`("avgValue" + 1) / ("avgDifficulty" + 1) DESC`)
-    //     .limit(limit)
-
-
-    // const courses = await knex.with("baseCourseAverages", baseQuery)
-    //     .as("baseCourseAverages")
-    //     .from("baseCourseAverages")
-    //     .groupBy(["courseID", "baseCourseAverages.avgDifficulty", "baseCourseAverages.avgValue", "baseCourseAverages.avgAgain", "baseCourseAverages.avgRating", "baseCourseAverages.avgHours", "baseCourseAverages.avgInstructorEffectiveness", "baseCourseAverages.avgInstructorAccommodationLevel", "baseCourseAverages.avgInstructorEnthusiasm", "baseCourseAverages.avgInstructorAgain", "baseCourseAverages.avgInstructorEnjoyed"])
-
-    //     .having("baseCourseAverages.avgDifficulty", "<=", 5)
-    //     .having("baseCourseAverages.avgValue", ">=", 7)
-    //     /* sort by value-for-difficulty, avoid zero division */
-    //     .orderByRaw(`("avgValue" + 1) / ("avgDifficulty" + 1) DESC`)
-    //     .limit(limit)
-
+export async function getTopValueForDifficultyCourses(limit: number = 10): Promise<public_instructor[]> {
 
     const courses = await knex.with("Base", (qb) => generateBaseCourseAverages(qb))
         .from("Base")
         .select("*")
         .where("Base.avgDifficulty", "<=", 5)
         .where("Base.avgValue", ">=", 7)
+        .where("Base.avgAgain", ">=", 0.6)
         /* sort by value-for-difficulty, avoid zero division */
         .orderByRaw(`("avgValue" + 1) / ("avgDifficulty" + 1) DESC`)
         .limit(limit)
 
+    return courses;
+}
 
 
 
+export async function getTopCourses(limit: number = 10) {
+
+    const courses = await knex.with("Base", (qb) => generateBaseCourseAverages(qb))
+        .from("Base")
+        .select("*")
+        .where("Base.avgAgain", ">=", 0.7)
+        .where("Base.avgRating", ">=", 7)
+        .where("Base.avgValue", ">=", 7)
+        .orderByRaw(`"avgRating" DESC`)
+        .limit(limit)
+        .join("Course", "Base.courseID", "Course.courseID")
+
+    console.log(courses);
+
+    return courses;
+
+
+}
+
+
+/**
+ * Get top courses for a user based on the tags they have used in courses they liked
+ * @param session The user's session
+ * @param limit The max number of courses to return
+ * @returns A list of such courses
+ */
+export async function getTopCoursesByTagAgg(session: CustomSession, limit: number = 10) {
+
+    const courses = await knex.with("Base", (qb) => generateBaseCourseAverages(qb))
+        .from("Base")
+        .with("UserTags", (qb) => qb.from("Review")
+            .where({
+                "Review.deleted": false,
+                "Review.archived": false,
+                "Review.reviewerID": session.user.id
+            })
+            // .where("Review.rating", ">=", 6)
+            //agg and count tags (each is an array of strings)
+            .select([
+                knex.raw(`array_agg("Review"."tags") as "tags"`),
+                knex.raw(`count("Review"."tags") as "count"`),
+                //if the user liked the course .where("Review.rating", ">=", 6), make the "liked" field true
+                knex.raw(`bool_or("Review"."rating" >= 6) as "liked"`)
+            ])
+        )
+        /* Now look for other courses with these tags */
+        .with("TaggedCourses", (qb) => qb.from("Review")
+            .where({
+                "Review.deleted": false,
+                "Review.archived": false
+            })
+            .select([
+                knex.raw(`array_agg("Review"."tags") as "tags"`),
+                knex.raw(`count("Review"."tags") as "count"`),
+            ])
+            //check if the course has the same tags as the user's liked courses
+            .whereIn("Review.tags", knex.raw(`(SELECT "UserTags"."tags" FROM "UserTags")`))
+
+        )
+
+        .limit(limit)
+        .join("Course", "Base.courseID", "Course.courseID")
+
+    console.log(courses);
+
+    return courses;
+
+
+}
+
+
+
+// RULE: Select the top items from the department that the user has already reviewed.
+export async function getTopDepartmentCourses(session: CustomSession, limit: number = 5) {
+
+    if (!session.user) {
+        return [];
+    }
+
+    const courses = await knex.with("Base", (qb) => generateBaseCourseAverages(qb))
+        .from("Base")
+        .limit(limit)
+        .with("UserReviews", (qb) => qb.from("Review").where({
+            "Review.deleted": false,
+            "Review.archived": false,
+            "Review.reviewerID": session.user.id
+        }))
+        .join("Course", "Base.courseID", "Course.courseID")
+        .with("UserDepartments", (qb) =>
+            qb.from("UserReviews")
+                .join("Course", "UserReviews.courseID", "Course.courseID")
+                .select("Course.departmentID"))
+        // .join("Course", "Base.courseID", "Course.courseID")
+        //this needs to be Base.departmentID (not Course.departmentID) (we need to get the avgs)
+        .where("Course.departmentID", "in", knex.from("UserDepartments").select("UserDepartments.departmentID"))
+        .andWhere("Course.courseID", "not in", knex.from("UserReviews").select("UserReviews.courseID"))
+    // do ranking here
+    // +min score check;
 
 
     console.log(courses);
 
     return courses;
+
 }
+
+
+
