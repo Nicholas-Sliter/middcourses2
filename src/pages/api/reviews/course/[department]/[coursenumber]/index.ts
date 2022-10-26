@@ -139,7 +139,7 @@ const handler = nc({
     //check if review is valid
     if (
       !req.body.content ||
-      req.body.content.length > 1000 ||
+      req.body.content.length > 2048 ||
       req.body.content.length < 200
     ) {
       return res.status(400).json({ message: "Invalid review length" });
