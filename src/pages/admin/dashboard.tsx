@@ -9,11 +9,19 @@ import {
     TableCaption,
     TableContainer,
     Spacer,
+    Tabs,
+    Tab,
+    TabPanels,
+    TabPanel,
+    TabList,
 } from '@chakra-ui/react'
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import PageTitle from '../../components/common/PageTitle';
+import ReviewList from '../../components/Review';
 import useIsMount from "../../hooks/useIsMount";
+// import { getTopCourses, getTopCoursesByTagAgg, getTopDepartmentCourses, getTopValueForDifficultyCourses } from '../../lib/backend/database/rankings';
 import { __getAllFullReviews } from "../../lib/backend/database/review";
 import { __getAllFullUsers } from "../../lib/backend/database/users";
 import { CustomSession } from "../../lib/common/types";
@@ -22,6 +30,7 @@ import signInRedirectHandler from "../../lib/frontend/login";
 interface AdminDashboardProps {
     users: any[];
     reviews: any[];
+    // ranks: any[];
     mode: string;
 
 }
@@ -58,12 +67,19 @@ export async function getServerSideProps(context) {
         return a.createdAt < b.createdAt ? 1 : -1;
     });
 
+    //const ranks = (await getTopValueForDifficultyCourses(4));
+    // const ranks = await getTopDepartmentCourses(session, 4)
+    // const ranks = await getTopCoursesByTagAgg(session, 4)
+    // const ranks = (await getTopCourses(4));
+
+
     const mode = process.env.NODE_ENV;
 
     return {
         props: {
             users: JSON.parse(JSON.stringify(users)),
             reviews: JSON.parse(JSON.stringify(reviews)),
+            // ranks: JSON.parse(JSON.stringify(ranks)),
             mode: mode
         }
     }
@@ -76,6 +92,7 @@ export async function getServerSideProps(context) {
 function AdminDashboard({
     users,
     reviews,
+    // ranks,
     mode
 
 }: AdminDashboardProps) {
@@ -149,73 +166,118 @@ function AdminDashboard({
 
 
     return (
-        <div>
-            <h1>Admin Dashboard - {mode}</h1>
-            {/* Users table */}
+        <>
+            <PageTitle pageTitle="Admin Dashboard" />
             <div>
-                <h2>Users</h2>
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th>Email</Th>
-                            <Th>Type</Th>
-                            <Th>Read</Th>
-                            <Th>Created</Th>
-                            <Th>Refresh</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {users.map((user) => {
-                            return (
-                                <Tr key={user.userEmail}>
-                                    <Td>{user.userEmail}</Td>
-                                    <Td>{user.userType}</Td>
-                                    <Td>{user.canReadReviews.toString()}</Td>
-                                    <Td>{user.createdAt}</Td>
-                                    <Td><button onClick={() => refreshUser(user.userID)}>Refresh</button></Td>
-                                </Tr>
-                            )
-                        })}
-                    </Tbody>
-                </Table>
-            </div>
-            {/* Reviews table */}
-            <div>
-                <h2>Reviews</h2>
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th>Review ID</Th>
-                            <Th>Reviewer</Th>
-                            <Th>Instructor ID</Th>
-                            <Th>Course ID</Th>
-                            <Th>Created</Th>
-                            <Th>DELETE</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {reviews.map((review) => {
-                            return (
-                                <Tr key={review.reviewID}>
-                                    <Td>{review.reviewID}</Td>
-                                    <Td>{review.reviewerID}</Td>
-                                    <Td>{review.instructorID}</Td>
-                                    <Td>{review.courseID}</Td>
-                                    <Td>{review.reviewDate}</Td>
-                                    <Td><button
-                                        onClick={() => {
-                                            deleteFun(review.reviewID, true);
-                                        }}
-                                    >DELETE</button></Td>
-                                </Tr>
-                            )
-                        })}
-                    </Tbody>
-                </Table>
-            </div>
+                <h1>Admin Dashboard - {mode}</h1>
+                <Tabs>
+                    <TabList>
+                        <Tab>Users</Tab>
+                        <Tab>Reviews</Tab>
+                        {/* <Tab>Rankings</Tab> */}
+                    </TabList>
 
-            <div style={{ height: "3rem" }} />
-        </div >
+
+                    <TabPanels>
+                        {/* Users table */}
+                        <TabPanel>
+                            <h2>Users</h2>
+                            <p>{`${users.length} users`}</p>
+                            <Table>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Email</Th>
+                                        <Th>Type</Th>
+                                        <Th>Read</Th>
+                                        <Th>Created</Th>
+                                        <Th>Refresh</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {users.map((user) => {
+                                        return (
+                                            <Tr key={user.userEmail}>
+                                                <Td>{user.userEmail}</Td>
+                                                <Td>{user.userType}</Td>
+                                                <Td>{user.canReadReviews.toString()}</Td>
+                                                <Td>{user.createdAt}</Td>
+                                                <Td><button onClick={() => refreshUser(user.userID)}>Refresh</button></Td>
+                                            </Tr>
+                                        )
+                                    })}
+                                </Tbody>
+                            </Table>
+                        </TabPanel>
+                        {/* Reviews table */}
+                        <TabPanel>
+                            <h2>Reviews</h2>
+                            <p>{`${reviews.length} reviews`}</p>
+                            <Table>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Review ID</Th>
+                                        <Th>Reviewer</Th>
+                                        <Th>Instructor ID</Th>
+                                        <Th>Course ID</Th>
+                                        <Th>Created</Th>
+                                        <Th>DELETE</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {reviews.map((review) => {
+                                        return (
+                                            <Tr key={review.reviewID}>
+                                                <Td>{review.reviewID}</Td>
+                                                <Td>{review.reviewerID}</Td>
+                                                <Td>{review.instructorID}</Td>
+                                                <Td>{review.courseID}</Td>
+                                                <Td>{review.reviewDate}</Td>
+                                                <Td><button
+                                                    onClick={() => {
+                                                        deleteFun(review.reviewID, true);
+                                                    }}
+                                                >DELETE</button></Td>
+                                            </Tr>
+                                        )
+                                    })}
+                                </Tbody>
+                            </Table>
+                        </TabPanel>
+                        {/* Recommendations table */}
+                        {/* <TabPanel>
+                            <h2>Rankings</h2>
+                            <Table>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Course ID</Th>
+                                        <Th>Course Name</Th>
+                                        <Th>Value-for-difficulty</Th>
+                                        <Th>Rank</Th>
+
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {ranks.map((ranks, i) => {
+                                        return (
+                                            <Tr key={ranks.courseID}>
+                                                <Td>{ranks.courseID}</Td>
+                                                <Td>{ranks.courseName}</Td>
+                                                <Td>{((ranks.avgValue + 1) / (ranks.avgDifficulty + 1)).toFixed(2)}</Td>
+                                                <Td>{i + 1}</Td>
+                                            </Tr>
+                                        )
+                                    })}
+                                </Tbody>
+
+
+                            </Table>
+                        </TabPanel> */}
+                    </TabPanels>
+                </Tabs>
+
+                <div style={{ height: "3rem" }} />
+            </div >
+        </>
     )
 }
 
