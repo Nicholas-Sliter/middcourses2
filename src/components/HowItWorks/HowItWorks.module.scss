@@ -1,0 +1,47 @@
+@import "/src/styles/common/variables.scss";
+
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+    //background-color: #fafafa;
+    padding: 2rem;
+    border-radius: 1rem;
+
+
+    .tileIcon {
+        width: 1.3rem;
+        height: 1.3rem;
+        //margin: 0 auto;
+        display: block;
+        margin-bottom: 1rem;
+        color: #ffffff;
+        background-color: $midd-blue;
+        padding: 0.5rem;
+        border-radius: 50%;
+
+
+    }
+
+    img {
+        width: 90%;
+        height: 90%;
+        max-width: 390px;
+        max-height: 260px;
+        //center
+        margin: 0 auto;
+        display: block;
+    }
+
+    .title {
+        font-size: $font-size-medium;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        // text-align: center;
+
+
+    }
+
+
+
+
+}

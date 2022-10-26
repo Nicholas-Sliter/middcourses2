@@ -10,20 +10,24 @@ import { CustomSession } from "../lib/common/types";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
+import HowItWorks from "../components/HowItWorks";
 
 
 export default function Home() {
   const { data: session } = useSession() as { data: CustomSession };
   const toast = useToast();
+  const toastid = "review2toast";
 
   useEffect(() => {
 
-    if (session?.user && !session?.user?.authorized) {
+    if (session?.user && !session?.user?.authorized && !toast.isActive(toastid)) {
       toast({
         title: "To view course reviews you must submit at least 2 reviews.",
         status: "info",
         duration: 100000,
         isClosable: true,
+        id: toastid,
+        position: "bottom"
 
       })
     }
@@ -39,27 +43,30 @@ export default function Home() {
       <section className={styles.pageTop}>
         <SearchBar showResultDropdown />
         <div style={{ height: '10rem' }}></div>
-        <FlexGroup>
-          <Feature> {/* link="/browse/courses" */}
-            <FaBook />
-            <h3>Browse Courses</h3>
-            <p>
-              MiddCourses is Middlebury&apos;s premier course discovery and review platform.  Browse from our complete catalogue to discover the perfect course for you.
-            </p>
-          </Feature>
-          <Feature> {/* link="/browse/departments" */}
-            <FaBuilding />
-            <h3>Discover Departments</h3>
-            <p>Find your perfect Major or Minor with ease. And within departments, discover top courses.</p>
-          </Feature>
-          <Feature> {/* link="/browse/instructors" */}
-            <FaUserGraduate />
-            <h3>Meet Professors</h3>
-            <p>
-              Find accommodating, knowledgeable, and enthusiastic instructors for your next course.  Your new favorite instructor is here.
-            </p>
-          </Feature>
-        </FlexGroup>
+        {/* <div style={{ maxWidth: "80%", margin: "0 auto" }}>
+          <FlexGroup>
+            <Feature>
+              <FaBook />
+              <h3>Browse Courses</h3>
+              <p>
+                MiddCourses is Middlebury&apos;s premier course discovery and review platform.  Browse from our complete catalogue to discover the perfect course for you.
+              </p>
+            </Feature>
+            <Feature>
+              <FaBuilding />
+              <h3>Discover Departments</h3>
+              <p>Find your perfect Major or Minor with ease. And within departments, discover top courses.</p>
+            </Feature>
+            <Feature>
+              <FaUserGraduate />
+              <h3>Find Professors</h3>
+              <p>
+                Uncover accommodating, knowledgeable, and enthusiastic instructors for your next course.  Your new favorite instructor is here.
+              </p>
+            </Feature>
+          </FlexGroup >
+        </div> */}
+        <HowItWorks />
       </section>
 
     </>
