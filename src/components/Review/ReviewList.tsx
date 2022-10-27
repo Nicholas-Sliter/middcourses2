@@ -35,12 +35,14 @@ export default function ReviewList({
 }: ReviewListProps) {
 
   const { data: session } = useSession() as { data: CustomSession };
+  const loggedIn = session?.user ? true : false;
   const authorized = (session?.user?.authorized ?? false);
 
-  const no_auth = requireAuth && !authorized;
+  const no_login = requireAuth && !loggedIn;
+  const no_auth = requireAuth && !authorized && loggedIn;
   const no_reviews = error === "no_reviews" || (reviews?.length === 0 ?? true);
 
-  const reason = (no_auth) ? "Not authorized" : (no_reviews) ? "No reviews" : error;
+  const reason = (no_login) ? "No login" : (no_auth) ? "Not authorized" : (no_reviews) ? "No reviews" : error;
 
   if (!instructors) {
     instructors = [];
