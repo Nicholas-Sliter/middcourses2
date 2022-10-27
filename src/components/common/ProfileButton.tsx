@@ -16,7 +16,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { signOut, useSession } from "next-auth/react";
 import Router from "next/router";
 
-export default function ProfileButton({}) {
+export default function ProfileButton({ }) {
   const { data: session } = useSession();
 
   return (
@@ -31,6 +31,7 @@ export default function ProfileButton({}) {
         >
           <p className={styles.profileEmail}>{session?.user?.email}</p>
           <MenuItem
+            isDisabled={true}
             onClick={() => {
               Router.push(`/profile/settings`);
             }}
