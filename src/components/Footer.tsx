@@ -11,6 +11,7 @@ export default function Footer() {
           <span>
             <a style={{ display: ((isMobile) ? 'none' : 'inline-block') }}>Middlebury Course Reviews</a>
             <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="https://github.com/Nicholas-Sliter/middcourses2/issues" style={{ display: ((isMobile) ? 'none' : 'inline-block') }}>Report a bug</a>
           </span>
         </div>
         <div className={styles.logoContainer}>

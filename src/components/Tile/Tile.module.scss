@@ -1,0 +1,21 @@
+@import "/src/styles/common/variables.scss";
+@import "/src/styles/common/mixins";
+
+.container {
+    //background-color: #ffffff;
+    //background-color: #f3f5f7;
+    // @include gradient($light-gradient-end, $light-gradient-end);
+    border-radius: $border-radius-large;
+    padding: $padding-medium;
+    border: $border-light;
+    background-color: hsla(0, 0, 100, .99);
+    // width: 320px;
+    // height: 160px;
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+    margin-bottom: 2rem;
+
+
+}
