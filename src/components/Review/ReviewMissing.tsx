@@ -16,13 +16,18 @@ interface ReviewMissingProps {
  */
 function ReviewMissing({ reason, context }: ReviewMissingProps) {
 
+    const no_login = reason === "No login";
     const no_auth = reason === "Not authorized";
     const no_reviews = reason === "No reviews";
 
-    const no_auth_text = `You must be logged in to view ${context ?? ""} reviews`;
+    const no_login_text = "You must be logged in to view reviews";
+    const no_auth_text = `You must review 2 courses before viewing ${context ?? ""} reviews`;
     const no_reviews_text = `There are no ${context ?? ""} reviews yet, be the first to write one!`;
 
-    const reasontText = no_auth ? no_auth_text : no_reviews ? no_reviews_text : "Something went wrong";
+    const reasontText = no_login ?
+        no_login_text : no_auth ?
+            no_auth_text : no_reviews ?
+                no_reviews_text : "Something went wrong";
 
     return (
         <div className={styles.missingFallback}>
