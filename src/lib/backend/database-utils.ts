@@ -426,8 +426,9 @@ export async function generateUser(email: string) {
     console.log(e);
   }
 
-  user.userType = S.person.type.toLowerCase() ?? "student";
-  user.graduationYear = S.person?.gradYear ?? null;
+  //unrecognized users become students
+  user.userType = S?.person?.type?.toLowerCase() ?? "student";
+  user.graduationYear = S?.person?.gradYear ?? null;
   //user.departmentID = departmentNameMapping[S.person?.department] ?? null;
 
   user.canReadReviews = checkIfFirstSemester(user?.graduationYear ?? null)
