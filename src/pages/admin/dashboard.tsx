@@ -90,7 +90,10 @@ export async function getServerSideProps(context) {
             (10 * b.avgInstructorEnjoyed)
         ) / 6;
 
-        return a_avgrating < b_avgrating ? 1 : -1;
+        a.score = a_avgrating;
+        b.score = b_avgrating;
+
+        return a.score < b.score ? 1 : -1;
     });
 
 
@@ -124,6 +127,10 @@ function AdminDashboard({
     const { data: session } = useSession() as { data: CustomSession };
     const router = useRouter();
     const isMount = useIsMount();
+
+    if (typeof window !== "undefined") {
+        console.table(iranks);
+    }
 
     useEffect(() => {
         //if not logged in, redirect to login
@@ -301,6 +308,7 @@ function AdminDashboard({
                                     <Tr>
                                         <Th>Instructor ID</Th>
                                         <Th>Instructor Name</Th>
+                                        <Th>Score</Th>
                                         <Th>Rank</Th>
                                     </Tr>
                                 </Thead>
@@ -310,6 +318,7 @@ function AdminDashboard({
                                             <Tr key={instructor.instructorID}>
                                                 <Td>{instructor.instructorID}</Td>
                                                 <Td>{instructor.name}</Td>
+                                                <Td>{instructor.score}</Td>
                                                 <Td>{i + 1}</Td>
                                             </Tr>
                                         )
