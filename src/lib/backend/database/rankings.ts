@@ -154,19 +154,19 @@ export async function getTopInstructors(limit: number = 10) {
         .where("Base.avgInstructorAgain", ">=", 0.7)
         .where("Base.avgInstructorEffectiveness", ">=", 7)
         .where("Base.avgInstructorEnjoyed", ">=", 0.7)
-        .select([
-            knex.raw(`(SELECT ((
-                 "avgInstructorEffectiveness" +
-                 "avgInstructorEnthusiasm" + 
-                 "avgInstructorAccommodationLevel" +                 
-                 (10.00 * "avgInstructorAgain") +
-                 (10.00 * "avgInstructorEnjoyed")
-                 ) 
-                 / 5.00) FROM "Base") 
-                 as "avgScore"`),
-        ])
-        .orderByRaw(`"avgScore" DESC`)
-        .limit(limit)
+        // .select([
+        //     knex.raw(`(SELECT ((
+        //          "avgInstructorEffectiveness" +
+        //          "avgInstructorEnthusiasm" + 
+        //          "avgInstructorAccommodationLevel" +                 
+        //          (10.00 * "avgInstructorAgain") +
+        //          (10.00 * "avgInstructorEnjoyed")
+        //          ) 
+        //          / 5.00) FROM "Base") 
+        //          as "avgScore"`),
+        // ])
+        // .orderByRaw(`"avgScore" DESC`)
+        // .limit(limit)
         .join("Instructor", "Base.instructorID", "Instructor.instructorID")
         .select(["Instructor.instructorID", "Instructor.name", "Instructor.email", "Instructor.departmentID", "Instructor.slug"])
 
