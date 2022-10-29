@@ -309,7 +309,7 @@ function AdminDashboard({
                                         return (
                                             <Tr key={instructor.instructorID}>
                                                 <Td>{instructor.instructorID}</Td>
-                                                <Td>{instructor.instructorName}</Td>
+                                                <Td>{instructor.name}</Td>
                                                 <Td>{i + 1}</Td>
                                             </Tr>
                                         )
