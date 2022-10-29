@@ -72,7 +72,26 @@ export async function getServerSideProps(context) {
     // const ranks = await getTopDepartmentCourses(session, 4)
     // const ranks = await getTopCoursesByTagAgg(session, 4)
     const ranks = (await getTopCourses(10));
-    const iranks = await getTopInstructors(10);
+    const iranks = (await getTopInstructors(10)).sort((a, b) => {
+        const a_avgrating = (
+            a.avgRating +
+            a.instructorEffectiveness +
+            a.instructorAccommodationLevel +
+            a.instructorEnthusiasm +
+            (10 * a.instructorAgain) +
+            (10 * a.instructorEnjoyed)
+        ) / 6;
+        const b_avgrating = (
+            b.avgRating +
+            b.instructorEffectiveness +
+            b.instructorAccommodationLevel +
+            b.instructorEnthusiasm +
+            (10 * b.instructorAgain) +
+            (10 * b.instructorEnjoyed)
+        ) / 6;
+
+        return a_avgrating < b_avgrating ? 1 : -1;
+    });
 
 
     const mode = process.env.NODE_ENV;
