@@ -75,19 +75,19 @@ export async function getServerSideProps(context) {
     const iranks = (await getTopInstructors(10)).sort((a, b) => {
         const a_avgrating = (
             a.avgRating +
-            a.instructorEffectiveness +
-            a.instructorAccommodationLevel +
-            a.instructorEnthusiasm +
-            (10 * a.instructorAgain) +
-            (10 * a.instructorEnjoyed)
+            a.avgInstructorEffectiveness +
+            a.avgInstructorAccommodationLevel +
+            a.avgInstructorEnthusiasm +
+            (10 * a.avgInstructorAgain) +
+            (10 * a.avgInstructorEnjoyed)
         ) / 6;
         const b_avgrating = (
             b.avgRating +
-            b.instructorEffectiveness +
-            b.instructorAccommodationLevel +
-            b.instructorEnthusiasm +
-            (10 * b.instructorAgain) +
-            (10 * b.instructorEnjoyed)
+            b.avgInstructorEffectiveness +
+            b.avgInstructorAccommodationLevel +
+            b.avgInstructorEnthusiasm +
+            (10 * b.avgInstructorAgain) +
+            (10 * b.avgInstructorEnjoyed)
         ) / 6;
 
         return a_avgrating < b_avgrating ? 1 : -1;
