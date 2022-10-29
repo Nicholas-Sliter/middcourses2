@@ -111,7 +111,7 @@ export async function getTopCourses(limit: number = 10) {
         .limit(limit)
         .join("Course", "Base.courseID", "Course.courseID")
 
-    console.log(courses);
+    // console.log(courses);
 
     return courses;
 
