@@ -21,7 +21,7 @@ import { useEffect } from "react";
 import PageTitle from '../../components/common/PageTitle';
 import ReviewList from '../../components/Review';
 import useIsMount from "../../hooks/useIsMount";
-import { getTopCourses, getTopCoursesByTagAgg, getTopDepartmentCourses, getTopValueForDifficultyCourses } from '../../lib/backend/database/rankings';
+import { getTopCourses, getTopCoursesByTagAgg, getTopDepartmentCourses, getTopInstructors, getTopValueForDifficultyCourses } from '../../lib/backend/database/rankings';
 import { __getAllFullReviews } from "../../lib/backend/database/review";
 import { __getAllFullUsers } from "../../lib/backend/database/users";
 import { CustomSession } from "../../lib/common/types";
@@ -31,6 +31,7 @@ interface AdminDashboardProps {
     users: any[];
     reviews: any[];
     ranks: any[];
+    iranks: any[];
     mode: string;
 
 }
@@ -71,6 +72,7 @@ export async function getServerSideProps(context) {
     // const ranks = await getTopDepartmentCourses(session, 4)
     // const ranks = await getTopCoursesByTagAgg(session, 4)
     const ranks = (await getTopCourses(10));
+    const iranks = await getTopInstructors(10);
 
 
     const mode = process.env.NODE_ENV;
@@ -80,6 +82,7 @@ export async function getServerSideProps(context) {
             users: JSON.parse(JSON.stringify(users)),
             reviews: JSON.parse(JSON.stringify(reviews)),
             ranks: JSON.parse(JSON.stringify(ranks)),
+            iranks: JSON.parse(JSON.stringify(iranks)),
             mode: mode
         }
     }
@@ -93,6 +96,7 @@ function AdminDashboard({
     users,
     reviews,
     ranks,
+    iranks,
     mode
 
 }: AdminDashboardProps) {
@@ -271,6 +275,29 @@ function AdminDashboard({
 
 
                             </Table>
+                            <hr />
+                            <h2>Instructors</h2>
+                            <Table>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Instructor ID</Th>
+                                        <Th>Instructor Name</Th>
+                                        <Th>Rank</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {iranks.map((instructor, i) => {
+                                        return (
+                                            <Tr key={instructor.instructorID}>
+                                                <Td>{instructor.instructorID}</Td>
+                                                <Td>{instructor.instructorName}</Td>
+                                                <Td>{i + 1}</Td>
+                                            </Tr>
+                                        )
+                                    })}
+                                </Tbody>
+                            </Table>
+
                         </TabPanel>
                     </TabPanels>
                 </Tabs>
