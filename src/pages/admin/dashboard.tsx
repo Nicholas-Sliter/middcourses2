@@ -21,7 +21,7 @@ import { useEffect } from "react";
 import PageTitle from '../../components/common/PageTitle';
 import ReviewList from '../../components/Review';
 import useIsMount from "../../hooks/useIsMount";
-// import { getTopCourses, getTopCoursesByTagAgg, getTopDepartmentCourses, getTopValueForDifficultyCourses } from '../../lib/backend/database/rankings';
+import { getTopCourses, getTopCoursesByTagAgg, getTopDepartmentCourses, getTopValueForDifficultyCourses } from '../../lib/backend/database/rankings';
 import { __getAllFullReviews } from "../../lib/backend/database/review";
 import { __getAllFullUsers } from "../../lib/backend/database/users";
 import { CustomSession } from "../../lib/common/types";
@@ -30,7 +30,7 @@ import signInRedirectHandler from "../../lib/frontend/login";
 interface AdminDashboardProps {
     users: any[];
     reviews: any[];
-    // ranks: any[];
+    ranks: any[];
     mode: string;
 
 }
@@ -67,10 +67,10 @@ export async function getServerSideProps(context) {
         return a.createdAt < b.createdAt ? 1 : -1;
     });
 
-    //const ranks = (await getTopValueForDifficultyCourses(4));
+    // const ranks = (await getTopValueForDifficultyCourses(4));
     // const ranks = await getTopDepartmentCourses(session, 4)
     // const ranks = await getTopCoursesByTagAgg(session, 4)
-    // const ranks = (await getTopCourses(4));
+    const ranks = (await getTopCourses(10));
 
 
     const mode = process.env.NODE_ENV;
@@ -79,7 +79,7 @@ export async function getServerSideProps(context) {
         props: {
             users: JSON.parse(JSON.stringify(users)),
             reviews: JSON.parse(JSON.stringify(reviews)),
-            // ranks: JSON.parse(JSON.stringify(ranks)),
+            ranks: JSON.parse(JSON.stringify(ranks)),
             mode: mode
         }
     }
@@ -92,7 +92,7 @@ export async function getServerSideProps(context) {
 function AdminDashboard({
     users,
     reviews,
-    // ranks,
+    ranks,
     mode
 
 }: AdminDashboardProps) {
@@ -174,7 +174,7 @@ function AdminDashboard({
                     <TabList>
                         <Tab>Users</Tab>
                         <Tab>Reviews</Tab>
-                        {/* <Tab>Rankings</Tab> */}
+                        <Tab>Rankings</Tab>
                     </TabList>
 
 
@@ -244,7 +244,7 @@ function AdminDashboard({
                             </Table>
                         </TabPanel>
                         {/* Recommendations table */}
-                        {/* <TabPanel>
+                        <TabPanel>
                             <h2>Rankings</h2>
                             <Table>
                                 <Thead>
@@ -271,7 +271,7 @@ function AdminDashboard({
 
 
                             </Table>
-                        </TabPanel> */}
+                        </TabPanel>
                     </TabPanels>
                 </Tabs>
 
