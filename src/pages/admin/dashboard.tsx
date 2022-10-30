@@ -72,30 +72,27 @@ export async function getServerSideProps(context) {
     // const ranks = await getTopDepartmentCourses(session, 4)
     // const ranks = await getTopCoursesByTagAgg(session, 4)
     const ranks = (await getTopCourses(10));
-    const iranks = (await getTopInstructors(10)).sort((a, b) => {
-        const a_avgrating = (
-            a.avgRating +
-            a.avgInstructorEffectiveness +
-            a.avgInstructorAccommodationLevel +
-            a.avgInstructorEnthusiasm +
-            (10 * a.avgInstructorAgain) +
-            (10 * a.avgInstructorEnjoyed)
-        ) / 6;
-        const b_avgrating = (
-            b.avgRating +
-            b.avgInstructorEffectiveness +
-            b.avgInstructorAccommodationLevel +
-            b.avgInstructorEnthusiasm +
-            (10 * b.avgInstructorAgain) +
-            (10 * b.avgInstructorEnjoyed)
-        ) / 6;
+    const irank = (await getTopInstructors(10));
 
-        a.score = a_avgrating;
-        b.score = b_avgrating;
+    console.log(irank)
 
+    const iranks = irank.map((r) => {
+        const avgrating = ((
+            parseFloat(r.avgRating) +
+            parseFloat(r.avgInstructorEffectiveness) +
+            parseFloat(r.avgInstructorAccommodationLevel) +
+            parseFloat(r.avgInstructorEnthusiasm) +
+            (10 * parseFloat(r.avgInstructorAgain)) +
+            (10 * parseFloat(r.avgInstructorEnjoyed))
+        ) / 6).toFixed(2);
+
+        r.score = avgrating;
+        return r;
+    }).sort((a, b) => {
         return a.score < b.score ? 1 : -1;
     });
 
+    console.log(iranks)
 
     const mode = process.env.NODE_ENV;
 
@@ -127,10 +124,6 @@ function AdminDashboard({
     const { data: session } = useSession() as { data: CustomSession };
     const router = useRouter();
     const isMount = useIsMount();
-
-    if (typeof window !== "undefined") {
-        console.table(iranks);
-    }
 
     useEffect(() => {
         //if not logged in, redirect to login
