@@ -74,17 +74,29 @@ export async function getServerSideProps(context) {
     const ranks = (await getTopCourses(10));
     const irank = (await getTopInstructors(10));
 
-    console.log(irank)
+
+    const weights = {
+        "avgRating": 0.1,
+        "avgInstructorAgain": 0.5,
+        "avgInstructorAccommodationLevel": 0.2,
+        "avgInstructorEnthusiasm": 0.2,
+        "avgInstructorEnjoyed": 0.3333,
+        "avgInstructorEffectiveness": 0.3333,
+    };
+
+    const weightSum = Object.values(weights).reduce((a, b) => a + b, 0);
+
 
     const iranks = irank.map((r) => {
+
         const avgrating = ((
-            parseFloat(r.avgRating) +
-            parseFloat(r.avgInstructorEffectiveness) +
-            parseFloat(r.avgInstructorAccommodationLevel) +
-            parseFloat(r.avgInstructorEnthusiasm) +
-            (10 * parseFloat(r.avgInstructorAgain)) +
-            (10 * parseFloat(r.avgInstructorEnjoyed))
-        ) / 6).toFixed(2);
+            (weights.avgRating) * parseFloat(r.avgRating) +
+            (weights.avgInstructorEffectiveness) * parseFloat(r.avgInstructorEffectiveness) +
+            (weights.avgInstructorAccommodationLevel) * parseFloat(r.avgInstructorAccommodationLevel) +
+            (weights.avgInstructorEnthusiasm) * parseFloat(r.avgInstructorEnthusiasm) +
+            (weights.avgInstructorAgain) * (10 * parseFloat(r.avgInstructorAgain)) +
+            (weights.avgInstructorEnjoyed) * (10 * parseFloat(r.avgInstructorEnjoyed))
+        ) / weightSum).toFixed(2);
 
         r.score = avgrating;
         return r;
@@ -92,7 +104,6 @@ export async function getServerSideProps(context) {
         return a.score < b.score ? 1 : -1;
     });
 
-    console.log(iranks)
 
     const mode = process.env.NODE_ENV;
 
