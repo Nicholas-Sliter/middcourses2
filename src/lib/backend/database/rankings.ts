@@ -39,7 +39,7 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
 
 
 
-export function generateBaseInstructorAverages(qb: Knex.QueryBuilder, count: number = 3) {
+export function generateBaseInstructorAverages(qb: Knex.QueryBuilder, count: number = 5) {
 
     return qb.with("InstructorReview", qb => qb.from("Review").where({
         "Review.deleted": false,
@@ -49,6 +49,7 @@ export function generateBaseInstructorAverages(qb: Knex.QueryBuilder, count: num
     )
         .from("InstructorReview")
         .groupBy(["InstructorReview.instructorID"])
+        .havingRaw(`count("InstructorReview"."instructorID") >= ?`, [count])
         .select(["InstructorReview.instructorID"])
         .avg({
             /* Instructor specific */
