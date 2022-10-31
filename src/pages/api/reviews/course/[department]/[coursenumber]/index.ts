@@ -15,7 +15,7 @@ import {
   isQualityReview,
   uuidv4,
 } from "../../../../../../lib/backend/utils";
-import { CustomSession } from "../../../../../../lib/common/types";
+import { CustomSession, public_course } from "../../../../../../lib/common/types";
 import { courseTags, primaryComponents } from "../../../../../../lib/common/utils";
 import { voteReviewByID } from "../../../../../../lib/backend/database/review";
 import { updateUserPermissions } from "../../../../../../lib/backend/database/users";
@@ -110,7 +110,15 @@ const handler = nc({
     }
 
     //check if course id is valid
-    if (!courseID || !req.body.courseID || await getCourseByID(courseID) === null) {
+    let course: public_course = null
+    try {
+      course = await getCourseByID(courseID);
+    }
+    catch (err) {
+      return res.status(400).json({ message: "Invalid course ID" });
+    }
+
+    if (!courseID || !req.body.courseID || course === null) {
       return res.status(400).json({ message: "Invalid course ID" });
     }
 
@@ -149,9 +157,12 @@ const handler = nc({
       return res.status(400).json({ message: "Review contains profanity" });
     }
 
-    if (!isQualityReview(req.body.content)) {
+    if (!isQualityReview(req.body.content, course.courseDescription)) {
       return res.status(400).json({ message: "Review quality is too low" });
     }
+
+    // add check to see if review content is copy/pasted from other reviews
+
 
     //check that the course tags are valid
     if (req.body.courseTags) {

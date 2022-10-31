@@ -4,6 +4,7 @@ import { getInstructorBySlug, __getFullUserByID } from "./database-utils";
 import { User } from "../../lib/common/types";
 import deJunk from "dejunk.js";
 import metricEntropy, { getFrequencies } from "./entropy";
+import stringSimilarity from "string-similarity";
 
 /* Generate UUID */
 export function uuidv4() {
@@ -90,7 +91,7 @@ function checkForRepeatedCharSubstrings(str: string) {
 }
 
 
-export function isQualityReview(str: string): boolean {
+export function isQualityReview(str: string, courseDescription: string = ""): boolean {
 
   // test for button mashing
   // ensure the string has less than 10% junk characters
@@ -128,7 +129,113 @@ export function isQualityReview(str: string): boolean {
   // check that a review does not have repeated char substrings
   const noRepeatedCharSubstrings: boolean = !checkForRepeatedCharSubstrings(str);
 
-  console.log({ notHasJunk: !hasJunk, sufficientAlphabetSize, sufficientEntropy, sufficientWordLength, sufficientLetterFrequency, notComposedOfSubstrings, sufficientWordDiversity, noRepeatedCharSubstrings });
+
+  const containsRefToCharLimit: boolean = [
+    "character limit",
+    "200 characters",
+    "200 character",
+    "200 char",
+  ]
+    .some((phrase) => str.toLowerCase().includes(phrase));
+
+
+
+  const hasTooLongWords: boolean = str.split(" ").some((word) => word.length > 24);
+
+  const containsHomerowMashing: boolean = [
+    "fhdsk",
+    "fjds",
+    "fsfj",
+    "sfj",
+    "hfjdsf",
+    "jhkj",
+    "hdsk",
+    "hjds",
+    "fghs",
+    "fghjk",
+    "asdf",
+    "dfjh",
+    "jhsg",
+    "fhjdgslk",
+    "dfnd",
+    "fjsk",
+    "fvyt",
+    "dhjn",
+    "kjlal",
+    "hfdjk",
+    "fhsdk",
+    "fkdk",
+    "jfhj",
+    "jkhj",
+    "jkjk",
+  ].some((phrase) => str.toLowerCase().includes(phrase));
+
+
+  //check if the user copy-pasted the course descirption or large parts of it
+  // check if str distance is within 100ish?
+
+  let containsCourseDescription = false;
+  if (courseDescription) {
+
+    //first check if courseDescription is a substring of str
+    containsCourseDescription = str.toLowerCase().includes(courseDescription.toLowerCase());
+
+    // check if word intersection is large enough
+    if (!containsCourseDescription) {
+      const courseDescriptionWords = courseDescription.toLowerCase().split(" ");
+      const strWords = str.toLowerCase().split(" ");
+      const courseDescriptionWordsSet = new Set(courseDescriptionWords);
+      const strWordsSet = new Set(strWords);
+      const intersection = new Set([...courseDescriptionWordsSet].filter(x => strWordsSet.has(x)));
+      const intersectionSize = intersection.size;
+      const courseDescriptionWordsSize = courseDescriptionWords.length;
+      const strWordsSize = strWords.length;
+      const intersectionRatio = intersectionSize / Math.min(courseDescriptionWordsSize, strWordsSize);
+      containsCourseDescription = intersectionRatio > 0.9;
+
+    }
+
+    // check string similarity
+    if (!containsCourseDescription) {
+      const similarity = stringSimilarity.compareTwoStrings(courseDescription.toLowerCase(), str.toLowerCase());
+      containsCourseDescription = similarity > 0.85;
+    }
+
+  }
+
+
+  const containsLoremIpsom = str.toLowerCase().includes("lorem ipsum dolor sit amet,");
+
+  // if the str includes a copy of …Read more then is probably a copy paste
+  const containsReadMore = str.toLowerCase().includes("…read more");
+
+  // look for filler text in last sentence
+  // eg. fhdskflsdhfjdsfhdskfhds
+  // const lastSentence = str.split(".").pop();
+  // let lastSentenceQuality = true;
+  // if (lastSentence) {
+  //   //run isQualityReview on last sentence
+  //   lastSentenceQuality = isQualityReview(lastSentence, "");
+  // }
+
+
+  console.log({
+    notHasJunk: !hasJunk,
+    sufficientAlphabetSize,
+    sufficientEntropy,
+    sufficientWordLength,
+    sufficientLetterFrequency,
+    notComposedOfSubstrings,
+    sufficientWordDiversity,
+    noRepeatedCharSubstrings,
+    noRefToCharLim: !containsRefToCharLimit,
+    noButtonMash: !containsHomerowMashing,
+    noTooLongWords: !hasTooLongWords,
+    noLoremIpsom: !containsLoremIpsom,
+    noReadMore: !containsReadMore,
+    doesNotContainCD: !containsCourseDescription,
+    // lastSentenceQuality,
+  });
 
   return !hasJunk &&
     sufficientAlphabetSize &&
@@ -137,7 +244,14 @@ export function isQualityReview(str: string): boolean {
     // sufficientLetterFrequency && //too many false positives
     notComposedOfSubstrings &&
     sufficientWordDiversity &&
-    noRepeatedCharSubstrings;
+    noRepeatedCharSubstrings &&
+    !containsRefToCharLimit &&
+    !containsHomerowMashing &&
+    !hasTooLongWords &&
+    !containsLoremIpsom &&
+    !containsReadMore &&
+    !containsCourseDescription
+  // lastSentenceQuality;
 
 }
 
