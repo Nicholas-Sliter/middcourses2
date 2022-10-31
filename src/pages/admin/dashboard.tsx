@@ -68,10 +68,10 @@ export async function getServerSideProps(context) {
         return a.createdAt < b.createdAt ? 1 : -1;
     });
 
-    // const ranks = (await getTopValueForDifficultyCourses(4));
+    const ranks = (await getTopValueForDifficultyCourses(10));
     // const ranks = await getTopDepartmentCourses(session, 4)
     // const ranks = await getTopCoursesByTagAgg(session, 4)
-    const ranks = (await getTopCourses(10));
+    // const ranks = (await getTopCourses(10));
     const irank = (await getTopInstructors(10));
 
 
