@@ -2,6 +2,7 @@ import { getSession } from "next-auth/react";
 import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next/types";
 import { deleteReviewByID, getReviewByID, voteReviewByID, __getFullReviewByID } from "../../../../lib/backend/database/review";
+import { updateUserPermissions } from "../../../../lib/backend/database/users";
 import { CustomSession } from "../../../../lib/common/types";
 import { isUUIDv4, toTitleCase } from "../../../../lib/common/utils";
 
@@ -55,7 +56,9 @@ const handler = nc({
         if (session.user.admin || session.user.id === review.reviewerID) {
             //delete review
             await deleteReviewByID(reviewId, permanentBool);
-            res.status(200).json({ message: "Review deleted" });
+            //refresh profile
+            await updateUserPermissions(review.reviewerID);
+            res.status(200).json({ message: "Review deleted successfully" });
             return;
         } else {
             res.status(403).json({ message: "You do not have permission to delete this review" });
