@@ -14,26 +14,34 @@ import { Knex } from "knex";
 
 export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number = 3) {
 
-    ///THIS CODE IS INCORRECT!  NEED SAME FIX AS DEPT PAGE
-    return qb.from("Review").where({
-        "Review.deleted": false,
-        "Review.archived": false
+    return qb.with("CourseReview", (qb) => {
+        qb.from("Review")
+            .where(
+                {
+                    "Review.deleted": false,
+                    "Review.archived": false
+                })
+            .select(reviewInfo)
     })
-        .groupBy(["Review.courseID"])
-        .havingRaw(`count("Review"."courseID") >= ?`, [count])
-        .select(["Review.courseID"])
-        .select([
-            knex.raw(`(SELECT AVG("difficulty") FROM "Review") as "avgDifficulty"`),
-            knex.raw(`(SELECT AVG("hours") FROM "Review") as "avgHours"`),
-            knex.raw(`(SELECT AVG("again"::int::float4) FROM "Review") as "avgAgain"`),
-            knex.raw(`(SELECT AVG("rating") FROM "Review") as "avgRating"`),
-            knex.raw(`(SELECT AVG("value") FROM "Review") as "avgValue"`),
-            knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review") as "avgInstructorEffectiveness"`),
-            knex.raw(`(SELECT AVG("instructorAccommodationLevel") FROM "Review") as "avgInstructorAccommodationLevel"`),
-            knex.raw(`(SELECT AVG("instructorEnthusiasm") FROM "Review") as "avgInstructorEnthusiasm"`),
-            knex.raw(`(SELECT AVG("instructorAgain"::int::float4) FROM "Review") as "avgInstructorAgain"`),
-            knex.raw(`(SELECT AVG("instructorEnjoyed"::int::float4) FROM "Review") as "avgInstructorEnjoyed"`)
-        ])
+        .from("CourseReview")
+        .groupBy(["CourseReview.courseID"])
+        .havingRaw(`count("CourseReview"."courseID") >= ?`, [count])
+        .select(["CourseReview.courseID"])
+        .avg({
+            /* Instructor specific */
+            avgInstructorEffectiveness: "CourseReview.instructorEffectiveness",
+            avgInstructorAccommodationLevel: "CourseReview.instructorAccommodationLevel",
+            avgInstructorEnthusiasm: "CourseReview.instructorEnthusiasm",
+            avgInstructorAgain: knex.raw(`CAST("CourseReview"."instructorAgain" = 'True' as int)`),
+            avgInstructorEnjoyed: knex.raw(`CAST("CourseReview"."instructorEnjoyed" = 'True' as int)`),
+            /* Course specific */
+            avgRating: "CourseReview.rating",
+            avgValue: "CourseReview.value",
+            avgDifficulty: "CourseReview.difficulty",
+            avgHours: "CourseReview.hours",
+            avgAgain: knex.raw(`CAST("CourseReview"."again" = 'True' as int)`),
+
+        })
 
 }
 
