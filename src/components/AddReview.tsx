@@ -685,6 +685,7 @@ export default function AddReview({
                     </>
                   )}
                 />
+                <Alert status="info" className={styles.info}><AlertIcon />{"Please note, low quality reviews will be removed and will not count towards your 2 review threshold"} </Alert>
                 <Spacer />
                 <Spacer />
 
