@@ -204,7 +204,7 @@ export function isQualityReview(str: string, courseDescription: string = ""): bo
   }
 
 
-  const containsLoremIpsom = str.toLowerCase().includes("lorem ipsum dolor sit amet,");
+  const containsLoremIpsum = str.toLowerCase().includes("lorem ipsum dolor sit amet,");
 
   // if the str includes a copy of …Read more then is probably a copy paste
   const containsReadMore = str.toLowerCase().includes("…read more");
@@ -231,7 +231,7 @@ export function isQualityReview(str: string, courseDescription: string = ""): bo
     noRefToCharLim: !containsRefToCharLimit,
     noButtonMash: !containsHomerowMashing,
     noTooLongWords: !hasTooLongWords,
-    noLoremIpsom: !containsLoremIpsom,
+    noLoremIpsum: !containsLoremIpsum,
     noReadMore: !containsReadMore,
     doesNotContainCD: !containsCourseDescription,
     // lastSentenceQuality,
@@ -248,7 +248,7 @@ export function isQualityReview(str: string, courseDescription: string = ""): bo
     !containsRefToCharLimit &&
     !containsHomerowMashing &&
     !hasTooLongWords &&
-    !containsLoremIpsom &&
+    !containsLoremIpsum &&
     !containsReadMore &&
     !containsCourseDescription
   // lastSentenceQuality;

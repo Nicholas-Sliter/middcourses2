@@ -574,7 +574,6 @@ export async function searchInstructors(query: string) {
     return [];
   }
 
-  console.log(instructors);
 
   return instructors;
 }
@@ -843,8 +842,6 @@ export async function checkReviewByUserAndCourse(
   if (!res?.reviewID) {
     return false;
   }
-
-  console.log(res.reviewID);
 
   //review exists
   return true;

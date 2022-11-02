@@ -133,6 +133,7 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
                                     "This review is a duplicate of another review.",
                                     "This review is not related to this course or instructor.",
                                     "This review is low quality.",
+                                    "This review's text does not correspond to its rating.",
                                     'Other, please specify'
 
                                 ].map((reason) => {
