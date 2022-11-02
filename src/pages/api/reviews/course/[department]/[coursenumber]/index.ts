@@ -197,6 +197,15 @@ const handler = nc({
     }
 
 
+    // check again that the review does not exist (prevent replay race condition / attack)
+    await new Promise((resolve) => setTimeout(resolve, 500)); /* wait 500ms to allow for the database to update */
+    if (await checkReviewByUserAndCourse(session.user.id, courseID)) {
+      console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
+      return res
+        .status(403)
+        .json({ message: "You have already submitted a review for this course" });
+    }
+
 
     const clamp = (x: number, min = 0, max = 10) => Math.max(Math.min(x, max), min);
 
