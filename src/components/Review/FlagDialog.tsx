@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import {
     AlertDialog,
     AlertDialogBody,
@@ -8,20 +8,15 @@ import {
     AlertDialogContent,
     AlertDialogOverlay,
     Button,
-    useDisclosure,
-    Input,
     Textarea,
     Select,
-    Spacer,
-    Box
 } from "@chakra-ui/react";
 import React from 'react';
-import TextInput from '../common/TextInput';
-import ReviewContentInput from '../common/ReviewContentInput';
 import { CustomSession, public_review } from '../../lib/common/types';
 import styles from './FlagDialog.module.scss';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@chakra-ui/react';
+import Link from 'next/link';
 
 interface FlagDialogProps {
     review: public_review;
@@ -107,6 +102,12 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
         defaultValue: "Select a reason"
     });
 
+    const otherReason = useWatch({
+        control,
+        name: "reasonOther",
+        defaultValue: ""
+    })
+
 
     if (!isOpen) {
         return null;
@@ -134,6 +135,8 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
                                     "This review is not related to this course or instructor.",
                                     "This review is low quality.",
                                     "This review's text does not correspond to its rating.",
+
+                                    "I'd like to edit this review.",
                                     'Other, please specify'
 
                                 ].map((reason) => {
@@ -152,6 +155,11 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
                                 resize="none"
                             />) : null}
 
+                            {/* Help text */}
+                            {(selectReason === "I'd like to edit this review.") ? <p>
+                                To edit your review, please visit your <Link passHref href="/profile/reviews"><a> Private Profile</a></Link>.
+                            </p> : null}
+
 
                         </form>
                     </AlertDialogBody>
@@ -162,6 +170,10 @@ function FlagDialog({ review, isOpen, setOpen }: FlagDialogProps) {
                             onClick={() => setOpen(false)}>Cancel</Button>
                         <Button
                             colorScheme="red"
+                            disabled={
+                                ["I'd like to edit this review.", ""].includes(selectReason) ||
+                                (selectReason === "Other, please specify" && !otherReason)
+                            }
                             onClick={handleSubmit(onSubmit)}>Flag</Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>
