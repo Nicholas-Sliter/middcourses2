@@ -28,6 +28,9 @@ export async function getServerSideProps(context) {
   else {
     // run student logic
     reviews = await getReviewsByUserID(session.user.id);
+    reviews.forEach((review) => {
+      review.editable = true;
+    });
     instructors = reviews.map((review) => { return { name: review.instructorName, instructorID: review.instructorID, slug: review.instructorSlug } });
   }
 

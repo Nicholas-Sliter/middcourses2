@@ -25,7 +25,6 @@ const handler = nc({
     //get the course from the database
     const data = await getInstructorsAndTermsByCourseID(courseID);
 
-    console.log(data);
     //if the course doesn't exist, return 404
     if (!data) {
       res.status(404).end("Info not found");
