@@ -44,6 +44,8 @@ function ReviewCard({
     const [userVoteType, setUserVoteType] = useState(review.userVoteType);
     const toast = useToast();
 
+    const editable = review.editable;
+
     const vote = async (review: public_review, voteType: string, toast, updateVoteType) => {
         //check if user is logged in
         if (!session?.user) {
@@ -93,7 +95,8 @@ function ReviewCard({
                     identifyInstructor={identifyInstructor}
                     hideVoting={hideVoting}
                     hideDate={true}
-                    hideFlag={hideFlag}
+                    hideFlag={hideFlag || editable}
+                    showEdit={editable}
                     userVoteType={userVoteType}
                     vote={voteWrapper}
                 />

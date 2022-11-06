@@ -5,10 +5,9 @@ import { getProviders } from "next-auth/react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import TagManager from 'react-gtm-module'
 import { useEffect } from "react";
-
+import HeaderFooterLayout from "../layouts/HeaderFooterLayout";
 delete theme.styles.global;
 
-import HeaderFooterLayout from "../layouts/HeaderFooterLayout";
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -17,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       gtmId: 'GTM-WJDFWKT',
     })
   }, [])
+
 
   return (
     <>
@@ -38,6 +38,7 @@ export default MyApp;
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();
+
   return {
     props: { providers },
   };

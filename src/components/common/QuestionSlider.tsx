@@ -1,6 +1,7 @@
 import {
   Slider,
   SliderFilledTrack,
+  SliderMark,
   SliderThumb,
   SliderTrack,
 } from "@chakra-ui/react";
@@ -16,6 +17,7 @@ interface QuestionSliderProps {
   min?: number;
   max?: number;
   step?: number;
+  value?: number;
 }
 
 export default function QuestionSlider({
@@ -26,6 +28,7 @@ export default function QuestionSlider({
   min = 1,
   max = 10,
   step = 1,
+  value
 }: QuestionSliderProps) {
   const reg =
     registerName !== "" ? register(registerName, validationObject) : {};
@@ -53,7 +56,10 @@ export default function QuestionSlider({
         min={min}
         max={max}
         step={step}
+        value={value ?? undefined}
       >
+        {/* <SliderMark value={min} />
+        <SliderMark value={max} /> */}
         <SliderTrack>
           <SliderFilledTrack className={styles.filledTrack} />
         </SliderTrack>

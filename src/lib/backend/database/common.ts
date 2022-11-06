@@ -13,6 +13,9 @@ export const reviewInfo = [
     "Review.rating",
     "Review.content",
 
+    "Review.whyTake",
+    "Review.inMajorMinor",
+
 
     "Review.difficulty",
     "Review.value",

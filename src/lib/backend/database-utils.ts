@@ -817,8 +817,19 @@ export async function getInstructorsAndTermsByCourseID(id: string) {
   return res;
 }
 
-export async function addReview(review) {
-  const res = await knex("Review").insert(review);
+export async function addReview(review, update: boolean = false) {
+
+  let res = null;
+  if (update) {
+    res = await knex("Review")
+      .where({ "Review.reviewID": review.reviewID })
+      .update(review)
+      .returning("*");
+
+  }
+  else {
+    res = await knex("Review").insert(review);
+  }
 
   if (!res) {
     throw new Error("Failed to add review");

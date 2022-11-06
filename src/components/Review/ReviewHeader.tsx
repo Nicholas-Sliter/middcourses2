@@ -15,12 +15,13 @@ import {
     MdThumbDownOffAlt,
 } from "react-icons/md";
 import { ratingMapping } from "../../lib/frontend/utils";
-import { public_instructor, public_review } from "../../lib/common/types";
+import { public_course, public_instructor, public_review } from "../../lib/common/types";
 import styles from "./ReviewHeader.module.scss";
 import DateString from "../common/DateString";
-import { FiFlag } from "react-icons/fi";
+import { FiFlag, FiEdit } from "react-icons/fi";
 import FlagDialog from "./FlagDialog";
 import { useState } from "react";
+import AddReview from "../AddReview";
 
 interface ReviewHeaderProps {
     review: public_review;
@@ -33,6 +34,7 @@ interface ReviewHeaderProps {
     userVoteType?: 1 | -1
     vote: (voteType: string) => void;
     hideFlag?: boolean;
+    showEdit?: boolean;
 }
 
 const ratingIconMapping = {
@@ -71,12 +73,26 @@ function ReviewHeader({
     userVoteType,
     hideDate = false,
     hideFlag = false,
+    showEdit = false,
     vote,
 }: ReviewHeaderProps) {
     const [flagButtonOpen, setFlagButtonOpen] = useState(false);
+    const [editButtonOpen, setEditButtonOpen] = useState(false);
     const department = review?.courseID?.slice(0, 4)?.toLowerCase();
     const courseNumber = review?.courseID?.slice(4);
 
+    const course: public_course = {
+        courseID: review.courseID,
+        courseName: review.courseID,
+        courseDescription: "",
+        departmentID: department,
+        departmentName: department.toUpperCase(),
+    };
+
+
+    const editButtonClick = () => {
+        setEditButtonOpen(true);
+    };
 
     const flagButtonClick = () => {
         setFlagButtonOpen(!flagButtonOpen);
@@ -104,6 +120,21 @@ function ReviewHeader({
             </Tooltip>
         );
     };
+
+
+    const EditElement = () => {
+        if (!showEdit) return null;
+        return (
+            <Tooltip label="Edit review">
+                <button
+                    aria-label="Edit Review"
+                    onClick={editButtonClick}
+                >
+                    <FiEdit />
+                </button>
+            </Tooltip >
+        );
+    }
 
 
     const LikeDislikeElement = () => (hideVoting) ? null : (
@@ -163,7 +194,19 @@ function ReviewHeader({
             <div className={styles.controls}>
                 <LikeDislikeElement />
                 <FlagElement />
-                <FlagDialog review={review} isOpen={flagButtonOpen} setOpen={setFlagButtonOpen} />
+                <EditElement />
+                <AddReview /*This might become a performance issue */
+                    isOpen={editButtonOpen}
+                    onClose={() => setEditButtonOpen(false)}
+                    review={review}
+                    instructors={[instructor]}
+                    course={course}
+                    edit
+                />
+                <FlagDialog
+                    review={review}
+                    isOpen={flagButtonOpen}
+                    setOpen={setFlagButtonOpen} />
             </div>
         </div>
     )

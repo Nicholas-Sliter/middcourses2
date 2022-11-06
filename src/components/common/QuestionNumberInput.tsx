@@ -24,7 +24,11 @@ export default function QuestionNumberInput({
   defaultValue = 0,
 }: QuestionNumberInputProps) {
 
-   const onChange = (s) => {
+
+  const reg =
+    registerName !== "" ? register(registerName, validationObject) : {};
+
+  const onChange = (s: string) => {
     const e = {
       target: {
         value: parseInt(s, 10),
@@ -48,8 +52,6 @@ export default function QuestionNumberInput({
   const dec = getDecrementButtonProps();
   const input = getInputProps();
 
-  const reg =
-    registerName !== "" ? register(registerName, validationObject) : {};
 
   return (
     <div className={styles.container}>

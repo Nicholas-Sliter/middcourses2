@@ -1,4 +1,5 @@
 import type { Session } from "next-auth";
+import { isInMajorMinorText } from "./utils";
 export interface public_review {
   reviewID: string;
   courseID: string;
@@ -7,6 +8,10 @@ export interface public_review {
   instructorSlug?: string;
   semester: string;
   reviewDate: string;
+
+  inMajorMinor?: string;
+  whyTake?: string;
+
   rating: number;
   content: string;
   difficulty: number;
@@ -22,8 +27,10 @@ export interface public_review {
   instructorEnthusiasm: number;
   instructorAgain: boolean;
   instructorEnjoyed: boolean;
+
   votes?: number;
   userVoteType?: 1 | -1;
+  editable?: boolean;
 }
 
 export interface full_review extends public_review {
@@ -63,6 +70,7 @@ export interface public_instructor {
   avgEnthusiasm?: number;
   avgAgain?: number;
   avgEnjoyed?: number;
+  tags?: string[];
   numReviews?: number;
 }
 

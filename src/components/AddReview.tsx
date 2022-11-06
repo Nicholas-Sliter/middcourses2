@@ -18,7 +18,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Controller, useForm, useWatch } from "react-hook-form";
-import { public_course, public_instructor } from "../lib/common/types";
+import { public_course, public_instructor, public_review } from "../lib/common/types";
 import styles from "../styles/components/AddReview.module.scss";
 import {
   difficultyMapping,
@@ -44,6 +44,8 @@ interface AddReviewProps {
   instructors: public_instructor[];
   isOpen: boolean;
   onClose: () => void;
+  edit?: boolean;
+  review?: public_review;
 }
 
 export default function AddReview({
@@ -51,6 +53,8 @@ export default function AddReview({
   instructors,
   isOpen,
   onClose,
+  edit = false,
+  review
 }: AddReviewProps) {
   const {
     register,
@@ -60,14 +64,56 @@ export default function AddReview({
     control,
     setFocus,
     formState: { errors },
-  } = useForm();
+  } = useForm({});
+
 
   const [instructorTerms, setInstructorTerms] = useState([]);
   const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedComponentTags, setSelectedComponentTags] = useState([]);
+  const [submitDebounce, setSubmitDebounce] = useState(false);
 
   const toast = useToast();
+
+
+  //if edit and review, we need to set the initial values of the form
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    if (edit && review) {
+      console.log(review);
+      reset({
+
+        semester: review.semester,
+        instructor: review.instructorID,
+
+        inMajorMinor: review.inMajorMinor,
+        whyTake: review.whyTake,
+
+        rating: review.rating,
+        difficulty: review.difficulty,
+        value: review.value,
+        hours: `${review.hours}`,
+        again: +review.again,
+
+        instructorEffectiveness: review.instructorEffectiveness,
+        instructorEnthusiasm: review.instructorEnthusiasm,
+        instructorAccommodationLevel: review.instructorAccommodationLevel,
+        instructorEnjoyed: review.instructorEnjoyed,
+        instructorAgain: review.instructorAgain,
+
+        tags: review.tags,
+        primaryComponent: review?.primaryComponent,
+
+
+        content: review.content,
+
+
+      });
+      setSelectedTags(review.tags);
+    }
+  }, [edit, review, reset, isOpen]);
 
 
   const selectTag = (tag: string, tagGroup: string[] = []) => {
@@ -126,13 +172,17 @@ export default function AddReview({
   };
 
   const onSubmit = async (data: Object) => {
+    if (submitDebounce) {
+      return;
+    }
+    setSubmitDebounce(true);
     console.log(data);
     const dept = course.courseID.slice(0, 4).toLowerCase();
     const code = course.courseID.slice(4);
 
     //get contents so we can send it to a toast
     const res = await fetch(`/api/reviews/course/${dept}/${code}`, {
-      method: "POST",
+      method: (edit) ? "PATCH" : "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -140,6 +190,7 @@ export default function AddReview({
         ...data,
         courseTags: selectedTags,
         courseID: course.courseID,
+        reviewID: (edit) ? review.reviewID : undefined,
       }),
     });
 
@@ -154,6 +205,7 @@ export default function AddReview({
         duration: 5000,
         isClosable: true,
       });
+      setSubmitDebounce(false);
       return;
     }
 
@@ -257,6 +309,10 @@ export default function AddReview({
     return instructor.instructorID === watch("instructor");
   });
 
+
+  const headerText = (edit) ? "Edit Review" : `Review ${course?.courseName ?? 'a course'}`;
+
+
   return (
     <Modal
       isOpen={isOpen}
@@ -267,16 +323,21 @@ export default function AddReview({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader className={styles.header}>Review {course?.courseName ?? "a course"}</ModalHeader>
+        <ModalHeader className={styles.header}>{headerText}</ModalHeader>
         <ModalCloseButton className={styles.closeButton} />
         <ModalBody>
           <form className={styles.form}>
-            <FormControl>
+            <FormControl onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault(); /* prevent form submission */
+              }
+            }}>
               <Stack>
-                <Question label="Course identification" htmlFor="courseinfo">
+                <Question label={`Course identification ${(edit) ? " [not editable]" : ""} `} htmlFor="courseinfo">
                   <Select
                     name="semester"
                     placeholder="Select the semester"
+                    disabled={edit}
                     {...register("semester", { required: { value: true, message: "A semester must be selected" } })}
                   >
                     {terms
@@ -296,6 +357,8 @@ export default function AddReview({
                     name="instructor"
                     isDisabled={!selectedTerm || selectedTerm === ""}
                     placeholder="Choose your instructor"
+                    value={instructor?.instructorID}
+                    disabled={edit}
                     {...register("instructor", { required: { value: true, message: "An instructor must be selected" } })}
                   >
                     {filteredInstructors.map((instructor) => (
@@ -314,7 +377,11 @@ export default function AddReview({
                   <Select
                     name="inMajorMinor"
                     placeholder="Choose major/minor status"
-                    {...register("inMajorMinor", { required: { value: true, message: "You must select if this course is in your major or minor" } })}
+                    {...register("inMajorMinor",
+                      {
+                        required: { value: true, message: "You must select if this course is in your major or minor" }
+                      })}
+                    value={inMajorMinor}
                   >
                     <option value="major">I intend to major in {course.departmentName}</option>
                     <option value="minor">I intend to minor in {course.departmentName}</option>
@@ -329,6 +396,7 @@ export default function AddReview({
                   <Select
                     name="whyTake"
                     placeholder="Choose why you took this course"
+                    value={watch("whyTake")}
                     {...register("whyTake", {
                       required: { value: true, message: "You must select why you took this course." },
                       validate: {
@@ -363,6 +431,7 @@ export default function AddReview({
                     register={register}
                     registerName="difficulty"
                     descriptor={difficultyMapping?.[difficulty] ?? null}
+                    value={difficulty}
                   />
                 </Question>
 
@@ -374,41 +443,9 @@ export default function AddReview({
                     registerName="value"
                     register={register}
                     descriptor={valueMapping?.[value] ?? null}
+                    value={value}
                   />
                 </Question>
-
-                {/* <Question
-                  label="What is the primary component of the course?"
-                  htmlFor="primaryComponent"
-                >
-                  <Select
-                    name="primaryComponent"
-                    placeholder="Choose a primary component"
-                    {...register("primaryComponent", { required: { value: true, message: "A primary component must be selected" } })}
-                  >
-                    {primaryComponents.map((component) => (
-                      <option key={component} value={component}>
-                        {component}
-                      </option>
-                    ))}
-                  </Select>
-                  <FormErrorMessage errors={errors} name="primaryComponent" />
-                </Question> */}
-
-                {/* 
-                <Question
-                  label="Select between 1 and 3 major component of this course."
-                  htmlFor="primaryComponent"
-                >
-                  <TagBar
-                    items={primaryComponents.sort()}
-                    selectedTags={selectedComponentTags}
-                    tagClick={selectComponentTag}
-                    tagClassName={styles.tag}
-                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
-                  />
-                  <FormErrorMessage errors={errors} name="primaryComponent" />
-                </Question> */}
 
                 <Question
                   label="Select between 1 and 3 major components of this course."
@@ -435,7 +472,6 @@ export default function AddReview({
                           }}
                           tagClassName={styles.tag}
                           selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
-                        // renderButton
                         />
                         <div className={styles.spacer} />
                         <FormErrorMessage errors={errors} name="primaryComponent" />
@@ -443,15 +479,6 @@ export default function AddReview({
                     )}
                   />
                 </Question>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -471,6 +498,7 @@ export default function AddReview({
                     min={0}
                     max={30}
                     step={1}
+                    defaultValue={watch("hours")}
                   ></QuestionNumberInput>
                 </Question>
                 <Question
@@ -558,12 +586,18 @@ export default function AddReview({
                   <Controller
                     control={control}
                     name="again"
-                    defaultValue={false}
+                    defaultValue={+false}
                     render={({
                       field: { onChange, value, onBlur, ref },
                     }) => (
                       <>
-                        <Switch size="lg" name="again" value={value} onChange={onChange} />
+                        <Switch
+                          size="lg"
+                          name="again"
+                          value={value}
+                          onChange={onChange}
+                          defaultChecked={value}
+                        />
                       </>
                     )}
                   />
@@ -576,6 +610,7 @@ export default function AddReview({
                     registerName="rating"
                     register={register}
                     descriptor={valueMapping?.[rating] ?? null}
+                    value={rating}
                   />
                 </Question>
                 <Spacer />
@@ -594,6 +629,7 @@ export default function AddReview({
                       standardMapping?.[instructorEffectiveness] ??
                       null
                     }
+                    value={instructorEffectiveness}
                   />
                 </Question>
                 <Question
@@ -606,6 +642,7 @@ export default function AddReview({
                     descriptor={
                       standardMapping?.[instructorEnthusiasm] ?? null
                     }
+                    value={instructorEnthusiasm}
                   />
                 </Question>
                 <Question
@@ -620,6 +657,7 @@ export default function AddReview({
                       instructorAccommodationLevel
                       ] ?? null
                     }
+                    value={instructorAccommodationLevel}
                   />
                 </Question>
                 <Question
@@ -635,7 +673,7 @@ export default function AddReview({
                       field: { onChange, value, onBlur, ref },
                     }) => (
                       <>
-                        <Switch name="instructorEnjoyed" size="lg" value={value} onChange={onChange} />
+                        <Switch name="instructorEnjoyed" size="lg" value={value} onChange={onChange} defaultChecked={value} />
                       </>
                     )}
                   />
@@ -652,7 +690,7 @@ export default function AddReview({
                       field: { onChange, value, onBlur, ref, name },
                     }) => (
                       <>
-                        <Switch name="instructorAgain" size="lg" value={value} onChange={onChange} />
+                        <Switch name="instructorAgain" size="lg" value={value} onChange={onChange} defaultChecked={value} />
                       </>
                     )}
                   />
@@ -694,6 +732,7 @@ export default function AddReview({
                   type="submit"
                   disabled={!errors}
                   onClick={handleSubmit(onSubmit)}
+                  value={(edit) ? "Update Review" : "Submit Review"}
                 />
               </Stack>
             </FormControl>
