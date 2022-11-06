@@ -21,7 +21,7 @@ import { useEffect } from "react";
 import PageTitle from '../../components/common/PageTitle';
 import ReviewList from '../../components/Review';
 import useIsMount from "../../hooks/useIsMount";
-// import { getTopCourses, getTopCoursesByTagAgg, getTopDepartmentCourses, getTopValueForDifficultyCourses } from '../../lib/backend/database/rankings';
+import { getTopCourses, getTopCoursesByTagAgg, getTopDepartmentCourses, getTopInstructors, getTopValueForDifficultyCourses } from '../../lib/backend/database/rankings';
 import { __getAllFullReviews } from "../../lib/backend/database/review";
 import { __getAllFullUsers } from "../../lib/backend/database/users";
 import { CustomSession } from "../../lib/common/types";
@@ -30,7 +30,8 @@ import signInRedirectHandler from "../../lib/frontend/login";
 interface AdminDashboardProps {
     users: any[];
     reviews: any[];
-    // ranks: any[];
+    ranks: any[];
+    iranks: any[];
     mode: string;
 
 }
@@ -67,10 +68,41 @@ export async function getServerSideProps(context) {
         return a.createdAt < b.createdAt ? 1 : -1;
     });
 
-    //const ranks = (await getTopValueForDifficultyCourses(4));
+    const ranks = (await getTopValueForDifficultyCourses(10));
     // const ranks = await getTopDepartmentCourses(session, 4)
     // const ranks = await getTopCoursesByTagAgg(session, 4)
-    // const ranks = (await getTopCourses(4));
+    // const ranks = (await getTopCourses(10));
+    const irank = (await getTopInstructors(10));
+
+
+    const weights = {
+        "avgRating": 0.1,
+        "avgInstructorAgain": 0.5,
+        "avgInstructorAccommodationLevel": 0.2,
+        "avgInstructorEnthusiasm": 0.2,
+        "avgInstructorEnjoyed": 0.3333,
+        "avgInstructorEffectiveness": 0.3333,
+    };
+
+    const weightSum = Object.values(weights).reduce((a, b) => a + b, 0);
+
+
+    const iranks = irank.map((r) => {
+
+        const avgrating = ((
+            (weights.avgRating) * parseFloat(r.avgRating) +
+            (weights.avgInstructorEffectiveness) * parseFloat(r.avgInstructorEffectiveness) +
+            (weights.avgInstructorAccommodationLevel) * parseFloat(r.avgInstructorAccommodationLevel) +
+            (weights.avgInstructorEnthusiasm) * parseFloat(r.avgInstructorEnthusiasm) +
+            (weights.avgInstructorAgain) * (10 * parseFloat(r.avgInstructorAgain)) +
+            (weights.avgInstructorEnjoyed) * (10 * parseFloat(r.avgInstructorEnjoyed))
+        ) / weightSum).toFixed(2);
+
+        r.score = avgrating;
+        return r;
+    }).sort((a, b) => {
+        return a.score < b.score ? 1 : -1;
+    });
 
 
     const mode = process.env.NODE_ENV;
@@ -79,7 +111,8 @@ export async function getServerSideProps(context) {
         props: {
             users: JSON.parse(JSON.stringify(users)),
             reviews: JSON.parse(JSON.stringify(reviews)),
-            // ranks: JSON.parse(JSON.stringify(ranks)),
+            ranks: JSON.parse(JSON.stringify(ranks)),
+            iranks: JSON.parse(JSON.stringify(iranks)),
             mode: mode
         }
     }
@@ -92,7 +125,8 @@ export async function getServerSideProps(context) {
 function AdminDashboard({
     users,
     reviews,
-    // ranks,
+    ranks,
+    iranks,
     mode
 
 }: AdminDashboardProps) {
@@ -174,7 +208,7 @@ function AdminDashboard({
                     <TabList>
                         <Tab>Users</Tab>
                         <Tab>Reviews</Tab>
-                        {/* <Tab>Rankings</Tab> */}
+                        <Tab>Rankings</Tab>
                     </TabList>
 
 
@@ -244,7 +278,7 @@ function AdminDashboard({
                             </Table>
                         </TabPanel>
                         {/* Recommendations table */}
-                        {/* <TabPanel>
+                        <TabPanel>
                             <h2>Rankings</h2>
                             <Table>
                                 <Thead>
@@ -271,7 +305,32 @@ function AdminDashboard({
 
 
                             </Table>
-                        </TabPanel> */}
+                            <hr />
+                            <h2>Instructors</h2>
+                            <Table>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Instructor ID</Th>
+                                        <Th>Instructor Name</Th>
+                                        <Th>Score</Th>
+                                        <Th>Rank</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {iranks.map((instructor, i) => {
+                                        return (
+                                            <Tr key={instructor.instructorID}>
+                                                <Td>{instructor.instructorID}</Td>
+                                                <Td>{instructor.name}</Td>
+                                                <Td>{instructor.score}</Td>
+                                                <Td>{i + 1}</Td>
+                                            </Tr>
+                                        )
+                                    })}
+                                </Tbody>
+                            </Table>
+
+                        </TabPanel>
                     </TabPanels>
                 </Tabs>
 

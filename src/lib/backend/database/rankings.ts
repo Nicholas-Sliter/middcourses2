@@ -14,25 +14,68 @@ import { Knex } from "knex";
 
 export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number = 3) {
 
-    return qb.from("Review").where({
+    return qb.with("CourseReview", (qb) => {
+        qb.from("Review")
+            .where(
+                {
+                    "Review.deleted": false,
+                    "Review.archived": false
+                })
+            .select(reviewInfo)
+    })
+        .from("CourseReview")
+        .groupBy(["CourseReview.courseID"])
+        .havingRaw(`count("CourseReview"."courseID") >= ?`, [count])
+        .select(["CourseReview.courseID"])
+        .avg({
+            /* Instructor specific */
+            avgInstructorEffectiveness: "CourseReview.instructorEffectiveness",
+            avgInstructorAccommodationLevel: "CourseReview.instructorAccommodationLevel",
+            avgInstructorEnthusiasm: "CourseReview.instructorEnthusiasm",
+            avgInstructorAgain: knex.raw(`CAST("CourseReview"."instructorAgain" = 'True' as int)`),
+            avgInstructorEnjoyed: knex.raw(`CAST("CourseReview"."instructorEnjoyed" = 'True' as int)`),
+            /* Course specific */
+            avgRating: "CourseReview.rating",
+            avgValue: "CourseReview.value",
+            avgDifficulty: "CourseReview.difficulty",
+            avgHours: "CourseReview.hours",
+            avgAgain: knex.raw(`CAST("CourseReview"."again" = 'True' as int)`),
+
+        })
+
+}
+
+
+
+export function generateBaseInstructorAverages(qb: Knex.QueryBuilder, count: number = 5) {
+
+    return qb.with("InstructorReview", qb => qb.from("Review").where({
         "Review.deleted": false,
         "Review.archived": false
     })
-        .groupBy(["Review.courseID"])
-        .havingRaw(`count("Review"."courseID") >= ?`, [count])
-        .select(["Review.courseID"])
-        .select([
-            knex.raw(`(SELECT AVG("difficulty") FROM "Review") as "avgDifficulty"`),
-            knex.raw(`(SELECT AVG("hours") FROM "Review") as "avgHours"`),
-            knex.raw(`(SELECT AVG("again"::int::float4) FROM "Review") as "avgAgain"`),
-            knex.raw(`(SELECT AVG("rating") FROM "Review") as "avgRating"`),
-            knex.raw(`(SELECT AVG("value") FROM "Review") as "avgValue"`),
-            knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review") as "avgInstructorEffectiveness"`),
-            knex.raw(`(SELECT AVG("instructorAccommodationLevel") FROM "Review") as "avgInstructorAccommodationLevel"`),
-            knex.raw(`(SELECT AVG("instructorEnthusiasm") FROM "Review") as "avgInstructorEnthusiasm"`),
-            knex.raw(`(SELECT AVG("instructorAgain"::int::float4) FROM "Review") as "avgInstructorAgain"`),
-            knex.raw(`(SELECT AVG("instructorEnjoyed"::int::float4) FROM "Review") as "avgInstructorEnjoyed"`)
-        ])
+        .select(reviewInfo)
+    )
+        .from("InstructorReview")
+        .groupBy(["InstructorReview.instructorID"])
+        .havingRaw(`count("InstructorReview"."instructorID") >= ?`, [count])
+        .select(["InstructorReview.instructorID"])
+        .avg({
+            /* Instructor specific */
+            avgInstructorEffectiveness: "InstructorReview.instructorEffectiveness",
+            avgInstructorAccommodationLevel: "InstructorReview.instructorAccommodationLevel",
+            avgInstructorEnthusiasm: "InstructorReview.instructorEnthusiasm",
+            avgInstructorAgain: knex.raw(`CAST("InstructorReview"."instructorAgain" = 'True' as int)`),
+            avgInstructorEnjoyed: knex.raw(`CAST("InstructorReview"."instructorEnjoyed" = 'True' as int)`),
+            /* Instructor specific for courses */
+            avgRating: "InstructorReview.rating",
+            avgValue: "InstructorReview.value",
+            avgDifficulty: "InstructorReview.difficulty",
+            avgHours: "InstructorReview.hours",
+            avgAgain: knex.raw(`CAST("InstructorReview"."again" = 'True' as int)`),
+
+        })
+
+
 
 }
 
@@ -111,9 +154,39 @@ export async function getTopCourses(limit: number = 10) {
         .limit(limit)
         .join("Course", "Base.courseID", "Course.courseID")
 
-    console.log(courses);
-
     return courses;
+
+
+}
+
+
+export async function getTopInstructors(limit: number = 10) {
+
+    const instructors = await knex.with("Base", (qb) => generateBaseInstructorAverages(qb))
+        .from("Base")
+        .select("*")
+        // .where("Base.avgInstructorAgain", ">=", 0.7)
+        .where("Base.avgInstructorEffectiveness", ">=", 7)
+        // .where("Base.avgInstructorEnjoyed", ">=", 0.7)
+        // .select([
+        //     knex.raw(`(SELECT ((
+        //          "avgInstructorEffectiveness" +
+        //          "avgInstructorEnthusiasm" + 
+        //          "avgInstructorAccommodationLevel" +                 
+        //          (10.00 * "avgInstructorAgain") +
+        //          (10.00 * "avgInstructorEnjoyed")
+        //          ) 
+        //          / 5.00) FROM "Base") 
+        //          as "avgScore"`),
+        // ])
+        // .orderByRaw(`"avgScore" DESC`)
+        // .limit(limit)
+        .join("Instructor", "Base.instructorID", "Instructor.instructorID")
+        .select(["Instructor.instructorID", "Instructor.name", "Instructor.email", "Instructor.departmentID", "Instructor.slug"])
+
+    console.log(instructors)
+
+    return instructors;
 
 
 }
