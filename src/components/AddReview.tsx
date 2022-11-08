@@ -217,6 +217,9 @@ export default function AddReview({
   };
 
   useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
     async function fetchInstructorTerms() {
       if (!course) {
         return;
@@ -231,11 +234,21 @@ export default function AddReview({
     if (instructors.length > 0) {
       fetchInstructorTerms();
     }
-  }, [instructors]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [instructors, isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const selectedTerm = watch("semester");
 
   useEffect(() => {
+
+    if (!isOpen) {
+      return;
+    }
+
+    if (edit) {
+      setFilteredInstructors(instructors);
+      return;
+    }
+
     if (!selectedTerm || selectedTerm === "") {
       return;
     }
@@ -248,7 +261,7 @@ export default function AddReview({
     );
 
     setFilteredInstructors(filteredInstructors);
-  }, [selectedTerm]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedTerm, isOpen, edit]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const terms =
     instructorTerms?.map((iterm) => {
@@ -338,6 +351,7 @@ export default function AddReview({
                     name="semester"
                     placeholder="Select the semester"
                     disabled={edit}
+                    value={watch("semester")}
                     {...register("semester", { required: { value: true, message: "A semester must be selected" } })}
                   >
                     {terms
