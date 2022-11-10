@@ -14,7 +14,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   // res.status(200).end(json);
 
-  getBaseData();
+  // getBaseData();
+
+  res.status(404).end("Not Found");
 
 };
 

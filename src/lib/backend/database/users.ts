@@ -2,7 +2,8 @@ import knex from "./knex";
 import { uuidv4 } from "../utils";
 import { Scraper } from "directory.js";
 import { checkIfFirstSemester } from "../../common/utils";
-import { User } from "../../common/types";
+import { public_review, User } from "../../common/types";
+import { reviewInfo } from "./common";
 
 
 /**
@@ -157,48 +158,6 @@ export async function updateUserPermissions(id: string) {
         .andWhere("reviewDate", ">", SIX_MONTHS_AGO.toISOString())
         .count("reviewID as reviewCount");
 
-
-
-    // const usersAndReviews = await knex('User')
-    //     .where({
-    //         'User.userID': id,
-    //         'User.banned': false,
-    //         'User.archived': false,
-    //         'User.userType': 'student',
-    //         // 'User.admin': false,
-    //     })
-    //     .leftJoin('Review', 'User.userID', 'Review.reviewerID')
-    //     .andWhere({
-    //         'Review.deleted': false,
-    //         'Review.archived': false,
-    //         'Review.approved': true,
-    //     })
-    //     .andWhere('Review.reviewDate', '>', SIX_MONTHS_AGO)
-    //     .groupBy('User.userID', "User.userType")
-    //     .count('Review.reviewID as reviewCount')
-    //     .select('User.userID', 'User.userType');
-
-    // console.log(usersAndReviews);
-
-    // for (const user of usersAndReviews) {
-    //     let bool = false;
-
-    //     if (user.userType === 'student') {
-    //         if (user.reviewCount >= 2) {
-    //             bool = true;
-    //         }
-    //     }
-
-    //     knex('User')
-    //         .where({
-    //             'User.userID': user.userID
-    //         })
-    //         .update({
-    //             'User.canReadReviews': bool
-    //         });
-    //     console.log(`Updated user ${user.userID} to ${bool}`);
-    // }
-
     let bool = false;
     if (user.userType === "student") {
         if (userReviews[0].reviewCount >= 2) {
@@ -225,6 +184,44 @@ export async function updateUserPermissions(id: string) {
 }
 
 
+export async function updateAllUserPermissions() {
+
+    // Note: this can create invalid dates, but it's not a big deal as they can still be compared
+    const SIX_MONTHS_AGO = new Date();
+    SIX_MONTHS_AGO.setMonth(SIX_MONTHS_AGO.getMonth() - 6);
+
+
+    const updatedUsers = await knex("User")
+        .where({
+            "User.userType": "student",
+            "User.banned": false,
+            "User.admin": false,
+        })
+        .select(["userID", "userEmail", "userType", "admin"])
+        .leftJoin("Review", function () {
+            this.on("User.userID", "=", "Review.reviewerID")
+                .andOn("Review.deleted", "=", "false")
+                .andOn("Review.archived", "=", "false")
+                .andOn("Review.reviewDate", ">", SIX_MONTHS_AGO.toISOString())
+        })
+        .count("reviewID as reviewCount")
+        .groupBy("User.userID")
+        .having("reviewCount", "<", 2)
+        .andHaving("canReadReviews", "=", true)
+        .update({
+            canReadReviews: false,
+        })
+        .returning("User.userID");
+
+    updatedUsers.forEach((user) => {
+        console.log(`Updated user ${user} to ${false}`);
+    }
+    )
+
+    return updatedUsers.length;
+
+
+}
 
 /**
  * Return the full user associated with a user id
@@ -283,4 +280,22 @@ export async function updateUserCheck(id: string) {
     if (!result) {
         throw new Error("Failed to update user");
     }
+}
+
+
+
+export async function getUserReviews(id: string) {
+    console.log(`Getting user reviews for ${id}`);
+    const reviews = await knex("Review")
+        .where({
+            reviewerID: id,
+            deleted: false,
+        })
+        .select(reviewInfo);
+
+    if (!reviews) {
+        return [];
+    }
+
+    return reviews as public_review[];
 }
