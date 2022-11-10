@@ -1,58 +1,28 @@
-//import knex from '../lib/backend/database/knex';
-const knex = require('../lib/backend/database/knex');
 
-function checkPermissions() {
 
-    // Note: this can create invalid dates, but it's not a big deal as they can still be compared
-    const SIX_MONTHS_AGO = new Date();
-    SIX_MONTHS_AGO.setMonth(SIX_MONTHS_AGO.getMonth() - 6);
 
-    const usersAndReviews = knex('User')
-        .where({
-            'User.banned': false,
-            'User.archived': false,
-            'User.userType': 'student',
-            'User.admin': false,
-        })
-        .fullOuterJoin('Review', 'User.userID', 'Review.reviewerID')
-        .where({
-            'Review.deleted': false,
-            'Review.archived': false,
-            'Review.approved': true,
-            'Review.reviewDate': {
-                '>=': SIX_MONTHS_AGO
-            }
-        })
-        .groupBy('User.userID')
-        .count('Review.reviewID as reviewCount')
-        .select('User.userID', 'User.name', 'User.email', 'User.userType', 'User.role', 'reviewCount');
+async function callPermissionsUpdate() {
 
-    for (const user of usersAndReviews) {
-        let bool = false;
+    const INTERNAL_AUTH_TOKEN = process.env.INTERNAL_AUTH;
+    const URL = process.env.NEXTAUTH_URL;
 
-        if (user.userType === 'student') {
-            if (user.reviewCount >= 2) {
-                bool = true;
-            }
-        }
+    const permissionsUrl = `${URL}/api/update/permissions`;
+    const requestHeaders = {
+        'Content-Type': 'application/json',
+        'Authorization': `${INTERNAL_AUTH_TOKEN}`
+    };
 
-        knex('User')
-            .where({
-                'User.userID': user.userID
-            })
-            .update({
-                'User.canReadReviews': bool
-            });
+    const res = await fetch(permissionsUrl, {
+        method: 'GET',
+        headers: requestHeaders
+    });
+
+    if (!res.ok) {
+        throw new Error(`An error has occurred: ${res.status}`);
     }
 
     return;
 }
 
-try {
-    checkPermissions();
-    console.log('Permissions checked successfully');
 
-} catch (e) {
-    console.log(e);
-    console.log('Permissions check failed');
-}
+callPermissionsUpdate()
