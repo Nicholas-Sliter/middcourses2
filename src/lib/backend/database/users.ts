@@ -206,10 +206,10 @@ export async function updateAllUserPermissions() {
         })
         .count("reviewID as reviewCount")
         .groupBy("User.userID")
-        .having("reviewCount", "<", 2)
-        .andHaving("canReadReviews", "=", true)
         .update({
-            canReadReviews: false,
+            canReadReviews: knex.raw(
+                `CASE WHEN reviewCount >= 2 THEN true ELSE false END`
+            )
         })
         .returning("User.userID");
 
