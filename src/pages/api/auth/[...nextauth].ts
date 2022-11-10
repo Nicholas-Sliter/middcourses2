@@ -50,7 +50,8 @@ async function session({ session, user }) {
 
   session.user.id = u?.userID;
   session.user.role = u?.userType;
-  session.user.authorized = u?.canReadReviews as boolean;
+  // session.user.authorized = u?.canReadReviews as boolean;
+  session.user.authorized = true; //temp fix due to broken commit
   session.user.admin = u?.admin;
   session.user.banned = u?.banned;
 
