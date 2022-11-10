@@ -6,7 +6,7 @@ async function callPermissionsUpdate() {
     const INTERNAL_AUTH_TOKEN = process.env.INTERNAL_AUTH;
     const URL = process.env.NEXTAUTH_URL;
 
-    const permissionsUrl = `${URL}/api/update/permissions`;
+    const permissionsUrl = `${URL}/api/jobs/update/permissions`;
     const requestHeaders = {
         'Content-Type': 'application/json',
         'Authorization': `${INTERNAL_AUTH_TOKEN}`
