@@ -199,7 +199,7 @@ export async function updateAllUserPermissions() {
         })
         .select(["userID", "userType", "admin"])
         .with("recentReviews", (qb) => {
-            qb.select(["reviewerID", knex.raw(`count("reviewID") as reviewCount`)])
+            qb.select(["reviewerID", knex.raw(`count("reviewID") as "reviewCount"`)])
                 .from("Review")
                 .where({
                     "Review.deleted": false,
@@ -209,6 +209,7 @@ export async function updateAllUserPermissions() {
                 .groupBy("reviewerID");
         })
         .leftJoin("recentReviews", "User.userID", "recentReviews.reviewerID")
+        .select("recentReviews.reviewCount");
 
 
     const updatedUsers = users.map((user) => {
