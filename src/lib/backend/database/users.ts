@@ -191,32 +191,63 @@ export async function updateAllUserPermissions() {
     SIX_MONTHS_AGO.setMonth(SIX_MONTHS_AGO.getMonth() - 6);
 
 
-    const updatedUsers = await knex("User")
+    const users = await knex("User")
         .where({
             "User.userType": "student",
             "User.banned": false,
             "User.admin": false,
         })
-        .select(["userID", "userEmail", "userType", "admin"])
-        .leftJoin("Review", function () {
-            this.on("User.userID", "=", "Review.reviewerID")
-                .andOn("Review.deleted", "=", "false")
-                .andOn("Review.archived", "=", "false")
-                .andOn("Review.reviewDate", ">", SIX_MONTHS_AGO.toISOString())
+        .select(["userID", "userType", "admin"])
+        .with("recentReviews", (qb) => {
+            qb.select(["reviewerID", knex.raw(`count("reviewID") as reviewCount`)])
+                .from("Review")
+                .where({
+                    "Review.deleted": false,
+                    "Review.archived": false
+                })
+                .andWhere("reviewDate", ">", SIX_MONTHS_AGO.toISOString())
+                .groupBy("reviewerID");
         })
-        .count("reviewID as reviewCount")
-        .groupBy("User.userID")
-        .update({
-            canReadReviews: knex.raw(
-                `CASE WHEN reviewCount >= 2 THEN true ELSE false END`
-            )
-        })
-        .returning("User.userID");
+        .leftJoin("recentReviews", "User.userID", "recentReviews.reviewerID")
 
-    updatedUsers.forEach((user) => {
-        console.log(`Updated user ${user} to ${false}`);
+
+    const updatedUsers = users.map((user) => {
+        let bool = false;
+        if (user.userType === "faculty" || user.admin) {
+            bool = true;
+        }
+
+        if (user.reviewCount >= 2) {
+            bool = true;
+        }
+
+        return {
+            "userID": user.userID,
+            "canReadReviews": bool,
+        }
+
+    });
+
+    // transaction to batch update all users
+    const trx = await knex.transaction();
+    try {
+        for (const user of updatedUsers) {
+            await trx("User")
+                .where({
+                    userID: user.userID,
+                })
+                .update({
+                    canReadReviews: user.canReadReviews,
+                })
+                .returning("*");
+            console.log(`Updated user ${user.userID} to ${user.canReadReviews}`);
+        }
+        await trx.commit();
+    } catch (err) {
+        await trx.rollback();
+        throw err;
     }
-    )
+
 
     return updatedUsers.length;
 
