@@ -47,10 +47,16 @@ const handler = nc({
     //check session
     const session = (await getSession({ req })) as CustomSession;
     //check user is admin
-    if (!session || !session.user.admin) {
+    if (!session) {
+      res.status(401).end("You must be logged in to use this endpoint");
+      return;
+    }
+
+    if (!session?.user?.admin) {
       res.status(401).end("You must be an admin to use this endpoint");
       return;
     }
+
 
     //given a review in the post body, insert it into the database
     const review = req.body as full_review;
