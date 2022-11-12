@@ -11,22 +11,40 @@ import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
 import HowItWorks from "../components/HowItWorks";
+import CourseCardRow from "../components/CourseCardRow";
+import { getTopValueForDifficultyCourses } from "../lib/backend/database/rankings";
 
 
 export default function Home() {
   const { data: session } = useSession() as { data: CustomSession };
   const toast = useToast();
-  const toastid = "review2toast";
+  const reviewid = "review2toast";
+  const bannedid = "bannedtoast";
 
   useEffect(() => {
 
-    if (session?.user && !session?.user?.authorized && !toast.isActive(toastid)) {
+    // need more reviews toast
+    if (session?.user && !session?.user?.authorized && !toast.isActive(reviewid)) {
       toast({
         title: "To view course reviews you must submit at least 2 reviews.",
         status: "info",
         duration: 100000,
         isClosable: true,
-        id: toastid,
+        id: reviewid,
+        position: "bottom"
+
+      })
+    }
+
+    // is banned toast
+    if (session?.user && session?.user?.banned && !toast.isActive(bannedid)) {
+      toast({
+        title: "You have been temporarily banned from submitting reviews.",
+        description: "If you believe this is an error, please contact us.",
+        status: "error",
+        duration: 100000,
+        isClosable: true,
+        id: bannedid,
         position: "bottom"
 
       })
@@ -68,6 +86,10 @@ export default function Home() {
         </div> */}
         <HowItWorks />
       </section>
+      {/* <section className={styles.pageTop}>
+        <CourseCardRow courses={recommendedCourses} />
+      </section> */}
+
 
     </>
   );
@@ -127,3 +149,16 @@ export default function Home() {
               short and painless.
             </p>
           </Feature> */}
+
+
+
+// export async function getServerSideProps(context) {
+
+//   const highValueForDifficultyCourses = (await getTopValueForDifficultyCourses(10));
+
+//   return {
+//     props: {
+//       recommendedCourses: highValueForDifficultyCourses
+//     }, // will be passed to the page component as props
+//   };
+// }
