@@ -6,6 +6,9 @@ import useMobile from "../../hooks/useMobile"
 function BrowserView({ children }: { children: React.ReactNode }) {
 
   const isMobile = useMobile();
+
+  if (isMobile === undefined) return null;
+
   return (
     <>
       {!isMobile ? children : null

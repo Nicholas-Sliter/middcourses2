@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 
-function useMobile() {
+function useMobile(): boolean | undefined {
     const [width, setWidth] = useState<number>(undefined);
 
     function handleWindowSizeChange() {
@@ -20,7 +20,7 @@ function useMobile() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const isMobile = width <= 768;
+    const isMobile = (width !== undefined) ? width <= 768 : undefined;
     return isMobile;
 }
 
