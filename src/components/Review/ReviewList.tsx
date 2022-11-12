@@ -1,11 +1,9 @@
-import Review from "./ReviewCard";
 import ReviewCard from "./NewReview";
 import styles from "./ReviewList.module.scss";
 import { CustomSession, public_instructor, public_review } from "../../lib/common/types";
-import { FiXCircle } from "react-icons/fi";
+import { BsThreeDots } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import ReviewMissing from "./ReviewMissing";
-import { is100LevelCourse } from "../../lib/common/utils";
 
 interface ReviewListProps {
   reviews: public_review[];
@@ -18,6 +16,7 @@ interface ReviewListProps {
   requireAuth?: boolean;
   error?: string;
   context?: "course" | "instructor" | "department" | "user";
+  message?: string;
 
 }
 
@@ -31,7 +30,8 @@ export default function ReviewList({
   hideFlag = false,
   requireAuth = true,
   error = "",
-  context = null
+  context = null,
+  message = null,
 }: ReviewListProps) {
 
   const { data: session } = useSession() as { data: CustomSession };
@@ -79,6 +79,12 @@ export default function ReviewList({
           );
         })
       }
+      {(message) ?
+        <div className={styles.message}>
+          <BsThreeDots />
+          {message}
+        </div>
+        : null}
     </div>
   );
 }
