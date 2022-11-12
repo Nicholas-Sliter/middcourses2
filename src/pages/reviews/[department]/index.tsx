@@ -19,6 +19,7 @@ interface DepartmentPageProps {
   instructors: public_instructor[];
   reviews: public_review[];
   authorized: boolean;
+  reviewListMessage?: string;
 }
 
 export async function getServerSideProps(context) {
@@ -37,7 +38,24 @@ export async function getServerSideProps(context) {
 
   const session = await getSession(context) as CustomSession;
 
-  const data = await optimizedSSRDepartmentPage(departmentID.toUpperCase(), session?.user?.authorized ?? false);
+  const signedIn = session?.user ?? false;
+  const authorized = session?.user?.authorized ?? false;
+
+  const data = await optimizedSSRDepartmentPage(departmentID.toUpperCase(), authorized);
+
+  const departmentName = data.department.departmentName ?? null
+
+
+  let reviewListMessage = "";
+  if (!data.reviews.length) {
+    reviewListMessage = "";
+  }
+  else if (!signedIn) {
+    reviewListMessage = `Login to access more ${departmentName ?? "department"} reviews`;
+  }
+  else if (!authorized) {
+    reviewListMessage = `Review at least 2 courses to access more ${departmentName ?? "department"} reviews`;
+  }
 
 
   return {
@@ -56,11 +74,12 @@ export async function getServerSideProps(context) {
         avgInstructorEnjoyed: data.avgInstructorEnjoyed,
       } as extended_department,
       departmentID: departmentID,
-      departmentName: data.department.departmentName ?? null,
+      departmentName: departmentName,
       courses: data.courses,
       instructors: data.instructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
       authorized: session?.user?.authorized ?? false,
+      reviewListMessage: reviewListMessage,
     }
   }
 }
@@ -73,6 +92,7 @@ export default function DepartmentPage({
   instructors,
   reviews,
   authorized,
+  reviewListMessage,
 }: DepartmentPageProps) {
 
   const numReviewSum = courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
@@ -81,6 +101,7 @@ export default function DepartmentPage({
   const metaDescription = `Read ${numReviewSum} ${reviewText} for ${departmentName} courses at Middlebury College. Find the best ${departmentName} professors and courses.  Discover your new major today!`;
 
   const canonicalURL = `https://midd.courses/reviews/${departmentID.toLowerCase()}`;
+
 
   return (
     <>
@@ -105,7 +126,7 @@ export default function DepartmentPage({
                 ))}
               </ScrollableRow>
             </div>
-            <h3>Most Recent Reviews:</h3>
+            {/* <h3>Recent Reviews:</h3> */}
             <ReviewList
               reviews={reviews}
               instructors={instructors}
@@ -114,6 +135,7 @@ export default function DepartmentPage({
               hideVoting
               requireAuth={false}
               context="department"
+              message={reviewListMessage}
 
             />
           </SidebarLayout.Main>
