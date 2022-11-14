@@ -41,7 +41,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
 
     const authorized: boolean = session?.user?.authorized ||
         session?.user?.role === "admin" ||
-        session?.user?.role === "instructor" ||
+        session?.user?.role === "faculty" ||
         is100LevelCourse(id);
 
     const outputFormatter = (results, reviews) => {
@@ -89,7 +89,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
         output.reviews.push(...updatedReviews);
 
 
-        if (!authorized) {
+        if (!authorized || session?.user?.banned) {
             output.reviews = [];
         }
 
