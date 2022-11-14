@@ -110,6 +110,27 @@ export async function getCoursesByDepartment(departmentID: string) {
 
 
 
+/**
+ * Get department's like a query
+ * @param query 
+ * @returns a list of departments that match the given query
+ */
+export async function searchDepartments(query: string, limit: number = 10) {
+    return await knex("Department")
+        .select(["Department.departmentID", "Department.departmentName"])
+        .where("Department.departmentName", "ilike", `%${query}%`)
+        .andWhereNot({
+            "Department.departmentID": "PHED"
+        }) /* exclude PHED, need 2 of these b/c of the orWhere clause */
+        .orWhere("Department.departmentID", "ilike", `%${query}%`)
+        .andWhereNot({
+            "Department.departmentID": "PHED"
+        }) /* exclude PHED */
+        .limit(limit);
+}
+
+
+
 export async function optimizedSSRDepartmentPage(departmentID: string, authorized: boolean) {
 
     if (!departmentID || departmentID.length > 10) {

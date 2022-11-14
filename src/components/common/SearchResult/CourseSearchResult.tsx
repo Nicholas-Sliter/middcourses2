@@ -1,8 +1,8 @@
-import { public_course } from "../../lib/common/types";
+import { public_course } from "../../../lib/common/types";
 import { MenuItem } from "@chakra-ui/react";
 import { FaBook } from "react-icons/fa";
-import {useRouter} from "next/router";
-import styles from "../../styles/components/common/SearchBar.module.scss";
+import { useRouter } from "next/router";
+import styles from "../../../styles/components/common/SearchBar.module.scss";
 
 
 interface CourseSearchResultProps {
@@ -19,7 +19,7 @@ export default function CourseSearchResult({
   const router = useRouter();
 
   return (
-    <MenuItem 
+    <MenuItem
       key={course.courseID}
       icon={<FaBook />}
       onClick={(e) => {
@@ -27,7 +27,9 @@ export default function CourseSearchResult({
         router.push(
           `/reviews/${course.courseID
             .substring(0, 4)
-            .toLowerCase()}/${course.courseID.substring(4)}`
+            .toLowerCase()}/${course.courseID.substring(4)}`,
+          undefined,
+          { shallow: false }
         );
       }}
     >
