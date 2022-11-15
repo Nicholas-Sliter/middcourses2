@@ -184,8 +184,6 @@ export async function getTopInstructors(limit: number = 10) {
         .join("Instructor", "Base.instructorID", "Instructor.instructorID")
         .select(["Instructor.instructorID", "Instructor.name", "Instructor.email", "Instructor.departmentID", "Instructor.slug"])
 
-    console.log(instructors)
-
     return instructors;
 
 
@@ -235,8 +233,6 @@ export async function getTopCoursesByTagAgg(session: CustomSession, limit: numbe
         .limit(limit)
         .join("Course", "Base.courseID", "Course.courseID")
 
-    console.log(courses);
-
     return courses;
 
 
@@ -271,8 +267,6 @@ export async function getTopDepartmentCourses(session: CustomSession, limit: num
     // do ranking here
     // +min score check;
 
-
-    console.log(courses);
 
     return courses;
 
