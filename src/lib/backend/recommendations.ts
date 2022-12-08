@@ -367,7 +367,7 @@ function rwr(
         .filter(entry => entry[1].count >= review_threshold) // Remove two few reviews in neighborhood
         .filter(entry => !usersCourses.includes(entry[0])) // Remove courses already taken
         .filter(entry => !entry[0].startsWith('FYSE')) // Remove any FYSE courses
-        .map(entry => ({ 'id': entry[0], 'avg': entry[1][1] / entry[1][0] })) // Average rating
+        .map(entry => ({ 'id': entry[0], 'avg': entry[1].sum / entry[1].count })) // Average rating
         .filter(entry => entry.avg >= course_rating_threshold) // Remove courses with average rating less than hyperparameter
         .sort((a, b) => b.avg - a.avg) // Sort by average rating
         .slice(0, top_k)
@@ -383,7 +383,7 @@ function rwr(
     console.log(test);
     test = test.filter(entry => !entry[0].startsWith('FYSE'))
     console.log(test);
-    test = test.map(entry => ({ 'id': entry[0], 'avg': entry[1][1] / entry[1][0] }))
+    test = test.map(entry => ({ 'id': entry[0], 'avg': entry[1].sum / entry[1].count }))
     console.log(test);
     test = test.filter(entry => entry.avg >= course_rating_threshold)
     console.log(test);
