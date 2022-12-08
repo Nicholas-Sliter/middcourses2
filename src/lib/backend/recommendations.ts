@@ -373,29 +373,6 @@ function rwr(
         .slice(0, top_k)
         .map(entry => entry.id); // Return course IDs
 
-    //debug step by step
-    let test: any[] = Array
-        .from(courses.entries())
-    console.log(test);
-    test = test.filter(entry => entry[1].count >= review_threshold)
-    console.log(test);
-    test = test.filter(entry => !usersCourses.includes(entry[0]))
-    console.log(test);
-    test = test.filter(entry => !entry[0].startsWith('FYSE'))
-    console.log(test);
-    test = test.map(entry => ({ 'id': entry[0], 'avg': entry[1].sum / entry[1].count }))
-    console.log(test);
-    test = test.filter(entry => entry.avg >= course_rating_threshold)
-    console.log(test);
-    test = test.sort((a, b) => b.avg - a.avg)
-    console.log(test);
-    test = test.slice(0, top_k)
-    console.log(test);
-    test = test.map(entry => entry.id)
-    console.log(test);
-
-    console.log("sortedCourses", sortedCourses)
-
     return sortedCourses;
 
 }
@@ -407,7 +384,7 @@ export async function getRecommendationsForUser(session: CustomSession) {
     const { user } = session;
 
     if (!user || !user.id || !user.authorized || user.role !== 'student') {
-        console.log("Early return")
+        console.log("Not authorized")
         return [];
     }
 
@@ -466,7 +443,7 @@ export async function getRecommendationsForUser(session: CustomSession) {
         instructorToReview: instructorToReviews,
     };
 
-    const recommendations = rwr(user.id, 10, 100, reviews, maps, 0.15, 200, 0, 1, 0); //review_threshold 2
+    const recommendations = rwr(user.id, 10, 100, reviews, maps, 0.15, 200, 0, 2, 0);
 
 
     return recommendations;
