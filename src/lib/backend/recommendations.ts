@@ -343,18 +343,18 @@ function rwr(
         .from(visited.entries())
         .sort((a, b) => b[1] - a[1])
         .slice(0, top_m) // We only want to consider this many users
-        .map(entry => entry[0]);
+    //.map(entry => entry[0]);
 
     console.log("userNeighborhood", userNeighborhood);
 
-    userNeighborhood.forEach((entry) => {
+    userNeighborhood.forEach(([entry, entryCount]) => {
         const userCourses = maps.userToReview[entry].map(reviewIndex => reviews[reviewIndex].courseID);
 
         userCourses.forEach((course, i) => {
             // courses.set(course, (courses.get(course) || 0) + 1);
             const { count, sum } = courses.get(course) || { count: 0, sum: 0 };
             const userRating = reviews[maps.userToReview[entry][i]].rating;
-            courses.set(course, { "count": count + 1, "sum": sum + userRating });
+            courses.set(course, { "count": count + entryCount, "sum": sum + (entryCount * userRating) });
         });
     });
 
@@ -443,7 +443,27 @@ export async function getRecommendationsForUser(session: CustomSession) {
         instructorToReview: instructorToReviews,
     };
 
-    const recommendations = rwr(user.id, 10, 100, reviews, maps, 0.15, 200, 0, 2, 0);
+    const numRecs = 10;
+    const maxUserNeighborhood = 100;
+    const restartAlpha = 0.12;
+    const maxIterations = 400;
+    const seed = 0;
+    const reviewThreshold = 2; // Minimum number of reviews a course must have (in neighorhood) to be considered
+    const courseRatingThreshold = -0.0000001; // Minimum average rating a course must have (in neighorhood) to be considered
+    // this is a hack to get around the fact that the average rating of a course is 0.0 from the standardization
+    // but because of floating point errors, it might not be exactly 0.0
+
+    // const recommendations = rwr(user.id, 10, 100, reviews, maps, 0.12, 400, 0, 2, -0.0000001);
+    const recommendations = rwr(user.id,
+        numRecs,
+        maxUserNeighborhood,
+        reviews,
+        maps,
+        restartAlpha,
+        maxIterations,
+        seed,
+        reviewThreshold,
+        courseRatingThreshold);
 
 
     return recommendations;
