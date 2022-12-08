@@ -360,18 +360,39 @@ function rwr(
 
     console.log("courses", courses)
 
-    const userCourses = maps.userToReview[user_id].map(reviewIndex => reviews[reviewIndex].courseID);
+    const usersCourses = maps.userToReview[user_id].map(reviewIndex => reviews[reviewIndex].courseID);
 
     const sortedCourses: string[] = Array
         .from(courses.entries())
         .filter(entry => entry[1].count >= review_threshold) // Remove two few reviews in neighborhood
-        .filter(entry => !userCourses.includes(entry[0])) // Remove courses already taken
+        .filter(entry => !usersCourses.includes(entry[0])) // Remove courses already taken
         .filter(entry => !entry[0].startsWith('FYSE')) // Remove any FYSE courses
-        .map(entry => { return { 'id': entry[0], 'avg': entry[1][1] / entry[1][0] } }) // Average rating
+        .map(entry => ({ 'id': entry[0], 'avg': entry[1][1] / entry[1][0] })) // Average rating
         .filter(entry => entry.avg >= course_rating_threshold) // Remove courses with average rating less than hyperparameter
         .sort((a, b) => b.avg - a.avg) // Sort by average rating
         .slice(0, top_k)
         .map(entry => entry.id); // Return course IDs
+
+    //debug step by step
+    let test: any[] = Array
+        .from(courses.entries())
+    console.log(test);
+    test = test.filter(entry => entry[1].count >= review_threshold)
+    console.log(test);
+    test = test.filter(entry => !usersCourses.includes(entry[0]))
+    console.log(test);
+    test = test.filter(entry => !entry[0].startsWith('FYSE'))
+    console.log(test);
+    test = test.map(entry => ({ 'id': entry[0], 'avg': entry[1][1] / entry[1][0] }))
+    console.log(test);
+    test = test.filter(entry => entry.avg >= course_rating_threshold)
+    console.log(test);
+    test = test.sort((a, b) => b.avg - a.avg)
+    console.log(test);
+    test = test.slice(0, top_k)
+    console.log(test);
+    test = test.map(entry => entry.id)
+    console.log(test);
 
     console.log("sortedCourses", sortedCourses)
 
@@ -445,7 +466,7 @@ export async function getRecommendationsForUser(session: CustomSession) {
         instructorToReview: instructorToReviews,
     };
 
-    const recommendations = rwr(user.id, 10, 100, reviews, maps, 0.15, 200, 0, 2, 0);
+    const recommendations = rwr(user.id, 10, 100, reviews, maps, 0.15, 200, 0, 1, 0); //review_threshold 2
 
 
     return recommendations;
