@@ -23,9 +23,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   const session = await getSession({ req }) as unknown as CustomSession;
 
+  const startTime = new Date().getTime();
+
   const recs = await getRecommendationsForUser(session);
 
+  const endTime = new Date().getTime();
 
+  console.log("Time to get recommendations: " + (endTime - startTime) + "ms");
 
   res.status(404).end(JSON.stringify(recs));
 
