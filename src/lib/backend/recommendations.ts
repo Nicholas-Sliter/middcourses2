@@ -251,15 +251,19 @@ function rwr(
                 // Random uniform selection
                 const selectedReview = randomUniformItem(getNeighborIndices(current_node, maps), rng.quick);
                 const review = reviews[selectedReview];
+
+                if (!review) {
+                    console.log("no review");
+                    current_node = Object.assign({}, user_node);
+                }
+
                 const type = randomUniformItem(["course", "instructor"], rng.quick);
                 const id = (type == "course") ? review.courseID : review.instructorID;
-                //const reviewIndex = maps.userToReview[selectedReview];
 
                 console.log("at user: ", current_node.id, " going to ", type, id);
 
                 current_node = { id, type, entranceIndex: selectedReview };
 
-                // current_node = new rNode(id,);
                 continue;
             }
 
@@ -301,6 +305,8 @@ function rwr(
                 console.log("at", current_node.type, current_node.id, "going to user", id);
 
                 current_node = { id, type, entranceIndex };
+
+                continue;
 
             }
 
