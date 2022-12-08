@@ -261,7 +261,6 @@ function rwr(
         iterNum++;
 
         if (current_node.type === "user" && current_node.id !== user_node.id) {
-            console.log("visited: ", current_node.id)
             visited.set(current_node.id, (visited.get(current_node.id) || 0) + 1);
         }
 
@@ -278,15 +277,12 @@ function rwr(
                 const review = reviews[selectedReview];
 
                 if (!review) {
-                    console.log("no review");
                     current_node = Object.assign({}, user_node);
                     continue;
                 }
 
                 const type = randomUniformItem(["course", "instructor"], rng.quick);
                 const id = (type == "course") ? review.courseID : review.instructorID;
-
-                console.log("at user: ", current_node.id, " going to ", type, id);
 
                 current_node = { id, type, entranceIndex: selectedReview };
 
@@ -298,9 +294,6 @@ function rwr(
                 const neighborIndices = getNeighborIndices(current_node, maps);
                 const neighborProbabilities = getNeighborProbabilites(current_node, reviews, neighborIndices);
 
-                console.log(neighborProbabilities);
-
-
                 if (neighborProbabilities.length === 0) {
                     //restart
                     current_node = Object.assign({}, user_node);
@@ -309,10 +302,7 @@ function rwr(
 
                 const selectedNeighborIndex = randomWeightedItem(neighborProbabilities.map(item => item.index), neighborProbabilities.map(item => item.probability), rng.quick);
                 const selectedReviewIndex = neighborIndices[selectedNeighborIndex];
-                console.log("Selected review index: ", selectedReviewIndex);
                 const selectedReview = reviews[selectedReviewIndex];
-
-                console.log("Selected review: ", selectedReviewIndex, selectedReview?.["reviewID"]);
 
                 if (!selectedReview) {
                     //restart
@@ -324,8 +314,6 @@ function rwr(
                 const type = "user";
                 const id = selectedReview.reviewerID;
                 const entranceIndex = selectedReviewIndex;
-
-                console.log("at", current_node.type, current_node.id, "going to user", id);
 
                 current_node = { id, type, entranceIndex };
 
@@ -344,9 +332,6 @@ function rwr(
         .sort((a, b) => b[1] - a[1])
         .slice(0, top_m) // We only want to consider this many users
     //.map(entry => entry[0]);
-
-    console.log("userNeighborhood", userNeighborhood);
-
     userNeighborhood.forEach(([entry, entryCount]) => {
         const userCourses = maps.userToReview[entry].map(reviewIndex => reviews[reviewIndex].courseID);
 
@@ -357,8 +342,6 @@ function rwr(
             courses.set(course, { "count": count + entryCount, "sum": sum + (entryCount * userRating) });
         });
     });
-
-    console.log("courses", courses)
 
     const usersCourses = maps.userToReview[user_id].map(reviewIndex => reviews[reviewIndex].courseID);
 
@@ -446,7 +429,7 @@ export async function getRecommendationsForUser(session: CustomSession) {
     const numRecs = 10;
     const maxUserNeighborhood = 100;
     const restartAlpha = 0.12;
-    const maxIterations = 400;
+    const maxIterations = 200;
     const seed = 0;
     const reviewThreshold = 2; // Minimum number of reviews a course must have (in neighorhood) to be considered
     const courseRatingThreshold = -0.0000001; // Minimum average rating a course must have (in neighorhood) to be considered
