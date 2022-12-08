@@ -214,6 +214,7 @@ function rwr(
     let iterNum = 0;
     while (iterNum < max_iter) {
         iterNum++;
+        console.log(current_node.id);
 
         if (current_node.type === "user" && current_node.id !== user_node.id) {
             console.log("visited: ", current_node.id)
@@ -222,7 +223,6 @@ function rwr(
 
         /* Randomly restart */
         if (rng.quick() < restart_prob) {
-            console.log("restart")
             current_node = Object.assign({}, user_node);
         }
 
@@ -252,6 +252,8 @@ function rwr(
                     current_node = Object.assign({}, user_node);
                     continue;
                 }
+
+                console.log(neighborProbabilities);
 
                 const selectedReviewIndex = randomWeightedItem(neighborIndices, neighborProbabilities, rng.quick);
                 const selectedReview = reviews[selectedReviewIndex];
