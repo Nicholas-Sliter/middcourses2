@@ -255,6 +255,7 @@ function rwr(
                 if (!review) {
                     console.log("no review");
                     current_node = Object.assign({}, user_node);
+                    continue;
                 }
 
                 const type = randomUniformItem(["course", "instructor"], rng.quick);
