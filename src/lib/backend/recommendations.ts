@@ -60,25 +60,58 @@ const randomUniformItem = <T>(array: T[], randomFun: Function) => {
     return array[index];
 };
 
-function normalizeReviews(reviews: Review[]): void {
+
+function standardizeReviews(reviews: Review[]): void {
+    // Subtract the mean from each key then divide by the standard deviation
     const keys = [...instructorVectorKeys, ...courseVectorKeys];
 
-    const magnitudes = reviews.reduce((acc, review) => {
+    /* Convert keys to appropriate types */
+    reviews.forEach(review => {
         keys.forEach(key => {
-            acc[key] += review[key] ** 2;
+            if (typeof review[key] === "string") {
+                review[key] = parseInt(review[key], 10);
+            }
+            if (typeof review[key] === "boolean") {
+                review[key] = +review[key];
+            }
         });
+    });
 
+
+    /* Calculate the mean */
+    const means = reviews.reduce((acc, review) => {
+        keys.forEach(key => {
+            if (!acc[key]) {
+                acc[key] = 0;
+            }
+            acc[key] += review[key];
+        });
         return acc;
     }, {} as { [key: string]: number });
 
     keys.forEach(key => {
-        magnitudes[key] = Math.sqrt(magnitudes[key]);
+        means[key] /= reviews.length;
     });
 
-    /* In-place normalization */
+    /* Find STD */
+    const stds = reviews.reduce((acc, review) => {
+        keys.forEach(key => {
+            if (!acc[key]) {
+                acc[key] = 0;
+            }
+            acc[key] += (review[key] - means[key]) ** 2;
+        });
+        return acc;
+    }, {} as { [key: string]: number });
+
+    keys.forEach(key => {
+        stds[key] = Math.sqrt(stds[key] / reviews.length);
+    });
+
+    /* In-place standardization */
     reviews.forEach(review => {
         keys.forEach(key => {
-            review[key] /= magnitudes[key];
+            review[key] = (review[key] - means[key]) / stds[key];
         });
 
     });
@@ -98,7 +131,7 @@ function getNeighborIndices(node: rNode, maps: maps): number[] {
     return maps[`${type}ToReview`][id].filter((i: number) => { return i !== node.entranceIndex }) || [];
 }
 
-function getNeigborProbabilites(node: rNode, reviews: Review[], neighborIndices: number[]): number[] {
+function getNeighborProbabilites(node: rNode, reviews: Review[], neighborIndices: number[]): number[] {
     // const neighborIndices = getNeighborIndices(node, maps);
 
     if (neighborIndices.length === 0) {
@@ -177,19 +210,19 @@ function rwr(
     const visited = new Map<string, number>();
 
     let current_node = Object.assign({}, user_node);
-    let last_node = Object.assign({}, user_node);
-    let last_edge = null;
 
     let iterNum = 0;
     while (iterNum < max_iter) {
         iterNum++;
 
         if (current_node.type === "user" && current_node.id !== user_node.id) {
+            console.log("visited: ", current_node.id)
             visited.set(current_node.id, (visited.get(current_node.id) || 0) + 1);
         }
 
         /* Randomly restart */
         if (rng.quick() < restart_prob) {
+            console.log("restart")
             current_node = Object.assign({}, user_node);
         }
 
@@ -212,10 +245,22 @@ function rwr(
             default: { // course or instructor
                 // Select using softmax cosine similarity
                 const neighborIndices = getNeighborIndices(current_node, maps);
-                const neighborProbabilities = getNeigborProbabilites(current_node, reviews, neighborIndices);
+                const neighborProbabilities = getNeighborProbabilites(current_node, reviews, neighborIndices);
+
+                if (neighborProbabilities.length === 0) {
+                    //restart
+                    current_node = Object.assign({}, user_node);
+                    continue;
+                }
 
                 const selectedReviewIndex = randomWeightedItem(neighborIndices, neighborProbabilities, rng.quick);
                 const selectedReview = reviews[selectedReviewIndex];
+
+                if (!selectedReview) {
+                    //restart
+                    current_node = Object.assign({}, user_node);
+                    continue;
+                }
 
                 const type = "user";
                 const id = selectedReview.reviewerID;
@@ -237,8 +282,11 @@ function rwr(
         .slice(0, top_m) // We only want to consider this many users
         .map(entry => entry[0]);
 
+    console.log("userNeighborhood", userNeighborhood);
+
     userNeighborhood.forEach((entry, i) => {
         const userCourses = maps.userToReview[entry].map(reviewIndex => reviews[reviewIndex].courseID);
+
         userCourses.forEach(course => {
             // courses.set(course, (courses.get(course) || 0) + 1);
             const { count, sum } = courses.get(course) || { count: 0, sum: 0 };
@@ -247,11 +295,8 @@ function rwr(
         });
     });
 
-    /**
-     * Entry[0] = courseID
-     * Entry[1][0] = number of reviews
-     * Entry[1][1] = sum of ratings
-     */
+    console.log("courses", courses)
+
     const sortedCourses: string[] = Array
         .from(courses.entries())
         .filter(entry => entry[1].count >= review_threshold) // Remove two few reviews in neighborhood
@@ -272,10 +317,11 @@ export async function getRecommendationsForUser(session: CustomSession) {
     const { user } = session;
 
     if (!user || !user.id || !user.authorized || user.role !== 'student') {
+        console.log("Early return")
         return [];
     }
 
-    const reviews = await getBaseRecommendationReviews(session);
+    const reviews: Review[] = await getBaseRecommendationReviews(session) as Review[];
 
     // Check user has enough reviews (at least 4)
     let count = 0;
@@ -286,10 +332,11 @@ export async function getRecommendationsForUser(session: CustomSession) {
     });
 
     if (count < 4) {
+        console.log("Not enough reviews")
         return [];
     }
 
-    normalizeReviews(reviews); //in-place normalization
+    standardizeReviews(reviews); //in-place standardization
 
     const users = new Set();
     const courses = new Set();
@@ -301,38 +348,6 @@ export async function getRecommendationsForUser(session: CustomSession) {
         instructors.add(review.instructorID);
     });
 
-    //needs maps for user -> course, user -> instructor
-
-    // const maps = {
-    //     userToCourse: {} as { [key: string]: Set<string> },
-    //     userToInstructor: {} as { [key: string]: Set<string> },
-    //     courseToUser: {} as { [key: string]: Set<string> },
-    //     instructorToUser: {} as { [key: string]: Set<string> },
-    // };
-
-    // reviews.forEach(review => {
-    //     if (!maps.userToCourse[review.reviewerID]) {
-    //         maps.userToCourse[review.reviewerID] = new Set();
-    //     }
-    //     if (!maps.userToInstructor[review.reviewerID]) {
-    //         maps.userToInstructor[review.reviewerID] = new Set();
-    //     }
-    //     if (!maps.courseToUser[review.courseID]) {
-    //         maps.courseToUser[review.courseID] = new Set();
-    //     }
-    //     if (!maps.instructorToUser[review.instructorID]) {
-    //         maps.instructorToUser[review.instructorID] = new Set();
-    //     }
-
-    //     maps.userToCourse[review.reviewerID].add(review.courseID);
-    //     maps.userToInstructor[review.reviewerID].add(review.instructorID);
-    //     maps.courseToUser[review.courseID].add(review.reviewerID);
-    //     maps.instructorToUser[review.instructorID].add(review.reviewerID);
-    // });
-
-    // Store userid -> [review indices] in a map
-    // Store courseid -> [review indices] in a map
-    // Store instructorid -> [review indices] in a map
 
     const userToReviews = {} as { [key: string]: number[] };
     const courseToReviews = {} as { [key: string]: number[] };
