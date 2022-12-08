@@ -47,14 +47,34 @@ const courseVectorKeys = ['difficulty', 'hours', 'rating', 'value', 'again'];
 
 const randomIndex = (distribution: number[], randomFun: Function) => {
     const index = Math.floor(distribution.length * randomFun());  // random index
-    return distribution[index];
+    return index;
 };
 
 const randomWeightedItem = <T>(array: T[], distribution: number[], randomFun: Function) => {
-    const index = randomIndex(distribution, randomFun);
-    return array[index];
-};
+    const sortedDistribution = [...distribution]
+        .map((value, index) => ({ value, index }))
+        .sort((a, b) => a.value - b.value);
 
+    //I don't think it is necessary to sort the distribution to build the CDF
+
+    const cdf = [];
+    sortedDistribution.forEach((prob, index) => {
+        if (index === 0) {
+            cdf.push(prob.value);
+        } else {
+            cdf.push(prob.value + cdf[index - 1]);
+        }
+    });
+
+    // Note CDF index is equivalent to sortedDistribution index
+
+    const randomValue = randomFun();
+    const index = cdf.findIndex(value => value >= randomValue);
+    //what if index doesn't exist??
+
+    return array[sortedDistribution[index].index];
+
+};
 const randomUniformItem = <T>(array: T[], randomFun: Function) => {
     const index = Math.floor(array.length * randomFun());
     return array[index];
@@ -214,7 +234,6 @@ function rwr(
     let iterNum = 0;
     while (iterNum < max_iter) {
         iterNum++;
-        console.log(current_node.id);
 
         if (current_node.type === "user" && current_node.id !== user_node.id) {
             console.log("visited: ", current_node.id)
@@ -236,6 +255,8 @@ function rwr(
                 const id = (type == "course") ? review.courseID : review.instructorID;
                 //const reviewIndex = maps.userToReview[selectedReview];
 
+                console.log("at user: ", current_node.id, " going to ", type, id);
+
                 current_node = { id, type, entranceIndex: selectedReview };
 
                 // current_node = new rNode(id,);
@@ -247,16 +268,22 @@ function rwr(
                 const neighborIndices = getNeighborIndices(current_node, maps);
                 const neighborProbabilities = getNeighborProbabilites(current_node, reviews, neighborIndices);
 
+                console.log(neighborProbabilities);
+
+
                 if (neighborProbabilities.length === 0) {
                     //restart
                     current_node = Object.assign({}, user_node);
                     continue;
                 }
 
-                console.log(neighborProbabilities);
+                console.log(neighborIndices);
 
                 const selectedReviewIndex = randomWeightedItem(neighborIndices, neighborProbabilities, rng.quick);
+                console.log("Selected review index: ", selectedReviewIndex);
                 const selectedReview = reviews[selectedReviewIndex];
+
+                console.log("Selected review: ", selectedReviewIndex, selectedReview?.["reviewID"]);
 
                 if (!selectedReview) {
                     //restart
@@ -264,9 +291,14 @@ function rwr(
                     continue;
                 }
 
+
+                console.log(2);
+
                 const type = "user";
                 const id = selectedReview.reviewerID;
                 const entranceIndex = selectedReviewIndex;
+
+                console.log("at", current_node.type, current_node.id, "going to user", id);
 
                 current_node = { id, type, entranceIndex };
 
@@ -299,9 +331,13 @@ function rwr(
 
     console.log("courses", courses)
 
+    const userCourses = maps.userToReview[user_id].map(reviewIndex => reviews[reviewIndex].courseID);
+
     const sortedCourses: string[] = Array
         .from(courses.entries())
         .filter(entry => entry[1].count >= review_threshold) // Remove two few reviews in neighborhood
+        .filter(entry => !userCourses.includes(entry[0])) // Remove courses already taken
+        .filter(entry => !entry[0].startsWith('FYSE')) // Remove any FYSE courses
         .map(entry => { return { 'id': entry[0], 'avg': entry[1][1] / entry[1][0] } }) // Average rating
         .filter(entry => entry.avg >= course_rating_threshold) // Remove courses with average rating less than hyperparameter
         .sort((a, b) => b.avg - a.avg) // Sort by average rating
