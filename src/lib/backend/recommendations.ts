@@ -51,20 +51,31 @@ const randomIndex = (distribution: number[], randomFun: Function) => {
 };
 
 const randomWeightedItem = <T>(array: T[], distribution: number[], randomFun: Function) => {
-    const sortedDistribution = [...distribution]
-        .map((value, index) => ({ value, index }))
-        .sort((a, b) => a.value - b.value);
+    // const sortedDistribution = [...distribution]
+    //     .map((value, index) => ({ value, index }))
+    //     .sort((a, b) => a.value - b.value);
 
     //I don't think it is necessary to sort the distribution to build the CDF
 
+    // const cdf = [];
+    // sortedDistribution.forEach((prob, index) => {
+    //     if (index === 0) {
+    //         cdf.push(prob.value);
+    //     } else {
+    //         cdf.push(prob.value + cdf[index - 1]);
+    //     }
+    // });
+
     const cdf = [];
-    sortedDistribution.forEach((prob, index) => {
+    distribution.forEach((prob, index) => {
         if (index === 0) {
-            cdf.push(prob.value);
+            cdf.push(prob);
         } else {
-            cdf.push(prob.value + cdf[index - 1]);
+            cdf.push(prob + cdf[index - 1]);
         }
     });
+
+    // We can probably do this in place...
 
     // Note CDF index is equivalent to sortedDistribution index
 
@@ -72,7 +83,8 @@ const randomWeightedItem = <T>(array: T[], distribution: number[], randomFun: Fu
     const index = cdf.findIndex(value => value >= randomValue);
     //what if index doesn't exist??
 
-    return array[sortedDistribution[index].index];
+    // return array[sortedDistribution[index].index];
+    return array[index];
 
 };
 const randomUniformItem = <T>(array: T[], randomFun: Function) => {
@@ -297,8 +309,6 @@ function rwr(
                 }
 
 
-                console.log(2);
-
                 const type = "user";
                 const id = selectedReview.reviewerID;
                 const entranceIndex = selectedReviewIndex;
@@ -325,10 +335,10 @@ function rwr(
 
     console.log("userNeighborhood", userNeighborhood);
 
-    userNeighborhood.forEach((entry, i) => {
+    userNeighborhood.forEach((entry) => {
         const userCourses = maps.userToReview[entry].map(reviewIndex => reviews[reviewIndex].courseID);
 
-        userCourses.forEach(course => {
+        userCourses.forEach((course, i) => {
             // courses.set(course, (courses.get(course) || 0) + 1);
             const { count, sum } = courses.get(course) || { count: 0, sum: 0 };
             const userRating = reviews[maps.userToReview[entry][i]].rating;
