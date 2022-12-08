@@ -8,9 +8,9 @@ import { Knex } from "knex";
 const MAX_BASE_DATA_LIMIT = 5000;
 
 // Drop "review.content" to reduce payload size
-const recReviewInfo = reviewInfo
+const recReviewInfo = [...reviewInfo
     .filter((column) => column !== "Review.content")
-    .push("Review.reviewerID");
+    , "Review.reviewerID"];
 
 
 export async function getBaseRecommendationReviews(session: CustomSession, limit: number = MAX_BASE_DATA_LIMIT) {
@@ -21,17 +21,18 @@ export async function getBaseRecommendationReviews(session: CustomSession, limit
         return [];
     }
 
-    const reviews = [];
+    const reviews = {};
 
-    const recentReviews = knex("Review")
+    const recentQuery = knex("Review")
         .select(recReviewInfo)
         .where({
             "Review.deleted": false,
             "Review.archived": false,
         })
+        .orderBy("Review.reviewDate", "desc")
         .limit(limit);
 
-    const userReviews = knex("Review")
+    const userQuery = knex("Review")
         .select(recReviewInfo)
         .where({
             "Review.deleted": false,
@@ -40,27 +41,20 @@ export async function getBaseRecommendationReviews(session: CustomSession, limit
         });
 
     //await the two queries in parallel
-    const [recentReviewsResult, userReviewsResult] = await Promise.all([
-        recentReviews,
-        userReviews,
+    const [recentReviews, userReviews] = await Promise.all([
+        await recentQuery,
+        await userQuery,
     ]);
 
-    //merge the two results together
-    const userReviewsSet = new Set(userReviewsResult.map((review) => review.id));
+    recentReviews.forEach((review) => {
+        reviews[review.reviewID] = review;
+    });
 
-    //add the user reviews first
-    for (const review of userReviewsResult) {
-        reviews.push(review);
-    }
+    userReviews.forEach((review) => {
+        reviews[review.reviewID] = review;
+    });
 
-    //add the recent reviews
-    for (const review of recentReviewsResult) {
-        if (!userReviewsSet.has(review.id)) {
-            reviews.push(review);
-        }
-    }
-
-    return reviews;
+    return Object.values(reviews);
 
     //need to also grab ALL of the reviews for the user (not just the ones in the limit) and merge them in (discarding duplicates)
 
