@@ -66,6 +66,10 @@ const randomWeightedItem = <T>(array: T[], distribution: number[], randomFun: Fu
     //     }
     // });
 
+    if (distribution.length === 1) {
+        return array[0];
+    }
+
     const cdf = [];
     distribution.forEach((prob, index) => {
         if (index === 0) {
@@ -163,7 +167,7 @@ function getNeighborIndices(node: rNode, maps: maps): number[] {
     return maps[`${type}ToReview`][id].filter((i: number) => { return i !== node.entranceIndex }) || [];
 }
 
-function getNeighborProbabilites(node: rNode, reviews: Review[], neighborIndices: number[]): number[] {
+function getNeighborProbabilites(node: rNode, reviews: Review[], neighborIndices: number[]): { index: number, probability: number }[] {
     // const neighborIndices = getNeighborIndices(node, maps);
 
     if (neighborIndices.length === 0) {
@@ -189,9 +193,18 @@ function getNeighborProbabilites(node: rNode, reviews: Review[], neighborIndices
         return cosineSimilarity(nodeVector, neighborVector);
     });
 
-    const softmaxSimilarity = softmax(similarity);
+    // Need to remove any similarity values that are negative or 0
+    // This is fine as these vectors are dissimilar and should not be considered
 
-    return softmaxSimilarity; // Index position corresponds to neighborIndices
+    const filteredSimilarity = similarity.map((value, index) => ({ value, index })).filter(item => item.value > 0);
+
+    const softmaxSimilarity = softmax(filteredSimilarity.map(item => item.value));
+
+    return softmaxSimilarity.map((probability, index) =>
+    ({
+        index: filteredSimilarity[index].index,
+        probability
+    }));
 }
 
 
@@ -294,9 +307,8 @@ function rwr(
                     continue;
                 }
 
-                console.log(neighborIndices);
-
-                const selectedReviewIndex = randomWeightedItem(neighborIndices, neighborProbabilities, rng.quick);
+                const selectedNeighborIndex = randomWeightedItem(neighborProbabilities.map(item => item.index), neighborProbabilities.map(item => item.probability), rng.quick);
+                const selectedReviewIndex = neighborIndices[selectedNeighborIndex];
                 console.log("Selected review index: ", selectedReviewIndex);
                 const selectedReview = reviews[selectedReviewIndex];
 
@@ -360,6 +372,8 @@ function rwr(
         .sort((a, b) => b.avg - a.avg) // Sort by average rating
         .slice(0, top_k)
         .map(entry => entry.id); // Return course IDs
+
+    console.log("sortedCourses", sortedCourses)
 
     return sortedCourses;
 
