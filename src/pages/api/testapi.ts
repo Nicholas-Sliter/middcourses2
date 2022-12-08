@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
-import data from "../../data/test-data.json";
 import { checkIfUserExists, generateUser, getAllUsers } from "../../lib/backend/database-utils";
 import { CustomSession } from '../../lib/common/types';
 
