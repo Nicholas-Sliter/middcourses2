@@ -23,6 +23,16 @@ async function getCourseReviews(id: string, session: CustomSession, authorized: 
     return await getReviewByCourseIDWithVotes(id, session?.user?.id);
 }
 
+
+export async function getCoursesInformation(ids: string[]) {
+    return await knex("Course")
+        .whereIn("Course.courseID", ids)
+        .select(["Course.courseName", "Course.courseID", "Course.courseDescription"]);
+
+}
+
+
+
 async function getCourseInfo(id: string) {
     return await knex("Course")
         .where({ "Course.courseID": id })
