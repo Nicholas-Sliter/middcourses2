@@ -10,9 +10,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession({ req }) as CustomSession;
     const userID = req.query.userid as string;
 
-    if (userID && session?.user?.id !== userID && !session?.user?.admin) {
-        res.status(401).end("Not authorized");
-        return;
+    if (userID) {
+        if (session?.user?.id !== userID && !session?.user?.admin) {
+            res.status(401).end("Not authorized");
+            return;
+        }
+
+        session.user.id = userID;
     }
 
     const recs = await getRecommendationsForUser(session);
