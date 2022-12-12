@@ -362,7 +362,7 @@ function rwr(
 
 
 
-export async function getRecommendationsForUser(session: CustomSession) {
+export async function getRecommendationsForUser(session: CustomSession, numRecs: number = 10, seed: number = 0, numIters: number = 200) {
 
     const { user } = session;
 
@@ -426,11 +426,9 @@ export async function getRecommendationsForUser(session: CustomSession) {
         instructorToReview: instructorToReviews,
     };
 
-    const numRecs = 10;
+
     const maxUserNeighborhood = 100;
     const restartAlpha = 0.12;
-    const maxIterations = 200;
-    const seed = 0;
     const reviewThreshold = 2; // Minimum number of reviews a course must have (in neighorhood) to be considered
     const courseRatingThreshold = -0.0000001; // Minimum average rating a course must have (in neighorhood) to be considered
     // this is a hack to get around the fact that the average rating of a course is 0.0 from the standardization
@@ -443,7 +441,7 @@ export async function getRecommendationsForUser(session: CustomSession) {
         reviews,
         maps,
         restartAlpha,
-        maxIterations,
+        numIters,
         seed,
         reviewThreshold,
         courseRatingThreshold);
