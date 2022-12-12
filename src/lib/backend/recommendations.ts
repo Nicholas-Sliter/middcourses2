@@ -347,7 +347,7 @@ function rwr(
 
     const sortedCourses: string[] = Array
         .from(courses.entries())
-        .filter(entry => entry[1].count >= review_threshold) // Remove two few reviews in neighborhood
+        .filter(entry => entry[1].count <= review_threshold) // Remove two few reviews in neighborhood
         .filter(entry => !usersCourses.includes(entry[0])) // Remove courses already taken
         .filter(entry => !entry[0].startsWith('FYSE')) // Remove any FYSE courses
         .map(entry => ({ 'id': entry[0], 'avg': entry[1].sum / entry[1].count })) // Average rating
