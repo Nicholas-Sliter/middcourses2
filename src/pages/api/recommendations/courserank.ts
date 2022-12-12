@@ -2,6 +2,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from "next-auth/react";
+import { getCoursesInformation } from '../../../lib/backend/database/course';
 import { getRecommendationsForUser } from '../../../lib/backend/recommendations';
 import { CustomSession } from '../../../lib/common/types';
 
@@ -21,7 +22,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const recs = await getRecommendationsForUser(session);
 
-    res.status(200).end(JSON.stringify(recs)); //tmp (just courseID)
+    const courses = await getCoursesInformation(recs);
+
+    res.status(200).end(JSON.stringify(courses)); //tmp (just courseID)
 
 }
 
