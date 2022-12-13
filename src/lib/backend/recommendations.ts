@@ -51,20 +51,7 @@ const randomIndex = (distribution: number[], randomFun: Function) => {
 };
 
 const randomWeightedItem = <T>(array: T[], distribution: number[], randomFun: Function) => {
-    // const sortedDistribution = [...distribution]
-    //     .map((value, index) => ({ value, index }))
-    //     .sort((a, b) => a.value - b.value);
 
-    //I don't think it is necessary to sort the distribution to build the CDF
-
-    // const cdf = [];
-    // sortedDistribution.forEach((prob, index) => {
-    //     if (index === 0) {
-    //         cdf.push(prob.value);
-    //     } else {
-    //         cdf.push(prob.value + cdf[index - 1]);
-    //     }
-    // });
 
     if (distribution.length === 1) {
         return array[0];
@@ -325,7 +312,12 @@ function rwr(
 
     }
 
-    const courses = new Map<string, { count: number, sum: number }>();
+    /**
+     * ucount: number of unique users who like the course
+     * wcount: weighted number of users who like the course by the number of times the user was visited
+     * sum: sum of the ratings of the course
+     */
+    const courses = new Map<string, { ucount: number, wcount: number, sum: number }>();
 
     const userNeighborhood = Array
         .from(visited.entries())
@@ -337,9 +329,9 @@ function rwr(
 
         userCourses.forEach((course, i) => {
             // courses.set(course, (courses.get(course) || 0) + 1);
-            const { count, sum } = courses.get(course) || { count: 0, sum: 0 };
+            const { ucount, wcount, sum } = courses.get(course) || { ucount: 0, wcount: 0, sum: 0 };
             const userRating = reviews[maps.userToReview[entry][i]].rating;
-            courses.set(course, { "count": count + entryCount, "sum": sum + (entryCount * userRating) });
+            courses.set(course, { ucount: ucount + 1, "wcount": wcount + entryCount, "sum": sum + (entryCount * userRating) });
         });
     });
 
@@ -347,10 +339,10 @@ function rwr(
 
     const sortedCourses: string[] = Array
         .from(courses.entries())
-        .filter(entry => entry[1].count >= review_threshold) // Remove two few reviews in neighborhood
+        .filter(entry => entry[1].ucount >= review_threshold) // Remove two few reviews in neighborhood
         .filter(entry => !usersCourses.includes(entry[0])) // Remove courses already taken
         .filter(entry => !entry[0].startsWith('FYSE')) // Remove any FYSE courses
-        .map(entry => ({ 'id': entry[0], 'avg': entry[1].sum / entry[1].count })) // Average rating
+        .map(entry => ({ 'id': entry[0], 'avg': entry[1].sum / entry[1].wcount })) // Average rating
         .filter(entry => entry.avg >= course_rating_threshold) // Remove courses with average rating less than hyperparameter
         .sort((a, b) => b.avg - a.avg) // Sort by average rating
         .slice(0, top_k)
