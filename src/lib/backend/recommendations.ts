@@ -104,7 +104,7 @@ const randomUniformItem = <T>(array: T[], randomFun: Function) => {
 
 function standardizeReviews(reviews: Review[]): void {
     // Subtract the mean from each key then divide by the standard deviation
-    const keys = [...instructorVectorKeys, ...courseVectorKeys];
+    const keys = new Set([...instructorVectorKeys, ...courseVectorKeys]);
     const catToNumMap = {
         'whyTake': {
             /* "Requirements" of some sort  */
