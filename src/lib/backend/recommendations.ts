@@ -21,6 +21,9 @@ type Review = {
     "instructorAgain": number,
     "instructorEnjoyed": number,
 
+    "whyTake": string,
+    "inMajorMinor": string,
+
 }
 type ReviewDict = { [key: string]: Review };
 
@@ -107,7 +110,7 @@ function standardizeReviews(reviews: Review[]): void {
             /* "Requirements" of some sort  */
             'Required for Major/Minor': 0,
             'Pre-requisite for later courses': 0,
-            'Distribution Elective': 0,
+            'Distribution elective': 0,
             'Needed to fill schedule': 0,
 
             /* Interests */
@@ -132,12 +135,15 @@ function standardizeReviews(reviews: Review[]): void {
 
             if (catToNumMap[key]) {
                 review[key] = catToNumMap[key][review[key]];
+                return;
             }
             if (typeof review[key] === "string") {
                 review[key] = parseInt(review[key], 10);
+                return;
             }
             if (typeof review[key] === "boolean") {
                 review[key] = +review[key];
+                return;
             }
         });
     });
@@ -176,7 +182,8 @@ function standardizeReviews(reviews: Review[]): void {
     /* In-place standardization */
     reviews.forEach(review => {
         keys.forEach(key => {
-            review[key] = keyWeights[key] * (review[key] - means[key]) / stds[key];
+            const weight = keyWeights[key] ?? 1;
+            review[key] = weight * (review[key] - means[key]) / stds[key];
         });
 
     });
