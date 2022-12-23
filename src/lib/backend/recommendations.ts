@@ -43,7 +43,7 @@ const instructorVectorKeys = [
     'instructorAgain', 'instructorEnjoyed'
 ];
 
-const courseVectorKeys = ['difficulty', 'hours', 'rating', 'value', 'again'];
+const courseVectorKeys = ['difficulty', 'hours', 'rating', 'value', 'again', 'whyTake'];
 
 const randomIndex = (distribution: number[], randomFun: Function) => {
     const index = Math.floor(distribution.length * randomFun());  // random index
@@ -87,10 +87,32 @@ const randomUniformItem = <T>(array: T[], randomFun: Function) => {
 function standardizeReviews(reviews: Review[]): void {
     // Subtract the mean from each key then divide by the standard deviation
     const keys = [...instructorVectorKeys, ...courseVectorKeys];
+    const catToNumMap = {
+        'whyTake': {
+            /* "Requirements" of some sort  */
+            'Required for Major/Minor': 0,
+            'Pre-requisite for later courses': 0,
+            'Distribution Elective': 0,
+            'Needed to fill schedule': 0,
+
+            /* Interests */
+            'Specific interest': 1,
+            'To try something new': 1,
+            'Someone recommended it': 1,
+            'Elective for Major/Minor': 1,
+            'Other': 1,
+
+        }
+
+    }
 
     /* Convert keys to appropriate types */
     reviews.forEach(review => {
         keys.forEach(key => {
+
+            if (catToNumMap[key]) {
+                review[key] = catToNumMap[key][review[key]];
+            }
             if (typeof review[key] === "string") {
                 review[key] = parseInt(review[key], 10);
             }
@@ -420,7 +442,7 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
 
 
     const maxUserNeighborhood = 100;
-    const restartAlpha = 0.12;
+    const restartAlpha = 0.16;
     const reviewThreshold = 2; // Minimum number of reviews a course must have (in neighorhood) to be considered
     const courseRatingThreshold = -0.0000001; // Minimum average rating a course must have (in neighorhood) to be considered
     // this is a hack to get around the fact that the average rating of a course is 0.0 from the standardization
