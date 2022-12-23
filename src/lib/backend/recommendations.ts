@@ -40,10 +40,25 @@ type maps = {
 const instructorVectorKeys = [
     'instructorEffectiveness',
     'instructorAccommodationLevel', 'instructorEnthusiasm',
-    'instructorAgain', 'instructorEnjoyed'
+    'instructorAgain', 'instructorEnjoyed', 'inMajorMinor'
 ];
 
-const courseVectorKeys = ['difficulty', 'hours', 'rating', 'value', 'again', 'whyTake'];
+const courseVectorKeys = ['difficulty', 'hours', 'rating', 'value', 'again', 'whyTake', 'inMajorMinor'];
+
+const keyWeights = {
+    'instructorEffectiveness': 1,
+    'instructorAccommodationLevel': 1,
+    'instructorEnthusiasm': 1,
+    'instructorAgain': 1,
+    'instructorEnjoyed': 1,
+    'difficulty': 1,
+    'hours': 1,
+    'rating': 1,
+    'value': 1,
+    'again': 2,
+    'whyTake': 1,
+    'inMajorMinor': 1,
+}
 
 const randomIndex = (distribution: number[], randomFun: Function) => {
     const index = Math.floor(distribution.length * randomFun());  // random index
@@ -102,6 +117,11 @@ function standardizeReviews(reviews: Review[]): void {
             'Elective for Major/Minor': 1,
             'Other': 1,
 
+        },
+        'inMajorMinor': {
+            'major': 1,
+            'minor': 0.5,
+            'neither': 0,
         }
 
     }
@@ -156,7 +176,7 @@ function standardizeReviews(reviews: Review[]): void {
     /* In-place standardization */
     reviews.forEach(review => {
         keys.forEach(key => {
-            review[key] = (review[key] - means[key]) / stds[key];
+            review[key] = keyWeights[key] * (review[key] - means[key]) / stds[key];
         });
 
     });
