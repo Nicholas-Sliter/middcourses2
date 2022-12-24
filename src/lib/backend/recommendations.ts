@@ -52,7 +52,7 @@ const keyWeights = {
     'instructorEffectiveness': 1,
     'instructorAccommodationLevel': 1,
     'instructorEnthusiasm': 1,
-    'instructorAgain': 1,
+    'instructorAgain': 2,
     'instructorEnjoyed': 1,
     'difficulty': 1,
     'hours': 1,
@@ -60,7 +60,7 @@ const keyWeights = {
     'value': 1,
     'again': 2,
     'whyTake': 1,
-    'inMajorMinor': 1,
+    'inMajorMinor': 1.5,
 }
 
 const randomIndex = (distribution: number[], randomFun: Function) => {
@@ -118,12 +118,13 @@ function standardizeReviews(reviews: Review[]): void {
             'To try something new': 1,
             'Someone recommended it': 1,
             'Elective for Major/Minor': 1,
-            'Other': 1,
+
+            'Other': 2,
 
         },
         'inMajorMinor': {
-            'major': 1,
-            'minor': 0.5,
+            'major': 2,
+            'minor': 1,
             'neither': 0,
         }
 
