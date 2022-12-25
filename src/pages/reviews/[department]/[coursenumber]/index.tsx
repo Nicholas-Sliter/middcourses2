@@ -104,8 +104,8 @@ export default function CoursePage({
   mobileUserAgent
 }: CoursePageProps) {
 
-  const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>([]);
-  const [filteredReviews, setFilteredReviews] = useState<public_review[]>([]);
+  const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>(Array.from(new Set(instructors.map(instructor => instructor.instructorID))));
+  const [filteredReviews, setFilteredReviews] = useState<public_review[]>(reviews);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const toast = useToast();
@@ -170,12 +170,6 @@ export default function CoursePage({
     setSelectedInstructorIDs(selected);
   };
 
-  //on load of instructors, select all instructor ids
-  useEffect(() => {
-    setSelectedInstructorIDs(instructors.map((instructor) => instructor.instructorID));
-  }, [instructors, instructors.length, courseNumber, departmentID]);
-
-
   //filter reviews by selected instructors
   useEffect(() => {
     const filtered = reviews.filter((review) =>
@@ -195,6 +189,7 @@ export default function CoursePage({
     setTimeout(() => {
       signInToast();
     }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
