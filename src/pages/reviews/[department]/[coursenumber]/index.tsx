@@ -28,6 +28,8 @@ export async function getServerSideProps(context) {
   const courseNumber = context.query.coursenumber as string;
   const courseID = `${departmentID.toUpperCase()}${courseNumber}`;
 
+  const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
+
   // check if dept. code has changed
   if (departmentCodeChangedMapping(departmentID, "lower") !== departmentID) {
     //check if redirect course exists, if not, skip redirect
@@ -48,6 +50,9 @@ export async function getServerSideProps(context) {
   });
 
 
+  const signedIn = session?.user ?? false;
+  const authorized = session?.user?.authorized ?? false;
+
   return {
     props: {
       departmentID: departmentID,
@@ -67,8 +72,9 @@ export async function getServerSideProps(context) {
       },
       instructors: dedupedInstructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
-      authorized: session?.user?.authorized ?? false,
-      signedIn: session?.user ?? false,
+      authorized: authorized,
+      signedIn: signedIn,
+      mobileUserAgent: mobileUserAgent,
     }
   }
 }
@@ -83,6 +89,7 @@ interface CoursePageProps {
   reviews: public_review[];
   authorized: boolean;
   signedIn: boolean;
+  mobileUserAgent: boolean;
 }
 
 export default function CoursePage({
@@ -94,6 +101,7 @@ export default function CoursePage({
   reviews,
   authorized,
   signedIn,
+  mobileUserAgent
 }: CoursePageProps) {
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>([]);
@@ -198,7 +206,7 @@ export default function CoursePage({
         courses={[course]}
         canonicalURL={canonicalURL}
       />
-      <BrowserView>
+      <BrowserView renderDefault={!mobileUserAgent}>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
             <div>
@@ -233,7 +241,7 @@ export default function CoursePage({
         <AddReview isOpen={isOpen} onClose={onClose} course={course} instructors={instructors} />
       </BrowserView>
 
-      <MobileView>
+      <MobileView renderDefault={mobileUserAgent}>
         <div>
           <CourseCard course={course} />
           <hr />

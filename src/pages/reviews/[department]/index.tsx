@@ -20,6 +20,7 @@ interface DepartmentPageProps {
   reviews: public_review[];
   authorized: boolean;
   reviewListMessage?: string;
+  mobileUserAgent: boolean;
 }
 
 export async function getServerSideProps(context) {
@@ -44,6 +45,10 @@ export async function getServerSideProps(context) {
   const data = await optimizedSSRDepartmentPage(departmentID.toUpperCase(), authorized);
 
   const departmentName = data.department.departmentName ?? null
+
+
+  //use useragent to guess if mobile by presence of "mobile" in useragent
+  const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
 
 
   let reviewListMessage = "";
@@ -80,6 +85,7 @@ export async function getServerSideProps(context) {
       reviews: JSON.parse(JSON.stringify(data.reviews)),
       authorized: session?.user?.authorized ?? false,
       reviewListMessage: reviewListMessage,
+      mobileUserAgent: mobileUserAgent,
     }
   }
 }
@@ -93,6 +99,7 @@ export default function DepartmentPage({
   reviews,
   authorized,
   reviewListMessage,
+  mobileUserAgent,
 }: DepartmentPageProps) {
 
   const numReviewSum = courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
@@ -111,7 +118,7 @@ export default function DepartmentPage({
         courses={courses}
         canonicalURL={canonicalURL}
       />
-      <BrowserView>
+      <BrowserView renderDefault={!mobileUserAgent}>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
             <DepartmentCard department={department} numReviews={numReviewSum} />
@@ -141,7 +148,7 @@ export default function DepartmentPage({
           </SidebarLayout.Main>
         </SidebarLayout>
       </BrowserView>
-      <MobileView>
+      <MobileView renderDefault={mobileUserAgent}>
         <h2>{departmentName}</h2>
         <CourseCardRow courses={courses} showCount />
         <div style={{ marginTop: "-1rem" }}>
