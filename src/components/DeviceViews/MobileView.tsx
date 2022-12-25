@@ -1,8 +1,8 @@
 import useMobile from "../../hooks/useMobile"
 
-function MobileView({ children }: { children: React.ReactNode }) {
+function MobileView({ children, renderDefault = false }: { children: React.ReactNode, renderDefault?: boolean }) {
 
-  const isMobile = useMobile();
+  const isMobile = useMobile(renderDefault);
 
   return (
     <>

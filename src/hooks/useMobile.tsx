@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-
-function useMobile(): boolean | undefined {
+function useMobile(defaultValue?: boolean): boolean | undefined {
     const [width, setWidth] = useState<number>(undefined);
 
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
     }
+
     useEffect(() => {
         if (!window) {
             return;
@@ -20,7 +20,12 @@ function useMobile(): boolean | undefined {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const isMobile = (width !== undefined) ? width <= 768 : undefined;
+    let isMobile: boolean | undefined = defaultValue;
+
+    if (width !== undefined) {
+        isMobile = width <= 768;
+    } //(width !== undefined) ? width <= 768 : undefined;
+
     return isMobile;
 }
 

@@ -23,6 +23,8 @@ export async function getServerSideProps(context) {
   const authorized = session?.user?.authorized ?? false;
   const data = await optimizedSSRInstructorPage(slug, session);
 
+  const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
+
   return {
     props: {
       slug: slug,
@@ -30,6 +32,7 @@ export async function getServerSideProps(context) {
       courses: data.courses,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
       authorized: authorized,
+      mobileUserAgent: mobileUserAgent,
     },
   };
 
@@ -37,7 +40,7 @@ export async function getServerSideProps(context) {
 
 
 
-export default function InstructorPage({ slug, instructor, courses, reviews, authorized }) {
+export default function InstructorPage({ slug, instructor, courses, reviews, authorized, mobileUserAgent }) {
 
 
   const threeRecentUniqueCourseNames = Array.from(new Set(courses.map((course) => course.courseName))).slice(0, 3).join(", ");
@@ -54,7 +57,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
         description={metaDescription}
         canonicalURL={canonicalURL}
       />
-      <BrowserView>
+      <BrowserView renderDefault={!mobileUserAgent}>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
             <InstructorCard instructor={instructor} authorized={authorized} />
@@ -74,7 +77,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
           </SidebarLayout.Main>
         </SidebarLayout>
       </BrowserView>
-      <MobileView>
+      <MobileView renderDefault={mobileUserAgent}>
         <InstructorCard instructor={instructor} authorized={authorized} />
         <CourseCardRow courses={courses} />
         <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" />
