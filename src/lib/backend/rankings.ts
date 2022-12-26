@@ -1,6 +1,10 @@
 import { public_course } from "../common/types";
 import { getCoursesInformation } from "./database/course";
-import { getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses, getLowTimeCommitmentCourses, getTopEasyAndValuableCourses, getTopRatedCourses, getNecessaryCourses } from "./database/rankings";
+import {
+    getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses,
+    getLowTimeCommitmentCourses, getTopEasyAndValuableCourses, getTopRatedCourses,
+    getNecessaryCourses, getLearnALotCourses
+} from "./database/rankings";
 
 async function getCourseRankings() {
     const recommendationTypeMap = {
@@ -28,6 +32,15 @@ async function getCourseRankings() {
             },
             title: "Easy and Valuable",
             description: "Courses that are easy and valuable",
+            type: "course"
+        },
+        "learnALot": {
+            func: getLearnALotCourses,
+            params: {
+                limit: 10
+            },
+            title: "Learn a lot",
+            description: "Courses that are good for learning a lot",
             type: "course"
         },
         "goodForAChallenge": {
