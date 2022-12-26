@@ -395,3 +395,22 @@ export function getChallengingCourses(aggregateData: CourseAverages[], limit: nu
 
 }
 
+
+
+export function getTopRatedCourses(aggregateData: CourseAverages[], limit: number = 5) {
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgRating >= 8 && course.avgAgain >= 0.6;
+        })
+        .sort((a, b) => {
+            return b.avgRating - a.avgRating;
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
+
+    return courses as string[];
+
+}
