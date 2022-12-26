@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getCoursesInformation } from "../../lib/backend/database/course";
-import { getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses, getLowTimeCommitmentCourses, getTopEasyAndValuableCourses } from "../../lib/backend/database/rankings";
+import { getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses, getLowTimeCommitmentCourses, getTopEasyAndValuableCourses, getTopRatedCourses } from "../../lib/backend/database/rankings";
 import { public_course } from "../../lib/common/types";
 
 interface Course {
@@ -48,6 +48,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       title: "Good for a challenge",
       description: "Courses that are good for a challenge",
     },
+    "topRated": {
+      func: getTopRatedCourses,
+      params: {
+        limit: 10
+      },
+      title: "Top Rated",
+      description: "Top rated courses",
+    }
 
   };
 
@@ -89,10 +97,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   Object.entries(rankedCourses).forEach(([key, value]) => {
     value.courses = value.courses.map((course) => ({
       ...course,
-      courseName: courseInfoMap.get(course.courseID)?.courseName,
-      courseDescription: courseInfoMap.get(course.courseID)?.courseDescription,
-      numReviews: courseInfoMap.get(course.courseID)?.numReviews,
-      avgValue: courseInfoMap.get(course.courseID)?.avgValue,
+      ...courseInfoMap.get(course.courseID),
     })) as public_course[];
   });
 
