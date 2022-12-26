@@ -9,6 +9,22 @@ import { Knex } from "knex";
  * 
  */
 
+interface CourseAverages {
+    courseID: string;
+    avgRating: number;
+    avgValue: number;
+    avgDifficulty: number;
+    avgHours: number;
+    avgAgain: number;
+
+    avgInstructorEffectiveness: number;
+    avgInstructorAccommodationLevel: number;
+    avgInstructorEnthusiasm: number;
+    avgInstructorAgain: number;
+    avgInstructorEnjoyed: number;
+
+    numReviews: number;
+}
 
 
 
@@ -42,13 +58,36 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
             avgAgain: knex.raw(`CAST("CourseReview"."again" = 'True' as int)`),
 
         })
-
+        .count({
+            numReviews: "CourseReview.reviewID"
+        });
 }
 
-export async function getBaseCourseAverages(count: number = 3) {
-    return await knex.with("Base", (qb) => generateBaseCourseAverages(qb, count))
+export async function getBaseCourseAverages(threshold: number = 3) {
+    const aggregateData = await knex.with("Base", (qb) => generateBaseCourseAverages(qb, threshold))
         .from("Base")
         .select("*");
+
+    const courseAverages: CourseAverages[] = aggregateData.map((data) => {
+        return {
+            courseID: data.courseID,
+            avgRating: parseFloat(data.avgRating),
+            avgValue: parseFloat(data.avgValue),
+            avgDifficulty: parseFloat(data.avgDifficulty),
+            avgHours: parseFloat(data.avgHours),
+            avgAgain: parseFloat(data.avgAgain),
+            avgInstructorEffectiveness: parseFloat(data.avgInstructorEffectiveness),
+            avgInstructorAccommodationLevel: parseFloat(data.avgInstructorAccommodationLevel),
+            avgInstructorEnthusiasm: parseFloat(data.avgInstructorEnthusiasm),
+            avgInstructorAgain: parseFloat(data.avgInstructorAgain),
+            avgInstructorEnjoyed: parseFloat(data.avgInstructorEnjoyed),
+            numReviews: parseInt(data.numReviews)
+        }
+    });
+
+
+
+    return courseAverages;
 }
 
 export function generateBaseInstructorAverages(qb: Knex.QueryBuilder, count: number = 5) {
@@ -278,7 +317,7 @@ export async function getTopDepartmentCourses(session: CustomSession, limit: num
 
 
 
-export function getTopEasyAndValuableCourses(aggregateData, limit: number = 5) {
+export function getTopEasyAndValuableCourses(aggregateData: CourseAverages[], limit: number = 5) {
 
     const courses = aggregateData
         .filter((course) => {
@@ -287,14 +326,66 @@ export function getTopEasyAndValuableCourses(aggregateData, limit: number = 5) {
         .sort((a, b) => {
             return b.avgRating - a.avgRating;
         })
-        .slice(0, limit);
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
 
-    return courses;
+
+    return courses as string[];
 
 }
 
 
 
 
+export function getEasiestGoodCourses(aggregateData: CourseAverages[], limit: number = 5) {
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgDifficulty <= 4 && course.avgAgain >= 0.6 && course.avgRating >= 6.5;
+        })
+        .sort((a, b) => {
+            return a.avgDifficulty - b.avgDifficulty;
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
 
+    return courses as string[];
+
+}
+
+
+export function getLowTimeCommitmentCourses(aggregateData: CourseAverages[], limit: number = 5) {
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgHours <= 3 && course.avgAgain >= 0.6 && course.avgRating >= 6.5;
+        })
+        .sort((a, b) => {
+            return a.avgHours - b.avgHours;
+        })
+        .slice(0, limit);
+
+    return courses as CourseAverages[];
+
+}
+
+
+
+export function getChallengingCourses(aggregateData: CourseAverages[], limit: number = 5) {
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgDifficulty >= 7 && course.avgHours >= 5 && course.avgAgain >= 0.6 && course.avgRating >= 6.5;
+        })
+        .sort((a, b) => {
+            return (b.avgDifficulty * b.avgHours) - (a.avgDifficulty * a.avgHours);
+        })
+        .slice(0, limit);
+
+    return courses as CourseAverages[];
+
+}
 
