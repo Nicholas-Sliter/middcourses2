@@ -414,3 +414,22 @@ export function getTopRatedCourses(aggregateData: CourseAverages[], limit: numbe
     return courses as string[];
 
 }
+
+
+export function getNecessaryCourses(aggregateData: CourseAverages[], limit: number = 5) {
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgValue >= 7 && course.avgAgain >= 0.7 && course.avgRating >= 6.5;
+        })
+        .sort((a, b) => {
+            return (b.avgValue * b.avgRating * b.avgAgain) - (a.avgValue * a.avgRating * a.avgAgain)
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
+
+    return courses as string[];
+
+}

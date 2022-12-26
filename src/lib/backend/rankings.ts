@@ -1,9 +1,26 @@
 import { public_course } from "../common/types";
 import { getCoursesInformation } from "./database/course";
-import { getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses, getLowTimeCommitmentCourses, getTopEasyAndValuableCourses, getTopRatedCourses } from "./database/rankings";
+import { getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses, getLowTimeCommitmentCourses, getTopEasyAndValuableCourses, getTopRatedCourses, getNecessaryCourses } from "./database/rankings";
 
 async function getCourseRankings() {
     const recommendationTypeMap = {
+        "topRated": {
+            func: getTopRatedCourses,
+            params: {
+                limit: 25
+            },
+            title: "Top Rated",
+            description: "Top rated courses",
+            type: "course"
+        },
+        "mustTake": {
+            func: getNecessaryCourses,
+            params: {
+                limit: 25
+            },
+            title: "Must Take",
+            description: "Top rated courses by value-gained",
+        },
         "easyValuable": {
             func: getTopEasyAndValuableCourses,
             params: {
@@ -11,6 +28,15 @@ async function getCourseRankings() {
             },
             title: "Easy and Valuable",
             description: "Courses that are easy and valuable",
+            type: "course"
+        },
+        "goodForAChallenge": {
+            func: getChallengingCourses,
+            params: {
+                limit: 10
+            },
+            title: "Good for a challenge",
+            description: "Courses that are good for a challenge",
             type: "course"
         },
         "easy": {
@@ -31,24 +57,6 @@ async function getCourseRankings() {
             description: "Courses that are low time commitment",
             type: "course"
         },
-        "goodForAChallenge": {
-            func: getChallengingCourses,
-            params: {
-                limit: 10
-            },
-            title: "Good for a challenge",
-            description: "Courses that are good for a challenge",
-            type: "course"
-        },
-        "topRated": {
-            func: getTopRatedCourses,
-            params: {
-                limit: 10
-            },
-            title: "Top Rated",
-            description: "Top rated courses",
-            type: "course"
-        }
 
     };
 
