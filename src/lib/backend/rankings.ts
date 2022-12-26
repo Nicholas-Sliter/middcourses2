@@ -52,7 +52,7 @@ async function getCourseRankings() {
 
     };
 
-    const threshold = 5;
+    const threshold = 3;
 
     const aggregateData = await getBaseCourseAverages(threshold);
     const rankedCourses = Object.fromEntries(Object.keys(recommendationTypeMap).map((key) => ([key, {
