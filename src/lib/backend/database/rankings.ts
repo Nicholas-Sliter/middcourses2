@@ -366,9 +366,12 @@ export function getLowTimeCommitmentCourses(aggregateData: CourseAverages[], lim
         .sort((a, b) => {
             return a.avgHours - b.avgHours;
         })
-        .slice(0, limit);
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
 
-    return courses as CourseAverages[];
+    return courses as string[];
 
 }
 
@@ -383,9 +386,12 @@ export function getChallengingCourses(aggregateData: CourseAverages[], limit: nu
         .sort((a, b) => {
             return (b.avgDifficulty * b.avgHours) - (a.avgDifficulty * a.avgHours);
         })
-        .slice(0, limit);
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
 
-    return courses as CourseAverages[];
+    return courses as string[];
 
 }
 
