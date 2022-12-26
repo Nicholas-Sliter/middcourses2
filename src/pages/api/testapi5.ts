@@ -23,6 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       },
       title: "Easy and Valuable",
       description: "Courses that are easy and valuable",
+      type: "course"
     },
     "easy": {
       func: getEasiestGoodCourses,
@@ -31,6 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       },
       title: "Nice for a break",
       description: "Courses that are easy",
+      type: "course"
     },
     "lowTimeCommitment": {
       func: getLowTimeCommitmentCourses,
@@ -39,6 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       },
       title: "Low Time Commitment",
       description: "Courses that are low time commitment",
+      type: "course"
     },
     "goodForAChallenge": {
       func: getChallengingCourses,
@@ -47,6 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       },
       title: "Good for a challenge",
       description: "Courses that are good for a challenge",
+      type: "course"
     },
     "topRated": {
       func: getTopRatedCourses,
@@ -55,6 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       },
       title: "Top Rated",
       description: "Top rated courses",
+      type: "course"
     }
 
   };
