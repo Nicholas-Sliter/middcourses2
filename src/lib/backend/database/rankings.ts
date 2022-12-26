@@ -433,3 +433,22 @@ export function getNecessaryCourses(aggregateData: CourseAverages[], limit: numb
     return courses as string[];
 
 }
+
+
+export function getLearnALotCourses(aggregateData: CourseAverages[], limit: number = 5) {
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgValue >= 6 && course.avgAgain >= 0.6 && course.avgRating >= 6.5;
+        })
+        .sort((a, b) => {
+            return (b.avgValue * b.avgDifficulty) - (a.avgValue * a.avgDifficulty)
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
+
+    return courses as string[];
+
+}
