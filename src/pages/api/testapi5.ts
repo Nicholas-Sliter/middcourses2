@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import getBaseData from "../../lib/backend/scripts/getBaseData";
+import { getBaseCourseAverages, getTopEasyAndValuableCourses } from "../../lib/backend/database/rankings";
 
 interface Course {
   courseID: string;
@@ -12,11 +12,10 @@ type Data = {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-  // res.status(200).end(json);
+  const aggregateData = await getBaseCourseAverages();
+  const courses: Course[] = getTopEasyAndValuableCourses(aggregateData, 10);
 
-  // getBaseData();
-
-  res.status(404).end("Not Found");
+  res.status(200).json({ courses });
 
 };
 
