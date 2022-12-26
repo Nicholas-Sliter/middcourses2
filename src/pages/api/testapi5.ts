@@ -82,7 +82,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
     const info = courseInfoMap.get(course.courseID);
     info.numReviews = course.numReviews;
-    info.avgValue = course.avgValue;
+    info.avgRating = course.avgRating;
   });
 
 

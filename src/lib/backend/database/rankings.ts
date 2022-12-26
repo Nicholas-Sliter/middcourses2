@@ -381,7 +381,7 @@ export function getChallengingCourses(aggregateData: CourseAverages[], limit: nu
 
     const courses = aggregateData
         .filter((course) => {
-            return course.avgDifficulty >= 7 && course.avgHours >= 5 && course.avgAgain >= 0.6 && course.avgRating >= 6.5;
+            return course.avgDifficulty >= 7 && course.avgHours >= 5 && course.avgAgain >= 0.5 && course.avgRating >= 6;
         })
         .sort((a, b) => {
             return (b.avgDifficulty * b.avgHours) - (a.avgDifficulty * a.avgHours);
