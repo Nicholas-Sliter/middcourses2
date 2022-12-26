@@ -45,7 +45,9 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
 
 }
 
-
+export async function getBaseCourseAverages(count: number = 3) {
+    return await knex.with("Aggregate", (qb) => generateBaseCourseAverages(qb, count))
+}
 
 export function generateBaseInstructorAverages(qb: Knex.QueryBuilder, count: number = 5) {
 
@@ -271,6 +273,26 @@ export async function getTopDepartmentCourses(session: CustomSession, limit: num
     return courses;
 
 }
+
+
+
+export function getTopEasyAndValuableCourses(aggregateData, limit: number = 5) {
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgValue >= 7 && course.avgDifficulty <= 4 && course.avgAgain >= 0.6;
+        })
+        .sort((a, b) => {
+            return b.avgRating - a.avgRating;
+        })
+        .slice(0, limit);
+
+    return courses;
+
+}
+
+
+
 
 
 
