@@ -46,7 +46,9 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
 }
 
 export async function getBaseCourseAverages(count: number = 3) {
-    return await knex.with("Aggregate", (qb) => generateBaseCourseAverages(qb, count))
+    return await knex.with("Base", (qb) => generateBaseCourseAverages(qb, count))
+        .from("Base")
+        .select("*");
 }
 
 export function generateBaseInstructorAverages(qb: Knex.QueryBuilder, count: number = 5) {
