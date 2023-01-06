@@ -63,6 +63,15 @@ const keyWeights = {
     'inMajorMinor': 1.5,
 }
 
+/** 
+ * Activation function that takes x: (0, 1] and returns a value in (0, 1]
+ * \frac{\left(\left(x+0.5\right)^{5}-0.0313\right)}{2.034\left(e+x\right)}
+ */
+const activationFunction = (x: number) => {
+    return Math.max((Math.pow((x + 0.5), 5) - 0.0313) / (2.034 * (Math.E + x)), 0);
+
+}
+
 const randomIndex = (distribution: number[], randomFun: Function) => {
     const index = Math.floor(distribution.length * randomFun());  // random index
     return index;
@@ -235,7 +244,9 @@ function getNeighborProbabilites(node: rNode, reviews: Review[], neighborIndices
 
     const filteredSimilarity = similarity.map((value, index) => ({ value, index })).filter(item => item.value > 0);
 
-    const softmaxSimilarity = softmax(filteredSimilarity.map(item => item.value));
+    const activatedSimilarity = filteredSimilarity.map(item => ({ value: activationFunction(item.value), index: item.index }));
+
+    const softmaxSimilarity = softmax(activatedSimilarity.map(item => item.value));
 
     return softmaxSimilarity.map((probability, index) =>
     ({
