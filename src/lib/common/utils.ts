@@ -181,6 +181,11 @@ export function is100LevelCourse(courseID: string) {
   return courseNumber.startsWith("01");
 }
 
+export function isFYSECourse(courseID: string) {
+  const { department } = parseCourseID(courseID);
+  return department === "FYSE";
+}
+
 
 export function isInMajorMinorText(str: string) {
   return str?.includes("Major") || str?.includes("Minor");

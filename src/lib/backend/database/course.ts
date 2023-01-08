@@ -2,7 +2,7 @@ import knex from "./knex";
 import { reviewInfo } from "./common";
 import { CustomSession, public_instructor, public_review } from "../../common/types";
 import { getReviewByCourseIDWithVotes } from "./review";
-import { is100LevelCourse } from "../../common/utils";
+import { is100LevelCourse, isFYSECourse } from "../../common/utils";
 
 export async function getCourse(id: string) {
     return await knex("Course")
@@ -52,7 +52,8 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
     const authorized: boolean = session?.user?.authorized ||
         session?.user?.role === "admin" ||
         session?.user?.role === "faculty" ||
-        is100LevelCourse(id);
+        is100LevelCourse(id) ||
+        isFYSECourse(id);
 
     const outputFormatter = (results, reviews) => {
         if (!results) {
