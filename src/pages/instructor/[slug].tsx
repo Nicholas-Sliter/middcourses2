@@ -25,6 +25,29 @@ export async function getServerSideProps(context) {
 
   const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
 
+  const remainingReviews = data.instructor.numReviews - 3;
+  const remainingReviewsText = `${remainingReviews ? remainingReviews + " " : ""}`;
+
+  let reviewListMessage = "";
+  if (!data.reviews.length) {
+    reviewListMessage = "";
+  }
+  else if (!session) {
+    reviewListMessage = `Login to access ${remainingReviewsText}more reviews of ${data.instructor.name ?? "this instructor"}`;
+  }
+  else if (!authorized) {
+    reviewListMessage = `Review at least 2 courses to access ${remainingReviewsText}more reviews of ${data.instructor.name ?? "this instructor"}`;
+  }
+
+  const threeRecentUniqueCourseNames = Array.from(new Set(data.courses.map((course) => course.courseName))).slice(0, 3).join(", ");
+
+  const coursesDescription = (threeRecentUniqueCourseNames) ? `${data.instructor.name} teaches ${threeRecentUniqueCourseNames} and more.` : `${data.instructor.name} has not taught any courses yet.`;
+  const metaDescription = (data.instructor?.name) ? `Reviews and ratings for ${data.instructor.name} at Middlebury College.${coursesDescription}  Explore top rated instructors and find the best for you.Is ${data.instructor.name} good ? Find out on MiddCourses.` : "";
+
+  const canonicalURL = `https://midd.courses/instructor/${slug}`;
+
+
+
   return {
     props: {
       slug: slug,
@@ -33,6 +56,9 @@ export async function getServerSideProps(context) {
       reviews: JSON.parse(JSON.stringify(data.reviews)),
       authorized: authorized,
       mobileUserAgent: mobileUserAgent,
+      reviewListMessage: reviewListMessage,
+      metaDescription: metaDescription,
+      canonicalURL: canonicalURL
     },
   };
 
@@ -40,15 +66,9 @@ export async function getServerSideProps(context) {
 
 
 
-export default function InstructorPage({ slug, instructor, courses, reviews, authorized, mobileUserAgent }) {
+export default function InstructorPage({ slug, instructor, courses, reviews, authorized, mobileUserAgent, reviewListMessage, metaDescription, canonicalURL }) {
 
 
-  const threeRecentUniqueCourseNames = Array.from(new Set(courses.map((course) => course.courseName))).slice(0, 3).join(", ");
-
-  const coursesDescription = (threeRecentUniqueCourseNames) ? `${instructor.name} teaches ${threeRecentUniqueCourseNames} and more.` : `${instructor.name} has not taught any courses yet.`;
-  const metaDescription = (instructor?.name) ? `Reviews and ratings for ${instructor.name} at Middlebury College. ${coursesDescription}  Explore top rated instructors and find the best for you. Is ${instructor.name} good? Find out on MiddCourses.` : "";
-
-  const canonicalURL = `https://midd.courses/instructor/${slug}`;
 
   return (
     <>
@@ -73,14 +93,30 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
           </SidebarLayout.Sidebar>
           <SidebarLayout.Main>
             <CourseCardRow courses={courses} showCount />
-            <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" requireAuth={false} />
+            <ReviewList
+              reviews={reviews}
+              instructors={[instructor]}
+              identifyInstructor={false}
+              identifyCourse
+              context="instructor"
+              requireAuth={false}
+              message={reviewListMessage}
+            />
           </SidebarLayout.Main>
         </SidebarLayout>
       </BrowserView>
       <MobileView renderDefault={mobileUserAgent}>
         <InstructorCard instructor={instructor} authorized={authorized} />
-        <CourseCardRow courses={courses} />
-        <ReviewList reviews={reviews} instructors={[instructor]} identifyInstructor={false} identifyCourse context="instructor" />
+        <CourseCardRow courses={courses} showCount />
+        <ReviewList
+          reviews={reviews}
+          instructors={[instructor]}
+          identifyInstructor={false}
+          identifyCourse
+          context="instructor"
+          requireAuth={false}
+          message={reviewListMessage}
+        />
       </MobileView>
     </>
   );
