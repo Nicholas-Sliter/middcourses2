@@ -17,7 +17,7 @@ import SidebarLayout from "../../../../layouts/SidebarLayout";
 import { optimizedSSRCoursePage } from "../../../../lib/backend/database/course";
 //import RatingBox from "../../../../components/RatingBox";
 import { useToast } from "@chakra-ui/react";
-import { departmentCodeChangedMapping, is100LevelCourse } from "../../../../lib/common/utils";
+import { departmentCodeChangedMapping, is100LevelCourse, isFYSECourse } from "../../../../lib/common/utils";
 
 // SSR is amazing
 export async function getServerSideProps(context) {
@@ -53,6 +53,12 @@ export async function getServerSideProps(context) {
   const signedIn = session?.user ?? false;
   const authorized = session?.user?.authorized ?? false;
 
+  const ratingDescription = (data.numReviews) ? `This course has an overall rating of ${parseFloat(data?.avgRating?.toFixed(1)) ?? null} out of 10 based on ${data.numReviews} reviews.` : "This course has not been reviewed yet.";
+  const metaDescription = `${data.courseName} is a ${courseNumber}-level course offered in the ${data.departmentName} department at Middlebury College. ${ratingDescription}`;
+
+  const canonicalURL = `https://midd.courses/reviews/${departmentID.toLowerCase()}/${courseNumber}`;
+
+
   return {
     props: {
       departmentID: departmentID,
@@ -75,6 +81,8 @@ export async function getServerSideProps(context) {
       authorized: authorized,
       signedIn: signedIn,
       mobileUserAgent: mobileUserAgent,
+      metaDescription: metaDescription,
+      canonicalURL: canonicalURL,
     }
   }
 }
@@ -90,6 +98,8 @@ interface CoursePageProps {
   authorized: boolean;
   signedIn: boolean;
   mobileUserAgent: boolean;
+  metaDescription: string;
+  canonicalURL: string;
 }
 
 export default function CoursePage({
@@ -101,7 +111,9 @@ export default function CoursePage({
   reviews,
   authorized,
   signedIn,
-  mobileUserAgent
+  mobileUserAgent,
+  metaDescription,
+  canonicalURL,
 }: CoursePageProps) {
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>(Array.from(new Set(instructors.map(instructor => instructor.instructorID))));
@@ -111,12 +123,6 @@ export default function CoursePage({
   const toast = useToast();
 
   course.departmentName = departmentName;
-
-
-  const ratingDescription = (course.numReviews) ? `This course has an overall rating of ${parseFloat(course?.avgRating?.toFixed(1)) ?? null} out of 10 based on ${course.numReviews} reviews.` : "This course has not been reviewed yet.";
-  const metaDescription = `${course.courseName} is a ${courseNumber} level course offered in the ${departmentName} department at Middlebury College. ${ratingDescription}`;
-
-  const canonicalURL = `https://midd.courses/reviews/${departmentID.toLowerCase()}/${courseNumber}`;
 
   const filterInstructorToast = () => {
     toast({
@@ -141,7 +147,16 @@ export default function CoursePage({
         duration: 10000,
         isClosable: true,
       })
-    } else {
+    } else if (isFYSECourse(course.courseID)) {
+      toast({
+        title: 'You can access FYSE course reviews without signing in. Sign in to access reviews for other courses.',
+        status: 'info',
+        duration: 10000,
+        isClosable: true,
+      })
+
+    }
+    else {
       toast({
         title: 'Sign in to access reviews for this course.',
         status: 'info',
