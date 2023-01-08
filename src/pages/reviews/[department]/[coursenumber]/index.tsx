@@ -146,6 +146,7 @@ export default function CoursePage({
         status: 'info',
         duration: 10000,
         isClosable: true,
+        id: '100LevelCourseToast'
       })
     } else if (isFYSECourse(course.courseID)) {
       toast({
@@ -153,6 +154,7 @@ export default function CoursePage({
         status: 'info',
         duration: 10000,
         isClosable: true,
+        id: 'FYSECourseToast'
       })
 
     }
@@ -162,6 +164,7 @@ export default function CoursePage({
         status: 'info',
         duration: 10000,
         isClosable: true,
+        id: 'signInCourseToast'
       })
     }
   };
