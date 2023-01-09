@@ -10,6 +10,7 @@ import { BrowserView, MobileView } from "../../../components/DeviceViews";
 import SidebarLayout from "../../../layouts/SidebarLayout";
 import DepartmentCard from "../../../components/common/DepartmentCard";
 import { departmentCodeChangedMapping } from "../../../lib/common/utils";
+import styles from "/src/styles/pages/Department.module.scss";
 
 interface DepartmentPageProps {
   departmentID: string;
@@ -21,6 +22,9 @@ interface DepartmentPageProps {
   authorized: boolean;
   reviewListMessage?: string;
   mobileUserAgent: boolean;
+  metaDescription: string;
+  canonicalURL: string;
+  numReviews: number;
 }
 
 export async function getServerSideProps(context) {
@@ -40,7 +44,7 @@ export async function getServerSideProps(context) {
   const session = await getSession(context) as CustomSession;
 
   const signedIn = session?.user ?? false;
-  const authorized = session?.user?.authorized ?? false;
+  const authorized = (session?.user?.authorized) ?? false;
 
   const data = await optimizedSSRDepartmentPage(departmentID.toUpperCase(), authorized);
 
@@ -61,6 +65,13 @@ export async function getServerSideProps(context) {
   else if (!authorized) {
     reviewListMessage = `Review at least 2 courses to access more ${departmentName ?? "department"} reviews`;
   }
+
+  const numReviewSum = data.courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
+  const reviewText = numReviewSum === 1 ? "review" : "reviews";
+
+  const metaDescription = `Read ${numReviewSum} ${reviewText} for ${departmentName} courses at Middlebury College. Find the best ${departmentName} professors and courses.  Discover your new major today!`;
+
+  const canonicalURL = `https://midd.courses/reviews/${departmentID.toLowerCase()}`;
 
 
   return {
@@ -86,6 +97,9 @@ export async function getServerSideProps(context) {
       authorized: session?.user?.authorized ?? false,
       reviewListMessage: reviewListMessage,
       mobileUserAgent: mobileUserAgent,
+      metaDescription: metaDescription,
+      canonicalURL: canonicalURL,
+      numReviews: numReviewSum
     }
   }
 }
@@ -100,15 +114,10 @@ export default function DepartmentPage({
   authorized,
   reviewListMessage,
   mobileUserAgent,
+  metaDescription,
+  canonicalURL,
+  numReviews
 }: DepartmentPageProps) {
-
-  const numReviewSum = courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
-  const reviewText = numReviewSum === 1 ? "review" : "reviews";
-
-  const metaDescription = `Read ${numReviewSum} ${reviewText} for ${departmentName} courses at Middlebury College. Find the best ${departmentName} professors and courses.  Discover your new major today!`;
-
-  const canonicalURL = `https://midd.courses/reviews/${departmentID.toLowerCase()}`;
-
 
   return (
     <>
@@ -121,7 +130,7 @@ export default function DepartmentPage({
       <BrowserView renderDefault={!mobileUserAgent}>
         <SidebarLayout>
           <SidebarLayout.Sidebar>
-            <DepartmentCard department={department} numReviews={numReviewSum} />
+            <DepartmentCard department={department} numReviews={numReviews} />
           </SidebarLayout.Sidebar>
 
           <SidebarLayout.Main>
@@ -149,23 +158,27 @@ export default function DepartmentPage({
         </SidebarLayout>
       </BrowserView>
       <MobileView renderDefault={mobileUserAgent}>
-        <h2>{departmentName}</h2>
-        <CourseCardRow courses={courses} showCount />
-        <div style={{ marginTop: "-1rem" }}>
-          <ScrollableRow>
-            {instructors.map((instructor) => (
-              <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
-            ))}
-          </ScrollableRow>
+        <div className={styles.mobileContainer}>
+          <h1>{departmentName}</h1>
+          <CourseCardRow courses={courses} showCount />
+          <div style={{ marginTop: "-1rem" }}>
+            <ScrollableRow>
+              {instructors.map((instructor) => (
+                <Instructor instructor={instructor} key={instructor.instructorID}></Instructor>
+              ))}
+            </ScrollableRow>
+          </div>
+          <ReviewList
+            reviews={reviews}
+            instructors={instructors}
+            expandable={false}
+            identifyCourse
+            hideVoting
+            requireAuth={false}
+            context="department"
+            message={reviewListMessage}
+          />
         </div>
-        <h3>Most Recent Reviews:</h3>
-        <ReviewList
-          reviews={reviews}
-          instructors={instructors}
-          expandable={false}
-          identifyCourse
-          hideVoting
-        />
       </MobileView>
     </>
   );
