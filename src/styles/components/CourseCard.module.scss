@@ -45,7 +45,11 @@
 
       a:any-link {
          color: #333;
-         //text-decoration: none;
+         text-decoration: none;
+
+         &:hover {
+            text-decoration: underline;
+         }
       }
 
    }
