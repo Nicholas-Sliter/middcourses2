@@ -164,6 +164,7 @@ export default function DepartmentPage({
       <MobileView renderDefault={mobileUserAgent}>
         <div className={styles.mobileContainer}>
           <h1>{departmentName}</h1>
+          <p>{`${numReviews} review${numReviews == 1 ? "" : "s"}`}</p>
           <CourseCardRow courses={courses} showCount />
           <div style={{ marginTop: "-1rem" }}>
             <ScrollableRow>
