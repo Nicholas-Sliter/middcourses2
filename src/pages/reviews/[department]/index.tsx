@@ -54,20 +54,24 @@ export async function getServerSideProps(context) {
   //use useragent to guess if mobile by presence of "mobile" in useragent
   const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
 
+  const numReviewSum = data.courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
+  const reviewText = numReviewSum === 1 ? "review" : "reviews";
+
+  const remainingReviews = numReviewSum - data.reviews.length;
+  const remainingReviewsText = remainingReviews === 0 ? "" : `${remainingReviews} `;
+  const remainingReviewReview = remainingReviews === 1 ? "review" : "reviews";
 
   let reviewListMessage = "";
   if (!data.reviews.length) {
     reviewListMessage = "";
   }
   else if (!signedIn) {
-    reviewListMessage = `Login to access more ${departmentName ?? "department"} reviews`;
+    reviewListMessage = `Login to access ${remainingReviewsText}more ${departmentName ?? "department"} ${remainingReviewReview}`;
   }
   else if (!authorized) {
-    reviewListMessage = `Review at least 2 courses to access more ${departmentName ?? "department"} reviews`;
+    reviewListMessage = `Review at least 2 courses to access ${remainingReviewsText}more ${departmentName ?? "department"} ${remainingReviewReview}`;
   }
 
-  const numReviewSum = data.courses.reduce((acc, curr) => acc + parseInt(curr.numReviews as string, 10), 0);
-  const reviewText = numReviewSum === 1 ? "review" : "reviews";
 
   const metaDescription = `Read ${numReviewSum} ${reviewText} for ${departmentName} courses at Middlebury College. Find the best ${departmentName} professors and courses.  Discover your new major today!`;
 
