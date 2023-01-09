@@ -7,7 +7,8 @@
     "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "echo done"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.5",

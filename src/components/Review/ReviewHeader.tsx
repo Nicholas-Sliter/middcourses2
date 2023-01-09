@@ -21,7 +21,7 @@ import DateString from "../common/DateString";
 import { FiFlag, FiEdit } from "react-icons/fi";
 import FlagDialog from "./FlagDialog";
 import { useState } from "react";
-import AddReview from "../AddReview";
+// import AddReview from "../AddReview";
 
 interface ReviewHeaderProps {
     review: public_review;
@@ -35,6 +35,15 @@ interface ReviewHeaderProps {
     vote: (voteType: string) => void;
     hideFlag?: boolean;
     showEdit?: boolean;
+    AddReview?: (props: {
+        isOpen: boolean,
+        onClose: () => void,
+        review: public_review,
+        instructors: public_instructor[],
+        course: public_course,
+        edit: boolean
+    } & React.ComponentPropsWithoutRef<"div">
+    ) => React.ReactElement;
 }
 
 const ratingIconMapping = {
@@ -75,6 +84,7 @@ function ReviewHeader({
     hideFlag = false,
     showEdit = false,
     vote,
+    AddReview,
 }: ReviewHeaderProps) {
     const [flagButtonOpen, setFlagButtonOpen] = useState(false);
     const [editButtonOpen, setEditButtonOpen] = useState(false);
@@ -120,6 +130,10 @@ function ReviewHeader({
             </Tooltip>
         );
     };
+
+    if (!AddReview) {
+        AddReview = function emptyAddReview() { return (null) };
+    }
 
 
     const EditElement = () => {
