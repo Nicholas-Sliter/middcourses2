@@ -20,7 +20,7 @@ export default function CourseCard({ course }: CourseCardProps) {
 
   const breadcrumbs = <Breadcrumb spacing='8px' separator={<BiChevronRight />}>
     <BreadcrumbItem>
-      <BreadcrumbLink href={`/reviews/${department?.toLowerCase()}`}>{department}</BreadcrumbLink>
+      <BreadcrumbLink as={Link} href={`/reviews/${department?.toLowerCase()}`}>{department}</BreadcrumbLink>
     </BreadcrumbItem>
 
     <BreadcrumbItem isCurrentPage>
