@@ -135,7 +135,7 @@ export default function CoursePage({
     })
   };
 
-  const signInToast = () => {
+  const signInToast = (id: string) => {
     if (signedIn || authorized) {
       return;
     }
@@ -146,7 +146,7 @@ export default function CoursePage({
         status: 'info',
         duration: 10000,
         isClosable: true,
-        id: '100LevelCourseToast'
+        id: id
       })
     } else if (isFYSECourse(course.courseID)) {
       toast({
@@ -154,7 +154,7 @@ export default function CoursePage({
         status: 'info',
         duration: 10000,
         isClosable: true,
-        id: 'FYSECourseToast'
+        id: id
       })
 
     }
@@ -164,7 +164,7 @@ export default function CoursePage({
         status: 'info',
         duration: 10000,
         isClosable: true,
-        id: 'signInCourseToast'
+        id: id
       })
     }
   };
@@ -188,6 +188,14 @@ export default function CoursePage({
     setSelectedInstructorIDs(selected);
   };
 
+
+  /* Close toasts on initial pageload */
+  useEffect(() => {
+    toast.closeAll();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   //filter reviews by selected instructors
   useEffect(() => {
     const filtered = reviews.filter((review) =>
@@ -205,7 +213,9 @@ export default function CoursePage({
   // run sign in toast 500ms after page load
   useEffect(() => {
     setTimeout(() => {
-      signInToast();
+      const id = "courseLoginPrompt"
+      if (!toast.isActive(id))
+        signInToast(id);
     }, 500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
