@@ -1,6 +1,6 @@
 import ReviewCard from "./NewReview";
 import styles from "./ReviewList.module.scss";
-import { CustomSession, public_instructor, public_review } from "../../lib/common/types";
+import { CustomSession, public_course, public_instructor, public_review } from "../../lib/common/types";
 import { BsThreeDots } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import ReviewMissing from "./ReviewMissing";
@@ -17,6 +17,15 @@ interface ReviewListProps {
   error?: string;
   context?: "course" | "instructor" | "department" | "user";
   message?: string;
+  AddReview?: (props: {
+    isOpen: boolean,
+    onClose: () => void,
+    review: public_review,
+    instructors: public_instructor[],
+    course: public_course,
+    edit: boolean
+  } & React.ComponentPropsWithoutRef<"div">
+  ) => React.ReactElement;
 
 }
 
@@ -32,6 +41,7 @@ export default function ReviewList({
   error = "",
   context = null,
   message = null,
+  AddReview = undefined
 }: ReviewListProps) {
 
   const { data: session } = useSession() as { data: CustomSession };
@@ -75,6 +85,7 @@ export default function ReviewList({
               identifyInstructor={identifyInstructor}
               hideVoting={hideVoting}
               hideFlag={hideFlag}
+              AddReview={AddReview}
             />
           );
         })

@@ -5,6 +5,8 @@ import ReviewList from "../../components/Review";
 import { getReviewsByInstructorEmail, getReviewsByUserID } from "../../lib/backend/database/review";
 import { CustomSession, public_instructor, public_review } from "../../lib/common/types";
 import useIsMount from "../../hooks/useIsMount";
+import AddReview from "../../components/AddReview";
+
 
 export async function getServerSideProps(context) {
   const session = await getSession(context) as CustomSession
@@ -82,6 +84,7 @@ export default function Reviews({ reviews, instructors, isSignedIn }: ReviewsPro
         identifyInstructor={!isInstructor}
         hideVoting
         hideFlag
+        AddReview={AddReview}
       />
     </div>
   );

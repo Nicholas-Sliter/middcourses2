@@ -1,4 +1,4 @@
-import { CustomSession, public_instructor, public_review } from "../../lib/common/types";
+import { CustomSession, public_course, public_instructor, public_review } from "../../lib/common/types";
 import { parseCourseID } from "../../lib/common/utils";
 import ReadMore from "../common/ReadMore";
 import TagBar from "../TagBar";
@@ -19,6 +19,15 @@ interface ReviewCardProps {
     identifyInstructor?: boolean;
     hideVoting?: boolean;
     hideFlag?: boolean;
+    AddReview?: (props: {
+        isOpen: boolean,
+        onClose: () => void,
+        review: public_review,
+        instructors: public_instructor[],
+        course: public_course,
+        edit: boolean
+    } & React.ComponentPropsWithoutRef<"div">
+    ) => React.ReactElement;
 }
 
 const votingWithoutLoginToast = (toast) => {
@@ -38,6 +47,7 @@ function ReviewCard({
     identifyInstructor,
     hideVoting,
     hideFlag = false,
+    AddReview,
 }: ReviewCardProps) {
 
     const { data: session } = useSession() as { data: CustomSession };
@@ -99,6 +109,7 @@ function ReviewCard({
                     showEdit={editable}
                     userVoteType={userVoteType}
                     vote={voteWrapper}
+                    AddReview={AddReview}
                 />
                 <ReadMore text={review.content} maxLength={335} />
                 <TagBar items={review?.tags ?? []} />
