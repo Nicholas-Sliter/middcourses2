@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
 
   const remainingReviews = data.instructor.numReviews - 3;
-  const remainingReviewsText = `${remainingReviews ? remainingReviews + " " : ""}`;
+  const remainingReviewsText = `${remainingReviews > 0 ? remainingReviews + " " : ""}`;
 
   let reviewListMessage = "";
   if (!data.reviews.length) {

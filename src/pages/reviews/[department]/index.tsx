@@ -58,7 +58,7 @@ export async function getServerSideProps(context) {
   const reviewText = numReviewSum === 1 ? "review" : "reviews";
 
   const remainingReviews = numReviewSum - data.reviews.length;
-  const remainingReviewsText = remainingReviews === 0 ? "" : `${remainingReviews} `;
+  const remainingReviewsText = remainingReviews < 1 ? "" : `${remainingReviews} `;
   const remainingReviewReview = remainingReviews === 1 ? "review" : "reviews";
 
   let reviewListMessage = "";
