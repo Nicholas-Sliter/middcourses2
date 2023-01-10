@@ -43,7 +43,7 @@ function InstructorRatingBar({ instructor, noMargin = false }) {
                     min={0}
                     displayPrecision={0}
                     percent
-                    helpText="Would take a course with this instructor again"
+                    helpText="Enjoyed this instructor's teaching style"
 
                 />
                 <RatingBox
