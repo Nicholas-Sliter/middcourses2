@@ -3,6 +3,7 @@ import { reviewInfo } from "./common";
 import { CustomSession, public_instructor, public_review } from "../../common/types";
 import { sortCoursesByTerm } from "../../common/utils";
 import { getReviewByInstructorSlugWithVotes } from "./review";
+import { Knex } from "knex";
 
 
 const DELIMITER = "|\0|";
@@ -154,3 +155,63 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
 
 }
 
+
+
+
+export async function upsertInstructors(transaction: Knex.Transaction, instructors: {
+    name: string;
+    slug: string;
+    instructorID: string;
+    email: string;
+    departmentID: string;
+}[]) {
+
+    try {
+
+        return transaction("Instructor")
+            .insert(instructors)
+            .onConflict(["instructorID"])
+            .merge();
+
+    } catch (err) {
+        throw err; /* Handle rollback upstream */
+    }
+
+}
+
+
+
+export async function upsertCourseInstructors(transaction: Knex.Transaction, courseInstructors: {
+    courseID: string;
+    instructorID: string;
+    term: string;
+}[]) {
+
+    try {
+
+        /* This method is necessary as we don't have a unique constraint over the necessary columns */
+
+        const ci = await transaction("CourseInstructor")
+            .select("courseID", "instructorID", "term");
+
+        const ciSet = new Set(ci.map((c) => {
+            return `${c.courseID}-${c.instructorID}-${c.term}`;
+        }));
+
+        const toInsert = courseInstructors.filter((c) => {
+            return !ciSet.has(`${c.courseID}-${c.instructorID}-${c.term}`);
+        });
+
+        if (toInsert.length > 0) {
+
+            return transaction("CourseInstructor")
+                .insert(toInsert);
+        }
+    }
+    catch (err) {
+        throw err; /* Handle rollback upstream */
+    }
+
+    return;
+
+}

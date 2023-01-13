@@ -1,13 +1,29 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { CustomSession, public_instructor, public_review } from "../../common/types";
+import { CustomSession, public_course, public_instructor, public_review } from "../../common/types";
 import { getReviewByCourseIDWithVotes } from "./review";
 import { is100LevelCourse, isFYSECourse } from "../../common/utils";
+import { Knex } from "knex";
 
 export async function getCourse(id: string) {
     return await knex("Course")
         .where("Course.courseID", id)
         .first();
+}
+
+
+export async function upsertCourses(transaction: Knex.Transaction, courses: public_course[]) {
+
+    try {
+        return transaction("Course")
+            .insert(courses)
+            .onConflict("courseID")
+            .merge();
+    } catch (e) {
+        throw e; /* Handle rollback upstream */
+    }
+
+    return;
 }
 
 async function getCourseReviews(id: string, session: CustomSession, authorized: boolean) {
