@@ -84,12 +84,12 @@ async function getSemesterData(semester: string) {
     const searchParameters = [
         new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
         // new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(), // Skip labs
-        new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(),
-        new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(),
-        new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(),
-        //new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(), // Skip PE
-        new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(),
-        new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(),
+        // new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(), // Skip discussion
+        // new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(), // Skip drills
+        // new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(), // Skip drills
+        //new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),   // Skip PE
+        // new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(), // Skip Pre-Lab
+        // new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
         new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
         new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
         new Param("search", "Search").getObject(),
