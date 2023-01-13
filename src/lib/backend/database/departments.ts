@@ -21,7 +21,7 @@ export async function getDepartmentByID(departmentID: string) {
         .where({ departmentID });
 }
 
-export async function getDepartmentByName(departmentName: string) {
+export async function getDepartmentByName(departmentName: string): Promise<{ departmentID: string }> {
     return await knex("Department")
         .select(["Department.departmentID", "Department.departmentName"])
         .first()

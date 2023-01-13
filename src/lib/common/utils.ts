@@ -57,7 +57,7 @@ export function cleanString(str: string) {
   return str.replace(/[^a-zA-Z0-9 ]/g, "");
 }
 
-export const slugify = (text) => {
+export const slugify = (text: string) => {
   return text
     .toString()
     .normalize("NFD")
