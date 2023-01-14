@@ -34,13 +34,13 @@ export function checkIfFirstSemester(graduationYear: string) {
 
 export function getCurrentSemester() {
   const date = new Date();
-  const month = date.getMonth();
+  const month = date.getMonth(); // 0-11
   let semester = "";
-  if (month < 2) {
+  if (month < 1) {
     semester = "Winter";
-  } else if (month < 6) {
+  } else if (month < 5) {
     semester = "Spring";
-  } else if (month < 9) {
+  } else if (month < 8) {
     semester = "Summer";
   } else {
     semester = "Fall";
@@ -48,6 +48,71 @@ export function getCurrentSemester() {
 
   return semester;
 }
+
+export function getCurrentTerm() {
+  const year = new Date().getFullYear();
+  const semester = getCurrentSemester();
+
+  const yearAbbr = year.toString().slice(2, 4);
+
+  let term = "";
+  if (semester === "Winter") {
+    term = `W${yearAbbr}`;
+  }
+  if (semester === "Spring") {
+    term = `S${yearAbbr}`;
+  }
+  if (semester === "Summer") {
+    term = `F${yearAbbr}`;  // TODO: Summer term is not yet supported
+  }
+  if (semester === "Fall") {
+    term = `F${yearAbbr}`;
+  }
+
+  return term;
+}
+
+/**
+ * @param term of the form W21, S21, F21 (etc)
+ * @returns boolean if we are at least 2/3 through the semester
+ */
+export function areWeTwoThirdsThroughSemester(term: string) {
+  const date = new Date();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  const yearAbbr = year.toString().slice(2, 4);
+
+  const currentTerm = getCurrentTerm();
+
+  if (compareTerm(term, currentTerm) < 0) {
+    return true; // term in the past
+  }
+
+  if (compareTerm(term, currentTerm) > 0) {
+    return false; // term in the future
+  }
+
+  /* Then term === currentTerm */
+
+  if (term.startsWith("W")) {
+    return (month >= 1) || (month === 0 && date.getDate() >= 20);
+  }
+
+  if (term.startsWith("S")) {
+    return (month >= 5) || (month === 3 && date.getDate() >= 10);
+  }
+
+  if (term.startsWith("F")) {
+    return (month >= 10) || (month === 9 && date.getDate() >= 20);
+  }
+
+
+  return false;
+
+}
+
+
 
 export const departmentNameMapping = {
   "Computer Science": "CSCI",
@@ -125,6 +190,41 @@ export function formatTermObj(termObj) {
 
 export function getCourseNumberFromID(courseID: string) {
   return courseID.split(/[0-9]/)[1];
+}
+
+
+export function compareTerm(termA: string, termB: string) {
+  /*  ORDER:
+  Ex. W21, S21, F21 -> W22, S22, F22 -> etc.
+  */
+
+  const yearA = parseInt(termA.slice(1, 3));
+  const yearB = parseInt(termB.slice(1, 3));
+
+  if (yearA > yearB) {
+    return 1;
+  }
+
+  if (yearA < yearB) {
+    return -1;
+  }
+
+  const seasonA = termA.slice(0, 1);
+  const seasonB = termB.slice(0, 1);
+
+  const order = ["W", "S", "F"];
+
+
+  if (order.indexOf(seasonA) > order.indexOf(seasonB)) {
+    return 1;
+  }
+
+  if (order.indexOf(seasonA) < order.indexOf(seasonB)) {
+    return -1;
+  }
+
+  return 0;
+
 }
 
 
