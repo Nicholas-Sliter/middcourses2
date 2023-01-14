@@ -16,7 +16,7 @@ import {
   uuidv4,
 } from "../../../../../../lib/backend/utils";
 import { CustomSession, public_course } from "../../../../../../lib/common/types";
-import { courseTags, primaryComponents } from "../../../../../../lib/common/utils";
+import { areWeTwoThirdsThroughSemester, courseTags, primaryComponents } from "../../../../../../lib/common/utils";
 import { getReviewByID, voteReviewByID, __getFullReviewByID } from "../../../../../../lib/backend/database/review";
 import { updateUserPermissions } from "../../../../../../lib/backend/database/users";
 
@@ -104,6 +104,17 @@ const handler = nc({
     const department = req.query.department as string;
     const courseNumber = req.query.coursenumber as string;
     const courseID = `${department.toUpperCase()}${courseNumber.trim()}`;
+    const term = req.body.semester;
+
+    /* Checks to ensure term is valid */
+    if (!term) {
+      return res.status(400).json({ message: "Invalid term" });
+    }
+
+    if (!areWeTwoThirdsThroughSemester(term)) {
+      return res.status(400).json({ message: "You cannot review this course yet, please wait until roughly 2/3 of the semester has passed." });
+    }
+
 
     //match course id of endpoint to course id in request body
     if (courseID !== req.body.courseID) {

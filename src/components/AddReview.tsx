@@ -29,7 +29,7 @@ import {
 import Question from "./common/Question";
 import QuestionSlider from "./common/QuestionSlider";
 import CharacterCount from "./common/CharacterCount";
-import { isInMajorMinorText, isNeitherText, primaryComponents } from "../lib/common/utils";
+import { areWeTwoThirdsThroughSemester, compareTerm, isInMajorMinorText, isNeitherText, primaryComponents } from "../lib/common/utils";
 import QuestionNumberInput from "./common/QuestionNumberInput";
 import { useState, useEffect } from "react";
 import { RiContactsBookLine } from "react-icons/ri";
@@ -266,6 +266,8 @@ export default function AddReview({
   const terms =
     instructorTerms?.map((iterm) => {
       return iterm.term;
+    }).sort((a, b) => {
+      return compareTerm(a, b)
     }) ?? [];
 
   const DEFAULT_SLIDER_RATING = 5;
@@ -360,7 +362,7 @@ export default function AddReview({
                       })
                       .map((term) => {
                         return (
-                          <option key={term} value={term}>
+                          <option key={term} value={term} disabled={!areWeTwoThirdsThroughSemester(term)}>
                             {convertTermToFullString(term)}
                           </option>
                         );
