@@ -16,7 +16,7 @@ import {
   uuidv4,
 } from "../../../../../../lib/backend/utils";
 import { CustomSession, public_course } from "../../../../../../lib/common/types";
-import { areWeTwoThirdsThroughSemester, courseTags, primaryComponents } from "../../../../../../lib/common/utils";
+import { areWeTwoThirdsThroughSemester, courseTags, isSemesterTooOld, primaryComponents } from "../../../../../../lib/common/utils";
 import { getReviewByID, voteReviewByID, __getFullReviewByID } from "../../../../../../lib/backend/database/review";
 import { updateUserPermissions } from "../../../../../../lib/backend/database/users";
 
@@ -113,6 +113,11 @@ const handler = nc({
 
     if (!areWeTwoThirdsThroughSemester(term)) {
       return res.status(400).json({ message: "You cannot review this course yet, please wait until roughly 2/3 of the semester has passed." });
+    }
+
+
+    if (isSemesterTooOld(term)) {
+      return res.status(400).json({ message: "You cannot review this course with the selected semester as it occurred too long ago." });
     }
 
 

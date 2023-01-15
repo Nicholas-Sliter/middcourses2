@@ -29,7 +29,7 @@ import {
 import Question from "./common/Question";
 import QuestionSlider from "./common/QuestionSlider";
 import CharacterCount from "./common/CharacterCount";
-import { areWeTwoThirdsThroughSemester, compareTerm, isInMajorMinorText, isNeitherText, primaryComponents } from "../lib/common/utils";
+import { areWeTwoThirdsThroughSemester, compareTerm, isInMajorMinorText, isNeitherText, isSemesterTooOld, primaryComponents } from "../lib/common/utils";
 import QuestionNumberInput from "./common/QuestionNumberInput";
 import { useState, useEffect } from "react";
 import { RiContactsBookLine } from "react-icons/ri";
@@ -266,9 +266,11 @@ export default function AddReview({
   const terms =
     instructorTerms?.map((iterm) => {
       return iterm.term;
-    }).sort((a, b) => {
-      return -compareTerm(a, b) // inverted order places more recent terms first
-    }) ?? [];
+    })
+      .filter((term) => !isSemesterTooOld(term))
+      .sort((a, b) => {
+        return -compareTerm(a, b) // inverted order places more recent terms first
+      }) ?? [];
 
   const DEFAULT_SLIDER_RATING = 5;
   //use the useWatch hook to watch the difficulty form state
