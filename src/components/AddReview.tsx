@@ -267,7 +267,7 @@ export default function AddReview({
     instructorTerms?.map((iterm) => {
       return iterm.term;
     }).sort((a, b) => {
-      return compareTerm(a, b)
+      return -compareTerm(a, b) // inverted order places more recent terms first
     }) ?? [];
 
   const DEFAULT_SLIDER_RATING = 5;
