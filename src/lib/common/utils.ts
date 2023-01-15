@@ -113,6 +113,29 @@ export function areWeTwoThirdsThroughSemester(term: string) {
 }
 
 
+/**
+ * Determines if a course is too old to review
+ * @param term of the form W21, S21, F21 (etc)
+ * @returns boolean if a semester is too old to review
+ */
+export function isSemesterTooOld(term: string) {
+  const MAX_REVIEW_AGE = 3; // in years
+
+  const date = new Date();
+  const year = date.getFullYear();
+
+  const minYear = year - MAX_REVIEW_AGE;
+
+  const currentTerm = getCurrentTerm();
+  const currentSeason = currentTerm.slice(0, 1);
+
+  const minTerm = `${currentSeason}${minYear.toString().slice(2, 4)}`;
+
+  return compareTerm(term, minTerm) < 0;
+
+}
+
+
 
 export const departmentNameMapping = {
   "Computer Science": "CSCI",
