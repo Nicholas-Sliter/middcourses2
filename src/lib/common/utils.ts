@@ -100,11 +100,11 @@ export function areWeTwoThirdsThroughSemester(term: string) {
   }
 
   if (term.startsWith("S")) {
-    return (month >= 5) || (month === 3 && date.getDate() >= 10);
+    return (month >= 4) || (month === 3 && date.getDate() >= 10); // Early April since Fall Registration is in late April
   }
 
   if (term.startsWith("F")) {
-    return (month >= 10) || (month === 9 && date.getDate() >= 20);
+    return (month >= 10) || (month === 9 && date.getDate() >= 20); // Late October since Winter/Fall Registration is in early November
   }
 
 
