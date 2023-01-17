@@ -380,8 +380,10 @@ function rwr(
      */
     const courses = new Map<string, { ucount: number, wcount: number, sum: number }>();
 
+    const userNeighborhoodThreshold = Math.floor(Math.sqrt(max_iter) / 10); /* Filter out noise by removing nodes infrequently visited */
     const userNeighborhood = Array
         .from(visited.entries())
+        .filter(([_, count]) => count >= userNeighborhoodThreshold)
         .sort((a, b) => b[1] - a[1])
         .slice(0, top_m) // We only want to consider this many users
     //.map(entry => entry[0]);
