@@ -480,7 +480,7 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
     };
 
 
-    const maxUserNeighborhood = 100;
+    const maxUserNeighborhood = 50;
     const restartAlpha = 0.16;
     const reviewThreshold = 2; // Minimum number of reviews a course must have (in neighorhood) to be considered
     const courseRatingThreshold = -0.0000001; // Minimum average rating a course must have (in neighorhood) to be considered
