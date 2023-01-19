@@ -10,6 +10,7 @@ const handler = nc<NextApiRequest, NextApiResponse>()
         /* Allow an internal request or a request from an admin to trigger this endpoint */
         const session = (await getSession({ req })) as CustomSession;
         const semester = req.query.semester as string;
+        const reconcile = req.query.reconcile === "true" ? true : false;
         const isAdmin = session?.user?.admin ? true : false;
         const hasInternalAuth = req.headers.authorization === process.env.INTERNAL_AUTH;
 
@@ -21,7 +22,7 @@ const handler = nc<NextApiRequest, NextApiResponse>()
 
 
         try {
-            const result = await updateSemester(semester);
+            const result = await updateSemester(semester, reconcile);
             res.status(200).end(JSON.stringify(result));
             return;
 
