@@ -15,7 +15,7 @@ import knex from "./database/knex";
 import Semaphore from './semaphore';
 import { slugify } from "../common/utils";
 import { getDepartmentByName } from "./database/departments";
-import { getTransactionReviewCount, reconcileReviews } from "./database/review";
+import { backupReviews, getTransactionReviewCount, reconcileReviews } from "./database/review";
 
 
 export { };
@@ -272,11 +272,19 @@ async function doReconciliationProcess(
 
     console.log('Beginning reconciliation process')
 
+    /* Backup review database */
+    await backupReviews();
+
     const trx = await knex.transaction();
     const shouldForceUpdate = forceUpdate && (forceUpdateVerification === 'DELETE MANY REVIEWS');
 
+    if (shouldForceUpdate) {
+        console.warn(`Force update enabled`);
+    }
+
+
     try {
-        const beforeReviewCount = await getTransactionReviewCount(trx);
+        const beforeReviewCount = (await getTransactionReviewCount(trx)).count;
 
         /* This order is important! */
         await reconcileCourseInstructors(trx, courseInstructors, semester);
@@ -284,11 +292,12 @@ async function doReconciliationProcess(
         await reconcileInstructors(trx);
         await reconcileReviews(trx, semester, shouldForceUpdate)
 
-        const afterReviewCount = await getTransactionReviewCount(trx);
+        const afterReviewCount = (await getTransactionReviewCount(trx)).count;
 
 
         if (shouldForceUpdate) {
             console.log('Force update enabled - skipping review count verification');
+            console.log(`Removed ${beforeReviewCount - afterReviewCount} reviews.`)
         }
 
         if (!shouldForceUpdate && (beforeReviewCount !== afterReviewCount)) {
@@ -312,7 +321,7 @@ async function doReconciliationProcess(
 
 
 
-async function updateSemester(semester: string, doReconciliation: boolean = false) {
+async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '') {
 
     const catalogCourses: CourseObject[] = await getSemesterData(semester);
 
@@ -338,7 +347,14 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
 
     /* DANGER ZONE: this can delete review data */
     if (doReconciliation) {
-        await doReconciliationProcess(semester, courses, instructors, courseInstructors);
+        await doReconciliationProcess(
+            semester,
+            courses,
+            instructors,
+            courseInstructors,
+            forceUpdate,
+            forceUpdateVerification
+        );
     }
 
     return {

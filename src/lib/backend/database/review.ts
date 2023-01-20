@@ -3,6 +3,7 @@ import { reviewInfo } from "./common";
 import { CustomSession, full_review, public_instructor, public_review } from "../../common/types";
 import { parseStringToInt } from "../utils";
 import { Knex } from "knex";
+import { insertBackups } from "./backups";
 
 
 export async function voteReviewByID(reviewID: string, voteBy: string, voteType: string) {
@@ -72,7 +73,8 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
 export async function getTransactionReviewCount(transaction: Knex.Transaction) {
 
     return await transaction("Review")
-        .count("reviewID as count");
+        .count("reviewID as count")
+        .first() as { count: number };
 
 }
 
@@ -140,6 +142,28 @@ export async function reconcileReviews(transaction: Knex.Transaction, semester: 
     }
     else {
         console.log("No reviews to delete");
+    }
+
+}
+
+
+export async function backupReviews() {
+
+    try {
+        const reviews = await knex("Review")
+            .select("*");
+
+        const reviewBackups = [];
+        reviews.forEach((r) => {
+            const key = `Review-${r.reviewID}`;
+            const value = JSON.stringify(r);
+            const date = new Date().toISOString();
+            reviewBackups.push({ key, value, created_at: date });
+        });
+
+        await insertBackups(reviewBackups);
+    } catch (err) {
+        console.log(err);
     }
 
 }
