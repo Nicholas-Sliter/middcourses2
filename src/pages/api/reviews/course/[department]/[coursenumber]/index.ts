@@ -17,7 +17,7 @@ import {
 } from "../../../../../../lib/backend/utils";
 import { CustomSession, public_course } from "../../../../../../lib/common/types";
 import { areWeTwoThirdsThroughSemester, courseTags, isSemesterTooOld, primaryComponents } from "../../../../../../lib/common/utils";
-import { getReviewByID, voteReviewByID, __getFullReviewByID } from "../../../../../../lib/backend/database/review";
+import { getReviewByID, hasUserReviewedCourseOrAlias, voteReviewByID, __getFullReviewByID } from "../../../../../../lib/backend/database/review";
 import { updateUserPermissions } from "../../../../../../lib/backend/database/users";
 
 /**
@@ -141,7 +141,7 @@ const handler = nc({
       return res.status(400).json({ message: "Invalid course ID" });
     }
 
-    if (await checkReviewByUserAndCourse(session.user.id, courseID)) {
+    if (await hasUserReviewedCourseOrAlias(session.user.id, courseID)) {
       console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
       return res
         .status(403)
@@ -218,7 +218,7 @@ const handler = nc({
 
     // check again that the review does not exist (prevent replay race condition / attack)
     await new Promise((resolve) => setTimeout(resolve, 500)); /* wait 500ms to allow for the database to update */
-    if (await checkReviewByUserAndCourse(session.user.id, courseID)) {
+    if (await hasUserReviewedCourseOrAlias(session.user.id, courseID)) {
       console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
       return res
         .status(403)

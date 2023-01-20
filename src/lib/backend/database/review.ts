@@ -4,6 +4,7 @@ import { CustomSession, full_review, public_instructor, public_review } from "..
 import { parseStringToInt } from "../utils";
 import { Knex } from "knex";
 import { insertBackups } from "./backups";
+import { getCourseCodes, getCourseCodesCTE } from "./alias";
 
 
 export async function voteReviewByID(reviewID: string, voteBy: string, voteType: string) {
@@ -286,6 +287,19 @@ export async function getReviewsByUserID(userID: string) {
 }
 
 
+export async function hasUserReviewedCourseOrAlias(userID: string, courseID: string) {
+    const courseCodes = await getCourseCodes(courseID);
+    const reviews = await knex("Review")
+        .where({
+            reviewerID: userID
+        })
+        .whereIn("courseID", courseCodes)
+        .select("reviewID");
+
+    return reviews.length > 0;
+}
+
+
 export async function getReviewsByInstructorEmail(email: string) {
     const reviews = await knex("Instructor")
         .where({
@@ -314,9 +328,13 @@ export async function getReviewByCourseIDWithVotes(courseID: string, userID: str
     }
 
     const query = await knex("Review")
-        .where({
-            courseID: courseID
-        })
+        // .with("CourseCodes", (qb) => getCourseCodesCTE(qb, courseID))
+        // // .where({
+        // //     courseID: courseID
+        // // })
+        // .from("CourseCodes")
+        // .leftJoin("Review", "CourseCodes.codes", "Review.courseID") // .whereRaw(`"Review"."courseID" = ANY("CourseCodes"."codes")`)
+        .whereIn("Review.courseID", await getCourseCodes(courseID))
         .select(reviewInfo)
         .leftJoin("Vote", "Review.reviewID", "Vote.reviewID")
         .sum("Vote.voteType as voteCount")

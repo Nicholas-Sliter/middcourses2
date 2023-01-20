@@ -4,6 +4,7 @@ import { CustomSession, public_course, public_instructor, public_review } from "
 import { getReviewByCourseIDWithVotes } from "./review";
 import { is100LevelCourse, isFYSECourse } from "../../common/utils";
 import { Knex } from "knex";
+import { getCourseCodes, getCourseCodesCTE } from "./alias";
 
 export async function getCourse(id: string) {
     return await knex("Course")
@@ -158,15 +159,6 @@ export async function reconcileCourseInstructors(transaction: Knex.Transaction, 
 
 
 async function getCourseReviews(id: string, session: CustomSession, authorized: boolean) {
-
-    // if (!authorized) {
-    //     return [];
-    // }
-
-    // return await knex("Review")
-    //     .where("Review.courseID", id)
-    //     .select(reviewInfo);
-    //console.log(session?.user?.id);
     return await getReviewByCourseIDWithVotes(id, session?.user?.id);
 }
 
