@@ -2,6 +2,8 @@ import knex from "./knex";
 import { reviewInfo } from "./common";
 import { CustomSession, full_review, public_instructor, public_review } from "../../common/types";
 import { parseStringToInt } from "../utils";
+import { Knex } from "knex";
+import { insertBackups } from "./backups";
 
 
 export async function voteReviewByID(reviewID: string, voteBy: string, voteType: string) {
@@ -64,6 +66,105 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
     }
 
     return { success, removed, value };
+
+}
+
+
+export async function getTransactionReviewCount(transaction: Knex.Transaction) {
+
+    return await transaction("Review")
+        .count("reviewID as count")
+        .first() as { count: number };
+
+}
+
+
+/**
+ * Reconcile reviews with data now inconsistent due to the deletion of a CourseInstructor
+ * This function should theoretically never delete a review due to other checks in place
+ * 
+ * @WARNING This function **will delete reviews**
+ * 
+ * 
+ */
+export async function reconcileReviews(transaction: Knex.Transaction, semester: string, ignoreWarnings: boolean = false) {
+
+    const reviews = await transaction("Review")
+        .where("semester", semester)
+        .select(["reviewID", "courseID", "instructorID"]);
+
+    const courseIDs = reviews.map((r) => r.courseID);
+    const instructorIDs = reviews.map((r) => r.instructorID);
+
+    const courseInstructors = await transaction("CourseInstructor")
+        .whereIn("courseID", courseIDs)
+        .whereIn("instructorID", instructorIDs)
+        .where("term", semester)
+        .select(["courseID", "instructorID", "term"]);
+
+    const courseInstructorMap = new Map<string, string[]>();
+    courseInstructors.forEach((ci) => {
+        const key = `${ci.courseID}|${ci.instructorID}`;
+        if (!courseInstructorMap.has(key)) {
+            courseInstructorMap.set(key, []);
+        }
+        courseInstructorMap.get(key)?.push(ci.term);
+    });
+
+    const reviewsToDelete: string[] = [];
+    reviews.forEach((r) => {
+        const key = `${r.courseID}|${r.instructorID}`;
+        if (!courseInstructorMap.has(key)) {
+            reviewsToDelete.push(r.reviewID);
+        }
+        else {
+            const terms = courseInstructorMap.get(key);
+            if (!terms?.includes(semester)) {
+                reviewsToDelete.push(r.reviewID);
+            }
+        }
+    });
+
+    if (reviewsToDelete.length > 0) {
+        console.warn(`Attempting to delete ${reviewsToDelete.length} reviews`);
+        console.log("This is likely due to a CourseInstructor being deleted");
+
+        if (!ignoreWarnings) {
+            throw new Error("Operation would delete reviews");
+        }
+    }
+
+    if (reviewsToDelete.length > 0) {
+        console.log(`Deleting ${reviewsToDelete.length} reviews`);
+        await transaction("Review")
+            .whereIn("reviewID", reviewsToDelete)
+            .del();
+    }
+    else {
+        console.log("No reviews to delete");
+    }
+
+}
+
+
+export async function backupReviews() {
+
+    try {
+        const reviews = await knex("Review")
+            .select("*");
+
+        const reviewBackups = [];
+        reviews.forEach((r) => {
+            const key = `Review-${r.reviewID}`;
+            const value = JSON.stringify(r);
+            const date = new Date().toISOString();
+            reviewBackups.push({ key, value, created_at: date });
+        });
+
+        await insertBackups(reviewBackups);
+    } catch (err) {
+        console.log(err);
+    }
 
 }
 

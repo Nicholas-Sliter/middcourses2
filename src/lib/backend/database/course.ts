@@ -26,6 +26,137 @@ export async function upsertCourses(transaction: Knex.Transaction, courses: publ
     return;
 }
 
+/**
+ * @WARNING This function is not idempotent. It will delete courses and instructors that are no longer in the scraper.
+ * @WARNING Deletes will cascade to **reviews**.
+ * @param transaction 
+ * @param courses 
+ * @param semester 
+ * @returns 
+ */
+export async function reconcileCourses(transaction: Knex.Transaction, courses: public_course[], semester: string, ignoreWarnings: boolean = false) {
+
+    /**
+     * 1. Get all courses in db for given semester (join with CourseInstructor)
+     * 2. Compare with courses from scraper
+     * 3. Find courses that are in db but not in scraper
+     * 4. Delete the CourseInstructor rows for those courses
+     * 5. Check the db for any courses that have no CourseInstructor rows
+     * 6. Delete those courses
+     * 7. Looked for orphaned instructors and delete them
+     */
+
+    const WARN_THRESHOLD = 20;
+
+    const dbCourses = await transaction("Course")
+        .join("CourseInstructor", "CourseInstructor.courseID", "=", "Course.courseID")
+        .where("CourseInstructor.term", semester)
+
+    const dbCourseIDs = dbCourses.map((course: any) => course.courseID);
+    const scraperCourseIDs = courses.map((course: any) => course.courseID);
+
+    const coursesToDelete = dbCourseIDs.filter((courseID: string) => !scraperCourseIDs.includes(courseID));
+
+    if (!coursesToDelete.length) {
+        return;
+    }
+
+    if (coursesToDelete.length > WARN_THRESHOLD) {
+        console.warn(`Found ${coursesToDelete.length} course(s) to delete. This is more than the warning threshold of ${WARN_THRESHOLD}.`);
+        if (!ignoreWarnings) {
+            throw new Error("Too many courses to delete. Aborting.");
+        }
+    }
+
+    /* Check for reviews associated with courses to delete */
+    const reviewsToDelete = await transaction("Review")
+        .select("reviewID")
+        .whereIn("courseID", coursesToDelete);
+
+    if (reviewsToDelete.length) {
+        console.warn(`Found ${reviewsToDelete.length} review(s) that will be deleted!`);
+        console.log(`Reviews that will be deleted: ${JSON.stringify(reviewsToDelete, null, 4)}`)
+        if (!ignoreWarnings) {
+            throw new Error(`${reviewsToDelete.length} review(s) will be deleted. Aborting.`);
+        }
+    }
+
+    await transaction("CourseInstructor")
+        .whereIn("courseID", coursesToDelete)
+        .andWhere("term", semester)
+        .del();
+
+    /* Delete courses that have no CourseInstructor rows */
+    const coursesWithNoTerm = await transaction("Course")
+        .whereNotExists(function () {
+            this.select("*")
+                .from("CourseInstructor")
+                .whereRaw("CourseInstructor.courseID = Course.courseID")
+        });
+
+
+    const coursesWithNoTermIDs = coursesWithNoTerm.map((course: any) => course.courseID);
+    console.log(`Found ${coursesWithNoTermIDs.length} courses to remove.`)
+    await transaction("Course")
+        .whereIn("courseID", coursesWithNoTermIDs)
+        .del();
+
+    return;
+
+}
+
+
+export async function reconcileCourseInstructors(transaction: Knex.Transaction, courseInstructors: {
+    courseID: string;
+    instructorID: string;
+    term: string;
+}[], semester: string) {
+
+    /**
+     * 1. Get all courseInstructors in db for given semester
+     * 2. Compare with courseInstructors from scraper
+     * 3. Find courseInstructors that are in db but not in scraper
+     * 4. Delete those courseInstructors
+     */
+
+    const dbCourseInstructors = await transaction("CourseInstructor")
+        .where("term", semester)
+
+    const dbCourseInstructorIDs = dbCourseInstructors.map((courseInstructor: any) => `${courseInstructor.courseID}-${courseInstructor.instructorID}-${courseInstructor.term}`);
+    const scraperCourseInstructorIDs = courseInstructors.map((courseInstructor: any) => `${courseInstructor.courseID}-${courseInstructor.instructorID}-${courseInstructor.term}`);
+
+    const courseInstructorsToDelete = dbCourseInstructorIDs.filter((courseInstructorID: string) => !scraperCourseInstructorIDs.includes(courseInstructorID));
+
+    if (!courseInstructorsToDelete.length) {
+        return;
+    }
+
+    const courseInstructorsToDeleteObject = courseInstructorsToDelete.map((courseInstructorID: string) => {
+        const [courseID, instructorID, term] = courseInstructorID.split("-");
+
+        return {
+            courseID,
+            instructorID,
+            term
+        }
+    });
+
+
+
+    await transaction("CourseInstructor")
+        .whereIn("courseID", courseInstructorsToDeleteObject.map((courseInstructor: any) => courseInstructor.courseID))
+        .whereIn("instructorID", courseInstructorsToDeleteObject.map((courseInstructor: any) => courseInstructor.instructorID))
+        .andWhere("term", semester)
+        .del();
+
+    return;
+
+
+
+}
+
+
+
 async function getCourseReviews(id: string, session: CustomSession, authorized: boolean) {
 
     // if (!authorized) {

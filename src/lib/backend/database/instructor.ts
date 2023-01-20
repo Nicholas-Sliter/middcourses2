@@ -180,6 +180,29 @@ export async function upsertInstructors(transaction: Knex.Transaction, instructo
 }
 
 
+/**
+ * @Warning: This function will delete instructors that are not associated with any courses. It will cascade delete all **reviews** associated with the instructor.
+ * @param transaction 
+ * @returns void
+ */
+export async function reconcileInstructors(transaction: Knex.Transaction) {
+
+    /* Delete orphaned instructors */
+    const instructorsWithNoCourse = await transaction("Instructor")
+        .leftJoin("CourseInstructor", "Instructor.instructorID", "CourseInstructor.instructorID")
+        .whereNull("CourseInstructor.instructorID")
+        .select("Instructor.instructorID");
+
+    const instructorsWithNoCourseIDs = instructorsWithNoCourse.map((instructor: any) => instructor.instructorID);
+    console.log(`Found ${instructorsWithNoCourseIDs.length} instructors to remove.`)
+    await transaction("Instructor")
+        .whereIn("instructorID", instructorsWithNoCourseIDs)
+        .del();
+
+    return;
+}
+
+
 
 export async function upsertCourseInstructors(transaction: Knex.Transaction, courseInstructors: {
     courseID: string;

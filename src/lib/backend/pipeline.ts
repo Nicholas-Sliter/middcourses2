@@ -8,13 +8,14 @@ import catalogScraper from "catalog.js";
 import { Scraper as directoryScraper } from "directory.js";
 import Param from 'catalog.js/lib/classes/Param.js';
 import { public_course, public_instructor } from "../common/types";
-import { upsertCourses } from "./database/course";
-import { upsertCourseInstructors, upsertInstructors } from "./database/instructor";
+import { reconcileCourseInstructors, reconcileCourses, upsertCourses } from "./database/course";
+import { reconcileInstructors, upsertCourseInstructors, upsertInstructors } from "./database/instructor";
 import { Knex } from "knex";
 import knex from "./database/knex";
 import Semaphore from './semaphore';
 import { slugify } from "../common/utils";
 import { getDepartmentByName } from "./database/departments";
+import { backupReviews, getTransactionReviewCount, reconcileReviews } from "./database/review";
 
 
 export { };
@@ -249,10 +250,78 @@ async function processCatalog(catalogCourses: CourseObject[], semester: string):
 }
 
 
+/**
+ * Reconciles the catalog data with the database
+ * This function will reconcile the catalog data with the database if the catalog data has changed since previous inserts for a given semester.
+ * This ensures the database stays consistent with the catalog data. (For example, if a course is removed from the catalog, it will be removed from the database)
+ * @WARNING This function will cascade delete **reviews** if a reviewed course is removed from the catalog.
+ * @param semester The semester to reconcile
+ * @param courses The courses to reconcile
+ * @param instructors The instructors to reconcile
+ * @param courseInstructors The courseInstructors to reconcile
+ * @returns void
+ */
+async function doReconciliationProcess(
+    semester: string,
+    courses: Course[],
+    instructors: Instructor[],
+    courseInstructors: CourseInstructor[],
+    forceUpdate: boolean = false,
+    forceUpdateVerification: string = '',
+): Promise<void> {
+
+    console.log('Beginning reconciliation process')
+
+    /* Backup review database */
+    await backupReviews();
+
+    const trx = await knex.transaction();
+    const shouldForceUpdate = forceUpdate && (forceUpdateVerification === 'DELETE MANY REVIEWS');
+
+    if (shouldForceUpdate) {
+        console.warn(`Force update enabled`);
+    }
+
+
+    try {
+        const beforeReviewCount = (await getTransactionReviewCount(trx)).count;
+
+        /* This order is important! */
+        await reconcileCourseInstructors(trx, courseInstructors, semester);
+        await reconcileCourses(trx, courses, semester, forceUpdate);
+        await reconcileInstructors(trx);
+        await reconcileReviews(trx, semester, shouldForceUpdate)
+
+        const afterReviewCount = (await getTransactionReviewCount(trx)).count;
+
+
+        if (shouldForceUpdate) {
+            console.log('Force update enabled - skipping review count verification');
+            console.log(`Removed ${beforeReviewCount - afterReviewCount} reviews.`)
+        }
+
+        if (!shouldForceUpdate && (beforeReviewCount !== afterReviewCount)) {
+            throw new Error('Review count mismatch after reconciliation');
+        }
+
+    } catch (e) {
+        await trx.rollback();
+        console.log('Rolled back transaction');
+        console.error('Failed to reconcile semester data with error: ', e);
+        return;
+    }
+
+    await trx.commit();
+    console.log('Committed transaction - Reconciliation complete');
+
+
+    return;
+}
 
 
 
-async function updateSemester(semester: string) {
+
+async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '') {
 
     const catalogCourses: CourseObject[] = await getSemesterData(semester);
 
@@ -275,6 +344,18 @@ async function updateSemester(semester: string) {
 
     await trx.commit();
     console.log('Committed transaction');
+
+    /* DANGER ZONE: this can delete review data */
+    if (doReconciliation) {
+        await doReconciliationProcess(
+            semester,
+            courses,
+            instructors,
+            courseInstructors,
+            forceUpdate,
+            forceUpdateVerification
+        );
+    }
 
     return {
         courses: courses,
