@@ -1,6 +1,11 @@
 @import "../common/variables";
 @import "../common/mixins";
 
+.scrollRow {
+  &:last-child(div) {
+    height: 9rem;
+  }
+}
 
 .container {
   display: flex;
