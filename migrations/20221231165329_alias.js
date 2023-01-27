@@ -9,7 +9,8 @@ exports.up = function (knex) {
         .createTable("Alias", (table) => {
             table.string("courseID").notNullable();
             table.string("aliasID").notNullable();
-            table.primary(["courseID", "aliasID"]);
+            table.string("term").notNullable(); // This let's us reconcile aliases if they are deleted
+            table.primary(["courseID", "aliasID", "term"]);
             table.foreign("courseID").references("courseID").inTable("Course");
             table.foreign("aliasID").references("courseID").inTable("Course");
         })

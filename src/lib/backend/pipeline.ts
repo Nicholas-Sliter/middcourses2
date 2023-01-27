@@ -13,9 +13,10 @@ import { reconcileInstructors, upsertCourseInstructors, upsertInstructors } from
 import { Knex } from "knex";
 import knex from "./database/knex";
 import Semaphore from './semaphore';
-import { slugify } from "../common/utils";
+import { departmentCodeChangedMapping, slugify } from "../common/utils";
 import { getDepartmentByName } from "./database/departments";
 import { backupReviews, getTransactionReviewCount, reconcileReviews } from "./database/review";
+import { reconileAliases, upsertAliases } from "./database/alias";
 
 
 export { };
@@ -25,7 +26,9 @@ interface CourseObject {
     description: string;
     title: string;
     courseNumber: string;
-    alias?: string;
+    alias?: {
+        id: string;
+    }
     instructors: {
         rawID: string;
         href: string;
@@ -62,6 +65,13 @@ interface Instructor {
 interface CourseInstructor {
     courseID: string;
     instructorID: string;
+    term: string;
+}
+
+
+interface Alias {
+    aliasID: string;
+    courseID: string; /* Primary course ID */
     term: string;
 }
 
@@ -197,6 +207,7 @@ async function processCatalog(catalogCourses: CourseObject[], semester: string):
     courses: Course[],
     instructors: Instructor[],
     courseInstructors: CourseInstructor[],
+    aliases: Alias[],
 }> {
 
 
@@ -242,10 +253,31 @@ async function processCatalog(catalogCourses: CourseObject[], semester: string):
     const courseInstructors = Object.values(uniqueCourseInstructors);
 
 
+    /* Aliases */
+    const aliases: Alias[] = [];
+
+    catalogCourses.forEach((course) => {
+        if (course.alias) {
+            /**
+             * Alias is actually reversed here.
+             * A course has an alias if its title has "please register via XXXXX".
+             * But that alias is actually the id of the primary course.
+             */
+            const alias: Alias = {
+                courseID: parseAliasID(course.alias.id),
+                aliasID: course.courseNumber,
+                term: semester
+            };
+            aliases.push(alias);
+        }
+    });
+
+
     return {
         courses: courses,
         instructors: instructors,
         courseInstructors: courseInstructors,
+        aliases: aliases,
     }
 }
 
@@ -266,6 +298,7 @@ async function doReconciliationProcess(
     courses: Course[],
     instructors: Instructor[],
     courseInstructors: CourseInstructor[],
+    aliases: Alias[],
     forceUpdate: boolean = false,
     forceUpdateVerification: string = '',
 ): Promise<void> {
@@ -291,6 +324,7 @@ async function doReconciliationProcess(
         await reconcileCourses(trx, courses, semester, forceUpdate);
         await reconcileInstructors(trx);
         await reconcileReviews(trx, semester, shouldForceUpdate)
+        await reconileAliases(trx, aliases, semester);
 
         const afterReviewCount = (await getTransactionReviewCount(trx)).count;
 
@@ -319,13 +353,40 @@ async function doReconciliationProcess(
 }
 
 
+function isProperCourseIdFormat(courseID: string): boolean {
+    const regex = /^[A-Z]{4}[0-9]{4}$/;
+    return regex.test(courseID);
+}
+
+function parseAliasID(aliasID: string): string {
+    /**
+     * Example Alias format ENVS 1044A
+     * Wanted format        ENVS1044
+     * 
+     * 
+     * Also need to do department mapping
+     */
+
+    if (isProperCourseIdFormat(aliasID)) {
+        return aliasID;
+    }
+
+    const department = aliasID.split(' ')[0];
+    const courseNumber = aliasID.split(' ')[1].replace(/[A-Z]/g, '');
+
+    const paddedDepartment = department.padStart(4, '_');
+    const mappedDepartment = departmentCodeChangedMapping(paddedDepartment);
+
+    return `${mappedDepartment}${courseNumber}`;
+}
 
 
 async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '') {
 
     const catalogCourses: CourseObject[] = await getSemesterData(semester);
 
-    const { courses, instructors, courseInstructors } = await processCatalog(catalogCourses, semester);
+    const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses, semester);
+
 
     const trx = await knex.transaction();
 
@@ -333,6 +394,7 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
         await upsertCourses(trx, courses);
         await upsertInstructors(trx, instructors);
         await upsertCourseInstructors(trx, courseInstructors);
+        await upsertAliases(trx, aliases);
 
     } catch (e) {
         await trx.rollback();
@@ -352,6 +414,7 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
             courses,
             instructors,
             courseInstructors,
+            aliases,
             forceUpdate,
             forceUpdateVerification
         );
