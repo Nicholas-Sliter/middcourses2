@@ -75,6 +75,7 @@ export async function getServerSideProps(context) {
         avgAgain: data.avgAgain,
         topTags: data.topTags,
         numReviews: data.numReviews,
+        aliases: data.aliases,
       },
       instructors: dedupedInstructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),

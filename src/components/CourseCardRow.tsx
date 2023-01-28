@@ -12,7 +12,7 @@ interface CourseCardRowProps {
 export default function CourseCardRow({ courses, showCount = false }: CourseCardRowProps) {
 
   return (
-    <ScrollableRow>
+    <ScrollableRow className={styles.scrollRow}>
       {courses?.map((course: public_course) => (
         <CourseCard course={course} key={course.courseID + course?.term} showCount={showCount} />
       ))}

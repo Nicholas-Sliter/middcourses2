@@ -4,6 +4,7 @@ import { CustomSession, public_course, public_instructor, public_review } from "
 import { getReviewByCourseIDWithVotes } from "./review";
 import { is100LevelCourse, isFYSECourse } from "../../common/utils";
 import { Knex } from "knex";
+import { getCourseCodes, getCourseCodesCTE } from "./alias";
 
 export async function getCourse(id: string) {
     return await knex("Course")
@@ -158,15 +159,6 @@ export async function reconcileCourseInstructors(transaction: Knex.Transaction, 
 
 
 async function getCourseReviews(id: string, session: CustomSession, authorized: boolean) {
-
-    // if (!authorized) {
-    //     return [];
-    // }
-
-    // return await knex("Review")
-    //     .where("Review.courseID", id)
-    //     .select(reviewInfo);
-    //console.log(session?.user?.id);
     return await getReviewByCourseIDWithVotes(id, session?.user?.id);
 }
 
@@ -182,7 +174,7 @@ export async function getCoursesInformation(ids: string[]) {
 
 async function getCourseInfo(id: string) {
     return await knex("Course")
-        .where({ "Course.courseID": id })
+        .whereIn("Course.courseID", await getCourseCodes(id))
         .select(["Course.courseName", "Course.courseDescription", "Course.departmentID", "Course.courseID"])
         .leftJoin("CourseInstructor", "Course.courseID", "CourseInstructor.courseID")
         .distinct("CourseInstructor.instructorID")
@@ -208,18 +200,21 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
         }
 
         const parseAvg = (avg: string | null) => {
-            if (!avg) {
+            if (avg === undefined || avg === null) {
                 return null;
             }
             return parseFloat(avg);
         }
 
+        const codeSpecificIndex = results.findIndex((result: any) => result.courseID === id);
+        const aliases = Array.from(new Set(results.map((result: any) => result.courseID)));
+
         const output = {
-            courseID: results[0].courseID as string,
-            courseName: results[0].courseName as string,
-            courseDescription: results[0].courseDescription as string,
-            departmentID: results[0].departmentID as string,
-            departmentName: results[0].departmentName as string,
+            courseID: results[codeSpecificIndex].courseID as string,
+            courseName: results[codeSpecificIndex].courseName as string,
+            courseDescription: results[codeSpecificIndex].courseDescription as string,
+            departmentID: results[codeSpecificIndex].departmentID as string,
+            departmentName: results[codeSpecificIndex].departmentName as string,
             instructors: [] as public_instructor[],
             reviews: [] as public_review[],
             avgRating: parseAvg(reviews?.[0]?.avgRating),
@@ -229,6 +224,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             avgAgain: parseAvg(reviews?.[0]?.avgAgain),
             numReviews: reviews.length,
             topTags: [] as string[],
+            aliases: aliases,
 
         }
 
@@ -293,10 +289,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
 
     }
 
-    // use PostgreSQL Array_agg in prod
-
     const [mainQuery, reviewQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized)]);
-
     return (outputFormatter(mainQuery, reviewQuery));
 
 }
