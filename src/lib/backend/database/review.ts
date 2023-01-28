@@ -340,23 +340,45 @@ export async function getReviewByCourseIDWithVotes(courseID: string, userID: str
                 })
                 .andWhere("Review.courseID", "in", codes)
         })
+        .with("CourseReviewsAverages", async (qb) => {
+            qb.from("CourseReviews")
+                .avg({
+                    'avgRating': 'rating',
+                    'avgValue': 'value',
+                    'avgDifficulty': 'difficulty',
+                    'avgHours': 'hours',
+                    'avgAgain': knex.raw(`"again"::int::float4`)
+                })
+        })
+        .with("CourseReviewsVotes", async (qb) => {
+            qb.from("CourseReviews")
+                .leftJoin("Vote", "CourseReviews.reviewID", "Vote.reviewID")
+                .groupBy("CourseReviews.reviewID")
+                .sum("Vote.voteType as voteCount")
+                .select(
+                    "CourseReviews.reviewID",
+                )
+                .select(
+                    knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "CourseReviews"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID])
+                )
+        })
         .from("CourseReviews")
         .select(courseReviewInfo)
-        .avg({
-            'avgRating': 'rating',
-            'avgValue': 'value',
-            'avgDifficulty': 'difficulty',
-            'avgHours': 'hours',
-            'avgAgain': knex.raw(`"again"::int::float4`)
-        })
+        .joinRaw("LEFT JOIN LATERAL (SELECT * FROM \"CourseReviewsAverages\" WHERE TRUE) AS \"CourseReviewsAverages\" ON TRUE")
+        .leftJoin("CourseReviewsVotes", "CourseReviews.reviewID", "CourseReviewsVotes.reviewID")
 
-        .leftJoin("Vote", "CourseReviews.reviewID", "Vote.reviewID")
-        .sum("Vote.voteType as voteCount")
-        .groupBy(courseReviewInfo)
         .select(
-            knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "CourseReviews"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID ?? null])
+            [
+                "CourseReviewsAverages.avgRating",
+                "CourseReviewsAverages.avgValue",
+                "CourseReviewsAverages.avgDifficulty",
+                "CourseReviewsAverages.avgHours",
+                "CourseReviewsAverages.avgAgain",
+                "CourseReviewsVotes.voteCount",
+                "CourseReviewsVotes.userVoteType"
+            ]
         )
-        .orderBy("voteCount", "desc") as extended_public_review[];
+        .orderBy("CourseReviewsVotes.voteCount", "desc") as extended_public_review[];
 
 
     const output = query.map((review) => {
