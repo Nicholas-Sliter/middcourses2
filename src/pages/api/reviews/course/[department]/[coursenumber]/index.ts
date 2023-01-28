@@ -16,9 +16,10 @@ import {
   uuidv4,
 } from "../../../../../../lib/backend/utils";
 import { CustomSession, public_course } from "../../../../../../lib/common/types";
-import { areWeTwoThirdsThroughSemester, courseTags, isSemesterTooOld, primaryComponents } from "../../../../../../lib/common/utils";
+import { areWeTwoThirdsThroughSemester, courseTags, isSemesterTooOld, isValidCourseID, primaryComponents } from "../../../../../../lib/common/utils";
 import { getReviewByID, hasUserReviewedCourseOrAlias, voteReviewByID, __getFullReviewByID } from "../../../../../../lib/backend/database/review";
 import { updateUserPermissions } from "../../../../../../lib/backend/database/users";
+import { isCourseAnAliasForCourse } from "../../../../../../lib/backend/database/alias";
 
 /**
  * Get all course reviews for a specific course
@@ -103,7 +104,7 @@ const handler = nc({
 
     const department = req.query.department as string;
     const courseNumber = req.query.coursenumber as string;
-    const courseID = `${department.toUpperCase()}${courseNumber.trim()}`;
+    let courseID = `${department.toUpperCase()}${courseNumber.trim()}`;
     const term = req.body.semester;
 
     /* Checks to ensure term is valid */
@@ -126,6 +127,15 @@ const handler = nc({
       return res
         .status(400)
         .json({ message: "Endpoint course ID does not match course ID in request body" });
+    }
+
+    if (req.body.aliasID && isValidCourseID(req.body.aliasID)) { /* Ignore alias if it is not a valid course ID */
+      if (!isCourseAnAliasForCourse(req.body.aliasID, courseID)) {
+        return res.status(400).json({ message: "Invalid alias" });
+      }
+
+      courseID = req.body.aliasID as string;
+
     }
 
     //check if course id is valid
@@ -380,8 +390,7 @@ const handler = nc({
         return res.status(400).json({ message: "Too many course tags" });
       }
 
-      //also add the non-contradictory tag check here
-
+      // TODO: also add the non-contradictory tag check here
       req.body.courseTags.forEach((tag: string) => {
         if (!courseTags.includes(tag)) {
           return res.status(400).json({ message: "Invalid course tag" });

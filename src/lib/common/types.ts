@@ -57,6 +57,7 @@ export interface public_course {
   avgValue?: number;
   avgAgain?: number
   topTags?: string[];
+  aliases?: string[];
 };
 
 export interface public_instructor {
@@ -130,6 +131,4 @@ export interface extended_department extends Department {
 
 
 }
-
-
 
