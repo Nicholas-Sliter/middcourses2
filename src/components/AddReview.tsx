@@ -351,7 +351,7 @@ export default function AddReview({
         label={`Select course code`}
         htmlFor="courseAlias"
       >
-        <span>This course has multiple course codes (aliases), your review will show up for all codes but you must select the course code you wish to review.</span>
+        <span>This course is identified by multiple codes. Your review will be visible for all codes. Please select the code with the department you wish to review.</span>
         <Spacer />
         <Select
           name="Alias"
