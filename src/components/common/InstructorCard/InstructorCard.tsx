@@ -13,7 +13,7 @@ function InstructorCard({ instructor, authorized }: InstructorCardProps) {
     const img_url = `https://directory.middlebury.edu/DirectoryImage.aspx?show=true&email=${instructor.email}`;
     const src = instructor.email && instructor.email !== "" ? img_url : undefined;
 
-    const firstName = instructor.name.split(" ")[0];
+    const firstName = instructor?.name?.split(" ")?.[0] ?? "";
 
     return (
         <div>
