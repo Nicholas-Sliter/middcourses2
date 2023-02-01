@@ -39,10 +39,19 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
                 })
             .select(reviewInfo)
     })
+        .with("CourseAliases", (qb) => {
+            qb.from("Course")
+                .joinRaw("LEFT JOIN \"Alias\" ON \"Alias\".\"aliasID\" = \"Course\".\"courseID\"")
+                .select({
+                    courseID: "Course.courseID",
+                    primaryCourseID: knex.raw("COALESCE(\"Alias\".\"courseID\", \"Course\".\"courseID\")"),
+                });
+        })
         .from("CourseReview")
-        .groupBy(["CourseReview.courseID"])
-        .havingRaw(`count("CourseReview"."courseID") >= ?`, [count])
-        .select(["CourseReview.courseID"])
+        .leftJoin("CourseAliases", "CourseAliases.courseID", "CourseReview.courseID")
+        .groupBy("primaryCourseID")
+        .havingRaw(`count("primaryCourseID") >= ?`, [count])
+        .select(["primaryCourseID as courseID"])
         .avg({
             /* Instructor specific */
             avgInstructorEffectiveness: "CourseReview.instructorEffectiveness",
@@ -56,7 +65,7 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
             avgDifficulty: "CourseReview.difficulty",
             avgHours: "CourseReview.hours",
             avgAgain: knex.raw(`CAST("CourseReview"."again" = 'True' as int)`),
-
+            // topTags: knex.raw(`array_agg(DISTINCT(UNNEST("CourseReview"."tags")))`)
         })
         .count({
             numReviews: "CourseReview.reviewID"

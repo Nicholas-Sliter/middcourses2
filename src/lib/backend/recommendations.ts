@@ -385,8 +385,8 @@ function rwr(
         .from(visited.entries())
         .filter(([_, count]) => count >= userNeighborhoodThreshold)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, top_m) // We only want to consider this many users
-    //.map(entry => entry[0]);
+        .slice(0, top_m) /* Only consider at max top m users */
+
     userNeighborhood.forEach(([entry, entryCount]) => {
         const userCourses = maps.userToReview.get(entry).map(reviewIndex => reviews[reviewIndex].courseID);
 
@@ -505,19 +505,5 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
 
 
     return recommendations;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
