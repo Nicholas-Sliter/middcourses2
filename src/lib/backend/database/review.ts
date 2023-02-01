@@ -359,7 +359,7 @@ export async function getReviewByCourseIDWithVotes(courseID: string, userID: str
                     "CourseReviews.reviewID",
                 )
                 .select(
-                    knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "CourseReviews"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID])
+                    knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "CourseReviews"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID ?? null])
                 )
         })
         .from("CourseReviews")
