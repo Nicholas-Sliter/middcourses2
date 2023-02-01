@@ -69,7 +69,8 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
         })
         .count({
             numReviews: "CourseReview.reviewID"
-        });
+        })
+        .havingRaw("count(\"CourseReview\".\"reviewID\") >= ?", [count]);
 }
 
 export async function getBaseCourseAverages(threshold: number = 3) {
