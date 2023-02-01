@@ -40,14 +40,6 @@ export async function getServerSideProps() {
 
 function CoursesPage({ rankings }: { rankings: Rankings }) {
 
-
-    for (const [id, ranking] of Object.entries(rankings)) {
-        console.log(id, ranking.title, ranking.description);
-    }
-
-
-
-
     return (
         <>
             <PageTitle pageTitle="Browse Courses" />
