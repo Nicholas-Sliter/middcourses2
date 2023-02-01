@@ -334,7 +334,7 @@ export function getTopEasyAndValuableCourses(aggregateData: CourseAverages[], li
             return course.avgValue >= 7 && course.avgDifficulty <= 4 && course.avgAgain >= 0.6;
         })
         .sort((a, b) => {
-            return b.avgRating - a.avgRating;
+            return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
         })
         .slice(0, limit)
         .map((course) => {
