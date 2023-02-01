@@ -76,6 +76,14 @@ async function getCourseRankings() {
     const threshold = 3;
 
     const aggregateData = (await getBaseCourseAverages(threshold)).filter((course) => course.numReviews >= threshold);
+
+    //Debug EDST0215 & BLST0215
+    aggregateData.forEach((course) => {
+        if (course.courseID === "EDST0215" || course.courseID === "BLST0215") {
+            console.log(course);
+        }
+    });
+
     const rankedCourses = Object.fromEntries(Object.keys(recommendationTypeMap).map((key) => ([key, {
         courses: [],
         title: recommendationTypeMap[key].title,
