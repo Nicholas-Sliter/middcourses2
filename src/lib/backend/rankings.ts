@@ -75,7 +75,7 @@ async function getCourseRankings() {
 
     const threshold = 3;
 
-    const aggregateData = await getBaseCourseAverages(threshold);
+    const aggregateData = (await getBaseCourseAverages(threshold)).filter((course) => course.numReviews >= threshold);
     const rankedCourses = Object.fromEntries(Object.keys(recommendationTypeMap).map((key) => ([key, {
         courses: [],
         title: recommendationTypeMap[key].title,
