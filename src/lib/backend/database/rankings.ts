@@ -50,7 +50,7 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
         .from("CourseReview")
         .leftJoin("CourseAliases", "CourseAliases.courseID", "CourseReview.courseID")
         .groupBy("primaryCourseID")
-        .havingRaw(`count("primaryCourseID") >= ?`, [count])
+        .havingRaw(`count(*) >= ?`, [count])
         .select(["primaryCourseID as courseID"])
         .avg({
             /* Instructor specific */
