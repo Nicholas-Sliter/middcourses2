@@ -47,7 +47,8 @@ function RatingBox({
     const range = max - min;
 
     //let boundNormalizedValue = Math.round(rating.value);
-    const percentageValue = ((Math.min(value, max) - min) / range);
+    const signedOffset = highIsGood ? offset : -offset;
+    const percentageValue = (Math.max(min, (Math.min(value + signedOffset, max)) - min) / range);
     let boundNormalizedValue = Math.round(percentageValue * 10);
     if (!highIsGood) {
         boundNormalizedValue = 10 - boundNormalizedValue;

@@ -31,6 +31,7 @@ function CourseRatingBar({ course }: CourseRatingBarProps) {
                 suffix={"/10"}
                 highIsGood={false}
                 helpText="Average difficulty of all reviews"
+                offset={1}
 
             />
             <RatingBox
@@ -39,6 +40,7 @@ function CourseRatingBar({ course }: CourseRatingBarProps) {
                 suffix={"hrs"}
                 max={12}
                 highIsGood={false}
+                offset={2.2}
                 helpText="per week of work"
 
             />
