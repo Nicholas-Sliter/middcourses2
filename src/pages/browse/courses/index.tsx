@@ -1,13 +1,16 @@
+import { getSession } from "next-auth/react";
 import PageTitle from "../../../components/common/PageTitle";
 import ScrollableRow from "../../../components/common/ScrollableRow";
 import CourseCardRow from "../../../components/CourseCardRow";
 import getCourseRankings from "../../../lib/backend/rankings";
+import { CustomSession } from "../../../lib/common/types";
 
 
 interface CourseRanking {
     title: string;
     description: string;
     type: string;
+    displaySize?: string;
     courses: {
         courseID: string;
         courseName: string;
@@ -25,9 +28,10 @@ interface Rankings {
 }
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
 
-    const rankings = await getCourseRankings() as Rankings;
+    const session = await getSession(context) as CustomSession | null;
+    const rankings = await getCourseRankings(session) as Rankings;
 
     return {
         props: {
@@ -50,7 +54,7 @@ function CoursesPage({ rankings }: { rankings: Rankings }) {
                             <h2>{ranking.title}</h2>
                             <p>{ranking.description}</p>
 
-                            <CourseCardRow courses={ranking.courses} />
+                            <CourseCardRow courses={ranking.courses} size={ranking.displaySize} showCount={false} />
 
                         </div>
                     ))

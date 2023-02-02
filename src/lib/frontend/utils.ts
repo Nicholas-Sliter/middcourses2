@@ -214,3 +214,17 @@ export function convertTermToFullString(term: string) {
   s += ` 20${term.slice(1)}`;
   return s;
 }
+
+/**
+ * Concatenates classNames
+ * @param arr 
+ * @returns 
+ */
+export function combind(arr: string[]) {
+  return arr.reduce((acc, curr) => {
+    if (curr) {
+      return acc + " " + curr;
+    }
+    return acc;
+  }, "");
+}
