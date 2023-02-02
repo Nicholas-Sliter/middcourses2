@@ -30,6 +30,9 @@ async function getCourseRankings(session?: CustomSession) {
         userMajorMinors = await getUserMajorMinors(session);
     }
 
+    const userMajors = userMajorMinors.filter((majorMinor) => majorMinor[1] === "major").map((majorMinor) => majorMinor[0]);
+    const userMinors = userMajorMinors.filter((majorMinor) => majorMinor[1] === "minor").map((majorMinor) => majorMinor[0]);
+
     const currentSemester = getCurrentTerm();
     const nextSemester = getNextTerm();
     const nextSemesterCourses = await getCourseIDByTerms([nextSemester, currentSemester]);
@@ -65,8 +68,8 @@ async function getCourseRankings(session?: CustomSession) {
             params: {
                 limit: 15
             },
-            title: "Top Courses in Your Majors",
-            description: "Top rated courses in your majors",
+            title: "Top Courses in Your Major" + (userMajors.length > 1 ? "s" : ""),
+            description: "Top rated courses in your major" + (userMajors.length > 1 ? "s" : ""),
             type: "course",
             personalized: true
         },
@@ -76,8 +79,8 @@ async function getCourseRankings(session?: CustomSession) {
             params: {
                 limit: 15
             },
-            title: "Top Courses in Your Minors",
-            description: "Top rated courses in your minors",
+            title: "Top Courses in Your Minor" + (userMinors.length > 1 ? "s" : ""),
+            description: "Top rated courses in your minor" + (userMinors.length > 1 ? "s" : ""),
             type: "course",
             personalized: true
         },
