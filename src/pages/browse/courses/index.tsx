@@ -1,3 +1,4 @@
+import { Spacer } from "@chakra-ui/react";
 import { getSession } from "next-auth/react";
 import PageTitle from "../../../components/common/PageTitle";
 import ScrollableRow from "../../../components/common/ScrollableRow";
@@ -56,6 +57,7 @@ function CoursesPage({ rankings }: { rankings: Rankings }) {
                 }
 
             </div>
+            <div style={{ height: "100px" }} /> {/* Spacer */}
         </>
     );
 
