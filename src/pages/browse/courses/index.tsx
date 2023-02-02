@@ -2,6 +2,7 @@ import { getSession } from "next-auth/react";
 import PageTitle from "../../../components/common/PageTitle";
 import ScrollableRow from "../../../components/common/ScrollableRow";
 import CourseCardRow from "../../../components/CourseCardRow";
+import RankingBar from "../../../components/RankingBar";
 import getCourseRankings from "../../../lib/backend/rankings";
 import { CustomSession } from "../../../lib/common/types";
 
@@ -50,13 +51,7 @@ function CoursesPage({ rankings }: { rankings: Rankings }) {
             <div>
                 {
                     Object.entries(rankings).map(([id, ranking]) => (
-                        <div key={id}>
-                            <h2>{ranking.title}</h2>
-                            <p>{ranking.description}</p>
-
-                            <CourseCardRow courses={ranking.courses} size={ranking.displaySize} showCount={false} />
-
-                        </div>
+                        <RankingBar key={id} id={id} title={ranking.title} description={ranking.description} type={ranking.type} displaySize={ranking.displaySize} data={ranking.courses} />
                     ))
                 }
 
