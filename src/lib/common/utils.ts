@@ -35,8 +35,9 @@ export function checkIfFirstSemester(graduationYear: string) {
 export function getCurrentSemester() {
   const date = new Date();
   const month = date.getMonth(); // 0-11
+  const day = date.getDate(); // 1-31
   let semester = "";
-  if (month < 1) {
+  if (month < 1 || (month === 1 && day < 5)) {
     semester = "Winter";
   } else if (month < 5) {
     semester = "Spring";
@@ -71,6 +72,28 @@ export function getCurrentTerm() {
 
   return term;
 }
+
+
+export function getNextTerm() {
+  const term = getCurrentTerm();
+
+  const year = parseInt(term.slice(1, 3));
+  const semester = term.slice(0, 1);
+
+  let nextTerm = "";
+  if (semester === "W") {
+    nextTerm = `S${year}`;
+  }
+  if (semester === "S") {
+    nextTerm = `F${year}`;
+  }
+  if (semester === "F") {
+    nextTerm = `W${year + 1}`;
+  }
+
+  return nextTerm;
+}
+
 
 /**
  * @param term of the form W21, S21, F21 (etc)

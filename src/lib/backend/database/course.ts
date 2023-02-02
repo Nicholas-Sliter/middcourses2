@@ -294,3 +294,12 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
 
 }
 
+
+export async function getCourseIDByTerms(terms: string[]) {
+    return await knex("CourseInstructor")
+        .whereIn("term", terms)
+        .select("courseID")
+        .distinct("courseID");
+}
+
+

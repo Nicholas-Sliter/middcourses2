@@ -1,13 +1,42 @@
-import { public_course } from "../common/types";
-import { getCoursesInformation } from "./database/course";
+import { CustomSession, public_course } from "../common/types";
+import { getCurrentTerm, getNextTerm } from "../common/utils";
+import { getCourseIDByTerms, getCoursesInformation } from "./database/course";
 import {
     getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses,
     getLowTimeCommitmentCourses, getTopEasyAndValuableCourses, getTopRatedCourses,
-    getNecessaryCourses, getLearnALotCourses
+    getNecessaryCourses, getLearnALotCourses, getTopMajorCourses, getUserMajorMinors, getTopMinorCourses, bestInterdepartmentalCourses, getTopUpcomingCourses
 } from "./database/rankings";
 
-async function getCourseRankings() {
-    const recommendationTypeMap = {
+
+interface CourseRankingMap {
+    [key: string]: {
+        func: (aggregateData: any, limit: number, session?: CustomSession, data?: any) => string[],
+        data?: any,
+        params: {
+            limit: number
+        },
+        title: string,
+        description: string,
+        type: "course" | "instructor" | "department",
+        personalized?: boolean,
+        size?: "normal" | "large"
+    }
+}
+
+async function getCourseRankings(session?: CustomSession) {
+
+    let userMajorMinors: [string, string][] = [];
+    if (session && session.user.id && session.user.role === "student") {
+        userMajorMinors = await getUserMajorMinors(session);
+    }
+
+    const currentSemester = getCurrentTerm();
+    const nextSemester = getNextTerm();
+    const nextSemesterCourses = await getCourseIDByTerms([nextSemester, currentSemester]);
+
+
+
+    const recommendationTypeMap: CourseRankingMap = {
         "topRated": {
             func: getTopRatedCourses,
             params: {
@@ -15,15 +44,52 @@ async function getCourseRankings() {
             },
             title: "Top Rated",
             description: "Top rated courses",
-            type: "course"
+            type: "course",
+            personalized: false,
+            size: "large"
+        },
+        "upcoming": {
+            func: getTopUpcomingCourses,
+            data: nextSemesterCourses,
+            params: {
+                limit: 15
+            },
+            title: "Upcoming",
+            description: "Top rated courses in the current & upcoming semesters",
+            type: "course",
+            personalized: true // This is a lie
+        },
+        "topCoursesInYourMajors": {
+            func: getTopMajorCourses,
+            data: userMajorMinors,
+            params: {
+                limit: 15
+            },
+            title: "Top Courses in Your Majors",
+            description: "Top rated courses in your majors",
+            type: "course",
+            personalized: true
+        },
+        "topCoursesInYourMinors": {
+            func: getTopMinorCourses,
+            data: userMajorMinors,
+            params: {
+                limit: 15
+            },
+            title: "Top Courses in Your Minors",
+            description: "Top rated courses in your minors",
+            type: "course",
+            personalized: true
         },
         "mustTake": {
             func: getNecessaryCourses,
             params: {
-                limit: 25
+                limit: 15
             },
             title: "Must Take",
             description: "Top rated courses by value-gained",
+            type: "course",
+            personalized: false
         },
         "easyValuable": {
             func: getTopEasyAndValuableCourses,
@@ -32,7 +98,8 @@ async function getCourseRankings() {
             },
             title: "Easy and Valuable",
             description: "Courses that are easy and valuable",
-            type: "course"
+            type: "course",
+            personalized: false
         },
         "learnALot": {
             func: getLearnALotCourses,
@@ -41,7 +108,8 @@ async function getCourseRankings() {
             },
             title: "Learn a lot",
             description: "Courses that are good for learning a lot",
-            type: "course"
+            type: "course",
+            personalized: false
         },
         "goodForAChallenge": {
             func: getChallengingCourses,
@@ -50,7 +118,18 @@ async function getCourseRankings() {
             },
             title: "Good for a challenge",
             description: "Courses that are good for a challenge",
-            type: "course"
+            type: "course",
+            personalized: false
+        },
+        "interdepartmental": {
+            func: bestInterdepartmentalCourses,
+            params: {
+                limit: 10
+            },
+            title: "Interdepartmental",
+            description: "Best courses that are interdepartmental",
+            type: "course",
+            personalized: false
         },
         "easy": {
             func: getEasiestGoodCourses,
@@ -59,7 +138,8 @@ async function getCourseRankings() {
             },
             title: "Nice for a break",
             description: "Courses that are easy",
-            type: "course"
+            type: "course",
+            personalized: false
         },
         "lowTimeCommitment": {
             func: getLowTimeCommitmentCourses,
@@ -68,32 +148,33 @@ async function getCourseRankings() {
             },
             title: "Low Time Commitment",
             description: "Courses that are low time commitment",
-            type: "course"
+            type: "course",
+            personalized: false
         },
 
     };
 
     const threshold = 3;
 
-    const aggregateData = (await getBaseCourseAverages(threshold)).filter((course) => course.numReviews >= threshold);
-
-    //Debug EDST0215 & BLST0215
-    aggregateData.forEach((course) => {
-        if (course.courseID === "EDST0215" || course.courseID === "BLST0215") {
-            console.log(course);
-        }
-    });
+    const aggregateData = await getBaseCourseAverages(threshold);
 
     const rankedCourses = Object.fromEntries(Object.keys(recommendationTypeMap).map((key) => ([key, {
         courses: [],
         title: recommendationTypeMap[key].title,
         description: recommendationTypeMap[key].description,
+        displaySize: recommendationTypeMap?.[key]?.size || "normal"
     }])));
     const courses = new Set([]);
 
 
     for (const [key, value] of Object.entries(recommendationTypeMap)) {
-        const recs = value.func(aggregateData, value.params.limit);
+        // const recs = value.func(aggregateData, value.params.limit);
+        let recs: string[] = [];
+        if (value.personalized && session) {
+            recs = value.func(aggregateData, value.params.limit, session, value.data);
+        } else {
+            recs = value.func(aggregateData, value.params.limit, undefined, value.data);
+        }
         recs.forEach((courseID, index) => {
             courses.add(courseID);
             rankedCourses[key].courses.push({ courseID, index });
@@ -111,6 +192,10 @@ async function getCourseRankings() {
         const info = courseInfoMap.get(course.courseID);
         info.numReviews = course.numReviews;
         info.avgRating = course.avgRating;
+        info.avgDifficulty = course.avgDifficulty;
+        info.avgHours = course.avgHours;
+        info.avgValue = course.avgValue;
+        info.avgAgain = course.avgAgain;
     });
 
 
@@ -121,7 +206,9 @@ async function getCourseRankings() {
         })) as public_course[];
     });
 
-    return rankedCourses;
+    const filteredRankings = Object.fromEntries(Object.entries(rankedCourses).filter(([key, value]) => value.courses.length > 0));
+
+    return filteredRankings;
 }
 
 export default getCourseRankings;
