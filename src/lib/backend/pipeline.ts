@@ -28,7 +28,7 @@ interface CourseObject {
     courseNumber: string;
     alias?: {
         id: string;
-    }
+    }[]
     instructors: {
         rawID: string;
         href: string;
@@ -263,12 +263,17 @@ async function processCatalog(catalogCourses: CourseObject[], semester: string):
              * A course has an alias if its title has "please register via XXXXX".
              * But that alias is actually the id of the primary course.
              */
-            const alias: Alias = {
-                courseID: parseAliasID(course.alias.id),
-                aliasID: course.courseNumber,
-                term: semester
-            };
-            aliases.push(alias);
+            course.alias.forEach((courseAlias) => {
+
+                console.log(course.courseNumber, courseAlias);
+
+                const alias: Alias = {
+                    courseID: parseAliasID(courseAlias.id),
+                    aliasID: course.courseNumber,
+                    term: semester
+                };
+                aliases.push(alias);
+            });
         }
     });
 
