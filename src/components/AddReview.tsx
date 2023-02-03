@@ -342,9 +342,10 @@ export default function AddReview({
 
   const AliasSelection = () => {
 
-    if (course?.aliases?.length ?? 0 <= 1) {
+    if (course?.aliases?.length && course.aliases.length < 2) {
       return null;
     }
+
 
     return (
       <Question
