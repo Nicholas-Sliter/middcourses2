@@ -484,6 +484,7 @@ export function getTopMajorCourses(aggregateData: CourseAverages[], limit: numbe
         const { department, courseNumber } = parseCourseID(course.courseID);
         return majors.includes(department);
     })
+        .filter((course) => { return course.avgValue >= 5 && course.avgAgain >= 0.6 && course.avgRating >= 5; })
         .sort((a, b) => {
             return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
         })
@@ -504,6 +505,7 @@ export function getTopMinorCourses(aggregateData: CourseAverages[], limit: numbe
         const { department, courseNumber } = parseCourseID(course.courseID);
         return majors.includes(department);
     })
+        .filter((course) => { return course.avgValue >= 5 && course.avgAgain >= 0.6 && course.avgRating >= 5; })
         .sort((a, b) => {
             return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
         })
