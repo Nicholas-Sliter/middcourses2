@@ -149,10 +149,16 @@ async function fetchInstructorData(instructorID: string, name: string, semaphore
             const department = (await getDepartmentByName(I.person.department ?? "")) ?? null;
 
             /* Check if name is consistent */
-            if (I.person.firstName & I.person.lastName) {
-                if (I.person.firstName + " " + I.person.lastName !== name) {
-                    formattedInstructor.name = `${I.person.firstName} ${I.person.lastName}`;
-                    formattedInstructor.slug = slugify(`${I.person.firstName} ${I.person.lastName}`);
+            const directoryName = I.person.firstName + " " + I.person.lastName;
+            if (I.person.firstName && I.person.lastName) {
+                if (directoryName !== name) {
+                    console.log(`Inconsistent name for ${instructorID}: ${name} vs ${directoryName}`);
+                    // if name from directory has parens, do not update
+                    if (!(directoryName.includes("(") || directoryName.includes(")"))) {
+                        console.log(`Updating name for ${instructorID} from ${name} to ${directoryName}`);
+                        formattedInstructor.name = directoryName;
+                        formattedInstructor.slug = slugify(directoryName);
+                    }
                 }
             }
 
@@ -264,8 +270,6 @@ async function processCatalog(catalogCourses: CourseObject[], semester: string):
              * But that alias is actually the id of the primary course.
              */
             course.alias.forEach((courseAlias) => {
-
-                console.log(course.courseNumber, courseAlias);
 
                 const alias: Alias = {
                     courseID: parseAliasID(courseAlias.id),
