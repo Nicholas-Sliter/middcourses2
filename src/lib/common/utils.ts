@@ -1,4 +1,4 @@
-import { public_course } from "./types";
+import { public_course, public_review } from "./types";
 
 /**
  * Get the current graduation year of first semester freshmen based on the current date.
@@ -359,3 +359,168 @@ export const departmentCodeChangedMapping = (code: string, returnCase: "upper" |
 
   return returnCase === "upper" ? ret.toUpperCase() : ret.toLowerCase();
 };
+
+export const negativeReviewColumns = [
+  "difficulty",
+  // "hours",
+];
+
+export const postiveReviewColumns = [
+  "value",
+  "rating",
+  "again",
+  "instructorAgain",
+  "instructorEnthusiasm",
+  "instructorEnjoyed",
+  "instructorAccommodationLevel",
+  "instructorEffectiveness",
+];
+
+
+export const booleanColumns = [
+  "again",
+  "instructorAgain",
+  "instructorEnjoyed"
+]
+
+/**
+ * Detect low-effort reviews (ie leave all sliders at 5)
+ * Use MSE to detect low-effort reviews
+ */
+
+export function isLowEffort(review: public_review) {
+
+  const columnBaseValue = {
+    difficulty: 5,
+    value: 5,
+    rating: 5,
+    hours: 0,
+    again: 0,
+
+    instructorEffectiveness: 5,
+    instructorEnthusiasm: 5,
+    instructorAccommodationLevel: 5,
+    instructorAgain: 0,
+    instructorEnjoyed: 0,
+  };
+
+  const columns = [...postiveReviewColumns, ...negativeReviewColumns];
+  const mse = columns
+    .map((column) => Math.pow(review[column] - columnBaseValue[column], 2))
+    .reduce((a, b) => a + b, 0) / columns.length;
+
+  const threshold = 1;
+  return mse < threshold;
+
+}
+
+// should we use mse or variance? or magnitude?
+// check if review is hyperbolic
+export function isOverlyNegative(review: public_review) {
+
+  const columnNegativeValues = {
+    difficulty: 10,
+    value: 1,
+    rating: 1,
+    hours: 0,
+    again: 0,
+
+    instructorEffectiveness: 1,
+    instructorEnthusiasm: 1,
+    instructorAccommodationLevel: 1,
+    instructorAgain: 0,
+    instructorEnjoyed: 0,
+  };
+
+
+  const columns = [...postiveReviewColumns, ...negativeReviewColumns];
+  const mse = columns
+    .map((column) => Math.pow(review[column] - columnNegativeValues[column], 2))
+    .reduce((a, b) => a + b, 0) / columns.length;
+
+  const threshold = 1;
+  return mse < threshold;
+
+};
+
+
+/**
+ * Returns a number score for the relevance of a review
+ * Based on review, votes, homogeneity, and dates
+ * @param review 
+ * 
+ */
+export function getReviewRelevanceScore(review: public_review): number {
+  const { votes, userVoteType } = review;
+  const { reviewDate } = review;
+
+  const reviewIsLowEffort = isLowEffort(review);
+  const reviewIsOverlyNegative = isOverlyNegative(review);
+  const reviewHasLongContent = review.content.length > 256;
+  const reviewHasVeryLongContent = review.content.length > 512;
+
+  /* Review Order is Personalized */
+  const baseScore = 10;
+  const lowEffortRatingPenalty = -10;
+  const overlyNegativeRatingPenalty = -10;
+  const negativeRatingPenalty = -100;
+  const positiveRatingBonus = 5;
+
+  let score = baseScore + (votes * 3);
+
+  if (userVoteType === -1) {
+    score += negativeRatingPenalty;
+  } else if (userVoteType === 1) {
+    score += positiveRatingBonus;
+  }
+
+  if (reviewIsLowEffort) {
+    score += lowEffortRatingPenalty;
+  }
+
+  if (reviewIsOverlyNegative) {
+    score += overlyNegativeRatingPenalty;
+  }
+
+  if (reviewHasLongContent) {
+    score += 5;
+  }
+
+  if (reviewHasVeryLongContent) {
+    score += 2;
+  }
+
+  const today = new Date();
+  const reviewAsDate = new Date(reviewDate);
+  const oneWeek = 1000 * 60 * 60 * 24 * 7;
+  const numberOfWeeksAgo = Math.floor((today.getTime() - reviewAsDate.getTime()) / oneWeek);
+
+  const weekAgePenalty = -0.1; // Lose 5.2 points per year
+
+  const recentReviewThreshold = 4;
+  const recentReviewBonus = 15;
+
+  if (numberOfWeeksAgo < recentReviewThreshold) {
+    score += recentReviewBonus;
+  }
+
+  /* Slightly prioritize positive reviews */
+  score += (review.rating / 5)
+
+
+  /* Penalize reviews with no tags */
+  if (review?.tags?.length === 0) {
+    score -= 5;
+  }
+
+  /* Penalize old reviews with few votes */
+  const reviewIsOld = numberOfWeeksAgo > 52;
+  if (reviewIsOld && votes < 5) {
+    score -= 10;
+  }
+
+  score += weekAgePenalty * numberOfWeeksAgo;
+
+
+  return score;
+}
