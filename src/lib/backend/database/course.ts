@@ -2,7 +2,7 @@ import knex from "./knex";
 import { reviewInfo } from "./common";
 import { CustomSession, public_course, public_instructor, public_review } from "../../common/types";
 import { getReviewByCourseIDWithVotes } from "./review";
-import { is100LevelCourse, isFYSECourse } from "../../common/utils";
+import { getReviewRelevanceScore, is100LevelCourse, isFYSECourse } from "../../common/utils";
 import { Knex } from "knex";
 import { getCourseCodes, getCourseCodesCTE } from "./alias";
 
@@ -247,6 +247,10 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             output.reviews = [];
         }
 
+        /* Sort reviews */
+        output.reviews.sort((a, b) => {
+            return getReviewRelevanceScore(b) - getReviewRelevanceScore(a);
+        });
 
         //build a freq list of tags, return the top 3 if they have a freq of 2 or more
         const tagFreq: { [key: string]: number } = {};
