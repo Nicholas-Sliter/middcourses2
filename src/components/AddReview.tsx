@@ -126,6 +126,39 @@ export default function AddReview({
     defaultValue: "",
   });
 
+  // const again = useWatch({
+  //   control,
+  //   name: "again",
+  //   defaultValue: 0,
+  // });
+
+  // const instructorAgain = useWatch({
+  //   control,
+  //   name: "instructorAgain",
+  //   defaultValue: 0,
+  // });
+
+  // const instructorEnjoyed = useWatch({
+  //   control,
+  //   name: "instructorEnjoyed",
+  //   defaultValue: 0,
+  // });
+
+
+
+  // const isLowEffortReview = isLowEffort({
+  //   difficulty,
+  //   value,
+  //   rating,
+  //   instructorEffectiveness,
+  //   instructorAccommodationLevel,
+  //   instructorEnthusiasm,
+  //   instructorAgain,
+  //   instructorEnjoyed,
+  //   again
+  // } as public_review);
+
+
   /* Assuming the aliasID as courseID reduces the number of different execution paths */
   const assumedCourseID = (aliasID) ? aliasID : course?.courseID;
   const assumedDepartment = parseCourseID(assumedCourseID).department;
@@ -342,7 +375,7 @@ export default function AddReview({
 
   const AliasSelection = () => {
 
-    if (course?.aliases?.length && course.aliases.length < 2) {
+    if (!(course?.aliases?.length) || course.aliases.length < 2) {
       return null;
     }
 
@@ -363,7 +396,7 @@ export default function AddReview({
           {...register("alias", { required: { value: true, message: "A course must be selected" } })}
         >
 
-          {course.aliases.map((alias) => {
+          {course?.aliases?.map((alias) => {
             return (
               <option key={alias} value={alias}>
                 {alias}
@@ -770,6 +803,7 @@ export default function AddReview({
                 <Alert status="info" className={styles.info}><AlertIcon />{"Please note, low quality reviews will be removed and will not count towards your 2 review threshold"} </Alert>
                 <Spacer />
                 <Spacer />
+                {/* {(isLowEffortReview) ? <Alert status="warning" className={styles.info}><AlertIcon />{"Your review has been automatically flagged as low effort. Please ensure you are accurately describing your experience in this course."} </Alert> : null} */}
 
                 <input
                   className={styles.submitButton}
