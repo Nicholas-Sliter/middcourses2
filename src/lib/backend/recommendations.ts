@@ -415,14 +415,31 @@ function rwr(
 }
 
 
+interface Recommendations {
+    message: string;
+    error: boolean;
+    courses: string[];
+    data?: any;
+}
 
-export async function getRecommendationsForUser(session: CustomSession, numRecs: number = 10, seed: number = 0, numIters: number = 200) {
+export async function getRecommendationsForUser(session: CustomSession, numRecs: number = 10, seed: number = 0, numIters: number = 200): Promise<Recommendations> {
+
+    if (!session) {
+        return { message: "Not logged in", error: true, courses: [] };
+    }
 
     const { user } = session;
 
-    if (!user || !user.id || !user.authorized || user.role !== 'student') {
-        console.log("Not authorized")
-        return [];
+    if (!user || !user.id) {
+        return { message: "Not logged in", error: true, courses: [] };
+    }
+
+    if (user?.banned === true) {
+        return { message: "Banned", error: true, courses: [] };
+    }
+
+    if (user.role !== 'student') {
+        return { message: "Not student", error: true, courses: [] };
     }
 
     const reviews: Review[] = await getBaseRecommendationReviews(session) as Review[];
@@ -437,7 +454,14 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
 
     if (count < 4) {
         console.log("Not enough reviews")
-        return [];
+        return { message: "Not enough reviews", error: true, courses: [], data: { count } };
+    }
+
+    /**
+     * This needs to be after review check
+     */
+    if (!user.authorized) {
+        return { message: "Missing semester reviews", error: true, courses: [] };
     }
 
     standardizeReviews(reviews); //in-place standardization
@@ -504,6 +528,10 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
         courseRatingThreshold);
 
 
-    return recommendations;
+    return {
+        message: (recommendations.length) ? "Success" : "No recommendations found",
+        error: (recommendations.length) ? false : true,
+        courses: recommendations
+    };
 
 }

@@ -508,29 +508,35 @@ export async function updateUserCheck(id: string) {
  * @returns a list of courses that match the query
  */
 export async function searchCourses(query: string) {
-  //helps with fuzzy search
 
   const modifiedQuery = query.replace(" ", "%");
 
-  //also search the query amoung the department names database for a partial match
-  //then get the dept id for the matche and search for courses with that id
-  //const departmentMatch = await getPartialDepartmentMatch(query, 1);
+  /** Is the query a 2-4 letters followed (whitespace?) by some digits? */
+  const queryIsLikeCourseCode = /^[a-zA-Z]{2,4}\s?\d+$/g.test(query);
+  const queryHas3Digits = /\d{3}/g.test(query);
+  const testShortCourseCode = queryIsLikeCourseCode && queryHas3Digits;
+  const longQuery = (testShortCourseCode) ? query.replace(/\d{3}/g, '0$&').replace(/\s+/, "") : query;
+  const queryIsLikeCourseNumber = /^\d+$/g.test(query);
 
-  //if the size is too small then don't search in the description field
-  const courses =
-    query.length < 4
-      ? await knex("Course")
-        .where("courseName", likeOperator, `%${modifiedQuery}%`)
-        .orWhere("courseID", likeOperator, `%${modifiedQuery}%`)
-        .limit(25)
-        .select(["courseID", "courseName", "courseDescription"])
-      : await knex("Course")
-        .where("courseName", likeOperator, `%${modifiedQuery}%`)
-        .orWhere("courseID", likeOperator, `%${modifiedQuery}%`)
-        //.orWhere("courseID", likeOperator, `%${departmentMatch}%`) //this makes the results so much worse TODO: fix by use fuse on backend?
-        .orWhere("courseDescription", likeOperator, `%${modifiedQuery}%`)
-        .limit(25)
-        .select(["courseID", "courseName", "courseDescription"]);
+  const courses = await knex("Course")
+    .where("courseName", likeOperator, `%${modifiedQuery}%`)
+    .orWhere("courseID", likeOperator, `%${modifiedQuery}%`)
+    .modify((queryBuilder) => {
+      if (testShortCourseCode) {
+        queryBuilder.orWhere("courseID", likeOperator, `%${longQuery}%`);
+      }
+    })
+    .modify((queryBuilder) => {
+      if (!queryIsLikeCourseCode && !queryIsLikeCourseNumber && query.length > 4) {
+        queryBuilder.orWhere("courseDescription", likeOperator, `%${modifiedQuery}%`);
+      }
+    })
+    .limit(25)
+    .select([
+      "courseID",
+      "courseName",
+      "courseDescription"
+    ]);
 
   if (!courses || courses.length == 0) {
     return [];
