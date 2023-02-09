@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const recs = await getRecommendationsForUser(session, k, 0, maxIters);
 
-    const courses = await getCoursesInformation(recs);
+    const courses = await getCoursesInformation(recs.courses);
 
     res.status(200).end(JSON.stringify(courses)); //tmp (just courseID)
 
