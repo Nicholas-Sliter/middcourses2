@@ -6,6 +6,7 @@ import {
     getLowTimeCommitmentCourses, getTopEasyAndValuableCourses, getTopRatedCourses,
     getNecessaryCourses, getLearnALotCourses, getTopMajorCourses, getUserMajorMinors, getTopMinorCourses, bestInterdepartmentalCourses, getTopUpcomingCourses
 } from "./database/rankings";
+import { getRecommendationsForUser } from "./recommendations";
 
 
 interface CourseRankingMap {
@@ -19,7 +20,9 @@ interface CourseRankingMap {
         description: string,
         type: "course" | "instructor" | "department",
         personalized?: boolean,
-        size?: "normal" | "large"
+        size?: "normal" | "large",
+        message?: string,
+        error?: boolean
     }
 }
 
@@ -37,7 +40,14 @@ async function getCourseRankings(session?: CustomSession) {
     const nextSemester = getNextTerm();
     const nextSemesterCourses = await getCourseIDByTerms([nextSemester, currentSemester]);
 
+    const userRecommendationObject = await getRecommendationsForUser(
+        session,
+        25,
+        0,
+        10000
+    );
 
+    const recsAsHeroCards = userRecommendationObject.courses.length > 0 && !userRecommendationObject.error;
 
     const recommendationTypeMap: CourseRankingMap = {
         "topRated": {
@@ -49,7 +59,7 @@ async function getCourseRankings(session?: CustomSession) {
             description: "Top rated courses",
             type: "course",
             personalized: false,
-            size: "large"
+            size: (!recsAsHeroCards ? "large" : "normal")
         },
         "upcoming": {
             func: getTopUpcomingCourses,
@@ -165,8 +175,20 @@ async function getCourseRankings(session?: CustomSession) {
         courses: [],
         title: recommendationTypeMap[key].title,
         description: recommendationTypeMap[key].description,
-        displaySize: recommendationTypeMap?.[key]?.size || "normal"
+        displaySize: recommendationTypeMap?.[key]?.size || "normal",
+        message: recommendationTypeMap?.[key]?.message || "",
+        error: false
     }])));
+
+    rankedCourses["recommendations"] = {
+        courses: [],
+        title: "Courses you might like",
+        description: "Personalized course recommendations for you",
+        displaySize: "normal",
+        message: userRecommendationObject?.message || "",
+        error: userRecommendationObject?.error
+    };
+
     const courses = new Set([]);
 
 
@@ -182,6 +204,13 @@ async function getCourseRankings(session?: CustomSession) {
             courses.add(courseID);
             rankedCourses[key].courses.push({ courseID, index });
         });
+    }
+
+    if (userRecommendationObject && !userRecommendationObject.error) {
+        for (const courseID of userRecommendationObject.courses) {
+            courses.add(courseID);
+            rankedCourses["recommendations"].courses.push({ courseID, index: 0 });
+        }
     }
 
     const courseInfo = await getCoursesInformation(Array.from(courses));
@@ -209,7 +238,7 @@ async function getCourseRankings(session?: CustomSession) {
         })) as public_course[];
     });
 
-    const filteredRankings = Object.fromEntries(Object.entries(rankedCourses).filter(([key, value]) => value.courses.length > 0));
+    const filteredRankings = Object.fromEntries(Object.entries(rankedCourses).filter(([key, value]) => (value.courses.length > 0 || key === "recommendations")));
 
     return filteredRankings;
 }
