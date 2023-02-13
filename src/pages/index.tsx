@@ -62,7 +62,7 @@ export default function Home() {
       <section className={styles.pageTop}>
         <SearchBar showResultDropdown />
         <Link href={"/browse/courses"} passHref>
-          <a>or browse course rankings</a>
+          <a style={{ fontWeight: "bold" }}>or browse course rankings</a>
         </Link>
         <div style={{ height: '10rem' }}></div>
         {/* <div style={{ maxWidth: "80%", margin: "0 auto" }}>
