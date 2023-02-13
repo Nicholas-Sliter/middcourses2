@@ -66,7 +66,7 @@ export async function getServerSideProps(context) {
 
 function CoursesPage({ rankings, session }: CourseRankingsPageProps) {
 
-    const metaDescription = "Discover top Middlebury courses and view personalized recommendations from COURSERANK based on your previous course review history";
+    const metaDescription = "Discover top-ranked Middlebury courses and view personalized recommendations from COURSERANK based on your previous course review history";
     const canonicalURL = "https://midd.courses/browse/courses";
     const socialImage = "https://midd.courses/images/courserank-social-card.png";
 
@@ -75,6 +75,7 @@ function CoursesPage({ rankings, session }: CourseRankingsPageProps) {
         <>
             <PageTitle pageTitle="Browse Courses" description={metaDescription} canonicalURL={canonicalURL} socialImage={socialImage} />
             <div>
+                <h1 style={{ fontSize: '0px', color: 'rgba(0,0,0,0)', margin: 0, visibility: 'hidden' }}>Browse Course Rankings and Recommendations</h1>
                 <RecommendationBar
                     id="COURSERANK"
                     key="COURSERANK"
