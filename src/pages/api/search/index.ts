@@ -36,46 +36,35 @@ const handler = nc({
     ]);
 
 
-    const results = new Map<string, {
-      type: "course" | "instructor" | "department";
-      score?: number;
-      departmentID?: string;
-      courseID?: string;
-      courseName?: string;
-      courseDescription?: string;
-      courseNumber?: string;
-      courseShortID?: string;
-      courseLevel?: string;
-      departmentName?: string;
-    }>();
+    //do sorting here and return a combined array of courses and instructors and departments sorted by relevance (use fuse.js)
+    //return the top 50 results
+
+    const results = [];
 
     courses.forEach((course) => {
       const { department, courseNumber } = parseCourseID(course.courseID);
-
-      results.set(course.courseID, {
+      results.push({
         ...course,
         departmentID: department,
         courseNumber: `${parseInt(courseNumber, 10)}`, /* cast to int and back to remove left 0s */
-        courseLevel: `${Math.min(Math.floor(parseInt(courseNumber) / 100) * 100, 1000)}`,
+        courseLevel: `${Math.min(Math.round(parseInt(courseNumber) / 100) * 100, 1000)}`,
         type: "course"
       });
 
     });
 
     instructors.forEach((instructor) => {
-      results.set(instructor.slug, {
+      results.push({
         ...instructor,
         type: "instructor"
       });
-
     });
 
     departments.forEach((department) => {
-      results.set(department.departmentID, {
+      results.push({
         ...department,
         type: "department"
       });
-
     });
 
     const keys = (type: string) => {
@@ -102,13 +91,8 @@ const handler = nc({
     to worry about performance
     */
 
-    console.log(results);
-
-
     const fuseBuilder = (type: string) => {
-      return new Fuse(Array.from(results)
-        .filter(([key, result]) => result.type === type)
-        .map(([key, result]) => result), {
+      return new Fuse(results.filter((result) => result.type === type), {
         keys: keys(type),
         threshold: 0.7,
         includeScore: true,
@@ -175,7 +159,7 @@ const handler = nc({
         delete result.departmentID;
         delete result.courseLevel;
       }
-      // delete result.score;
+      delete result.score;
       return result;
 
     });
