@@ -234,7 +234,7 @@ export default function CoursePage({
         <SidebarLayout>
           <SidebarLayout.Sidebar>
             <div>
-              <CourseCard course={course} />
+              <CourseCard course={course} style={{ borderBottom: "none" }} />
               <InstructorBar
                 instructors={instructors}
                 selected={selectedInstructorIDs}
@@ -268,7 +268,6 @@ export default function CoursePage({
       <MobileView renderDefault={mobileUserAgent}>
         <div>
           <CourseCard course={course} />
-          <hr />
           <InstructorBar
             instructors={instructors}
             selected={selectedInstructorIDs}

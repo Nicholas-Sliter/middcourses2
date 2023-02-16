@@ -2,7 +2,7 @@ import RatingBox from "../RatingBox";
 import RatingBar from "./RatingBar";
 
 function InstructorRatingBar({ instructor, noMargin = false }) {
-    const style = noMargin ? {} : { marginRight: '2rem', marginLeft: '2rem' };
+    const style = noMargin ? { margin: "auto" } : { marginRight: '2rem', marginLeft: '2rem' };
 
     return (
         <div style={style}>

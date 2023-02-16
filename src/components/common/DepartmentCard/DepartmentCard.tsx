@@ -6,12 +6,16 @@ import styles from "./DepartmentCard.module.scss";
 interface DepartmentCardProps {
     department: extended_department;
     numReviews: number;
+    hideInstructorAverages?: boolean;
+    hideCourseAverages?: boolean;
 
 }
 
 function DepartmentCard({
     department,
-    numReviews
+    numReviews,
+    hideInstructorAverages,
+    hideCourseAverages
 }: DepartmentCardProps) {
 
 
@@ -24,14 +28,15 @@ function DepartmentCard({
                 <h1>{department.departmentName}</h1>
                 <p>{numReviews} {reviewText}</p>
                 <div style={{ height: "3rem" }}></div>
-                <div>
+                {!hideCourseAverages && <div>
                     <p>Average Course Reviews:</p>
                     <DepartmentRatingBar department={department} mode="course" />
-                </div>
-                <div>
+                </div>}
+                {!hideInstructorAverages && <div>
                     <p>Average Instructor Reviews:</p>
                     <DepartmentRatingBar department={department} mode="instructor" />
                 </div>
+                }
             </div>
         </div>
     )
