@@ -163,8 +163,9 @@ export default function DepartmentPage({
       </BrowserView>
       <MobileView renderDefault={mobileUserAgent}>
         <div className={styles.mobileContainer}>
-          <h1>{departmentName}</h1>
-          <p>{`${numReviews} review${numReviews == 1 ? "" : "s"}`}</p>
+          <div className={styles.mobileHeader}>
+            <DepartmentCard department={department} numReviews={numReviews} hideInstructorAverages />
+          </div>
           <CourseCardRow courses={courses} showCount />
           <div style={{ marginTop: "-1rem" }}>
             <ScrollableRow>

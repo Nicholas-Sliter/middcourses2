@@ -106,7 +106,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
         </SidebarLayout>
       </BrowserView>
       <MobileView renderDefault={mobileUserAgent}>
-        <InstructorCard instructor={instructor} authorized={authorized} />
+        <InstructorCard instructor={instructor} authorized={authorized} showBottomBorder />
         <CourseCardRow courses={courses} showCount />
         <ReviewList
           reviews={reviews}
