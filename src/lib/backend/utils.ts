@@ -139,6 +139,9 @@ export function isQualityReview(str: string, courseDescription: string = ""): bo
     "200 characters",
     "200 character",
     "200 char",
+    'satisfy the word count',
+    'adding more words',
+    'make this review long enough'
   ]
     .some((phrase) => str.toLowerCase().includes(phrase));
 
