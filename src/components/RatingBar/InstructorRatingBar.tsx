@@ -32,7 +32,7 @@ function InstructorRatingBar({ instructor, noMargin = false }) {
                     title="Helpful"
                     value={instructor?.avgAccommodationLevel}
                     suffix={"/10"}
-                    helpText="Accomodation level of this instructor"
+                    helpText="Accommodation level of this instructor"
 
                 />
                 <RatingBox
@@ -48,7 +48,7 @@ function InstructorRatingBar({ instructor, noMargin = false }) {
                 />
                 <RatingBox
                     title="Again"
-                    value={instructor?.avgAgain} //this should be avgInstructionAgain!!!!!!!!!!!!!!!!!
+                    value={instructor?.avgAgain}
                     suffix="%"
                     max={1}
                     min={0}
