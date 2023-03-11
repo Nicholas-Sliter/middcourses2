@@ -57,7 +57,7 @@ Warning: Here be dragons. Do not modify the production env unless you know what 
 
 1. Heroku auto deploys from the main branch. Push to main to deploy & build.
 
-2. Adjust ENV config vars in Heroku dashboard. (Without quotes)
+2. Adjust ENV config vars in Heroku dashboard. (Without quotes).  NEVER share these secrets or commit them to the repo.\
   - `DATABASE_CONFIG_NAME` - "HEROKU_POSTGRESQL_SILVER_URL"\
   - `HEROKU_APP_NAME` - "middcourses2"\
   - `HOST_NAME` - "midd.courses"\
