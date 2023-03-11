@@ -188,7 +188,7 @@ export async function updateAllUserPermissions() {
 
     // Note: this can create invalid dates, but it's not a big deal as they can still be compared
     const SIX_MONTHS_AGO = new Date();
-    SIX_MONTHS_AGO.setMonth(SIX_MONTHS_AGO.getMonth() - 6);
+    SIX_MONTHS_AGO.setMonth(SIX_MONTHS_AGO.getMonth() - 5); /* Temporarily set to 5 months */
 
 
     const users = await knex("User")
@@ -330,4 +330,19 @@ export async function getUserReviews(id: string) {
     }
 
     return reviews as public_review[];
+}
+
+
+export async function changeUserAdminStatus(email: string, isAdmin: boolean) {
+
+    await knex("User")
+        .where({
+            userEmail: email,
+        })
+        .update({
+            admin: isAdmin,
+        });
+
+    return true;
+
 }
