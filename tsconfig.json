@@ -22,9 +22,21 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "knexfile.js" ],
+    "**/*.tsx",
+    "knexfile.js"
+  ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "paths": {
+    "@components": [
+      "./src/components"
+    ],
+    "@pages": [
+      "./src/pages"
+    ],
+    "@backend": [
+      "./src/lib/backend"
+    ],
+  }
 }
