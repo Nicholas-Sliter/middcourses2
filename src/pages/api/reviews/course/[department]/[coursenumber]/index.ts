@@ -275,10 +275,7 @@ const handler = nc({
 
     try {
       await addReview(review);
-      // await updateCourseRating(courseID);
-      // add user vote
       await voteReviewByID(review.reviewID, session.user.id, "up");
-      // update user permissions
       await updateUserPermissions(session.user.id)
     } catch (e) {
       console.log(e);
