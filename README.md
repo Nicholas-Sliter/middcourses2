@@ -36,7 +36,9 @@ The course identification section contains the course number, instructor, and se
 | `semester` | The semester the course was taken | Text selection {Set of semesters the course was offered} |
 | `instructorID` | The instructor of the course | Text selection {Set of instructors who taught the course during `semester`} |
 
-![](resources/README/course-review.png)
+![](/resources/README/course-identification.png)
+
+![](/resources/README/alias-identification.png)
 
 
 ### Course Review
@@ -55,7 +57,7 @@ The course review contains a set of qualitative and quantitative questions that 
 | `again` | If the student would take the course again | Switch {0,1} |
 | `rating` | The student's overall rating of the course (this is the value that is displayed at the top of each review) | Slider 1-10 |
 
-![]()
+![](/resources/README/course-review.png)
 
 
 ### Instructor Review
@@ -72,13 +74,13 @@ It includes:
 | `instructorEnjoyed` | If the student enjoyed the instructors teaching style  | Switch {0,1} |
 | `instructorAgain` | If the student would take another course with the instructor | Switch {0,1} |
 
-![]()
+![](/resources/README/instructor-review.png)
 
 ### Written Review
 
 The written review is a free-form text field that allows students to write a holistic review of the course. It is the most important component of a review as it allows students to provide context and nuance to their ratings.
 
-![]()
+![](/resources/README/written-review.png)
 
 
 ## Page Structure
