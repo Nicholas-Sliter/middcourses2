@@ -36,7 +36,7 @@ The course identification section contains the course number, instructor, and se
 | `semester` | The semester the course was taken | Text selection {Set of semesters the course was offered} |
 | `instructorID` | The instructor of the course | Text selection {Set of instructors who taught the course during `semester`} |
 
-![]()
+![](resources/README/course-review.png)
 
 
 ### Course Review
