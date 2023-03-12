@@ -60,6 +60,7 @@ The course review contains a set of qualitative and quantitative questions that 
 ![](/resources/README/course-review.png)
 
 
+
 ### Instructor Review
 
 The instructor review is a set of rating sliders that allow students to rate the instructor on a scale of 1-10 and two switches that allow students to indicate whether they enjoyed the instructor's teaching style and whether they would take another course with the instructor.
