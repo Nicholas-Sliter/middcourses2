@@ -6,15 +6,16 @@ import ScrollableRow from "./common/ScrollableRow";
 interface CourseCardRowProps {
   courses: public_course[];
   showCount?: boolean;
+  size?: string;
 }
 
 
-export default function CourseCardRow({ courses, showCount = false }: CourseCardRowProps) {
+export default function CourseCardRow({ courses, showCount = false, size = "normal" }: CourseCardRowProps) {
 
   return (
-    <ScrollableRow>
+    <ScrollableRow className={styles.scrollRow}>
       {courses?.map((course: public_course) => (
-        <CourseCard course={course} key={course.courseID + course?.term} showCount={showCount} />
+        <CourseCard course={course} key={course.courseID + course?.term} showCount={showCount} size={size} />
       ))}
     </ScrollableRow>
 

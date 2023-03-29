@@ -35,9 +35,9 @@ type rNode = {
 }
 
 type maps = {
-    userToReview: { [key: string]: number[] },
-    courseToReview: { [key: string]: number[] },
-    instructorToReview: { [key: string]: number[] },
+    userToReview: Map<string, number[]>,
+    courseToReview: Map<string, number[]>,
+    instructorToReview: Map<string, number[]>
 }
 
 const instructorVectorKeys = [
@@ -210,7 +210,7 @@ function softmax(arr: number[]) {
 
 function getNeighborIndices(node: rNode, maps: maps): number[] {
     const { id, type } = node;
-    return maps[`${type}ToReview`][id].filter((i: number) => { return i !== node.entranceIndex }) || [];
+    return maps[`${type}ToReview`].get(id).filter((i: number) => { return i !== node.entranceIndex }) || [];
 }
 
 function getNeighborProbabilites(node: rNode, reviews: Review[], neighborIndices: number[]): { index: number, probability: number }[] {
@@ -278,9 +278,9 @@ function rwr(
     top_m: number,
     reviews: Review[],
     maps = {
-        userToReview: {} as { [key: string]: number[] },
-        courseToReview: {} as { [key: string]: number[] },
-        instructorToReview: {} as { [key: string]: number[] },
+        userToReview: {} as Map<string, number[]>,
+        courseToReview: {} as Map<string, number[]>,
+        instructorToReview: {} as Map<string, number[]>,
     },
     restart_prob: number = 0.15,
     max_iter: number = 200,
@@ -380,23 +380,24 @@ function rwr(
      */
     const courses = new Map<string, { ucount: number, wcount: number, sum: number }>();
 
+    const userNeighborhoodThreshold = Math.floor(Math.sqrt(max_iter) / 10); /* Filter out noise by removing nodes infrequently visited */
     const userNeighborhood = Array
         .from(visited.entries())
+        .filter(([_, count]) => count >= userNeighborhoodThreshold)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, top_m) // We only want to consider this many users
-    //.map(entry => entry[0]);
+        .slice(0, top_m) /* Only consider at max top m users */
+
     userNeighborhood.forEach(([entry, entryCount]) => {
-        const userCourses = maps.userToReview[entry].map(reviewIndex => reviews[reviewIndex].courseID);
+        const userCourses = maps.userToReview.get(entry).map(reviewIndex => reviews[reviewIndex].courseID);
 
         userCourses.forEach((course, i) => {
-            // courses.set(course, (courses.get(course) || 0) + 1);
             const { ucount, wcount, sum } = courses.get(course) || { ucount: 0, wcount: 0, sum: 0 };
-            const userRating = reviews[maps.userToReview[entry][i]].rating;
+            const userRating = reviews[maps.userToReview.get(entry)[i]].rating;
             courses.set(course, { ucount: ucount + 1, "wcount": wcount + entryCount, "sum": sum + (entryCount * userRating) });
         });
     });
 
-    const usersCourses = maps.userToReview[user_id].map(reviewIndex => reviews[reviewIndex].courseID);
+    const usersCourses = maps.userToReview.get(user_id).map(reviewIndex => reviews[reviewIndex].courseID);
 
     const sortedCourses: string[] = Array
         .from(courses.entries())
@@ -414,14 +415,31 @@ function rwr(
 }
 
 
+interface Recommendations {
+    message: string;
+    error: boolean;
+    courses: string[];
+    data?: any;
+}
 
-export async function getRecommendationsForUser(session: CustomSession, numRecs: number = 10, seed: number = 0, numIters: number = 200) {
+export async function getRecommendationsForUser(session: CustomSession, numRecs: number = 10, seed: number = 0, numIters: number = 200): Promise<Recommendations> {
+
+    if (!session) {
+        return { message: "Not logged in", error: true, courses: [] };
+    }
 
     const { user } = session;
 
-    if (!user || !user.id || !user.authorized || user.role !== 'student') {
-        console.log("Not authorized")
-        return [];
+    if (!user || !user.id) {
+        return { message: "Not logged in", error: true, courses: [] };
+    }
+
+    if (user?.banned === true) {
+        return { message: "Banned", error: true, courses: [] };
+    }
+
+    if (user.role !== 'student') {
+        return { message: "Not student", error: true, courses: [] };
     }
 
     const reviews: Review[] = await getBaseRecommendationReviews(session) as Review[];
@@ -436,7 +454,14 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
 
     if (count < 4) {
         console.log("Not enough reviews")
-        return [];
+        return { message: "Not enough reviews", error: true, courses: [], data: { count } };
+    }
+
+    /**
+     * This needs to be after review check
+     */
+    if (!user.authorized) {
+        return { message: "Missing semester reviews", error: true, courses: [] };
     }
 
     standardizeReviews(reviews); //in-place standardization
@@ -452,35 +477,38 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
     });
 
 
-    const userToReviews = {} as { [key: string]: number[] };
-    const courseToReviews = {} as { [key: string]: number[] };
-    const instructorToReviews = {} as { [key: string]: number[] };
+    // const userToReviews = {} as { [key: string]: number[] };
+    const userToReviewsMap = new Map<string, number[]>();
+    // const courseToReviews = {} as { [key: string]: number[] };
+    const courseToReviewsMap = new Map<string, number[]>();
+    // const instructorToReviews = {} as { [key: string]: number[] };
+    const instructorToReviewsMap = new Map<string, number[]>();
 
     reviews.forEach((review, index) => {
-        if (!userToReviews[review.reviewerID]) {
-            userToReviews[review.reviewerID] = [];
+        if (!userToReviewsMap.has(review.reviewerID)) {
+            userToReviewsMap.set(review.reviewerID, []);
         }
-        if (!courseToReviews[review.courseID]) {
-            courseToReviews[review.courseID] = [];
+        if (!courseToReviewsMap.has(review.courseID)) {
+            courseToReviewsMap.set(review.courseID, []);
         }
-        if (!instructorToReviews[review.instructorID]) {
-            instructorToReviews[review.instructorID] = [];
+        if (!instructorToReviewsMap.has(review.instructorID)) {
+            instructorToReviewsMap.set(review.instructorID, []);
         }
 
-        userToReviews[review.reviewerID].push(index);
-        courseToReviews[review.courseID].push(index);
-        instructorToReviews[review.instructorID].push(index);
+        userToReviewsMap.get(review.reviewerID).push(index);
+        courseToReviewsMap.get(review.courseID).push(index);
+        instructorToReviewsMap.get(review.instructorID).push(index);
     });
 
 
     const maps = {
-        userToReview: userToReviews,
-        courseToReview: courseToReviews,
-        instructorToReview: instructorToReviews,
+        userToReview: userToReviewsMap,
+        courseToReview: courseToReviewsMap,
+        instructorToReview: instructorToReviewsMap,
     };
 
 
-    const maxUserNeighborhood = 100;
+    const maxUserNeighborhood = 50;
     const restartAlpha = 0.16;
     const reviewThreshold = 2; // Minimum number of reviews a course must have (in neighorhood) to be considered
     const courseRatingThreshold = -0.0000001; // Minimum average rating a course must have (in neighorhood) to be considered
@@ -500,20 +528,10 @@ export async function getRecommendationsForUser(session: CustomSession, numRecs:
         courseRatingThreshold);
 
 
-    return recommendations;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return {
+        message: (recommendations.length) ? "Success" : "No recommendations found",
+        error: (recommendations.length) ? false : true,
+        courses: recommendations
+    };
 
 }

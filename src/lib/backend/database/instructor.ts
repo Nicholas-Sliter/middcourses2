@@ -3,6 +3,7 @@ import { reviewInfo } from "./common";
 import { CustomSession, public_instructor, public_review } from "../../common/types";
 import { sortCoursesByTerm } from "../../common/utils";
 import { getReviewByInstructorSlugWithVotes } from "./review";
+import { Knex } from "knex";
 
 
 const DELIMITER = "|\0|";
@@ -154,3 +155,86 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
 
 }
 
+
+
+
+export async function upsertInstructors(transaction: Knex.Transaction, instructors: {
+    name: string;
+    slug: string;
+    instructorID: string;
+    email: string;
+    departmentID: string;
+}[]) {
+
+    try {
+
+        return transaction("Instructor")
+            .insert(instructors)
+            .onConflict(["instructorID"])
+            .merge();
+
+    } catch (err) {
+        throw err; /* Handle rollback upstream */
+    }
+
+}
+
+
+/**
+ * @Warning: This function will delete instructors that are not associated with any courses. It will cascade delete all **reviews** associated with the instructor.
+ * @param transaction 
+ * @returns void
+ */
+export async function reconcileInstructors(transaction: Knex.Transaction) {
+
+    /* Delete orphaned instructors */
+    const instructorsWithNoCourse = await transaction("Instructor")
+        .leftJoin("CourseInstructor", "Instructor.instructorID", "CourseInstructor.instructorID")
+        .whereNull("CourseInstructor.instructorID")
+        .select("Instructor.instructorID");
+
+    const instructorsWithNoCourseIDs = instructorsWithNoCourse.map((instructor: any) => instructor.instructorID);
+    console.log(`Found ${instructorsWithNoCourseIDs.length} instructors to remove.`)
+    await transaction("Instructor")
+        .whereIn("instructorID", instructorsWithNoCourseIDs)
+        .del();
+
+    return;
+}
+
+
+
+export async function upsertCourseInstructors(transaction: Knex.Transaction, courseInstructors: {
+    courseID: string;
+    instructorID: string;
+    term: string;
+}[]) {
+
+    try {
+
+        /* This method is necessary as we don't have a unique constraint over the necessary columns */
+
+        const ci = await transaction("CourseInstructor")
+            .select("courseID", "instructorID", "term");
+
+        const ciSet = new Set(ci.map((c) => {
+            return `${c.courseID}-${c.instructorID}-${c.term}`;
+        }));
+
+        const toInsert = courseInstructors.filter((c) => {
+            return !ciSet.has(`${c.courseID}-${c.instructorID}-${c.term}`);
+        });
+
+        if (toInsert.length > 0) {
+
+            return transaction("CourseInstructor")
+                .insert(toInsert);
+        }
+    }
+    catch (err) {
+        throw err; /* Handle rollback upstream */
+    }
+
+    return;
+
+}

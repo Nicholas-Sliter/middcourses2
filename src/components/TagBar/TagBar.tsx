@@ -8,6 +8,7 @@ interface TagBarProps {
     selectedTags?: string[];
     selectedTagClassName?: string;
     hasGroup?: boolean;
+    customTagStyle?: React.CSSProperties;
 }
 
 
@@ -18,6 +19,7 @@ function TagBar({
     selectedTags = [],
     selectedTagClassName = "",
     hasGroup = false,
+    customTagStyle = {},
 }: TagBarProps) {
 
     const selectedTagsSet = new Set(selectedTags);
@@ -32,7 +34,7 @@ function TagBar({
                 const tagClass = isSelected ? selectedTagClassName : tagClassName;
 
                 return (
-                    <Tag key={`${i}:${item}`} onClick={() => clickFun(item, items)} className={tagClass}>
+                    <Tag key={`${i}:${item}`} onClick={() => clickFun(item, items)} className={tagClass} style={customTagStyle}>
                         {item}
                     </Tag>)
             }

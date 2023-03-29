@@ -1,7 +1,7 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
 import { CustomSession, public_instructor, public_review } from "../../common/types";
-import { sortCoursesByTerm } from "../../common/utils";
+import { compareTerm, parseCourseID, sortCoursesByTerm } from "../../common/utils";
 import { Knex } from "knex";
 
 /**
@@ -39,10 +39,19 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
                 })
             .select(reviewInfo)
     })
+        .with("CourseAliases", (qb) => {
+            qb.from("Course")
+                .joinRaw("LEFT JOIN \"Alias\" ON \"Alias\".\"aliasID\" = \"Course\".\"courseID\"")
+                .select({
+                    courseID: "Course.courseID",
+                    primaryCourseID: knex.raw("COALESCE(\"Alias\".\"courseID\", \"Course\".\"courseID\")"),
+                });
+        })
         .from("CourseReview")
-        .groupBy(["CourseReview.courseID"])
-        .havingRaw(`count("CourseReview"."courseID") >= ?`, [count])
-        .select(["CourseReview.courseID"])
+        .leftJoin("CourseAliases", "CourseAliases.courseID", "CourseReview.courseID")
+        .groupBy("primaryCourseID")
+        .havingRaw(`count(*) >= ?`, [count])
+        .select(["primaryCourseID as courseID"])
         .avg({
             /* Instructor specific */
             avgInstructorEffectiveness: "CourseReview.instructorEffectiveness",
@@ -56,7 +65,7 @@ export function generateBaseCourseAverages(qb: Knex.QueryBuilder, count: number 
             avgDifficulty: "CourseReview.difficulty",
             avgHours: "CourseReview.hours",
             avgAgain: knex.raw(`CAST("CourseReview"."again" = 'True' as int)`),
-
+            // topTags: knex.raw(`array_agg(DISTINCT(UNNEST("CourseReview"."tags")))`)
         })
         .count({
             numReviews: "CourseReview.reviewID"
@@ -316,6 +325,136 @@ export async function getTopDepartmentCourses(session: CustomSession, limit: num
 }
 
 
+export async function getUserMajorMinors(session: CustomSession) {
+    if (!session.user) {
+        return [];
+    }
+
+    const majorMinorDates = await knex.from("Review")
+        .where({
+            "Review.deleted": false,
+            "Review.archived": false,
+            "Review.reviewerID": session.user.id
+        })
+        .join("Course", "Review.courseID", "Course.courseID")
+        // .orderBy("Review.reviewDate", "desc")
+        .select(["Course.departmentID", "Review.inMajorMinor", "Review.semester"])
+        //for any department take the most recent review
+        .groupBy(["Course.departmentID", "Review.inMajorMinor", "Review.semester"])
+    // .havingIn("Review.inMajorMinor", ["major", "minor"])
+
+    const statusSemester = new Map<string, { status: string, semester: string }>();
+    majorMinorDates.forEach((row) => {
+        if (!statusSemester.has(row.departmentID)) {
+            statusSemester.set(row.departmentID, { status: row.inMajorMinor, semester: row.semester });
+        }
+        else {
+            const old = statusSemester.get(row.departmentID);
+            if (compareTerm(old.semester, row.semester) === 0 && row.status === "neither") {
+                /* Prefer the "neither" status */
+                statusSemester.set(row.departmentID, { status: row.inMajorMinor, semester: row.semester });
+            }
+            if (compareTerm(old.semester, row.semester) < 0) {
+                statusSemester.set(row.departmentID, { status: row.inMajorMinor, semester: row.semester });
+            }
+        }
+    });
+
+    const latestMajors = new Map<string, string>();
+    const latestMinors = new Map<string, string>();
+
+    statusSemester.forEach((value, key) => {
+        if (value.status === "major") {
+            if (latestMinors.has(key)) {
+                if (compareTerm(latestMinors.get(key), value.semester) > 0) {
+                    latestMinors.delete(key);
+                }
+            }
+            latestMajors.set(key, value.semester);
+        }
+        else if (value.status === "minor") {
+            if (latestMajors.has(key)) {
+                if (compareTerm(latestMajors.get(key), value.semester) > 0) {
+                    latestMajors.delete(key);
+                }
+            }
+            latestMinors.set(key, value.semester);
+        }
+
+    });
+
+    //sort majors and minors by semester
+    const sortedMajors = Array.from(latestMajors).sort((a, b) => {
+        return compareTerm(a[1], b[1]);
+    });
+    const sortedMinors = Array.from(latestMinors).sort((a, b) => {
+        return compareTerm(a[1], b[1]);
+    });
+
+    //get top 2 majors and top 2 minors
+    const topMajors = sortedMajors.filter(major => major[0] !== "FYSE").slice(0, 2);
+    const topMinors = sortedMinors.filter(minor => minor[0] !== "FYSE").slice(0, 2);
+
+    //need to filter to top 2 majors by semester and top 2 minors by semester
+    const latestMajorMinor = new Map<string, string>();
+    topMajors.forEach((value) => {
+        latestMajorMinor.set(value[0], "major");
+    });
+    topMinors.forEach((value) => {
+        latestMajorMinor.set(value[0], "minor");
+    });
+
+
+    return Array.from(latestMajorMinor);
+
+}
+
+export function bestInterdepartmentalCourses(aggregateData: CourseAverages[], limit: number = 5) {
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgValue >= 7 && course.avgAgain >= 0.6;
+        })
+        .filter((course) => {
+            return course.courseID.substring(0, 4) === "INTD";
+        })
+        .sort((a, b) => {
+            return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
+
+    return courses as string[];
+
+}
+
+export function getTopUpcomingCourses(aggregateData: CourseAverages[], limit: number = 5, session: CustomSession, data: string[]) {
+
+    //data is a list of courseIDs given for the upcoming semester
+
+    const upcomingCourseSet = new Set(data.map((course: any) => course.courseID));
+
+    const courses = aggregateData
+        .filter((course) => {
+            return course.avgValue >= 7 && course.avgAgain >= 0.6;
+        })
+        .filter((course) => {
+            return upcomingCourseSet.has(course.courseID);
+        })
+        .sort((a, b) => {
+            return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
+
+    return courses as string[];
+
+}
+
 
 export function getTopEasyAndValuableCourses(aggregateData: CourseAverages[], limit: number = 5) {
 
@@ -324,7 +463,7 @@ export function getTopEasyAndValuableCourses(aggregateData: CourseAverages[], li
             return course.avgValue >= 7 && course.avgDifficulty <= 4 && course.avgAgain >= 0.6;
         })
         .sort((a, b) => {
-            return b.avgRating - a.avgRating;
+            return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
         })
         .slice(0, limit)
         .map((course) => {
@@ -336,6 +475,48 @@ export function getTopEasyAndValuableCourses(aggregateData: CourseAverages[], li
 
 }
 
+
+export function getTopMajorCourses(aggregateData: CourseAverages[], limit: number = 5, session: CustomSession, data: any) {
+
+    const majors = data.filter(row => row[1] === "major").map(row => row[0]);
+
+    const courses = aggregateData.filter((course) => {
+        const { department, courseNumber } = parseCourseID(course.courseID);
+        return majors.includes(department);
+    })
+        .filter((course) => { return course.avgValue >= 5 && course.avgAgain >= 0.6 && course.avgRating >= 5; })
+        .sort((a, b) => {
+            return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
+
+
+    return courses as string[];
+}
+
+export function getTopMinorCourses(aggregateData: CourseAverages[], limit: number = 5, session: CustomSession, data: any) {
+
+    const majors = data.filter(row => row[1] === "minor").map(row => row[0]);
+
+    const courses = aggregateData.filter((course) => {
+        const { department, courseNumber } = parseCourseID(course.courseID);
+        return majors.includes(department);
+    })
+        .filter((course) => { return course.avgValue >= 5 && course.avgAgain >= 0.6 && course.avgRating >= 5; })
+        .sort((a, b) => {
+            return (b.avgValue ** 2 + b.avgRating) - (a.avgValue ** 2 + a.avgRating);
+        })
+        .slice(0, limit)
+        .map((course) => {
+            return course.courseID;
+        });
+
+
+    return courses as string[];
+}
 
 
 
@@ -381,7 +562,7 @@ export function getChallengingCourses(aggregateData: CourseAverages[], limit: nu
 
     const courses = aggregateData
         .filter((course) => {
-            return course.avgDifficulty >= 7 && course.avgHours >= 5 && course.avgAgain >= 0.5 && course.avgRating >= 6;
+            return course.avgDifficulty >= 7 && course.avgHours >= 5 && course.avgAgain >= 0.5 && course.avgRating >= 5;
         })
         .sort((a, b) => {
             return (b.avgDifficulty * b.avgHours) - (a.avgDifficulty * a.avgHours);

@@ -7,12 +7,15 @@
 
     span {
         margin-right: 0.3rem;
+        margin-bottom: 0.3rem;
         cursor: default;
         pointer-events: auto;
+
+        border: 1px solid #e6e6e6;
+        // border-radius: 3px;
     }
 
     .buttonWrapper {
-        //remove style
         background-color: transparent;
         border: none;
         outline: none;

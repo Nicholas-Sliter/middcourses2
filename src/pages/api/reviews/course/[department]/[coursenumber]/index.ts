@@ -16,9 +16,10 @@ import {
   uuidv4,
 } from "../../../../../../lib/backend/utils";
 import { CustomSession, public_course } from "../../../../../../lib/common/types";
-import { courseTags, primaryComponents } from "../../../../../../lib/common/utils";
-import { getReviewByID, voteReviewByID, __getFullReviewByID } from "../../../../../../lib/backend/database/review";
+import { areWeTwoThirdsThroughSemester, courseTags, isSemesterTooOld, isValidCourseID, primaryComponents } from "../../../../../../lib/common/utils";
+import { getReviewByID, hasUserReviewedCourseOrAlias, voteReviewByID, __getFullReviewByID } from "../../../../../../lib/backend/database/review";
 import { updateUserPermissions } from "../../../../../../lib/backend/database/users";
+import { isCourseAnAliasForCourse } from "../../../../../../lib/backend/database/alias";
 
 /**
  * Get all course reviews for a specific course
@@ -103,13 +104,38 @@ const handler = nc({
 
     const department = req.query.department as string;
     const courseNumber = req.query.coursenumber as string;
-    const courseID = `${department.toUpperCase()}${courseNumber.trim()}`;
+    let courseID = `${department.toUpperCase()}${courseNumber.trim()}`;
+    const term = req.body.semester;
+
+    /* Checks to ensure term is valid */
+    if (!term) {
+      return res.status(400).json({ message: "Invalid term" });
+    }
+
+    if (!areWeTwoThirdsThroughSemester(term)) {
+      return res.status(400).json({ message: "You cannot review this course yet, please wait until roughly 2/3 of the semester has passed." });
+    }
+
+
+    if (isSemesterTooOld(term)) {
+      return res.status(400).json({ message: "You cannot review this course with the selected semester as it occurred too long ago." });
+    }
+
 
     //match course id of endpoint to course id in request body
     if (courseID !== req.body.courseID) {
       return res
         .status(400)
         .json({ message: "Endpoint course ID does not match course ID in request body" });
+    }
+
+    if (req.body.aliasID && isValidCourseID(req.body.aliasID)) { /* Ignore alias if it is not a valid course ID */
+      if (!isCourseAnAliasForCourse(req.body.aliasID, courseID)) {
+        return res.status(400).json({ message: "Invalid alias" });
+      }
+
+      courseID = req.body.aliasID as string;
+
     }
 
     //check if course id is valid
@@ -125,7 +151,7 @@ const handler = nc({
       return res.status(400).json({ message: "Invalid course ID" });
     }
 
-    if (await checkReviewByUserAndCourse(session.user.id, courseID)) {
+    if (await hasUserReviewedCourseOrAlias(session.user.id, courseID)) {
       console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
       return res
         .status(403)
@@ -202,7 +228,7 @@ const handler = nc({
 
     // check again that the review does not exist (prevent replay race condition / attack)
     await new Promise((resolve) => setTimeout(resolve, 500)); /* wait 500ms to allow for the database to update */
-    if (await checkReviewByUserAndCourse(session.user.id, courseID)) {
+    if (await hasUserReviewedCourseOrAlias(session.user.id, courseID)) {
       console.log(`user ${session.user.id} already submitted a review for ${courseID}`);
       return res
         .status(403)
@@ -249,10 +275,7 @@ const handler = nc({
 
     try {
       await addReview(review);
-      // await updateCourseRating(courseID);
-      // add user vote
       await voteReviewByID(review.reviewID, session.user.id, "up");
-      // update user permissions
       await updateUserPermissions(session.user.id)
     } catch (e) {
       console.log(e);
@@ -364,8 +387,7 @@ const handler = nc({
         return res.status(400).json({ message: "Too many course tags" });
       }
 
-      //also add the non-contradictory tag check here
-
+      // TODO: also add the non-contradictory tag check here
       req.body.courseTags.forEach((tag: string) => {
         if (!courseTags.includes(tag)) {
           return res.status(400).json({ message: "Invalid course tag" });

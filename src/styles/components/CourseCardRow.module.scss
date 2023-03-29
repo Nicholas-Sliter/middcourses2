@@ -1,6 +1,13 @@
 @import "../common/variables";
 @import "../common/mixins";
 
+.scrollRow {
+  min-height: 11.1329rem; // Calculated from inspection
+
+  &:last-child(div) {
+    height: 9rem;
+  }
+}
 
 .container {
   display: flex;

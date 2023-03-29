@@ -1,0 +1,15 @@
+.container {
+
+    &>h2 {
+        margin-left: 2rem;
+        margin-bottom: 0.1rem;
+    }
+
+    &>p {
+        margin-left: 2rem;
+        margin-top: 0;
+        margin-bottom: -0.5rem;
+        color: #333;
+    }
+
+}

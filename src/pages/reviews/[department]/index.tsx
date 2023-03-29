@@ -58,7 +58,7 @@ export async function getServerSideProps(context) {
   const reviewText = numReviewSum === 1 ? "review" : "reviews";
 
   const remainingReviews = numReviewSum - data.reviews.length;
-  const remainingReviewsText = remainingReviews === 0 ? "" : `${remainingReviews} `;
+  const remainingReviewsText = remainingReviews < 1 ? "" : `${remainingReviews} `;
   const remainingReviewReview = remainingReviews === 1 ? "review" : "reviews";
 
   let reviewListMessage = "";
@@ -163,8 +163,9 @@ export default function DepartmentPage({
       </BrowserView>
       <MobileView renderDefault={mobileUserAgent}>
         <div className={styles.mobileContainer}>
-          <h1>{departmentName}</h1>
-          <p>{`${numReviews} review${numReviews == 1 ? "" : "s"}`}</p>
+          <div className={styles.mobileHeader}>
+            <DepartmentCard department={department} numReviews={numReviews} hideInstructorAverages />
+          </div>
           <CourseCardRow courses={courses} showCount />
           <div style={{ marginTop: "-1rem" }}>
             <ScrollableRow>

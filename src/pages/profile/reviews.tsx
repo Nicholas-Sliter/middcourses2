@@ -58,7 +58,7 @@ export default function Reviews({ reviews, instructors, isSignedIn }: ReviewsPro
 
   //get session
   const { data: session } = useSession() as { data: CustomSession };
-  const isInstructor = session?.user?.role !== "student";
+  const isInstructor = session?.user?.role === "faculty";
   const isMount = useIsMount();
 
 

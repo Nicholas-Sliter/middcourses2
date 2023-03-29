@@ -75,6 +75,7 @@ export async function getServerSideProps(context) {
         avgAgain: data.avgAgain,
         topTags: data.topTags,
         numReviews: data.numReviews,
+        aliases: data.aliases,
       },
       instructors: dedupedInstructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
@@ -233,7 +234,7 @@ export default function CoursePage({
         <SidebarLayout>
           <SidebarLayout.Sidebar>
             <div>
-              <CourseCard course={course} />
+              <CourseCard course={course} style={{ borderBottom: "none" }} />
               <InstructorBar
                 instructors={instructors}
                 selected={selectedInstructorIDs}
@@ -267,7 +268,6 @@ export default function CoursePage({
       <MobileView renderDefault={mobileUserAgent}>
         <div>
           <CourseCard course={course} />
-          <hr />
           <InstructorBar
             instructors={instructors}
             selected={selectedInstructorIDs}

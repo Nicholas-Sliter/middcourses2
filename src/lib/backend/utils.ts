@@ -42,11 +42,15 @@ export function parseStringToInt(str: string | undefined | null) {
 
 export const DEPARTMENT_PADDING_PREFIX = "_";
 
+const PROFANE_EXEMPTIONS = [
+  "hell",
+  "wang", // Wang is a common Chinese last name and is not profane see #252
+];
 
 /* Determine if a string contains profanity */
 export function containsProfanity(str: string) {
   const filter = new Filter();
-  filter.removeWords("hell");
+  filter.removeWords(...PROFANE_EXEMPTIONS);
 
   return filter.isProfane(str);
 }
@@ -135,6 +139,9 @@ export function isQualityReview(str: string, courseDescription: string = ""): bo
     "200 characters",
     "200 character",
     "200 char",
+    'satisfy the word count',
+    'adding more words',
+    'make this review long enough'
   ]
     .some((phrase) => str.toLowerCase().includes(phrase));
 
@@ -324,6 +331,38 @@ export async function incrementSlugUntilUnique(slug: string) {
   let newSlug = slug;
   let i = 1
   while (!(await isSlugUnique(newSlug)) && i < MAX_ATTEMPTS) {
+    newSlug = slug + "-" + i.toString();
+    i++;
+  }
+
+  return newSlug;
+
+}
+
+
+
+export async function doesSlugExistWithDifferentInstructorID(slug: string, instructorID: string) {
+  const instructor = await getInstructorBySlug(slug);
+
+  if (instructor) {
+    if (instructor.id === instructorID) {
+      return false
+    }
+    return true
+  }
+
+  return false
+
+}
+
+
+export async function incrementSlugUntilUniqueWithInstructorID(slug: string, instructorID: string) {
+
+  const MAX_ATTEMPTS = 10;
+
+  let newSlug = slug;
+  let i = 1
+  while ((await doesSlugExistWithDifferentInstructorID(newSlug, instructorID)) && i < MAX_ATTEMPTS) {
     newSlug = slug + "-" + i.toString();
     i++;
   }

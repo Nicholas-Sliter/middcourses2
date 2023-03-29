@@ -2,6 +2,9 @@ import knex from "./knex";
 import { reviewInfo } from "./common";
 import { CustomSession, full_review, public_instructor, public_review } from "../../common/types";
 import { parseStringToInt } from "../utils";
+import { Knex } from "knex";
+import { insertBackups } from "./backups";
+import { getCourseCodes } from "./alias";
 
 
 export async function voteReviewByID(reviewID: string, voteBy: string, voteType: string) {
@@ -64,6 +67,105 @@ export async function voteReviewByID(reviewID: string, voteBy: string, voteType:
     }
 
     return { success, removed, value };
+
+}
+
+
+export async function getTransactionReviewCount(transaction: Knex.Transaction) {
+
+    return await transaction("Review")
+        .count("reviewID as count")
+        .first() as { count: number };
+
+}
+
+
+/**
+ * Reconcile reviews with data now inconsistent due to the deletion of a CourseInstructor
+ * This function should theoretically never delete a review due to other checks in place
+ * 
+ * @WARNING This function **will delete reviews**
+ * 
+ * 
+ */
+export async function reconcileReviews(transaction: Knex.Transaction, semester: string, ignoreWarnings: boolean = false) {
+
+    const reviews = await transaction("Review")
+        .where("semester", semester)
+        .select(["reviewID", "courseID", "instructorID"]);
+
+    const courseIDs = reviews.map((r) => r.courseID);
+    const instructorIDs = reviews.map((r) => r.instructorID);
+
+    const courseInstructors = await transaction("CourseInstructor")
+        .whereIn("courseID", courseIDs)
+        .whereIn("instructorID", instructorIDs)
+        .where("term", semester)
+        .select(["courseID", "instructorID", "term"]);
+
+    const courseInstructorMap = new Map<string, string[]>();
+    courseInstructors.forEach((ci) => {
+        const key = `${ci.courseID}|${ci.instructorID}`;
+        if (!courseInstructorMap.has(key)) {
+            courseInstructorMap.set(key, []);
+        }
+        courseInstructorMap.get(key)?.push(ci.term);
+    });
+
+    const reviewsToDelete: string[] = [];
+    reviews.forEach((r) => {
+        const key = `${r.courseID}|${r.instructorID}`;
+        if (!courseInstructorMap.has(key)) {
+            reviewsToDelete.push(r.reviewID);
+        }
+        else {
+            const terms = courseInstructorMap.get(key);
+            if (!terms?.includes(semester)) {
+                reviewsToDelete.push(r.reviewID);
+            }
+        }
+    });
+
+    if (reviewsToDelete.length > 0) {
+        console.warn(`Attempting to delete ${reviewsToDelete.length} reviews`);
+        console.log("This is likely due to a CourseInstructor being deleted");
+
+        if (!ignoreWarnings) {
+            throw new Error("Operation would delete reviews");
+        }
+    }
+
+    if (reviewsToDelete.length > 0) {
+        console.log(`Deleting ${reviewsToDelete.length} reviews`);
+        await transaction("Review")
+            .whereIn("reviewID", reviewsToDelete)
+            .del();
+    }
+    else {
+        console.log("No reviews to delete");
+    }
+
+}
+
+
+export async function backupReviews() {
+
+    try {
+        const reviews = await knex("Review")
+            .select("*");
+
+        const reviewBackups = [];
+        reviews.forEach((r) => {
+            const key = `Review-${r.reviewID}`;
+            const value = JSON.stringify(r);
+            const date = new Date().toISOString();
+            reviewBackups.push({ key, value, created_at: date });
+        });
+
+        await insertBackups(reviewBackups);
+    } catch (err) {
+        console.log(err);
+    }
 
 }
 
@@ -185,6 +287,19 @@ export async function getReviewsByUserID(userID: string) {
 }
 
 
+export async function hasUserReviewedCourseOrAlias(userID: string, courseID: string) {
+    const courseCodes = await getCourseCodes(courseID);
+    const reviews = await knex("Review")
+        .where({
+            reviewerID: userID
+        })
+        .whereIn("courseID", courseCodes)
+        .select("reviewID");
+
+    return reviews.length > 0;
+}
+
+
 export async function getReviewsByInstructorEmail(email: string) {
     const reviews = await knex("Instructor")
         .where({
@@ -211,29 +326,60 @@ export async function getReviewByCourseIDWithVotes(courseID: string, userID: str
         avgAgain: number;
         voteCount: string;
     }
+    const courseReviewInfo = reviewInfo.map((r) => `CourseReviews.${r.split(".")[1]}`);
+
+    const codes = await getCourseCodes(courseID); // Weird errors if we attempt to do this in the query
 
     const query = await knex("Review")
-        .where({
-            courseID: courseID
+        .with("CourseReviews", async (qb) => {
+            qb.select(reviewInfo)
+                .from("Review")
+                .where({
+                    deleted: false,
+                    archived: false
+                })
+                .andWhere("Review.courseID", "in", codes)
         })
-        .select(reviewInfo)
-        .leftJoin("Vote", "Review.reviewID", "Vote.reviewID")
-        .sum("Vote.voteType as voteCount")
-        .groupBy(reviewInfo)
-        //check if userID has voted on this review
-        .select(
-            knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "Review"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID ?? null])
-        )
-        .orderBy("voteCount", "desc")
-        //summarize all review info into averages
-        .select(
-            knex.raw(`(SELECT AVG("difficulty") FROM "Review" WHERE "Review"."courseID" = ?) as "avgDifficulty"`, [courseID]),
-            knex.raw(`(SELECT AVG("hours") FROM "Review" WHERE "Review"."courseID" = ?) as "avgHours"`, [courseID]),
-            knex.raw(`(SELECT AVG("again"::int::float4) FROM "Review" WHERE "Review"."courseID" = ?) as "avgAgain"`, [courseID]),
-            knex.raw(`(SELECT AVG("value") FROM "Review" WHERE "Review"."courseID" = ?) as "avgValue"`, [courseID]),
-            knex.raw(`(SELECT AVG("rating") FROM "Review" WHERE "Review"."courseID" = ?) as "avgRating"`, [courseID])
+        .with("CourseReviewsAverages", async (qb) => {
+            qb.from("CourseReviews")
+                .avg({
+                    'avgRating': 'rating',
+                    'avgValue': 'value',
+                    'avgDifficulty': 'difficulty',
+                    'avgHours': 'hours',
+                    'avgAgain': knex.raw(`"again"::int::float4`)
+                })
+        })
+        .with("CourseReviewsVotes", async (qb) => {
+            qb.from("CourseReviews")
+                .leftJoin("Vote", "CourseReviews.reviewID", "Vote.reviewID")
+                .groupBy("CourseReviews.reviewID")
+                .sum("Vote.voteType as voteCount")
+                .select(
+                    "CourseReviews.reviewID",
+                )
+                .select(
+                    knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "CourseReviews"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [userID ?? null])
+                )
+        })
+        .from("CourseReviews")
+        .select(courseReviewInfo)
+        .joinRaw("LEFT JOIN LATERAL (SELECT * FROM \"CourseReviewsAverages\" WHERE TRUE) AS \"CourseReviewsAverages\" ON TRUE")
+        .leftJoin("CourseReviewsVotes", "CourseReviews.reviewID", "CourseReviewsVotes.reviewID")
 
-        ) as extended_public_review[];
+        .select(
+            [
+                "CourseReviewsAverages.avgRating",
+                "CourseReviewsAverages.avgValue",
+                "CourseReviewsAverages.avgDifficulty",
+                "CourseReviewsAverages.avgHours",
+                "CourseReviewsAverages.avgAgain",
+                "CourseReviewsVotes.voteCount",
+                "CourseReviewsVotes.userVoteType"
+            ]
+        )
+        .orderBy("CourseReviewsVotes.voteCount", "desc") as extended_public_review[];
+
 
     const output = query.map((review) => {
         return {
@@ -302,7 +448,7 @@ export async function getReviewByInstructorIDWithVotes(instructorID: string, use
             knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review" WHERE "Review"."instructorID" = ?) as "avgEffectiveness"`, [instructorID]),
             knex.raw(`(SELECT AVG("instructorAccommodationLevel") FROM "Review" WHERE "Review"."instructorID" = ?) as "avgAccommodationLevel"`, [instructorID]),
             knex.raw(`(SELECT AVG("instructorEnthusiasm") FROM "Review" WHERE "Review"."instructorID" = ?) as "avgEnthusiasm"`, [instructorID]),
-            knex.raw(`(SELECT AVG("instructorAgain"::int::float4) FROM "Review" WHERE "Review"."instructorID" = ?) as "avgInstructorAgain"`, [instructorID])
+            knex.raw(`(SELECT AVG("instructorAgain":: int:: float4) FROM "Review" WHERE "Review"."instructorID" = ?) as "avgInstructorAgain"`, [instructorID])
 
         ) as extended_public_review[];
 
@@ -375,8 +521,8 @@ export async function getReviewByInstructorSlugWithVotes(slug: string, userID: s
             knex.raw(`(SELECT AVG("instructorEffectiveness") FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgEffectiveness"`),
             knex.raw(`(SELECT AVG("instructorAccommodationLevel") FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgAccommodationLevel"`),
             knex.raw(`(SELECT AVG("instructorEnthusiasm") FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgEnthusiasm"`),
-            knex.raw(`(SELECT AVG("instructorAgain"::int::float4) FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgInstructorAgain"`),
-            knex.raw(`(SELECT AVG("instructorEnjoyed"::int::float4) FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgInstructorEnjoyed"`),
+            knex.raw(`(SELECT AVG("instructorAgain":: int:: float4) FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgInstructorAgain"`),
+            knex.raw(`(SELECT AVG("instructorEnjoyed":: int:: float4) FROM "Review" WHERE "Review"."instructorID" = "Instructor"."instructorID") as "avgInstructorEnjoyed"`),
 
         ) as extended_public_review[];
 
@@ -436,7 +582,7 @@ export async function getReviewsByDepartmentID(departmentID: string) {
 
 
     const deptReviewInfo = reviewInfo.map((info) => {
-        return `deptReviews.${info.split(".")[1]}`;
+        return `deptReviews.${info.split(".")[1]} `;
     });
 
     const query = await knex.with("deptReviews", (qb) => {
@@ -458,7 +604,7 @@ export async function getReviewsByDepartmentID(departmentID: string) {
             knex.raw(`(SELECT AVG(CAST("instructorEnjoyed" = 'True' as int)) FROM "deptReviews") as "avgInstructorEnjoyed"`),
             knex.raw(`(SELECT AVG("difficulty") FROM "deptReviews") as "avgDifficulty"`),
             knex.raw(`(SELECT AVG("hours") FROM "deptReviews") as "avgHours"`),
-            knex.raw(`(SELECT AVG(CAST("again"='True' as int)) FROM "deptReviews") as "avgAgain"`),
+            knex.raw(`(SELECT AVG(CAST("again" = 'True' as int)) FROM "deptReviews") as "avgAgain"`),
             knex.raw(`(SELECT AVG("value") FROM "deptReviews") as "avgValue"`),
             knex.raw(`(SELECT AVG("rating") FROM "deptReviews") as "avgRating"`)
 

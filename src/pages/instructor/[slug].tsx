@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
 
   const remainingReviews = data.instructor.numReviews - 3;
-  const remainingReviewsText = `${remainingReviews ? remainingReviews + " " : ""}`;
+  const remainingReviewsText = `${remainingReviews > 0 ? remainingReviews + " " : ""}`;
 
   let reviewListMessage = "";
   if (!data.reviews.length) {
@@ -106,7 +106,7 @@ export default function InstructorPage({ slug, instructor, courses, reviews, aut
         </SidebarLayout>
       </BrowserView>
       <MobileView renderDefault={mobileUserAgent}>
-        <InstructorCard instructor={instructor} authorized={authorized} />
+        <InstructorCard instructor={instructor} authorized={authorized} showBottomBorder />
         <CourseCardRow courses={courses} showCount />
         <ReviewList
           reviews={reviews}

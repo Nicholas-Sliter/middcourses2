@@ -2,7 +2,7 @@ import RatingBox from "../RatingBox";
 import RatingBar from "./RatingBar";
 
 function InstructorRatingBar({ instructor, noMargin = false }) {
-    const style = noMargin ? {} : { marginRight: '2rem', marginLeft: '2rem' };
+    const style = noMargin ? { margin: "auto" } : { marginRight: '2rem', marginLeft: '2rem' };
 
     return (
         <div style={style}>
@@ -32,7 +32,7 @@ function InstructorRatingBar({ instructor, noMargin = false }) {
                     title="Helpful"
                     value={instructor?.avgAccommodationLevel}
                     suffix={"/10"}
-                    helpText="Accomodation level of this instructor"
+                    helpText="Accommodation level of this instructor"
 
                 />
                 <RatingBox
@@ -43,12 +43,12 @@ function InstructorRatingBar({ instructor, noMargin = false }) {
                     min={0}
                     displayPrecision={0}
                     percent
-                    helpText="Would take a course with this instructor again"
+                    helpText="Enjoyed this instructor's teaching style"
 
                 />
                 <RatingBox
                     title="Again"
-                    value={instructor?.avgAgain} //this should be avgInstructionAgain!!!!!!!!!!!!!!!!!
+                    value={instructor?.avgAgain}
                     suffix="%"
                     max={1}
                     min={0}

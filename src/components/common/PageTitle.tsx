@@ -14,11 +14,11 @@ type PageTitleProps = {
   pageTitle?: string;
   description?: string;
   courses?: public_course[];
-  // isCanonical?: boolean;
+  socialImage?: string;
   canonicalURL?: string;
 };
 
-export default function PageTitle({ pageTitle, description, courses, canonicalURL }: PageTitleProps) {
+export default function PageTitle({ pageTitle, description, courses, socialImage, canonicalURL }: PageTitleProps) {
   const title: string = pageTitle
     ? `${pageTitle} | MiddCourses`
     : "MiddCourses";
@@ -26,6 +26,10 @@ export default function PageTitle({ pageTitle, description, courses, canonicalUR
   const metaDescription = description ? description : "MiddCourses is Middlebury's premier course discovery and anonymous course review platform. Browse our complete catalogue to discover Middlebury's top professors, courses, and departments.";
 
   const pageTitleSlug = slugify(pageTitle);
+
+  if (!socialImage) {
+    socialImage = "https://midd.courses/images/middcourses-social-card.png";
+  }
 
 
   const canonicalLink = canonicalURL ?
@@ -52,7 +56,7 @@ export default function PageTitle({ pageTitle, description, courses, canonicalUR
         },
         "courseCode": course.courseID,
         "url": `https://midd.courses/reviews/${department?.toLowerCase()}/${courseNumber}`,
-        "image": "https://midd.courses/images/middcourses-social-card.png",
+        "image": socialImage,
         "aggregateRating": (course.avgRating && course.numReviews) ? {
           "@type": "AggregateRating",
           "ratingValue": parseFloat(course?.avgRating?.toFixed(1)) ?? null,
@@ -93,11 +97,13 @@ export default function PageTitle({ pageTitle, description, courses, canonicalUR
       {/* Open Graph / Facebook */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
+      <meta property="og:image" content={socialImage} />
+
 
       {/*  Twitter  */}
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={metaDescription} />
-      <meta property="twitter:image" content={`https://midd.courses/images/middcourses-social-card.png?utm_source=${pageTitleSlug}`} />
+      <meta property="twitter:image" content={`${socialImage}?utm_source=${pageTitleSlug}`} />
 
       {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseStructuredData?.[0]) }} />

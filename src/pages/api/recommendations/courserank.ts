@@ -23,11 +23,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const k = num ? Math.min(parseInt(num), 50) : 15;
-    const maxIters = iters ? Math.min(parseInt(iters), 2000) : 200;
+    const maxIters = iters ? Math.min(parseInt(iters), 10000) : 200;
 
     const recs = await getRecommendationsForUser(session, k, 0, maxIters);
 
-    const courses = await getCoursesInformation(recs);
+    const courses = await getCoursesInformation(recs.courses);
 
     res.status(200).end(JSON.stringify(courses)); //tmp (just courseID)
 

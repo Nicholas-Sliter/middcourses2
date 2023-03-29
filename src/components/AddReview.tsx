@@ -29,7 +29,7 @@ import {
 import Question from "./common/Question";
 import QuestionSlider from "./common/QuestionSlider";
 import CharacterCount from "./common/CharacterCount";
-import { isInMajorMinorText, isNeitherText, primaryComponents } from "../lib/common/utils";
+import { areWeTwoThirdsThroughSemester, compareTerm, isInMajorMinorText, isNeitherText, isSemesterTooOld, parseCourseID, primaryComponents } from "../lib/common/utils";
 import QuestionNumberInput from "./common/QuestionNumberInput";
 import { useState, useEffect } from "react";
 import { RiContactsBookLine } from "react-icons/ri";
@@ -70,10 +70,102 @@ export default function AddReview({
   const [instructorTerms, setInstructorTerms] = useState([]);
   const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedComponentTags, setSelectedComponentTags] = useState([]);
   const [submitDebounce, setSubmitDebounce] = useState(false);
 
   const toast = useToast();
+
+  const selectedTerm = watch("semester");
+
+  const DEFAULT_SLIDER_RATING = 5;
+
+  const difficulty = useWatch({
+    control,
+    name: "difficulty",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const value = useWatch({
+    control,
+    name: "value",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const rating = useWatch({
+    control,
+    name: "rating",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const instructorEffectiveness = useWatch({
+    control,
+    name: "instructorEffectiveness",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const instructorAccommodationLevel = useWatch({
+    control,
+    name: "instructorAccommodationLevel",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const instructorEnthusiasm = useWatch({
+    control,
+    name: "instructorEnthusiasm",
+    defaultValue: DEFAULT_SLIDER_RATING,
+  });
+
+  const inMajorMinor = useWatch({
+    control,
+    name: "inMajorMinor",
+    defaultValue: "---",
+  });
+
+  const aliasID = useWatch({
+    control,
+    name: "alias",
+    defaultValue: "",
+  });
+
+  // const again = useWatch({
+  //   control,
+  //   name: "again",
+  //   defaultValue: 0,
+  // });
+
+  // const instructorAgain = useWatch({
+  //   control,
+  //   name: "instructorAgain",
+  //   defaultValue: 0,
+  // });
+
+  // const instructorEnjoyed = useWatch({
+  //   control,
+  //   name: "instructorEnjoyed",
+  //   defaultValue: 0,
+  // });
+
+
+
+  // const isLowEffortReview = isLowEffort({
+  //   difficulty,
+  //   value,
+  //   rating,
+  //   instructorEffectiveness,
+  //   instructorAccommodationLevel,
+  //   instructorEnthusiasm,
+  //   instructorAgain,
+  //   instructorEnjoyed,
+  //   again
+  // } as public_review);
+
+
+  /* Assuming the aliasID as courseID reduces the number of different execution paths */
+  const assumedCourseID = (aliasID) ? aliasID : course?.courseID;
+  const assumedDepartment = parseCourseID(assumedCourseID).department;
+  const assumedDepartmentName = (assumedCourseID === course?.courseID) ?
+    course?.departmentName :
+    assumedDepartment; /* We lose department name and just use code */
+  /* TODO: write a query to fix this */
 
 
   //if edit and review, we need to set the initial values of the form
@@ -123,14 +215,12 @@ export default function AddReview({
     }
 
     let newTags = [...selectedTags];
-    // check if another tag in the same group is already selected, if so, remove it
     if (tagGroup) {
       newTags = selectedTags.filter((t) => !tagGroup.includes(t));
     }
 
     newTags.push(tag);
 
-    //make sure the tags are unique, and there are no more than 3, and all tags in courseTags
     const uniqueTags = [...new Set(newTags)];
     const validTags = uniqueTags.filter((tag) => courseTags.includes(tag));
     if (validTags.length > 3) {
@@ -148,11 +238,9 @@ export default function AddReview({
   const selectComponentTag = (tag: string, value: string[] = []) => {
     if (value.includes(tag)) {
       const newTags = value.filter((t) => t !== tag);
-      // setSelectedComponentTags(newTags);
       return newTags;
     }
 
-    //make sure the tags are unique, and there are no more than 3, and all tags in componentTags
     const uniqueTags = [...new Set([tag, ...value])];
     const validTags = uniqueTags.filter((tag) => primaryComponents.includes(tag));
     if (validTags.length > 3) {
@@ -165,7 +253,6 @@ export default function AddReview({
       return value;
     }
     else {
-      // setSelectedComponentTags(validTags);
       return validTags;
     }
 
@@ -190,6 +277,7 @@ export default function AddReview({
         ...data,
         courseTags: selectedTags,
         courseID: course.courseID,
+        aliasID: (aliasID) ? aliasID : undefined,
         reviewID: (edit) ? review.reviewID : undefined,
       }),
     });
@@ -225,7 +313,7 @@ export default function AddReview({
         return;
       }
       const response = await fetch(
-        `/api/course/${course?.courseID.toUpperCase()}/term`
+        `/api/course/${assumedCourseID.toUpperCase()}/term`
       );
       const { data } = await response.json();
       setInstructorTerms(data);
@@ -234,9 +322,8 @@ export default function AddReview({
     if (instructors.length > 0) {
       fetchInstructorTerms();
     }
-  }, [instructors, isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [instructors, isOpen, assumedCourseID]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const selectedTerm = watch("semester");
 
   useEffect(() => {
 
@@ -266,53 +353,13 @@ export default function AddReview({
   const terms =
     instructorTerms?.map((iterm) => {
       return iterm.term;
-    }) ?? [];
+    })
+      .filter((term) => !isSemesterTooOld(term))
+      .sort((a, b) => {
+        return -compareTerm(a, b) // inverted order places more recent terms first
+      }) ?? [];
 
-  const DEFAULT_SLIDER_RATING = 5;
-  //use the useWatch hook to watch the difficulty form state
-  const difficulty = useWatch({
-    control,
-    name: "difficulty",
-    defaultValue: DEFAULT_SLIDER_RATING,
-  });
 
-  const value = useWatch({
-    control,
-    name: "value",
-    defaultValue: DEFAULT_SLIDER_RATING,
-  });
-
-  const rating = useWatch({
-    control,
-    name: "rating",
-    defaultValue: DEFAULT_SLIDER_RATING,
-  });
-
-  const instructorEffectiveness = useWatch({
-    control,
-    name: "instructorEffectiveness",
-    defaultValue: DEFAULT_SLIDER_RATING,
-  });
-
-  const instructorAccommodationLevel = useWatch({
-    control,
-    name: "instructorAccommodationLevel",
-    defaultValue: DEFAULT_SLIDER_RATING,
-  });
-
-  const instructorEnthusiasm = useWatch({
-    control,
-    name: "instructorEnthusiasm",
-    defaultValue: DEFAULT_SLIDER_RATING,
-  });
-
-  const inMajorMinor = useWatch({
-    control,
-    name: "inMajorMinor",
-    defaultValue: "---",
-  });
-
-  //const inMajorMinor: string = watch("inMajorMinor");
 
   if (!isOpen) {
     return null;
@@ -324,6 +371,44 @@ export default function AddReview({
 
 
   const headerText = (edit) ? "Edit Review" : `Review ${course?.courseName ?? 'a course'}`;
+
+
+  const AliasSelection = () => {
+
+    if (!(course?.aliases?.length) || course.aliases.length < 2) {
+      return null;
+    }
+
+
+    return (
+      <Question
+        label={`Select course code`}
+        htmlFor="courseAlias"
+      >
+        <span>This course is identified by multiple codes. Your review will be visible for all codes. Please select the code with the department you wish to review.</span>
+        <Spacer />
+        <Select
+          name="Alias"
+          placeholder="Select the course"
+          disabled={edit}
+          defaultValue={course.courseID}
+          value={watch("alias")}
+          {...register("alias", { required: { value: true, message: "A course must be selected" } })}
+        >
+
+          {course?.aliases?.map((alias) => {
+            return (
+              <option key={alias} value={alias}>
+                {alias}
+              </option>
+            );
+          })}
+        </Select>
+      </Question>
+    );
+
+
+  }
 
 
   return (
@@ -346,6 +431,7 @@ export default function AddReview({
               }
             }}>
               <Stack>
+                <AliasSelection />
                 <Question label={`Course identification ${(edit) ? " [not editable]" : ""} `} htmlFor="courseinfo">
                   <Select
                     name="semester"
@@ -360,7 +446,7 @@ export default function AddReview({
                       })
                       .map((term) => {
                         return (
-                          <option key={term} value={term}>
+                          <option key={term} value={term} disabled={!areWeTwoThirdsThroughSemester(term)}>
                             {convertTermToFullString(term)}
                           </option>
                         );
@@ -397,10 +483,10 @@ export default function AddReview({
                       })}
                     value={inMajorMinor}
                   >
-                    <option value="major">I intend to major in {course.departmentName}</option>
-                    <option value="minor">I intend to minor in {course.departmentName}</option>
-                    <option value="major">I formerly intended to major in {course.departmentName}</option>
-                    <option value="minor">I formerly intended to minor in {course.departmentName}</option>
+                    <option value="major">I intend to major in {assumedDepartmentName}</option>
+                    <option value="minor">I intend to minor in {assumedDepartmentName}</option>
+                    <option value="major">I formerly intended to major in {assumedDepartmentName}</option>
+                    <option value="minor">I formerly intended to minor in {assumedDepartmentName}</option>
                     <option value="neither">Neither</option>
                   </Select>
                   <FormErrorMessage errors={errors} name="inMajorMinor" />
@@ -521,17 +607,6 @@ export default function AddReview({
                 >
                   {/*  */}
                   <div className={styles.spacer} />
-                  {/* 
-                  <p>Lecture usefulness</p>
-                  <TagBar
-                    items={["Skip Lectures", "Mandatory Attendance", "Incredible Lectures"]}
-                    selectedTags={selectedTags}
-                    tagClick={selectTag}
-                    tagClassName={styles.tag}
-                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
-                    hasGroup
-                  />
-                  <hr /> */}
                   {/* Course pacing */}
                   <p>Course pacing</p>
                   <TagBar
@@ -577,19 +652,7 @@ export default function AddReview({
                     tagClassName={styles.tag}
                     selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
                     hasGroup
-                  // renderButton
                   />
-                  {/* 
-                  <hr />
-                  <p>Advice</p>
-                  <TagBar
-                    items={["Avoid this course", "Take with a different professor", "Must Take",]}
-                    selectedTags={selectedTags}
-                    tagClick={selectTag}
-                    tagClassName={styles.tag}
-                    selectedTagClassName={`${styles.tag} ${styles.selectedTag}`}
-                    hasGroup
-                  /> */}
 
 
                 </Question>
@@ -740,6 +803,7 @@ export default function AddReview({
                 <Alert status="info" className={styles.info}><AlertIcon />{"Please note, low quality reviews will be removed and will not count towards your 2 review threshold"} </Alert>
                 <Spacer />
                 <Spacer />
+                {/* {(isLowEffortReview) ? <Alert status="warning" className={styles.info}><AlertIcon />{"Your review has been automatically flagged as low effort. Please ensure you are accurately describing your experience in this course."} </Alert> : null} */}
 
                 <input
                   className={styles.submitButton}
@@ -757,5 +821,3 @@ export default function AddReview({
     </Modal >
   );
 }
-
-//backdropFilter='blur(1px)'
