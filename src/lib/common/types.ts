@@ -85,6 +85,14 @@ export interface User {
 }
 
 
+export interface schedule {
+  id: string;
+  userID: string;
+  semester: string;
+  courses: { [key: string]: public_course };
+}
+
+
 export interface CustomSession extends Session {
 
   user: {

@@ -136,9 +136,10 @@ export async function __getAllFullUsers() {
 
 export async function updateUserPermissions(id: string) {
 
-    // Note: this can create invalid dates, but it's not a big deal as they can still be compared
-    const SIX_MONTHS_AGO = new Date();
-    SIX_MONTHS_AGO.setMonth(SIX_MONTHS_AGO.getMonth() - 6);
+    const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 30 * 5; /* Temporarily set to 5 months */
+    const currentDate = new Date();
+
+    const SIX_MONTHS_AGO = new Date(currentDate.getTime() - SIX_MONTHS_MS);
 
 
     const user = await knex("User")

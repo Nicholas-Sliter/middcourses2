@@ -524,3 +524,130 @@ export function getReviewRelevanceScore(review: public_review): number {
 
   return score;
 }
+
+
+
+/** Parse a time object from a course time string
+ * Example: 11:15am-12:30pm on Tuesday, Thursday (Sep 11, 2023 to Dec 11, 2023) -> { "tuesday": {"start": "690", "end": "750"}, ... }
+ * Example 2: 10:00am-11:30am on Monday, Tuesday, Wednesday, Thursday, Friday at 75SHS 224 (Jan 5, 2023 to Feb 2, 2023) 1:00pm-4:15pm on Monday, Tuesday, Wednesday, Thursday, Friday at 75SHS 224 (Jan 5, 2023 to Feb 2, 2023)
+ * 
+ */
+export function parseCourseTimeString(timeString: string): { day: string, start: number, end: number }[] {
+  const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  const timeRegex = /(\d{1,2}):(\d{2})(am|pm)-(\d{1,2}):(\d{2})(am|pm)/;
+  const multipleTimesSeparator = ") ";
+
+  const timeObject: { day: string, start: number, end: number }[] = [];
+
+  const distinctTimes = timeString.split(multipleTimesSeparator);
+
+  for (const time of distinctTimes) {
+    let subTimeString = time;
+    if (subTimeString.includes("(")) {
+      subTimeString = subTimeString.split("(")[0];
+    }
+
+    const timeStringSplit = subTimeString.split(" on ");
+    const timeStringDays = timeStringSplit[1].split(", ");
+
+    const timeStringTime = timeStringSplit[0];
+    const timeStringTimeMatch = timeStringTime.match(timeRegex);
+
+    if (!timeStringTimeMatch) {
+      continue;
+    }
+
+    const timeStringTimeStart = timeStringTimeMatch[1];
+    const timeStringTimeStartMinutes = timeStringTimeMatch[2];
+
+    const timeStringTimeEnd = timeStringTimeMatch[4];
+    const timeStringTimeEndMinutes = timeStringTimeMatch[5];
+
+    const timeStringTimeStartAMPM = timeStringTimeMatch[3];
+    const timeStringTimeEndAMPM = timeStringTimeMatch[6];
+
+    const timeStringTimeStartHours = timeStringTimeStartAMPM === "pm" ? parseInt(timeStringTimeStart) + 12 : parseInt(timeStringTimeStart);
+    const timeStringTimeEndHours = timeStringTimeEndAMPM === "pm" ? parseInt(timeStringTimeEnd) + 12 : parseInt(timeStringTimeEnd);
+
+    const timeStringTimeStartMinutesTotal = timeStringTimeStartHours * 60 + parseInt(timeStringTimeStartMinutes);
+    const timeStringTimeEndMinutesTotal = timeStringTimeEndHours * 60 + parseInt(timeStringTimeEndMinutes);
+
+    for (const day of timeStringDays) {
+      if (days.includes(day.toLowerCase())) {
+        timeObject.push({
+          day: day.toLowerCase(),
+          start: timeStringTimeStartMinutesTotal,
+          end: timeStringTimeEndMinutesTotal
+        });
+      }
+    }
+  }
+
+  return timeObject;
+
+}
+
+
+export function checkForTimeConflicts(times: { day: string, start: number, end: number }[]): boolean {
+
+  // Push each time onto a master time object, if there is an overlap, then there is a conflict
+
+  const masterTimeObject: Record<string, { start: number, end: number }[]> = {};
+
+  for (const time of times) {
+    const { day, start, end } = time;
+
+    if (!masterTimeObject[day]) {
+      masterTimeObject[day] = [];
+    }
+
+    /* Check for conflicts */
+    if (masterTimeObject[day].length > 0) {
+      for (const time of masterTimeObject[day]) {
+        const { start: masterStart, end: masterEnd } = time;
+
+        if (start < masterEnd && end > masterStart) {
+          return true;
+        }
+      }
+    }
+
+    masterTimeObject[day].push({ start, end });
+  }
+
+  return false;
+}
+
+/** Parse a course ID from a raw catalog course ID
+ * Example: CSCI1005A-W23 -> {code: CSCI1005, section: A, term: W23}
+ * 
+ */
+export function parseRawCourseID(rawCourseID: string) {
+  if (!rawCourseID) {
+    return null;
+  }
+
+  try {
+    const termSplitToken = "-";
+    const termSplit = rawCourseID.split(termSplitToken);
+
+    const courseCodeAndSection = termSplit[0];
+    const term = termSplit[1];
+
+    const courseSectionSplitToken = " ";
+    const courseSectionSplit = courseCodeAndSection.split(courseSectionSplitToken);
+
+    const courseCode = courseSectionSplit[0];
+    const courseSection = courseSectionSplit[1];
+
+    return {
+      code: courseCode,
+      section: courseSection,
+      term
+    };
+  } catch (e) {
+    return null;
+  }
+
+
+}

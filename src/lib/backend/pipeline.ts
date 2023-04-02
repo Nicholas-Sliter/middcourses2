@@ -392,9 +392,9 @@ function parseAliasID(aliasID: string): string {
 
 async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '') {
 
-    const catalogCourses: CourseObject[] = await getSemesterData(semester);
+    const catalogCourses = await getSemesterData(semester);
 
-    const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses, semester);
+    const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses as CourseObject[], semester);
 
 
     const trx = await knex.transaction();
