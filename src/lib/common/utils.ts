@@ -123,7 +123,7 @@ export function areWeTwoThirdsThroughSemester(term: string) {
   }
 
   if (term.startsWith("S")) {
-    return (month >= 4) || (month === 3 && date.getDate() >= 10); // Early April since Fall Registration is in late April
+    return (month >= 4) || (month === 3 && date.getDate() >= 4); // Early April since Fall Registration is in late April
   }
 
   if (term.startsWith("F")) {
