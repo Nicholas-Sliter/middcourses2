@@ -650,3 +650,26 @@ export async function getReviewsByDepartmentID(departmentID: string) {
 
     return output as unknown as extended_public_review[];
 }
+
+
+
+export async function getNRandomUnvotedReviews(session: CustomSession, num: number) {
+
+    if (!session?.user || !session.user.authorized) {
+        return [];
+    }
+
+    const unvotedReviews = await knex("Review")
+        .where({ "Review.deleted": false })
+        .whereNotIn("Review.reviewID", function () {
+            this.select("reviewID").from("Vote").where({ "Vote.votedBy": session.user.id });
+        }
+        )
+        .select(reviewInfo)
+        .orderByRaw("RANDOM()")
+        .limit(num);
+
+
+    return JSON.parse(JSON.stringify(unvotedReviews));
+
+}
