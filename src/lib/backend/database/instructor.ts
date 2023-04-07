@@ -5,7 +5,6 @@ import { sortCoursesByTerm } from "../../common/utils";
 import { getReviewByInstructorSlugWithVotes } from "./review";
 import { Knex } from "knex";
 
-
 const DELIMITER = "|\0|";
 
 const quote = (str: string) => {
@@ -236,5 +235,17 @@ export async function upsertCourseInstructors(transaction: Knex.Transaction, cou
     }
 
     return;
+
+}
+
+
+
+export async function getAllInstructors() {
+
+    const instructors = await knex("Instructor")
+        .select(["instructorID", "name", "slug", "departmentID"]);
+
+    return instructors;
+
 
 }
