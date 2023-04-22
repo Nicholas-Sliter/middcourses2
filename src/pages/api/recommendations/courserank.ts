@@ -13,6 +13,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const iters = req.query.iters as string;
     const num = req.query.num as string;
 
+
+    const is_admin = session?.user?.admin;
+
     if (userID) {
         if (session?.user?.id !== userID && !session?.user?.admin) {
             res.status(401).end("Not authorized");
@@ -23,9 +26,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const k = num ? Math.min(parseInt(num), 50) : 15;
-    const maxIters = iters ? Math.min(parseInt(iters), 10000) : 200;
+    const maxIters = iters ? Math.min(parseInt(iters), 10000) : 10000;
+    let iterations = maxIters;
+    if (is_admin) {
+        iterations = iters ? parseInt(iters) : iterations; //admin can set iters to any value
+    }
 
-    const recs = await getRecommendationsForUser(session, k, 0, maxIters);
+
+    const recs = await getRecommendationsForUser(session, k, 0, iterations);
 
     const courses = await getCoursesInformation(recs.courses);
 
