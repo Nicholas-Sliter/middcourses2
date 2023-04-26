@@ -673,3 +673,27 @@ export async function getNRandomUnvotedReviews(session: CustomSession, num: numb
     return JSON.parse(JSON.stringify(unvotedReviews));
 
 }
+
+
+
+export async function getAllUserVotedReviews(session: CustomSession) {
+
+    if (!session?.user) {
+        return [];
+    }
+
+    const votedReviews = await knex("Vote")
+        .where({ "Vote.votedBy": session.user.id })
+        .join("Review", "Vote.reviewID", "Review.reviewID")
+        .where({ "Review.deleted": false })
+        .select(reviewInfo)
+        .groupBy(reviewInfo)
+        .select(
+            knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "Review"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [session.user.id ?? null])
+        )
+        .orderBy("Review.reviewDate", "desc");
+
+    return JSON.parse(JSON.stringify(votedReviews));
+
+
+}
