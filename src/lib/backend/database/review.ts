@@ -676,7 +676,7 @@ export async function getNRandomUnvotedReviews(session: CustomSession, num: numb
 
 
 
-export async function getAllUserVotedReviews(session: CustomSession) {
+export async function getAllUserVotedReviews(session: CustomSession, num: number, offset: number) {
 
     if (!session?.user) {
         return [];
@@ -691,7 +691,9 @@ export async function getAllUserVotedReviews(session: CustomSession) {
         .select(
             knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "Review"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [session.user.id ?? null])
         )
-        .orderBy("Review.reviewDate", "desc");
+        .orderBy("Review.reviewDate", "desc")
+        .limit(num)
+        .offset(offset);
 
     return JSON.parse(JSON.stringify(votedReviews));
 

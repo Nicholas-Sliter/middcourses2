@@ -6,6 +6,18 @@ import { getAllInstructors } from "../../lib/backend/database/instructor";
 
 export async function getServerSideProps(context) {
     const session = await getSession(context) as CustomSession;
+    const num = context.query.num ? parseInt(context.query.num as string) : 100;
+    const page = context.query.page ? parseInt(context.query.page as string) : 0;
+    const offset_amount = num * page;
+
+    if (isNaN(num) || isNaN(page) || offset_amount < 0) {
+        return {
+            redirect: {
+                destination: "/profile/votes",
+                permanent: false,
+            },
+        };
+    }
 
     if (!session?.user) {
         return {
@@ -26,7 +38,7 @@ export async function getServerSideProps(context) {
     }
 
 
-    const reviews = await getAllUserVotedReviews(session);
+    const reviews = await getAllUserVotedReviews(session, num, offset_amount);
     const instructors = await getAllInstructors();
 
     return {
