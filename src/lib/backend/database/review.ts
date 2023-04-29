@@ -653,7 +653,7 @@ export async function getReviewsByDepartmentID(departmentID: string) {
 
 
 
-export async function getNRandomUnvotedReviews(session: CustomSession, num: number) {
+export async function getNRandomUnvotedReviews(session: CustomSession, num: number, offset: number = 0) {
 
     if (!session?.user || !session.user.authorized) {
         return [];
@@ -666,8 +666,9 @@ export async function getNRandomUnvotedReviews(session: CustomSession, num: numb
         }
         )
         .select(reviewInfo)
-        .orderByRaw("RANDOM()")
-        .limit(num);
+        .orderBy("Review.reviewID", "desc") // reviewID is a random uuid
+        .limit(num)
+        .offset(offset);
 
 
     return JSON.parse(JSON.stringify(unvotedReviews));
