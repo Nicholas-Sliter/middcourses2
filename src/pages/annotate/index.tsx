@@ -3,10 +3,22 @@ import { CustomSession, public_instructor, public_review } from "../../lib/commo
 import { getNRandomUnvotedReviews } from "../../lib/backend/database/review";
 import ReviewList from "../../components/Review";
 import { getAllInstructors } from "../../lib/backend/database/instructor";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
     const session = await getSession(context) as CustomSession;
     const authorized = session?.user?.authorized ?? false;
+    const num = context.query.num ? parseInt(context.query.num as string) : 50;
+    const page = context.query.page ? parseInt(context.query.page as string) : 0;
+
+    if (isNaN(num) || isNaN(page) || num < 1 || page < 0) {
+        return {
+            redirect: {
+                destination: "/annotate",
+                permanent: false,
+            },
+        };
+    }
 
     if (!authorized) {
         return {
@@ -17,10 +29,8 @@ export async function getServerSideProps(context) {
         };
     }
 
-    const num = 100;
 
-
-    const reviews = await getNRandomUnvotedReviews(session, num);
+    const reviews = await getNRandomUnvotedReviews(session, num, page);
     const instructors = await getAllInstructors();
 
     return {
@@ -41,18 +51,36 @@ interface AnnotateProps {
 
 export function Annotate({ reviews, instructors }: AnnotateProps) {
 
+    const router = useRouter();
+
+    const num = router.query.num ? parseInt(router.query.num as string) : 50;
+    const page = router.query.page ? parseInt(router.query.page as string) : 0;
+
+    const nextPage = () => {
+        console.log("next page");
+        router.push(`/annotate?num=${num}&page=${page + 1}`);
+    }
+
+    const hasPrevPage = page > 0;
+    const prevPage = () => {
+        if (!hasPrevPage) return;
+        router.push(`/annotate?num=${num}&page=${page - 1}`);
+    }
+
     return (
         <div>
             <h1>Annotate</h1>
+            <button onClick={prevPage} disabled={!hasPrevPage}>Previous Page</button>
+            <button onClick={nextPage}>Next Page</button>
             <ReviewList
                 reviews={reviews}
                 identifyCourse
                 identifyInstructor
                 instructors={instructors}
-
-
-
             />
+            <button onClick={prevPage} disabled={!hasPrevPage}>Previous Page</button>
+            <button onClick={nextPage}>Next Page</button>
+            <div style={{ height: "100px" }} />
         </div>
     );
 
