@@ -5,6 +5,7 @@ import { parseStringToInt } from "../utils";
 import { Knex } from "knex";
 import { insertBackups } from "./backups";
 import { getCourseCodes } from "./alias";
+import { type } from "os";
 
 
 export async function voteReviewByID(reviewID: string, voteBy: string, voteType: string) {
@@ -659,7 +660,7 @@ export async function getNRandomUnvotedReviews(session: CustomSession, num: numb
         return [];
     }
 
-    const unvotedReviews = await knex("Review")
+    const reviews = await knex("Review")
         .where({ "Review.deleted": false })
         .whereNotIn("Review.reviewID", function () {
             this.select("reviewID").from("Vote").where({ "Vote.votedBy": session.user.id });
@@ -670,9 +671,16 @@ export async function getNRandomUnvotedReviews(session: CustomSession, num: numb
         .limit(num)
         .offset(offset);
 
+    return JSON.parse(JSON.stringify(reviews));
 
-    return JSON.parse(JSON.stringify(unvotedReviews));
+}
 
+export async function getMaxReviewPages(num: number) {
+    const res = await knex("Review").count("reviewID", { as: "count" }).where({ "Review.deleted": false }).first() as { count: number };
+    if (typeof res.count === "string") {
+        res.count = parseInt(res.count, 10);
+    }
+    return Math.ceil(res.count / num);
 }
 
 
