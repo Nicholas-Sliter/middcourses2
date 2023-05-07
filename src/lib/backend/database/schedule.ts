@@ -208,33 +208,46 @@ export async function removeCoursesFromSchedule(session: CustomSession, schedule
 
 export async function addCoursesToSchedule(session: CustomSession, scheduleID: string, courses: string[]): Promise<Record<string, boolean>> {
 
+    /* Verify scheduleID is associated with user */
+    const schedule = await knex("Plan")
+        .where({ id: scheduleID })
+        .andWhere({ userID: session.user.id })
+        .select("*")
+        .first();
+
+    if (!schedule) {
+        return null; /* Schedule does not exist or user does not have access */
+    }
+
     const resolvedCourses = await knex("CatalogCourses")
         .whereIn("id", courses)
         .select("*");
 
+    /* Make sure courses do not have a time conflict with schedule */
+    const parsedCourseTimes = resolvedCourses.map(course => parseCourseTimeString(course.time)).flat();
+    if (checkForTimeConflicts(parsedCourseTimes)) {
+        return null;
+    }
+
+    /* Insert courses into schedule */
+    await knex("PlanCourses")
+        .insert(resolvedCourses.map(course => {
+            return {
+                planID: scheduleID,
+                courseID: course.id
+            };
+        }))
+        .onConflict(["planID", "courseID"])
+        .merge();
+
     const scheduleCourses = await knex("Plan")
         .where({ id: scheduleID })
-        .andWhere({ userID: session.user.id })
         .select("*")
         .leftJoin("PlanCourses", "PlanCourses.planID", "Plan.id")
 
-    /* Make sure courses do not have a time conflict with schedule */
-
-    const parsedCourseTimes = resolvedCourses.map(course => parseCourseTimeString(course.time)).flat();
-
-    if (checkForTimeConflicts(parsedCourseTimes)) {
-
-
-    }
-
-
-    /* Insert courses into schedule */
-
-
-
-    //TODO: this! ************************************************ */
-
-
-    return {};
-
+    /* Return the schedule */
+    return scheduleCourses.reduce((acc, course) => {
+        acc[course.catalogCourseID] = true;
+        return acc;
+    }, {});
 }

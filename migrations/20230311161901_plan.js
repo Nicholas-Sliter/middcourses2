@@ -22,7 +22,7 @@ exports.up = function (knex) {
          * 
          * This table is deliberately denormalized. We have a limited number of rows on Heroku.
          */
-        .createTable('CatalogCourses', function (table) {
+        .createTable('CatalogCourse', function (table) {
             table.string('catalogCourseID').primary();
             table.string("crn").notNullable(); /* CRN is unique within a semester, so it cannot be a pk */
             table.string("semester");
@@ -33,11 +33,12 @@ exports.up = function (knex) {
             table.string('courseID').notNullable(); /* Reference to Course.courseID even if course is lab/discussion */
             table.foreign('courseID').references('Course.courseID');
 
-            table.json("times");
+            table.json("times"); //TODO: should time be a separate table? (then we can query for courses at a certain time IE recommend a course to fill a time slot)
+            // A: This is defintly easier to do in JS by quering the time field.
 
             table.boolean("isLinkedSection").defaultTo(false); /* If true, this is a lab or discussion section or similar */
 
-            table.specificType('instructors', 'text ARRAY');
+            table.specificType('instructors', 'text ARRAY'); /* List of instructor IDs for this section */
             table.specificType('requirements', 'text ARRAY'); /* List of requirements this course satisfies, eg. SOC or DED */
 
         })
@@ -54,7 +55,7 @@ exports.up = function (knex) {
         .createTable('PlanCourse', function (table) {
 
             table.string('catalogCourseID').primary();
-            table.foreign('catalogCourseID').references('CatalogCourses.catalogCourseID');
+            table.foreign('catalogCourseID').references('CatalogCourse.catalogCourseID');
 
             table.string('courseID').notNullable();
             table.foreign('courseID').references('Course.courseID');
