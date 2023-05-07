@@ -566,8 +566,11 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
     const timeStringTimeStartAMPM = timeStringTimeMatch[3];
     const timeStringTimeEndAMPM = timeStringTimeMatch[6];
 
-    const timeStringTimeStartHours = timeStringTimeStartAMPM === "pm" ? parseInt(timeStringTimeStart) + 12 : parseInt(timeStringTimeStart);
-    const timeStringTimeEndHours = timeStringTimeEndAMPM === "pm" ? parseInt(timeStringTimeEnd) + 12 : parseInt(timeStringTimeEnd);
+    const TimeStringTimeStartOffset = parseInt(timeStringTimeStart) == 12 ? 12 : 0;
+    const TimeStringTimeEndOffset = parseInt(timeStringTimeEnd) == 12 ? 12 : 0;
+
+    const timeStringTimeStartHours = timeStringTimeStartAMPM === "pm" ? parseInt(timeStringTimeStart) + 12 - TimeStringTimeStartOffset : parseInt(timeStringTimeStart) - TimeStringTimeStartOffset;
+    const timeStringTimeEndHours = timeStringTimeEndAMPM === "pm" ? parseInt(timeStringTimeEnd) + 12 - TimeStringTimeEndOffset : parseInt(timeStringTimeEnd) - TimeStringTimeEndOffset;
 
     const timeStringTimeStartMinutesTotal = timeStringTimeStartHours * 60 + parseInt(timeStringTimeStartMinutes);
     const timeStringTimeEndMinutesTotal = timeStringTimeEndHours * 60 + parseInt(timeStringTimeEndMinutes);
@@ -582,6 +585,8 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
       }
     }
   }
+
+  console.log(timeObject);
 
   return timeObject;
 
