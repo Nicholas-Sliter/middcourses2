@@ -9,6 +9,59 @@ import Meeting from "catalog.js/lib/classes/Meeting";
 
 const MAX_USER_SCHEDULES = 12;
 
+const ACCEPTED_REQUIREMENTS = new Set([
+    /*  Distribution Requirement: Academic Categories */
+    "ART", "PHL", "HIS",
+    "SCI", "DED", "SOC",
+    "LNG", "LIT",
+
+    /* Distribution Requirement: Culture/Civilizations */
+    "SOA", "NOA", "EUR",
+    "MDE", "SAF", "AMR",
+    "CMP",
+
+    /* Distribution Requirement: College Writing */
+    "CW",
+
+    /* Distribution Requirement: Winter Term Requirement */
+    "WTR",
+]);
+
+
+const REQ_MAP = {
+    /* Distribution Requirement: Academic Categories */
+    "ART": "The Arts",
+    "PHL": "Philosophical and Religious Studies",
+    "HIS": "Historical Studies",
+    "SCI": "Physical and Life Sciences",
+    "DED": "Deductive Reasoning and Analytical Processes",
+    "SOC": "Social Analysis",
+    "LNG": "Forign Language",
+    "LIT": "Literature",
+
+    /* Distribution Requirement: Culture/Civilizations */
+    "SOA": "South and Southeast Asia Civilization Requirement",
+    "NOA": "North Asia Civilization Requirement",
+    "EUR": "European Civilization Requirement",
+    "MDE": "Middle East and North Africa Civilization Requirement",
+    "SAF": "Sub-Saharan Africa Civilization Requirement",
+    "AMR": "America Civilization Requirement",
+    "CMP": "Comparative Requirement",
+
+    /* Distribution Requirement: College Writing */
+    "CW": "College Writing",
+
+    /* Distribution Requirement: Winter Term Requirement */
+    "WTR": "Winter Term Requirement",
+
+};
+
+
+const REVERSED_REQ_MAP = {};
+Object.entries(REQ_MAP).forEach(([key, value]) => {
+    REVERSED_REQ_MAP[value] = key;
+});
+
 
 export async function removeSemester(semester: string) {
 
@@ -58,27 +111,11 @@ function parseCourseMeetingTimes(meetings: Meeting[]) {
 
 function filterAcceptedRequirementList(requirements: string[]) {
 
-    const ACCEPTED_REQUIREMENTS = new Set([
-        /*  Distribution Requirement: Academic Categories */
-        "ART", "PHL", "HIS",
-        "SCI", "DED", "SOC",
-        "LNG",
+    const filteredReqs = (requirements ?? [])
+        .filter(requirement => REQ_MAP[requirement] !== undefined || REVERSED_REQ_MAP[requirement] !== undefined)
+        .map(requirement => REVERSED_REQ_MAP[requirement] ?? requirement);
 
-        /* Distribution Requirement: Culture/Civilizations */
-        "SOA", "NOA", "EUR",
-        "MDE", "SAF", "AMR",
-        "CMP",
-
-        /* Distribution Requirement: College Writing */
-        "CW",
-
-        /* Distribution Requirement: Winter Term Requirement */
-        "WTR",
-    ]);
-
-    return (requirements ?? [])
-        .filter(requirement => ACCEPTED_REQUIREMENTS.has(requirement));
-
+    return filteredReqs;
 }
 
 
@@ -136,6 +173,7 @@ export async function upsertCatalogCourses(transaction: Knex.Transaction, rawCat
 
     /* Remove null values */
     const nonNullCourses = catalogCoursesToInsert.filter(course => course !== null);
+
 
     console.log(`Inserting ${nonNullCourses.length} catalog courses`)
 
