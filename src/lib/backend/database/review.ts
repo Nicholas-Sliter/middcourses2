@@ -5,6 +5,7 @@ import { parseStringToInt } from "../utils";
 import { Knex } from "knex";
 import { insertBackups } from "./backups";
 import { getCourseCodes } from "./alias";
+import { type } from "os";
 
 
 export async function voteReviewByID(reviewID: string, voteBy: string, voteType: string) {
@@ -649,4 +650,61 @@ export async function getReviewsByDepartmentID(departmentID: string) {
     });
 
     return output as unknown as extended_public_review[];
+}
+
+
+
+export async function getNRandomUnvotedReviews(session: CustomSession, num: number, offset: number = 0) {
+
+    if (!session?.user || !session.user.authorized) {
+        return [];
+    }
+
+    const reviews = await knex("Review")
+        .where({ "Review.deleted": false })
+        .whereNotIn("Review.reviewID", function () {
+            this.select("reviewID").from("Vote").where({ "Vote.votedBy": session.user.id });
+        }
+        )
+        .select(reviewInfo)
+        .orderBy("Review.reviewID", "desc") // reviewID is a random uuid
+        .limit(num)
+        .offset(offset);
+
+    return JSON.parse(JSON.stringify(reviews));
+
+}
+
+export async function getMaxReviewPages(num: number) {
+    const res = await knex("Review").count("reviewID", { as: "count" }).where({ "Review.deleted": false }).first() as { count: number };
+    if (typeof res.count === "string") {
+        res.count = parseInt(res.count, 10);
+    }
+    return Math.ceil(res.count / num);
+}
+
+
+
+export async function getAllUserVotedReviews(session: CustomSession, num: number, offset: number) {
+
+    if (!session?.user) {
+        return [];
+    }
+
+    const votedReviews = await knex("Vote")
+        .where({ "Vote.votedBy": session.user.id })
+        .join("Review", "Vote.reviewID", "Review.reviewID")
+        .where({ "Review.deleted": false })
+        .select(reviewInfo)
+        .groupBy(reviewInfo)
+        .select(
+            knex.raw(`(SELECT "voteType" FROM "Vote" WHERE "Vote"."reviewID" = "Review"."reviewID" AND "Vote"."votedBy" = ?) as "userVoteType"`, [session.user.id ?? null])
+        )
+        .orderBy("Review.reviewDate", "desc")
+        .limit(num)
+        .offset(offset);
+
+    return JSON.parse(JSON.stringify(votedReviews));
+
+
 }
