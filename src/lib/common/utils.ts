@@ -566,9 +566,11 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
     const timeStringTimeStartAMPM = timeStringTimeMatch[3];
     const timeStringTimeEndAMPM = timeStringTimeMatch[6];
 
+    /* Handle time around 12am or 12pm */
     const TimeStringTimeStartOffset = parseInt(timeStringTimeStart) == 12 ? 12 : 0;
     const TimeStringTimeEndOffset = parseInt(timeStringTimeEnd) == 12 ? 12 : 0;
 
+    /* Convert to 24 hour time */
     const timeStringTimeStartHours = timeStringTimeStartAMPM === "pm" ? parseInt(timeStringTimeStart) + 12 - TimeStringTimeStartOffset : parseInt(timeStringTimeStart) - TimeStringTimeStartOffset;
     const timeStringTimeEndHours = timeStringTimeEndAMPM === "pm" ? parseInt(timeStringTimeEnd) + 12 - TimeStringTimeEndOffset : parseInt(timeStringTimeEnd) - TimeStringTimeEndOffset;
 
@@ -585,8 +587,6 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
       }
     }
   }
-
-  console.log(timeObject);
 
   return timeObject;
 
@@ -639,11 +639,8 @@ export function parseRawCourseID(rawCourseID: string) {
     const courseCodeAndSection = termSplit[0];
     const term = termSplit[1];
 
-    const courseSectionSplitToken = " ";
-    const courseSectionSplit = courseCodeAndSection.split(courseSectionSplitToken);
-
-    const courseCode = courseSectionSplit[0];
-    const courseSection = courseSectionSplit[1];
+    const courseSection = courseCodeAndSection.match(/[A-Z]$/g)[0];
+    const courseCode = courseCodeAndSection.match(/\d+/g)[0];
 
     return {
       code: courseCode,
