@@ -530,7 +530,8 @@ export function getReviewRelevanceScore(review: public_review): number {
 /** Parse a time object from a course time string
  * Example: 11:15am-12:30pm on Tuesday, Thursday (Sep 11, 2023 to Dec 11, 2023) -> { "tuesday": {"start": "690", "end": "750"}, ... }
  * Example 2: 10:00am-11:30am on Monday, Tuesday, Wednesday, Thursday, Friday at 75SHS 224 (Jan 5, 2023 to Feb 2, 2023) 1:00pm-4:15pm on Monday, Tuesday, Wednesday, Thursday, Friday at 75SHS 224 (Jan 5, 2023 to Feb 2, 2023)
- * 
+ * Example 3: '{"text":"1:30pm-4:15pm on Tuesday at AXN 105 (Sep 11, 2023 to Dec 11, 2023)"}'
+ * Example 4: '{"text":"1:10pm-2:00pm on Friday (Sep 11, 2023 to Dec 11, 2023)"}'
  */
 export function parseCourseTimeString(timeString: string): { day: string, start: number, end: number }[] {
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
@@ -545,6 +546,10 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
     let subTimeString = time;
     if (subTimeString.includes("(")) {
       subTimeString = subTimeString.split("(")[0];
+    }
+
+    if (subTimeString.includes(" at ")) {
+      subTimeString = subTimeString.split(" at ")[0];
     }
 
     const timeStringSplit = subTimeString.split(" on ");
@@ -578,7 +583,7 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
     const timeStringTimeEndMinutesTotal = timeStringTimeEndHours * 60 + parseInt(timeStringTimeEndMinutes);
 
     for (const day of timeStringDays) {
-      if (days.includes(day.toLowerCase())) {
+      if (days.includes(day.toLowerCase().trim())) {
         timeObject.push({
           day: day.toLowerCase(),
           start: timeStringTimeStartMinutesTotal,
