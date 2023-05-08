@@ -123,7 +123,7 @@ export function areWeTwoThirdsThroughSemester(term: string) {
   }
 
   if (term.startsWith("S")) {
-    return (month >= 4) || (month === 3 && date.getDate() >= 10); // Early April since Fall Registration is in late April
+    return (month >= 4) || (month === 3 && date.getDate() >= 4); // Early April since Fall Registration is in late April
   }
 
   if (term.startsWith("F")) {
@@ -525,8 +525,6 @@ export function getReviewRelevanceScore(review: public_review): number {
   return score;
 }
 
-
-
 /** Parse a time object from a course time string
  * Example: 11:15am-12:30pm on Tuesday, Thursday (Sep 11, 2023 to Dec 11, 2023) -> { "tuesday": {"start": "690", "end": "750"}, ... }
  * Example 2: 10:00am-11:30am on Monday, Tuesday, Wednesday, Thursday, Friday at 75SHS 224 (Jan 5, 2023 to Feb 2, 2023) 1:00pm-4:15pm on Monday, Tuesday, Wednesday, Thursday, Friday at 75SHS 224 (Jan 5, 2023 to Feb 2, 2023)
@@ -658,3 +656,4 @@ export function parseRawCourseID(rawCourseID: string) {
 
 
 }
+
