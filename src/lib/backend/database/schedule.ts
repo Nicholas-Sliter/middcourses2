@@ -7,6 +7,8 @@ import Course from "catalog.js/lib/classes/Course.js";
 import Meeting from "catalog.js/lib/classes/Meeting";
 
 
+const MAX_USER_SCHEDULES = 12;
+
 
 export async function removeSemester(semester: string) {
 
@@ -14,11 +16,25 @@ export async function removeSemester(semester: string) {
         .where({ semester })
         .del();
 
-    await knex("PlanCourses")
-        .where({ semester })
+}
+
+export async function removeOldPlans(validSemesters: string[]) {
+
+    await knex("Plan")
+        .whereNotIn("semester", validSemesters)
         .del();
 
 }
+
+
+export async function removeOldCatalogCourses(validSemesters: string[]) {
+
+    await knex("CatalogCourse")
+        .whereNotIn("semester", validSemesters)
+        .del();
+
+}
+
 
 function isLinkedCourse(courseType: string) {
     return ["Lab", "Discussion"].includes(courseType ?? "");
@@ -30,9 +46,13 @@ function parseCourseMeetingTimes(meetings: Meeting[]) {
         return parseCourseTimeString(meeting.raw);
     });
 
-    console.log(meetingTimes);
+    /* Convert to JSON string to store in database */
+    const meetingTimesJSON = {};
+    meetingTimes.forEach((meeting, index) => {
+        meetingTimesJSON[index] = meeting;
+    });
 
-    return meetingTimes;
+    return JSON.stringify(meetingTimesJSON);
 }
 
 
@@ -62,9 +82,9 @@ function filterAcceptedRequirementList(requirements: string[]) {
 }
 
 
-export async function upsertCatalogCourses(rawCatalogCourses: Course[], semester: string) {
+export async function upsertCatalogCourses(transaction: Knex.Transaction, rawCatalogCourses: Course[], semester: string) {
 
-    const courseIDs = await knex('CourseInstructor')
+    const courseIDs = await transaction('CourseInstructor')
         .where({ "term": semester })
         .select("courseID")
         .distinct();
@@ -93,9 +113,11 @@ export async function upsertCatalogCourses(rawCatalogCourses: Course[], semester
             return null;
         }
 
+        // console.log(`Processing course ${course.code} ${course.crn.text} ${course.type.text} ${course.courseID} Section:${parseRawCourseID(course.code)?.section}`);
+
         return {
             catalogCourseID: course.code,
-            crn: course.crn,
+            crn: course.crn.text,
             semester: semester,
 
             courseID: course.courseID,
@@ -104,7 +126,7 @@ export async function upsertCatalogCourses(rawCatalogCourses: Course[], semester
             isLinkedSection: isLinkedCourse(course?.type?.text),
 
 
-            instructors: course.instructors.map(instructor => instructor.middleburyID),
+            instructors: course.instructors.map(instructor => instructor.id),
             requirements: filterAcceptedRequirementList(course.requirements.map(requirement => requirement.text)),
 
             times: parseCourseMeetingTimes(course.schedule.meetings),
@@ -112,13 +134,18 @@ export async function upsertCatalogCourses(rawCatalogCourses: Course[], semester
         };
     });
 
+    /* Remove null values */
+    const nonNullCourses = catalogCoursesToInsert.filter(course => course !== null);
+
+    console.log(`Inserting ${nonNullCourses.length} catalog courses`)
 
     /* Insert into database */
-    await knex("CatalogCourse")
-        .insert(catalogCoursesToInsert)
-        .onConflict(["catalogCourseID", "crn", "semester"])
+    const res: any = await transaction("CatalogCourse")
+        .insert(nonNullCourses)
+        .onConflict("catalogCourseID")
         .merge();
 
+    console.log(`Sucessfully inserted ${res.rowCount} catalog courses`);
 }
 
 
@@ -157,6 +184,14 @@ export async function getSchedulePlansForSemester(session: CustomSession, semest
 
 export async function createPlan(session: CustomSession, semester: string): Promise<schedule> {
     if (!session.user) {
+        return null;
+    }
+
+    const userSchedules = await knex("Plan")
+        .where({ userID: session.user.id });
+
+    if (userSchedules.length >= MAX_USER_SCHEDULES) {
+        console.log(`User ${session.user.id} has reached the maximum number of schedules (${MAX_USER_SCHEDULES})`);
         return null;
     }
 
