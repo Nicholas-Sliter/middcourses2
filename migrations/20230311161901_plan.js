@@ -72,9 +72,9 @@ exports.down = function (knex) {
 
     return knex.schema
         // .dropTable('LinkedCourse')
-        .dropTable('CatalogCourses')
         .dropTable('PlanCourse')
-        .dropTable('Plan');
+        .dropTable('Plan')
+        .dropTable('CatalogCourse');
 
 
 };

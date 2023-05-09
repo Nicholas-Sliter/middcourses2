@@ -13,10 +13,11 @@ import { reconcileInstructors, upsertCourseInstructors, upsertInstructors } from
 import { Knex } from "knex";
 import knex from "./database/knex";
 import Semaphore from './semaphore';
-import { departmentCodeChangedMapping, slugify } from "../common/utils";
+import { departmentCodeChangedMapping, getCurrentSemester, getCurrentTerm, getNextTerm, slugify } from "../common/utils";
 import { getDepartmentByName } from "./database/departments";
 import { backupReviews, getTransactionReviewCount, reconcileReviews } from "./database/review";
 import { reconileAliases, upsertAliases } from "./database/alias";
+import { upsertCatalogCourses } from "./database/schedule";
 
 
 export { };
@@ -90,21 +91,38 @@ function formatCourse(rawCourse: CourseObject): Course {
 
 
 
-async function getSemesterData(semester: string) {
+async function getSemesterData(semester: string, getLabTypeCourses = false) {
 
-    const searchParameters = [
-        new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
+    const searchParameters = [];
+
+
+    if (!getLabTypeCourses) {
+
+        searchParameters.push(...[new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
         // new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(), // Skip labs
         // new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(), // Skip discussion
+        // new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
         // new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(), // Skip drills
         // new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(), // Skip drills
-        //new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),   // Skip PE
+        // new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),   // Skip PE
         // new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(), // Skip Pre-Lab
-        // new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
         new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
+
         new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
         new Param("search", "Search").getObject(),
-    ];
+        ]);
+    } else {
+        searchParameters.push(...[
+            new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(), // Skip labs
+            new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(), // Skip discussion
+            new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
+
+            new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+            new Param("search", "Search").getObject(),
+        ]);
+    }
+
+
 
 
     const S = new catalogScraper({
@@ -396,6 +414,8 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
 
     const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses as CourseObject[], semester);
 
+    const [currentSemester, nextSemester] = [getCurrentTerm(), getNextTerm()];
+    const shouldUpdateCatalogCourses = (semester === currentSemester) || (semester === nextSemester);
 
     const trx = await knex.transaction();
 
@@ -404,6 +424,10 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
         await upsertInstructors(trx, instructors);
         await upsertCourseInstructors(trx, courseInstructors);
         await upsertAliases(trx, aliases);
+        if (shouldUpdateCatalogCourses) {
+            const catalogLabCourses = await getSemesterData(semester, true); /* this gets us lab-like courses */
+            await upsertCatalogCourses(trx, [...catalogCourses, ...catalogLabCourses], semester);
+        }
 
     } catch (e) {
         await trx.rollback();
