@@ -5,6 +5,7 @@ import { getReviewByCourseIDWithVotes } from "./review";
 import { getReviewRelevanceScore, is100LevelCourse, isFYSECourse } from "../../common/utils";
 import { Knex } from "knex";
 import { getCourseCodes, getCourseCodesCTE } from "./alias";
+import { isBookmarked } from "./bookmark";
 
 export async function getCourse(id: string) {
     return await knex("Course")
@@ -194,7 +195,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
         is100LevelCourse(id) ||
         isFYSECourse(id);
 
-    const outputFormatter = (results, reviews) => {
+    const outputFormatter = (results, reviews, bookmarked) => {
         if (!results) {
             return null;
         }
@@ -225,6 +226,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             numReviews: reviews.length,
             topTags: [] as string[],
             aliases: aliases,
+            bookmarked: bookmarked,
 
         }
 
@@ -293,8 +295,8 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
 
     }
 
-    const [mainQuery, reviewQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized)]);
-    return (outputFormatter(mainQuery, reviewQuery));
+    const [mainQuery, reviewQuery, bookmarkedQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized), isBookmarked(session, id)]);
+    return (outputFormatter(mainQuery, reviewQuery, bookmarkedQuery));
 
 }
 
