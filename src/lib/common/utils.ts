@@ -532,6 +532,11 @@ export function getReviewRelevanceScore(review: public_review): number {
  * Example 4: '{"text":"1:10pm-2:00pm on Friday (Sep 11, 2023 to Dec 11, 2023)"}'
  */
 export function parseCourseTimeString(timeString: string): { day: string, start: number, end: number }[] {
+
+  if (!timeString || timeString === "{\"text\":\"TBD\"}") {
+    return [];
+  }
+
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
   const timeRegex = /(\d{1,2}):(\d{2})(am|pm)-(\d{1,2}):(\d{2})(am|pm)/;
   const multipleTimesSeparator = ") ";
@@ -548,6 +553,10 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
 
     if (subTimeString.includes(" at ")) {
       subTimeString = subTimeString.split(" at ")[0];
+    }
+
+    if (!subTimeString.includes(" on ")) {
+      continue;
     }
 
     const timeStringSplit = subTimeString.split(" on ");
@@ -657,3 +666,13 @@ export function parseRawCourseID(rawCourseID: string) {
 
 }
 
+
+
+export function parseMaybeInt(input: string | number): number {
+  if (typeof input === "number") {
+    return input;
+  }
+
+  return parseInt(input);
+
+}
