@@ -26,6 +26,15 @@ export async function getServerSideProps(context) {
 
   const departmentID = context.query.department as string;
   const courseNumber = context.query.coursenumber as string;
+  if (courseNumber.length < 4) { /* try and fix course number by 0-padding */
+    const paddedCourseNumber = courseNumber.padStart(4, "0");
+    return {
+      redirect: {
+        destination: `/reviews/${departmentID}/${paddedCourseNumber}`,
+        permanent: true,
+      },
+    };
+  }
   const courseID = `${departmentID.toUpperCase()}${courseNumber}`;
 
   const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
@@ -44,6 +53,11 @@ export async function getServerSideProps(context) {
 
 
   const data = await optimizedSSRCoursePage(courseID, session);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
   const dedupedInstructors = data.instructors?.filter((instructor, index, self) => {
     return index === self.findIndex((t) => (
       t.instructorID === instructor.instructorID))
