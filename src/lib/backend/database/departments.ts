@@ -148,6 +148,10 @@ export async function optimizedSSRDepartmentPage(departmentID: string, authorize
         getCoursesByDepartment(departmentID)
     ]);
 
+    if (!departmentQuery) {
+        return null;
+    }
+
 
     const obj = {
         department: departmentQuery,

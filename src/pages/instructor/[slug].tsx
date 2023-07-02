@@ -23,6 +23,12 @@ export async function getServerSideProps(context) {
   const authorized = session?.user?.authorized ?? false;
   const data = await optimizedSSRInstructorPage(slug, session);
 
+  if (!data || !data.instructor) {
+    return {
+      notFound: true,
+    };
+  }
+
   const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
 
   const remainingReviews = data.instructor.numReviews - 3;

@@ -47,6 +47,11 @@ export async function getServerSideProps(context) {
   const authorized = (session?.user?.authorized) ?? false;
 
   const data = await optimizedSSRDepartmentPage(departmentID.toUpperCase(), authorized);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
 
   const departmentName = data.department.departmentName ?? null
 

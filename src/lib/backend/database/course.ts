@@ -294,6 +294,9 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
     }
 
     const [mainQuery, reviewQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized)]);
+    if (!mainQuery?.length) {
+        return null;
+    }
     return (outputFormatter(mainQuery, reviewQuery));
 
 }
