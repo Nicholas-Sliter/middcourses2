@@ -1,13 +1,11 @@
 import { Tooltip } from "@chakra-ui/react";
 import Link from "next/link";
-import router, { Router } from "next/router";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { public_course } from "../../lib/common/types";
 import { combind, convertTermToFullString } from "../../lib/frontend/utils";
 import styles from "../../styles/components/common/CourseCard.module.scss";
-import RatingBar, { CourseRatingBar } from "../RatingBar";
-import RatingBox from "../RatingBox";
+import { CourseRatingBar } from "../RatingBar";
 
 interface CourseCardProps {
   course: public_course;
@@ -25,10 +23,44 @@ export default function CourseCard({ course, showCount = false, size = "normal" 
 
   if (size === "large") {
     return (
-      <div className={combind([styles.container, styles.containerLarge])}>
-        <button
+      <Link href={url} prefetch={false} passHref>
+        <a
+          className={combind([styles.container, styles.containerLarge])}
+          href={url}>
+          <div
+            className={styles.cardBody}
+          >
+            <h5>{course.courseName}</h5>
+            {courseNumber ? (
+              <span>
+                {department}{" "}{courseNumber}
+              </span>
+            ) : (
+              <Skeleton count={1} />
+            )}
+            <p>{course.courseDescription}</p>
+            <CourseRatingBar course={course} />
+            {count}
+            {(course?.term) ? <Tooltip label={convertTermToFullString(course?.term)}>
+              <span className={styles.term}>
+                {course?.term ?? null}
+              </span>
+            </Tooltip> :
+              null}
+          </div>
+        </a>
+      </Link>
+    );
+  }
+
+
+  return (
+    <Link href={url} prefetch={false} passHref>
+      <a
+        className={styles.container}
+        href={url}>
+        <div
           className={styles.cardBody}
-          onClick={() => router.push(url)}
         >
           <h5>{course.courseName}</h5>
           {courseNumber ? (
@@ -39,12 +71,6 @@ export default function CourseCard({ course, showCount = false, size = "normal" 
             <Skeleton count={1} />
           )}
           <p>{course.courseDescription}</p>
-          {/* <RatingBar >
-            <RatingBox value={course.avgRating} title="Rating" highIsGood suffix="/10" />
-            <RatingBox value={course.avgValue} title="Value" highIsGood suffix="/10" />
-            <RatingBox value={course.avgAgain} title="Again" highIsGood min={0} max={1} percent suffix="%" displayPrecision={0} />
-          </RatingBar> */}
-          <CourseRatingBar course={course} />
           {count}
           {(course?.term) ? <Tooltip label={convertTermToFullString(course?.term)}>
             <span className={styles.term}>
@@ -52,39 +78,8 @@ export default function CourseCard({ course, showCount = false, size = "normal" 
             </span>
           </Tooltip> :
             null}
-        </button>
-      </div>
-    );
-  }
-
-
-
-
-
-
-  return (
-    <div className={styles.container}>
-      <button
-        className={styles.cardBody}
-        onClick={() => router.push(url)}
-      >
-        <h5>{course.courseName}</h5>
-        {courseNumber ? (
-          <span>
-            {department}{" "}{courseNumber}
-          </span>
-        ) : (
-          <Skeleton count={1} />
-        )}
-        <p>{course.courseDescription}</p>
-        {count}
-        {(course?.term) ? <Tooltip label={convertTermToFullString(course?.term)}>
-          <span className={styles.term}>
-            {course?.term ?? null}
-          </span>
-        </Tooltip> :
-          null}
-      </button>
-    </div>
+        </div>
+      </a>
+    </Link >
   );
 }

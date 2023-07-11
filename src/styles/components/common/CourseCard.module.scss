@@ -10,9 +10,15 @@
   margin-left: 0.6rem;
   margin-right: 0.6rem;
   padding: 0.5rem;
-  //background-color: $card-white;
-  //background-color: $card-grey;
+  text-decoration: none; //remove underline
+  color: inherit; // remove link color
   background-color: #f3f5f7;
+
+  &:focus-visible {
+    outline: 1px solid #000;
+    outline-offset: 0px;
+  }
+
 
   @include feelHover();
 
@@ -29,6 +35,10 @@
     cursor: pointer;
     outline: inherit;
     text-align: left;
+
+    &:focus-visible {
+      outline: none;
+    }
 
 
     &>h5 {
@@ -89,7 +99,7 @@
   overflow: hidden;
 
   .cardBody {
-    width: 21rem;
+    width: 100%;
     position: relative;
     outline: none;
     background: none;
@@ -101,6 +111,18 @@
     outline: inherit;
     text-align: left;
     text-overflow: ellipsis;
+
+    margin-right: 0;
+
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    >div {
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+    }
 
 
     &>h5 {
