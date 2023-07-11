@@ -14,9 +14,6 @@
   flex-direction: row;
   overflow-x: scroll;
   overflow-y: visible;
-  // padding-top: 1rem;
-  // padding-bottom: 1rem;
-  //height: 100%;
   width: 100%;
   overflow-y: visible;
   justify-content: center;
@@ -71,24 +68,10 @@
 
   div:not([data-arrow])>div:first-child {
     margin-left: 2rem;
-    //margin-left: auto;
   }
 
   div:not([data-arrow])>div:last-child {
     margin-right: 2rem;
-    //margin-right: auto;
   }
-
-
-
-  // div:first-child {
-  //   margin-left: auto;
-
-
-  // }
-
-  // div:last-child {
-  //   margin-right: auto;
-  // }
 
 }
