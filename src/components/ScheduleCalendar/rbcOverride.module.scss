@@ -1,0 +1,48 @@
+.rbcOverride {
+
+
+    :global(.rbc-allday-cell) {
+        display: none !important;
+    }
+
+    :global(.rbc-header) {
+        background-color: #f5f5f5;
+        color: #333;
+        padding: 0.4rem;
+        text-align: center;
+        white-space: nowrap;
+
+        span {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+
+    }
+
+    :global(.rbc-time-view) {
+        border: unset;
+        border-top: 1px solid #e6e6e6;
+
+    }
+
+    :global(.rbc-time-content) {
+        border-top: none !important;
+    }
+
+
+    :global(.rbc-events-container) {
+        margin: 0 !important;
+
+    }
+
+    :global(.rbc-event) {
+        width: 90% !important;
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+
+
+
+    }
+
+}
