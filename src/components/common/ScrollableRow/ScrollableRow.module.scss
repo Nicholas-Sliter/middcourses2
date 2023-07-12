@@ -61,24 +61,33 @@
         padding-bottom: 1rem;
     }
 
-    div:not([data-arrow])>div:first-child {
+    >div:not([data-arrow])>div:first-child {
         margin-left: 2rem;
     }
 
-    div:not([data-arrow])>div:last-child {
+    >div:not([data-arrow])>div:last-child {
         margin-right: 2rem;
     }
 
     //if span not div children
-    div:not([data-arrow])>span:first-child {
+    >div:not([data-arrow])>span:first-child {
         margin-left: 2rem;
     }
 
     //if span not div children
-    div:not([data-arrow])>span:last-child {
+    >div:not([data-arrow])>span:last-child {
         margin-right: 2rem;
     }
 
+    //if a not div children
+    >div:not([data-arrow])>a:first-child {
+        margin-left: 2rem;
+    }
+
+    //if a not div children
+    >div:not([data-arrow])>a:last-child {
+        margin-right: 2rem;
+    }
 
 
 }

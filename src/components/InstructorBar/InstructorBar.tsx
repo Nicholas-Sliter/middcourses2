@@ -7,6 +7,7 @@ interface InstructorBarProps {
   selected: string[];
   select: Function;
   deselect: Function;
+  onDoubleClick?: Function;
   useTags?: boolean;
 }
 
@@ -15,6 +16,7 @@ export default function InstructorBar({
   selected,
   select,
   deselect,
+  onDoubleClick,
   useTags = false
 }: InstructorBarProps) {
   return (
@@ -26,6 +28,7 @@ export default function InstructorBar({
           selected={selected.includes(instructor.instructorID)}
           select={select}
           deselect={deselect}
+          onDoubleClick={onDoubleClick}
         />
       ))}
     </div>

@@ -296,6 +296,9 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
     }
 
     const [mainQuery, reviewQuery, bookmarkedQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized), isBookmarked(session, id)]);
+    if (!mainQuery?.length) {
+        return null;
+    }
     return (outputFormatter(mainQuery, reviewQuery, bookmarkedQuery));
 
 }

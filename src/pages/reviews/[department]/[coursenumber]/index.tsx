@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CustomSession, public_course, public_instructor, public_review } from "../../../../lib/common/types";
 import ReviewList from "../../../../components/Review";
 import CourseCard from "../../../../components/CourseCard";
@@ -26,6 +26,15 @@ export async function getServerSideProps(context) {
 
   const departmentID = context.query.department as string;
   const courseNumber = context.query.coursenumber as string;
+  if (courseNumber.length < 4) { /* try and fix course number by 0-padding */
+    const paddedCourseNumber = courseNumber.padStart(4, "0");
+    return {
+      redirect: {
+        destination: `/reviews/${departmentID}/${paddedCourseNumber}`,
+        permanent: true,
+      },
+    };
+  }
   const courseID = `${departmentID.toUpperCase()}${courseNumber}`;
 
   const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
@@ -44,6 +53,11 @@ export async function getServerSideProps(context) {
 
 
   const data = await optimizedSSRCoursePage(courseID, session);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
   const dedupedInstructors = data.instructors?.filter((instructor, index, self) => {
     return index === self.findIndex((t) => (
       t.instructorID === instructor.instructorID))
@@ -168,12 +182,16 @@ export default function CoursePage({
 
 
   const filterInstructorToast = () => {
+    if (toast.isActive('filterInstructorToast')) {
+      return;
+    }
     toast({
       title: 'Review 2 courses to unlock instructor filtering',
       description: "You must be a registered user with 2 or more reviews in the last 6 months to filter by instructor.",
       status: 'error',
       duration: 5000,
       isClosable: true,
+      id: 'filterInstructorToast'
 
     })
   };
@@ -230,6 +248,32 @@ export default function CoursePage({
     const selected = selectedInstructorIDs.filter((id) => id !== instructorID);
     setSelectedInstructorIDs(selected);
   };
+
+  const doubleClickInstructor = (instructorID: string) => {
+
+    if (!authorized) {
+      filterInstructorToast();
+      return;
+    }
+
+    if (selectedInstructorIDs.includes(instructorID) && selectedInstructorIDs.length > 1) {
+      setSelectedInstructorIDs([instructorID]);
+      return;
+    }
+
+    if (!selectedInstructorIDs.includes(instructorID)) {
+      setSelectedInstructorIDs([instructorID]);
+      return;
+    }
+
+    if (selectedInstructorIDs.includes(instructorID) && selectedInstructorIDs.length === 1) {
+      setSelectedInstructorIDs(instructors.map(instructor => instructor.instructorID));
+      return;
+    }
+
+  };
+
+  const memoDoubleClickInstructor = useCallback(doubleClickInstructor, [selectedInstructorIDs, instructors]);
 
 
   /* Close toasts on initial pageload */
@@ -288,6 +332,7 @@ export default function CoursePage({
                 selected={selectedInstructorIDs}
                 select={selectInstructor}
                 deselect={deselectInstructor}
+                onDoubleClick={memoDoubleClickInstructor}
                 useTags
               />
             </div>
@@ -326,6 +371,7 @@ export default function CoursePage({
             selected={selectedInstructorIDs}
             select={selectInstructor}
             deselect={deselectInstructor}
+          // onDoubleClick={memoDoubleClickInstructor} /* Most mobile browsers don't support double click */
           />
           <div>
             <ReviewList

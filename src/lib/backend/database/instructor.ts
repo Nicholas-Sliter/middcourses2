@@ -106,7 +106,9 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
 
     //const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getRecentInstructorReviews(slug, authorized), getCoursesByInstructorSlug(slug)]);
     const [mainQuery, reviewQuery, coursesQuery] = await Promise.all([getInstructorInfoBySlug(slug), getReviewByInstructorSlugWithVotes(slug, userID), getCoursesByInstructorSlug(slug)]);
-
+    if (!mainQuery) {
+        return null;
+    };
 
     //remove the feilds from the reviews
     const reviews = reviewQuery.map((r) => {

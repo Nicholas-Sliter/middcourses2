@@ -7,9 +7,10 @@ interface InstructorBadgeProps {
   selected: boolean;
   select: Function;
   deselect: Function;
+  onDoubleClick?: Function;
 };
 
-export default function InstructorBadge({ instructor, selected, select, deselect }: InstructorBadgeProps) {
+export default function InstructorBadge({ instructor, selected, select, deselect, onDoubleClick }: InstructorBadgeProps) {
 
   const badgeStyle = selected ? styles.badge + " " + styles.selected : styles.badge;
   const id = instructor.instructorID;
@@ -18,9 +19,12 @@ export default function InstructorBadge({ instructor, selected, select, deselect
     <li key={id} className={styles.container}>
       {id ? (
         <>
-          <button className={badgeStyle}
+          <button
+            className={badgeStyle}
             onClick={
-              () => { (selected) ? deselect(id) : select(id) }}>
+              () => { (selected) ? deselect(id) : select(id) }}
+            onDoubleClick={() => { (onDoubleClick ? onDoubleClick(id) : null) }}
+          >
             {instructor.name}
           </button>
         </>
