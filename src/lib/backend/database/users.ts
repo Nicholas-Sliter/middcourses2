@@ -187,10 +187,10 @@ export async function updateUserPermissions(id: string) {
 
 export async function updateAllUserPermissions() {
 
-    const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 30 * 5; /* Temporarily set to 5 months */
+    const AUTH_DURATION = 1000 * 60 * 60 * 24 * 30 * 6;
     const currentDate = new Date();
 
-    const SIX_MONTHS_AGO = new Date(currentDate.getTime() - SIX_MONTHS_MS);
+    const oldestAuthDate = new Date(currentDate.getTime() - AUTH_DURATION);
 
 
     const users = await knex("User")
@@ -207,7 +207,7 @@ export async function updateAllUserPermissions() {
                     "Review.deleted": false,
                     "Review.archived": false
                 })
-                .andWhere("reviewDate", ">", SIX_MONTHS_AGO.toISOString())
+                .andWhere("reviewDate", ">", oldestAuthDate.toISOString())
                 .groupBy("reviewerID");
         })
         .leftJoin("recentReviews", "User.userID", "recentReviews.reviewerID")
