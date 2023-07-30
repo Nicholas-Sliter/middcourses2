@@ -1,6 +1,6 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { CustomSession, full_review, public_instructor, public_review, schedule } from "../../common/types";
+import { CustomSession, full_review, public_instructor, public_review, Schedule } from "../../common/types";
 import { Knex } from "knex";
 import { parseCourseTimeString, checkForTimeConflicts, parseRawCourseID } from "../../common/utils";
 import Course from "catalog.js/lib/classes/Course.js";
@@ -188,7 +188,7 @@ export async function upsertCatalogCourses(transaction: Knex.Transaction, rawCat
 
 
 
-export async function getSchedulePlan(session: CustomSession, id: number): Promise<schedule> {
+export async function getSchedulePlan(session: CustomSession, id: number): Promise<Schedule> {
     if (!session.user) {
         return null;
     }
@@ -205,7 +205,7 @@ export async function getSchedulePlan(session: CustomSession, id: number): Promi
 };
 
 
-export async function getSchedulePlansForSemester(session: CustomSession, semester: string): Promise<schedule[]> {
+export async function getSchedulePlansForSemester(session: CustomSession, semester: string): Promise<Schedule[]> {
     if (!session.user) {
         return [];
     }
@@ -220,7 +220,7 @@ export async function getSchedulePlansForSemester(session: CustomSession, semest
 };
 
 
-export async function createPlan(session: CustomSession, semester: string): Promise<schedule> {
+export async function createPlan(session: CustomSession, semester: string): Promise<Schedule> {
     if (!session.user) {
         return null;
     }
