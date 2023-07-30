@@ -91,7 +91,7 @@ function formatCourse(rawCourse: CourseObject): Course {
 
 
 
-async function getSemesterData(semester: string, getLabTypeCourses = false) {
+async function getSemesterData(semester: string, getLabTypeCourses = false, departmentID?: string) {
 
     const searchParameters = [];
 
@@ -122,6 +122,12 @@ async function getSemesterData(semester: string, getLabTypeCourses = false) {
         ]);
     }
 
+    /* Granular department-specific search */
+    /* This allows us to bypass the catalog server failing on large requests */
+    /* See #289 */
+    if (departmentID) {
+        searchParameters.push(new Param("department", `topic%2Fsubject%2F${departmentID}`).getObject());
+    }
 
 
 
@@ -408,9 +414,9 @@ function parseAliasID(aliasID: string): string {
 }
 
 
-async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '') {
+async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '', departmentID?: string) {
 
-    const catalogCourses = await getSemesterData(semester);
+    const catalogCourses = await getSemesterData(semester, false, departmentID);
 
     const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses as CourseObject[], semester);
 
@@ -425,7 +431,7 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
         await upsertCourseInstructors(trx, courseInstructors);
         await upsertAliases(trx, aliases);
         if (shouldUpdateCatalogCourses) {
-            const catalogLabCourses = await getSemesterData(semester, true); /* this gets us lab-like courses */
+            const catalogLabCourses = await getSemesterData(semester, true, departmentID); /* this gets us lab-like courses */
             await upsertCatalogCourses(trx, [...catalogCourses, ...catalogLabCourses], semester);
         }
 

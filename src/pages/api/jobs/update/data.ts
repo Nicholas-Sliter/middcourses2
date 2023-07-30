@@ -13,6 +13,7 @@ const handler = nc<NextApiRequest, NextApiResponse>()
         const reconcile = req.query.reconcile === "true" ? true : false;
         const forceUpdate = req.query.force === "true" ? true : false;
         const forceUpdateVerification = req.query.verification as string;
+        const department = req.query.department as string;
         const isAdmin = session?.user?.admin ? true : false;
         const hasInternalAuth = req.headers.authorization === process.env.INTERNAL_AUTH;
 
@@ -24,7 +25,7 @@ const handler = nc<NextApiRequest, NextApiResponse>()
 
 
         try {
-            const result = await updateSemester(semester, reconcile, forceUpdate, forceUpdateVerification);
+            const result = await updateSemester(semester, reconcile, forceUpdate, forceUpdateVerification, department);
             res.status(200).end(JSON.stringify(result));
             return;
 
