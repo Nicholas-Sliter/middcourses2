@@ -85,11 +85,12 @@ export interface User {
 }
 
 
-export interface schedule {
-  id: string;
+export interface Schedule {
+  id: number;
+  name: string;
   userID: string;
   semester: string;
-  courses: { [key: string]: public_course };
+  courses: CatalogCourse[];
 }
 
 
@@ -140,3 +141,19 @@ export interface extended_department extends Department {
 
 }
 
+
+export interface CatalogCourse {
+  courseName: string;
+  courseID: string;
+  catalogID: string;
+  courseDescription: string;
+  semester: string;
+  crn: string;
+  section: string;
+  isLinkedSection: boolean;
+  times: Map<string, {
+    day: string;
+    start: number;
+    end: number;
+  }[]>;
+};
