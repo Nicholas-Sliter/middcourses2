@@ -1,4 +1,4 @@
-import { CatalogCourse } from "../../lib/common/types";
+import { CatalogCourse, Schedule } from "../../lib/common/types";
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import overrideStyles from './rbcOverride.module.scss';
@@ -9,27 +9,50 @@ import Requirement from "catalog.js/lib/classes/Requirement";
 import { combind } from "../../lib/frontend/utils";
 
 interface ScheduleCalendarProps {
-    courses: CatalogCourse[];
-    semester: string;
+    schedule: Schedule;
 }
 
 
 function ScheduleCalendar({
-    courses,
-    semester
+    schedule
 }: ScheduleCalendarProps) {
+
+    const courses = schedule?.courses ?? [];
+    const semester = schedule?.semester;
+
+    if (!schedule) {
+        return (
+            <div className={styles.placeholder} style={{ height: '100%', width: '100%' }}>
+                <div className={styles.placeholderText}>
+                    No schedule selected, please select a schedule from the sidebar or create a new one.
+                </div>
+            </div>
+        );
+    }
+
+    /* Return placeholder if no courses */
+    if (!schedule?.courses || schedule.courses.length === 0) {
+        return (
+            <div className={styles.placeholder} style={{ height: '100%', width: '100%' }}>
+                <div className={styles.placeholderText}>
+                    No courses found for {schedule?.name ?? "this semester"}
+                </div>
+            </div>
+        );
+    }
+
 
     const localizer = dayjsLocalizer(dayjs);
 
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    const activeDays = courses.map((course) => {
-        return [...course.times].map(([key, value]) => value)
-            .map(times => times.map(time => time.day))
-            .flat();
-    })
-        .flat();
+    // const activeDays = courses.map((course) => {
+    //     return [...course.times].map(([key, value]) => value)
+    //         .map(times => times.map(time => time.day))
+    //         .flat();
+    // })
+    //     .flat();
 
-    const activeDaysSet = new Set(activeDays);
+    // const activeDaysSet = new Set(activeDays);
 
     const baseMinTime = 8 * 60; /* 8 AM */
     const minActiveTime = Math.min(...courses.map((course) => {
@@ -80,7 +103,9 @@ function ScheduleCalendar({
                     return [...course.times].map(([key, value]) => value)
                         .map(times => times.map(time => {
                             return {
-                                title: `${course.courseName} ${course.crn} ${course.section}`,
+                                title: `${course.courseID}-${course.section} \n
+                                
+                                `,
                                 start: dayjs().day(days.indexOf(time.day) + 1).hour(Math.floor(time.start / 60)).minute(time.start % 60).toDate(),
                                 end: dayjs().day(days.indexOf(time.day) + 1).hour(Math.floor(time.end / 60)).minute(time.end % 60).toDate(),
                                 allDay: false
