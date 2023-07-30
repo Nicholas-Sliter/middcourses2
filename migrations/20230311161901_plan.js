@@ -4,6 +4,7 @@ exports.up = function (knex) {
     return knex.schema
         .createTable('Plan', function (table) {
             table.increments('id').primary();
+            table.string('name').notNullable();
             table.uuid('userID').notNullable();
             table.foreign('userID').references('User.userID');
 
