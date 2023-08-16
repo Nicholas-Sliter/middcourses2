@@ -41,6 +41,16 @@ export async function getServerSideProps(context) {
     };
   }
 
+  /* redirect to padded department code if not padded (ART -> _ART) */
+  if (departmentID.length < 4 && departmentID.length > 0 && !departmentID.includes("_")) {
+    return {
+      redirect: {
+        destination: `/reviews/${departmentID.padStart(4, "_")}`,
+        permanent: true,
+      },
+    };
+  }
+
   const session = await getSession(context) as CustomSession;
 
   const signedIn = session?.user ?? false;
