@@ -12,6 +12,25 @@ interface ScheduleCalendarProps {
     schedule: Schedule;
 }
 
+function getMemoizeDependencies(schedule: Schedule) {
+    if (!schedule) {
+        return [];
+    }
+
+    return [
+        /* Semester */
+        schedule.semester,
+        /* ID */
+        schedule.id,
+        /* Courses */
+        schedule.courses.reduce((acc, course) => {
+            return acc + course.courseID + course.section;
+        }, ""),
+    ];
+}
+
+
+
 
 function ScheduleCalendar({
     schedule
@@ -132,4 +151,7 @@ function ScheduleCalendar({
 
 
 
-export default React.memo(ScheduleCalendar);
+export default React.memo(ScheduleCalendar, (prevProps, nextProps) => {
+    return getMemoizeDependencies(prevProps.schedule).join("|") === getMemoizeDependencies(nextProps.schedule).join("|");
+}
+);
