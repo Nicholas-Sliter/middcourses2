@@ -2,6 +2,9 @@ import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next/types";
 import { getCourseByID } from "../../../../lib/backend/database-utils";
 import { isValidCourseID } from "../../../../lib/common/utils";
+import { getSession } from "next-auth/react";
+import { CustomSession } from "../../../../lib/common/types";
+import { optimizedSSRCoursePage } from "../../../../lib/backend/database/course";
 
 const handler = nc({
    onError: (err, req: NextApiRequest, res: NextApiResponse) => {
@@ -15,6 +18,8 @@ const handler = nc({
 
 
    .get(async (req: NextApiRequest, res: NextApiResponse) => {
+
+      const session = await getSession({ req }) as CustomSession;
 
       const courseID = req.query.id as string;
       //validate the course id is 4 uppercase letters followed by 4 digits
@@ -30,7 +35,8 @@ const handler = nc({
 
 
       //get the course from the database
-      const course = await getCourseByID(courseID)
+      // const course = await getCourseByID(courseID)
+      const course = await optimizedSSRCoursePage(courseID, session, true);
 
       //switching to getCourseAndInstructorsByID adds 200ms delay
 

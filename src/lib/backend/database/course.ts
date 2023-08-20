@@ -185,7 +185,7 @@ async function getCourseInfo(id: string) {
         .select(["Department.departmentName"]);
 }
 
-export async function optimizedSSRCoursePage(id: string, session: CustomSession) {
+export async function optimizedSSRCoursePage(id: string, session: CustomSession, excludeReviews?: boolean) {
 
     const COURSE_MIN_AVG_COUNT = 3; // require 3 reviews to show avgs
 
@@ -289,6 +289,10 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             output.avgHours = null;
             output.avgValue = null;
             output.avgAgain = null;
+        }
+
+        if (excludeReviews) {
+            output.reviews = [];
         }
 
         return output;
