@@ -20,7 +20,7 @@ function HowItWorks({ }) {
                     <RiNumber1 className={styles.tileIcon} />
                     <h3 className={styles.title}>Review 2 Courses</h3>
                     <p className={styles.description}>
-                        First, you&apos;ll write a review for 2 courses. This will grant you access to the rest of the site.
+                        First, you&apos;ll write a review for 2 courses. This will grant you access to the rest of the site for 6 months.
                     </p>
 
                 </Tile>
