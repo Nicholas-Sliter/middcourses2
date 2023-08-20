@@ -151,9 +151,10 @@ export interface CatalogCourse {
   crn: string;
   section: string;
   isLinkedSection: boolean;
-  times: Map<string, {
-    day: string;
-    start: number;
-    end: number;
-  }[]>;
+  // times: Map<string, {
+  //   day: string;
+  //   start: number;
+  //   end: number;
+  // }[]>;
+  times: [string, { day: string; start: number; end: number; }[]][];
 };
