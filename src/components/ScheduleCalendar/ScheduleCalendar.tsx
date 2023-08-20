@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import React from "react";
 import Requirement from "catalog.js/lib/classes/Requirement";
 import { combind } from "../../lib/frontend/utils";
+import ScheduleCalendarEvent from "./ScheduleCalendarEvent";
 
 interface ScheduleCalendarProps {
     schedule: Schedule;
@@ -23,11 +24,15 @@ function getMemoizeDependencies(schedule: Schedule) {
         /* ID */
         schedule.id,
         /* Courses */
-        schedule.courses.reduce((acc, course) => {
+        schedule?.courses?.reduce((acc, course) => {
             return acc + course.courseID + course.section;
-        }, ""),
+        }, "") ?? "",
     ];
 }
+
+const calendarComponents = {
+    event: ScheduleCalendarEvent,
+};
 
 
 
@@ -64,14 +69,6 @@ function ScheduleCalendar({
     const localizer = dayjsLocalizer(dayjs);
 
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    // const activeDays = courses.map((course) => {
-    //     return [...course.times].map(([key, value]) => value)
-    //         .map(times => times.map(time => time.day))
-    //         .flat();
-    // })
-    //     .flat();
-
-    // const activeDaysSet = new Set(activeDays);
 
     const baseMinTime = 8 * 60; /* 8 AM */
     const minActiveTime = Math.min(...courses.map((course) => {
@@ -84,7 +81,7 @@ function ScheduleCalendar({
     );
     const minActiveTimeDate = dayjs().hour(Math.floor(minActiveTime / 60)).minute(minActiveTime % 60).toDate();
 
-    const baseMaxTime = 12 * 60; /* 12 PM */
+    const baseMaxTime = 0 * 60; /* 12 PM */
     const maxActiveTime = Math.max(...courses.map((course) => {
         return [...course.times].map(([_, value]) => value)
             .map(times => times.map(time => time.end))
@@ -127,7 +124,8 @@ function ScheduleCalendar({
                                 `,
                                 start: dayjs().day(days.indexOf(time.day) + 1).hour(Math.floor(time.start / 60)).minute(time.start % 60).toDate(),
                                 end: dayjs().day(days.indexOf(time.day) + 1).hour(Math.floor(time.end / 60)).minute(time.end % 60).toDate(),
-                                allDay: false
+                                allDay: false,
+                                resource: course
                             };
                         }))
                         .flat();
@@ -137,6 +135,7 @@ function ScheduleCalendar({
                 getNow={() => { return new Date(0) }}
                 date={dayjs().day(days.indexOf("Monday")).toDate()}
                 onNavigate={() => { }} // Prevents navigation
+                components={calendarComponents}
 
 
 
