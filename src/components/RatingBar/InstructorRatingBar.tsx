@@ -2,18 +2,14 @@ import RatingBox from "../RatingBox";
 import RatingBar from "./RatingBar";
 
 function InstructorRatingBar({ instructor, noMargin = false }) {
-    const style = noMargin ? { margin: "auto" } : { marginRight: '2rem', marginLeft: '2rem' };
+    const style = noMargin ? { marginLeft: '0', marginRight: '0' } : { marginRight: '1rem', marginLeft: '1rem' };
 
     return (
-        <div style={style}>
+        <div style={{
+            ...style,
+            width: "100%",
+        }}>
             <RatingBar >
-                {/* <RatingBox
-                title="Overall"
-                value={instructor.overall ?? 4.8}
-                suffix={"/10"}
-                helpText="Overall instructor rating"
-
-            /> */}
                 <RatingBox
                     title="Effective"
                     value={instructor.avgEffectiveness}
