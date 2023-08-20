@@ -21,6 +21,11 @@ interface CourseCardProps {
 }
 
 export default function CourseCard({ course, style, isBookmarked = false, showBookmark = false, setBookmarked = () => { } }: CourseCardProps) {
+
+  if (!course) {
+    return null;
+  }
+
   const department = course?.courseID.substring(0, 4);
   const courseNumber = course?.courseID.substring(4);
 

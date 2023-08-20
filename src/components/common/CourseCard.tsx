@@ -14,6 +14,11 @@ interface CourseCardProps {
 };
 
 export default function CourseCard({ course, showCount = false, size = "normal" }: CourseCardProps) {
+
+  if (!course) {
+    return null;
+  }
+
   const department = course.courseID.substring(0, 4);
   const courseNumber = course.courseID.substring(4);
   const url = `/reviews/${department.toLowerCase()}/${courseNumber}`;
