@@ -1,0 +1,54 @@
+@import 'src/styles/common/variables';
+
+.container {
+
+    box-sizing: border-box;
+
+
+
+    .closeButton {
+        outline: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    .selectSemester {
+        box-sizing: border-box;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .inputName {
+        box-sizing: border-box;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .submitButton {
+        width: 8rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.5rem;
+        background-color: $logo-blue;
+        color: $white;
+        border: $border-light;
+        border-radius: $border-radius-small;
+        font-size: 1rem;
+        font-weight: bold;
+        outline: none;
+
+        &:hover {
+            border: $border-blue;
+            background-color: $offwhite;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
+            color: $black;
+        }
+    }
+
+
+
+}
