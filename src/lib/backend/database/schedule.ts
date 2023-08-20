@@ -90,7 +90,11 @@ export async function removeOldCatalogCourses(validSemesters: string[]) {
 
 
 function isLinkedCourse(courseType: string) {
-    return ["Lab", "Discussion"].includes(courseType ?? "");
+    return [
+        "Lab",
+        "Discussion",
+        "Screening"
+    ].includes(courseType ?? "");
 }
 
 
@@ -219,10 +223,24 @@ export async function getSchedulePlansForSemester(session: CustomSession, semest
 
 };
 
-
-export async function createPlan(session: CustomSession, semester: string): Promise<Schedule> {
+export async function getSchedulePlansForSemesters(session: CustomSession, semesters: string[]): Promise<Schedule[]> {
     if (!session.user) {
-        return null;
+        return [];
+    }
+
+    const schedules = await knex("Plan")
+        .where({ userID: session.user.id })
+        .whereIn("semester", semesters)
+        .select("*");
+
+    return schedules;
+
+};
+
+
+export async function createPlan(session: CustomSession, schedule: Omit<Schedule, "id">): Promise<Schedule> {
+    if (!session?.user) {
+        return Promise.reject("User not logged in");
     }
 
     const userSchedules = await knex("Plan")
@@ -230,14 +248,29 @@ export async function createPlan(session: CustomSession, semester: string): Prom
 
     if (userSchedules.length >= MAX_USER_SCHEDULES) {
         console.log(`User ${session.user.id} has reached the maximum number of schedules (${MAX_USER_SCHEDULES})`);
-        return null;
+        return Promise.reject("Maximum number of schedules reached");
+    }
+
+    /* Name uniqueness check */
+    const userScheduleNames = userSchedules
+        .filter(sch => sch.semester === schedule.semester)
+        .map(sch => sch.name);
+
+
+    if (userScheduleNames.includes(schedule.name)) {
+        console.log(`User ${session.user.id} already has a schedule named '${schedule.name}'`);
+        return Promise.reject("Schedule name already exists");
     }
 
     const [id] = await knex("Plan")
         .insert({
             userID: session.user.id,
-            semester
-        });
+            semester: schedule.semester,
+            name: schedule.name,
+        })
+        .returning("id");
+
+    console.log(`Created schedule ${id} for user ${session.user.id}`);
 
     return await getSchedulePlan(session, id);
 
@@ -253,6 +286,9 @@ export async function deletePlan(session: CustomSession, id: number): Promise<bo
         .where({ id })
         .andWhere({ userID: session.user.id })
         .del();
+
+    console.log(`Deleted schedule ${id} for user ${session.user.id}`);
+    console.log(`Deleted ${deleted} rows`);
 
     return deleted > 0;
 };
