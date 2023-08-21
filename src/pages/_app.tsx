@@ -26,12 +26,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     const userID = pageProps.session?.user?.id ?? null;
     if (userID) {
       // console.log('Identifying user with Clarity', userID);
-      clarity.identify('USER_ID', {
-        userProperty: userID
+      clarity.identify(userID, {
+        ...pageProps.session?.user,
       });
     }
 
-  }, [pageProps.session?.user?.id]);
+
+  }, [pageProps.session?.user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   return (
