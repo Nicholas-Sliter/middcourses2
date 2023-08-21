@@ -5,6 +5,9 @@ import { ChakraProvider, theme } from "@chakra-ui/react";
 import TagManager from 'react-gtm-module'
 import { useEffect } from "react";
 import HeaderFooterLayout from "../layouts/HeaderFooterLayout";
+import { clarity } from 'react-microsoft-clarity';
+import Script from "next/script";
+
 delete theme.styles.global;
 
 
@@ -14,7 +17,21 @@ function MyApp({ Component, pageProps }: AppProps) {
     TagManager.initialize({
       gtmId: 'GTM-WJDFWKT',
     })
-  }, [])
+
+    clarity.init('iif5lextku');
+
+  }, []);
+
+  useEffect(() => {
+    const userID = pageProps.session?.user?.id ?? null;
+    if (userID) {
+      // console.log('Identifying user with Clarity', userID);
+      clarity.identify('USER_ID', {
+        userProperty: userID
+      });
+    }
+
+  }, [pageProps.session?.user?.id]);
 
 
   return (
@@ -27,6 +44,17 @@ function MyApp({ Component, pageProps }: AppProps) {
           </HeaderFooterLayout>
         </ChakraProvider>
       </SessionProvider>
+      <Script
+        strategy="afterInteractive"
+        id="MiddCourses_Clarity"
+        dangerouslySetInnerHTML={{
+          __html: `(function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "iif5lextku");`
+        }}
+      />
     </>
   );
 }
