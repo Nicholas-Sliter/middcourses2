@@ -29,10 +29,32 @@ function MyApp({ Component, pageProps }: AppProps) {
       clarity.identify(userID, {
         ...pageProps.session?.user,
       });
+
+      clarity.setTag('user_id', userID);
+      clarity.setTag('user_email', pageProps.session?.user?.email ?? null);
+      clarity.setTag('user_role', pageProps.session?.user?.role ?? null);
     }
 
 
   }, [pageProps.session?.user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+  /* Banned user redirect */
+  const ViewableComponent = () => {
+    if (pageProps.session?.user?.banned) {
+      // TODO: make this pretty
+      return (
+        <div>
+          <h1>You have been banned</h1>
+        </div>
+      )
+    }
+
+    return (
+      <Component {...pageProps} />
+    )
+
+  }
 
 
   return (
@@ -41,7 +63,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <ChakraProvider resetCSS={false}>
           <HeaderFooterLayout >
-            <Component {...pageProps} />
+            <ViewableComponent />
           </HeaderFooterLayout>
         </ChakraProvider>
       </SessionProvider>
