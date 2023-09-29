@@ -104,14 +104,14 @@ function NewScheduleModal({
         //     });
     };
 
-    return (
+   return (
         <Modal
             isOpen={isOpen}
             onClose={onClose}
             size="md"
         >
             <ModalOverlay />
-            <ModalContent className={styles.container}>
+            <ModalContent className={styles.container}> 
                 <ModalHeader>
                     Create New Schedule
                     <ModalCloseButton className={styles.closeButton} />

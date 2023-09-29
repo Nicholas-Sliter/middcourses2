@@ -22,7 +22,7 @@ import useSchedule from "../../hooks/useSchedule";
 import { Router, useRouter } from "next/router";
 import { getSchedulePlansForSemester, getSchedulePlansForSemesters } from "../../lib/backend/database/schedule";
 import { BsJustify } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import AddButton from "../../components/common/AddButton";
 import AddToScheduleButton from "../../components/common/EditScheduleButton";
 import EditScheduleButton from "../../components/common/EditScheduleButton";
@@ -30,7 +30,7 @@ import CourseCard from "../../components/CourseCard";
 import CourseScheduleInfo from "../../components/CourseScheduleInfo";
 import { FiDelete } from "react-icons/fi";
 import { MdOutlineAdd, MdOutlineDelete } from "react-icons/md";
-import { DeleteScheduleConfirmation, NewScheduleModal } from "../../components/Schedule";
+import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal } from "../../components/Schedule";
 
 export async function getServerSideProps(context) {
 
@@ -156,6 +156,8 @@ interface ScheduleProps {
     mobileUserAgent: boolean;
 }
 
+
+
 function Schedule({
     term,
     currentTerms,
@@ -176,6 +178,18 @@ function Schedule({
     const [selectedSchedule, setSelectedSchedule] = useState<Schedule>(schedules?.[0] ?? null);
     const [newScheduleModalOpen, setNewScheduleModalOpen] = useState<boolean>(false);
     const [deleteScheduleModalOpen, setDeleteScheduleModalOpen] = useState<boolean>(false);
+    const [addCourseModalOpen, setAddCourseModalOpen] = useState<boolean>(false);
+
+
+    /* Update selected schedule when term changes. Try to select the first schedule in the new term. */
+    useEffect(() => {
+        const newSchedule = userSchedules
+            .filter((schedule) => schedule.semester === userTerm)
+            .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
+            ?.[0] ?? null;
+        setSelectedSchedule(newSchedule);
+    }, [userTerm, userSchedules]);
+
 
     console.log(bookmarks, schedules);
 
@@ -395,7 +409,9 @@ function Schedule({
 
                     </SidebarLayout.Main>
                 </SidebarLayout>
-                <EditScheduleButton />
+                <EditScheduleButton
+                    onClick={() => setAddCourseModalOpen(true)}
+                />
 
 
             </BrowserView >
@@ -432,6 +448,12 @@ function Schedule({
                     setUserSchedules(userSchedules.filter((schedule) => schedule.id !== selectedSchedule.id));
                     setSelectedSchedule(null);
                 }}
+            />
+            <AddCourseToScheduleModal
+                isOpen={addCourseModalOpen}
+                onClose={() => setAddCourseModalOpen(false)}
+                onCourseAdded={() => { }}
+                schedule={selectedSchedule}
             />
 
 

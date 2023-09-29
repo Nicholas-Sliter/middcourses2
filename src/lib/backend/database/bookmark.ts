@@ -100,7 +100,7 @@ export async function isBookmarked(session: CustomSession, courseID: string): Pr
 
 
 export async function getAllUserBookmarks(session: CustomSession): Promise<number[]> {
-    if (!session.user) {
+    if (!session || !session?.user) {
         return [];
     }
 
