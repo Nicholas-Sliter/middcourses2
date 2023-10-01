@@ -28,6 +28,19 @@ export async function getDepartmentByName(departmentName: string): Promise<{ dep
         .where({ departmentName });
 }
 
+/* Find most frequently taught department by an instructor */
+export async function getMostFrequentlyTaughtDepartment(instructorID: string) {
+    return await knex("CourseInstructor")
+        .where({ instructorID })
+        .join("Course", "CourseInstructor.courseID", "Course.courseID")
+        .join("Department", "Course.departmentID", "Department.departmentID")
+        .select(["Department.departmentID", "Department.departmentName"])
+        .groupBy("Department.departmentID")
+        .orderBy("count", "desc")
+        .count("Course.courseID as count")
+        .first();
+}
+
 export async function getTopReviewedDepartments(limit: number) {
     return await knex("Department")
         .select(["Department.departmentID", "Department.departmentName"])
