@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 20px;
+    padding-top: 100px;
+
+
+    h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        text-decoration: underline;
+        margin-bottom: 20px;
+    }
+
+
+
+}
