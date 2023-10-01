@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <ChakraProvider resetCSS={false}>
           <HeaderFooterLayout >
-            <ViewableComponent isBanned={true} >
+            <ViewableComponent isBanned={pageProps?.session?.user?.banned} >
               <Component {...pageProps} />
             </ViewableComponent>
           </HeaderFooterLayout>
