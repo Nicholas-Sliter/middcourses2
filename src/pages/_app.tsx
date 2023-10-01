@@ -7,8 +7,23 @@ import { useEffect } from "react";
 import HeaderFooterLayout from "../layouts/HeaderFooterLayout";
 import { clarity } from 'react-microsoft-clarity';
 import Script from "next/script";
+import BannedUserNotice from "../components/BannedUserNotice";
 
 delete theme.styles.global;
+
+
+/* Banned user redirect */
+const ViewableComponent = ({ isBanned, children }: { isBanned?: boolean, children: React.ReactNode }) => {
+  if (isBanned) {
+    //TODO: make this pretty
+    return <BannedUserNotice />
+  }
+
+  return (
+    <>{children}</>
+  )
+
+}
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -25,10 +40,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const userID = pageProps.session?.user?.id ?? null;
     if (userID) {
-      // console.log('Identifying user with Clarity', userID);
       clarity.identify(userID, {
         ...pageProps.session?.user,
       });
+
+
+      clarity.setTag('user_id', userID);
+      clarity.setTag('user_email', pageProps.session?.user?.email ?? null);
+      clarity.setTag('user_role', pageProps.session?.user?.role ?? null);
+      clarity.setTag('user_banned', pageProps.session?.user?.banned ?? null);
     }
 
 
@@ -41,11 +61,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <ChakraProvider resetCSS={false}>
           <HeaderFooterLayout >
-            <Component {...pageProps} />
+            <ViewableComponent isBanned={pageProps?.session?.user?.banned} >
+              <Component {...pageProps} />
+            </ViewableComponent>
           </HeaderFooterLayout>
         </ChakraProvider>
       </SessionProvider>
-      <Script
+      {/* <Script
         strategy="afterInteractive"
         id="MiddCourses_Clarity"
         dangerouslySetInnerHTML={{
@@ -55,7 +77,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "iif5lextku");`
         }}
-      />
+      /> */}
     </>
   );
 }
