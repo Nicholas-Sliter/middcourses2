@@ -12,8 +12,7 @@ interface InstructorCardProps {
 }
 
 function InstructorCard({ instructor, authorized, showBottomBorder }: InstructorCardProps) {
-    const img_url = `https://directory.middlebury.edu/DirectoryImage.aspx?show=true&email=${instructor.email}`;
-    const src = instructor.email && instructor.email !== "" ? img_url : undefined;
+    const src = `https://directory.middlebury.edu/DirectoryImage.aspx?MiddleburyCollegeUID=${instructor.instructorID}&show=true`
 
     const firstName = instructor?.name?.split(" ")?.[0] ?? "";
 
