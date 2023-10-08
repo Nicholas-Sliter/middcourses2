@@ -164,7 +164,7 @@ async function getCourseReviews(id: string, session: CustomSession, authorized: 
 }
 
 
-export async function getCoursesInformation(ids: string[]) {
+export async function getCoursesInformation(ids: string[]): Promise<public_course[]> {
     return await knex("Course")
         .whereIn("Course.courseID", ids)
         .select(["Course.courseName", "Course.courseID", "Course.courseDescription"]);

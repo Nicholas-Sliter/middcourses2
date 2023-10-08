@@ -35,6 +35,16 @@ const calendarComponents = {
 };
 
 
+function beginsWithIndex(arr: string[], str: string) {
+    arr.forEach((item, index) => {
+        if (str.startsWith(item)) {
+            return index;
+        }
+    });
+
+    return -1;
+}
+
 
 
 function ScheduleCalendar({
@@ -68,11 +78,15 @@ function ScheduleCalendar({
 
     const localizer = dayjsLocalizer(dayjs);
 
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday"];
 
     const baseMinTime = 8 * 60; /* 8 AM */
     const minActiveTime = Math.min(...courses.map((course) => {
-        return [...course.times].map(([_, value]) => value)
+        if (!course.times) {
+            return baseMinTime;
+        }
+
+        return Object.values(course.times)
             .map(times => times.map(time => time.start))
             .flat();
     })
@@ -81,9 +95,13 @@ function ScheduleCalendar({
     );
     const minActiveTimeDate = dayjs().hour(Math.floor(minActiveTime / 60)).minute(minActiveTime % 60).toDate();
 
-    const baseMaxTime = 0 * 60; /* 12 PM */
+    const baseMaxTime = 12 * 60; /* 12 PM */
     const maxActiveTime = Math.max(...courses.map((course) => {
-        return [...course.times].map(([_, value]) => value)
+        if (!course.times) {
+            return baseMaxTime;
+        }
+
+        return Object.values(course.times)
             .map(times => times.map(time => time.end))
             .flat();
     })
@@ -93,10 +111,33 @@ function ScheduleCalendar({
     const maxActiveTimeDate = dayjs().hour(Math.floor(maxActiveTime / 60)).minute(maxActiveTime % 60).toDate();
 
 
-
     const timeRange = maxActiveTime - minActiveTime;
 
+    const events: Array<{
+        title: string;
+        start: Date;
+        end: Date;
+        allDay: boolean;
+        resource: CatalogCourse;
+    }> = courses.map((course) => {
+        return Object.values((course?.times ?? {}))
+            .map(times => times.map(time => {
+                const dayString = time.day.toLowerCase().trim();
+                const day = days.indexOf(dayString) + 1;
 
+                return {
+                    title: `${course.courseID}-${course.section} \n
+
+                    `,
+                    start: dayjs().day(day).hour(Math.floor(time.start / 60)).minute(time.start % 60).toDate(),
+                    end: dayjs().day(day).hour(Math.floor(time.end / 60)).minute(time.end % 60).toDate(),
+                    allDay: false,
+                    resource: course
+                };
+            }))
+            .flat();
+    })
+        .flat();
 
     return (
         <>
@@ -115,25 +156,9 @@ function ScheduleCalendar({
                 tooltipAccessor={null}
                 min={minActiveTimeDate}
                 max={maxActiveTimeDate}
-                events={courses.map((course) => {
-                    return [...course.times].map(([key, value]) => value)
-                        .map(times => times.map(time => {
-                            return {
-                                title: `${course.courseID}-${course.section} \n
-                                
-                                `,
-                                start: dayjs().day(days.indexOf(time.day) + 1).hour(Math.floor(time.start / 60)).minute(time.start % 60).toDate(),
-                                end: dayjs().day(days.indexOf(time.day) + 1).hour(Math.floor(time.end / 60)).minute(time.end % 60).toDate(),
-                                allDay: false,
-                                resource: course
-                            };
-                        }))
-                        .flat();
-                })
-                    .flat()
-                }
+                events={events}
                 getNow={() => { return new Date(0) }}
-                date={dayjs().day(days.indexOf("Monday")).toDate()}
+                date={dayjs().day(days.indexOf("monday")).toDate()}
                 onNavigate={() => { }} // Prevents navigation
                 components={calendarComponents}
 

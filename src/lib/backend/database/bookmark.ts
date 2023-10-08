@@ -1,10 +1,11 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { CustomSession, full_review, public_instructor, public_review } from "../../common/types";
+import { CatalogCourse, CustomSession, full_review, public_course, public_instructor, public_review } from "../../common/types";
 import { Knex } from "knex";
 import { parseStringToInt } from "../utils";
 import { parseMaybeInt } from "../../common/utils";
 import { getCourseCodes, getCourseCodesQuery } from "./alias";
+import { getCoursesInformation } from "./course";
 
 
 const MAX_USER_BOOKMARKS = 256;
@@ -113,8 +114,8 @@ export async function getAllUserBookmarks(session: CustomSession): Promise<numbe
 }
 
 
-export async function getAllBookmarksInSemester(session: CustomSession, semester: string): Promise<number[]> {
-    if (!session.user) {
+export async function getAllBookmarksInSemester(session: CustomSession, semester: string): Promise<string[]> {
+    if (!session?.user) {
         return [];
     }
 
@@ -129,6 +130,78 @@ export async function getAllBookmarksInSemester(session: CustomSession, semester
     return bookmarks.map((bookmark) => bookmark.courseID);
 
 }
+
+
+export async function getAllBookmarkedCatalogCoursesInSemester(session: CustomSession, semester: string): Promise<Record<string, {
+    course: public_course,
+    instructors: public_instructor[],
+    catalogEntries: CatalogCourse[],
+}>> {
+    if (!session?.user) {
+        return {};
+    }
+
+
+    const bookmarkCodes = await getAllBookmarksInSemester(session, semester);
+
+
+    const catalogEntriesPromise = knex("CatalogCourse")
+        .whereIn("courseID", bookmarkCodes)
+        .andWhere("semester", semester)
+        .select("*");
+
+    const coursesPromise = getCoursesInformation(bookmarkCodes);
+
+    const [catalogEntries, courses] = await Promise.all([catalogEntriesPromise, coursesPromise]);
+
+    const instructorsIds = catalogEntries.map((course) => course.instructors).flat();
+
+    const instructors = await knex("Instructor")
+        .whereIn("instructorID", instructorsIds)
+        .select("Instructor.instructorID", "Instructor.name", "Instructor.slug");
+
+    const instructorMap = instructors.reduce((map, instructor) => {
+        map[instructor.instructorID] = instructor;
+        return map;
+    }, {} as Record<number, public_instructor>);
+
+    const coursesByCode: Record<string, { course: public_course, instructors: public_instructor[], catalogEntries: CatalogCourse[] }> = {};
+    catalogEntries.forEach((course) => {
+        if (!coursesByCode[course.courseID]) {
+            coursesByCode[course.courseID] = {
+                course: null,
+                instructors: [],
+                catalogEntries: []
+            };
+        }
+        coursesByCode[course.courseID].catalogEntries.push(course);
+
+        course.instructors.forEach((instructorID) => {
+            /* check if instructor is already in the list */
+            if (coursesByCode[course.courseID].instructors.find((instructor) => instructor.instructorID == instructorID)) {
+                return;
+            }
+
+            coursesByCode[course.courseID].instructors.push(instructorMap[instructorID]);
+        });
+    });
+
+    courses.forEach((course) => {
+        if (!coursesByCode[course.courseID]) {
+            coursesByCode[course.courseID] = {
+                course: course,
+                instructors: [],
+                catalogEntries: []
+            };
+        }
+        coursesByCode[course.courseID].course = course;
+    });
+
+    return coursesByCode;
+
+}
+
+
 
 
 

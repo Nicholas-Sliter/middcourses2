@@ -64,7 +64,7 @@ function CourseScheduleInfo({ courses }: CourseScheduleInfoProps) {
                         <div className={styles.subcourseList}>
                             {[course, ...subcourses].map((subcourse) => {
                                 return (
-                                    <div className={styles.courseLine} key={subcourse.catalogID}>
+                                    <div className={styles.courseLine} key={subcourse.catalogCourseID}>
                                         <div>
                                             <div className={styles.courseType}>{getCourseType(subcourse)}</div>
                                             <div className={styles.courseIdentifier}>{subcourse.courseID} {subcourse.section}</div>

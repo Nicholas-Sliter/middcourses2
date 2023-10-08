@@ -53,8 +53,6 @@ function ScheduleCalendarEvent({ event }: ScheduleCalendarEventProps) {
 
     const { title, start, end, resource } = event;
 
-    // console.log(resource);
-
     // const { courseNumber, department } = parseCourseID(resource.courseID);
 
     // const course = useCourse(department, courseNumber);
@@ -65,6 +63,7 @@ function ScheduleCalendarEvent({ event }: ScheduleCalendarEventProps) {
         <ScheduleCalendarEventPopupWrapper event={event}>
             <div className={styles.eventContainer}>
                 {title}
+
             </div>
         </ScheduleCalendarEventPopupWrapper>
 

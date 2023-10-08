@@ -2,7 +2,7 @@ import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from "next-auth/react";
 import { CustomSession } from "../../../lib/common/types";
-import { createPlan, deletePlan, getSchedulePlansForSemester } from "../../../lib/backend/database/schedule";
+import { addCoursesToSchedule, createPlan, deletePlan, getSchedulePlan, getSchedulePlansForSemester, removeCoursesFromSchedule } from "../../../lib/backend/database/schedule";
 
 
 const handler = nc({
@@ -86,13 +86,70 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
 });
 
+/* Add courses to a schedule */
+handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
+
+    const session = await getSession({ req }) as CustomSession;
+
+    if (!session) {
+        return res.status(401).end("Unauthorized");
+    }
+
+    const { schedule, courses } = req.body;
+
+    if (!schedule) {
+        return res.status(400).end("Bad Request");
+    }
+
+    schedule.userID = session.user.id; /* Prevent user injection */
+
+    if (!schedule?.id) {
+        return res.status(400).end("Bad Request - Missing ID");
+    }
+
+    if (!courses) {
+        return res.status(400).end("Bad Request");
+    }
+
+    if (!Array.isArray(courses)) {
+        return res.status(400).end("Bad Request");
+    }
+
+    if (courses.length == 0) {
+        return res.status(400).end("Bad Request");
+    }
+
+    console.log(courses);
+
+    const existingSchedule = await getSchedulePlan(session, schedule.id);
+
+    if (!existingSchedule) {
+        return res.status(404).end("Not Found");
+    }
+
+    if (existingSchedule.userID != session.user.id) {
+        return res.status(403).end("Forbidden");
+    }
+
+    const coursesToDrop = courses.filter((course) => course.drop).map((course) => course.courseID);
+    const coursesToAdd = courses.filter((course) => course.add && !course.drop).map((course) => course.courseID);
+
+    await removeCoursesFromSchedule(session, schedule.id, coursesToDrop);
+    const updatedSchedule = await addCoursesToSchedule(session, schedule.id, coursesToAdd);
+
+    if (!updatedSchedule) {
+        return res.status(500).end("Internal Server Error");
+    }
+
+
+    return res.status(200).end(JSON.stringify(updatedSchedule));
+});
+
 
 handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
     console.log("DELETE");
 
     const session = await getSession({ req }) as CustomSession;
-
-    console.log(session);
 
     if (!session) {
         return res.status(401).end("Unauthorized");

@@ -19,10 +19,10 @@ import { getAllBookmarksInSemester, getAllUserBookmarks } from "../../lib/backen
 import { Button, Select, Tooltip } from "@chakra-ui/react";
 import { convertTermToFullString } from "../../lib/frontend/utils";
 import useSchedule from "../../hooks/useSchedule";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { getSchedulePlansForSemester, getSchedulePlansForSemesters } from "../../lib/backend/database/schedule";
 import { BsJustify } from "react-icons/bs";
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import AddButton from "../../components/common/AddButton";
 import AddToScheduleButton from "../../components/common/EditScheduleButton";
 import EditScheduleButton from "../../components/common/EditScheduleButton";
@@ -30,22 +30,14 @@ import CourseCard from "../../components/CourseCard";
 import CourseScheduleInfo from "../../components/CourseScheduleInfo";
 import { FiDelete } from "react-icons/fi";
 import { MdOutlineAdd, MdOutlineDelete } from "react-icons/md";
-import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal } from "../../components/Schedule";
+import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal, ScheduleInfoDisplay } from "../../components/Schedule";
+import useScheduleCourses from "../../hooks/useScheduleCourses";
 
 export async function getServerSideProps(context) {
 
     const session = await getSession(context) as CustomSession;
     const currentTerms = [getCurrentTerm(), getNextTerm()];
     const term = (context.query.term ?? currentTerms[0]) as string;
-
-    // if (!currentTerms.includes(term)) {
-    //     return {
-    //         redirect: {
-    //             destination: `/schedule?term=${currentTerms[0]}`,
-    //             permanent: false,
-    //         },
-    //     }
-    // }
 
     const authorized = session?.user?.authorized ?? false;
 
@@ -57,77 +49,6 @@ export async function getServerSideProps(context) {
     const bookmarkedCourses = await getAllBookmarksInSemester(session, term);
 
     const schedules = await getSchedulePlansForSemesters(session, currentTerms);
-
-    // schedules.forEach(schedule => {
-    //     schedule.courses = [{
-    //         courseName: "Software Engineering",
-    //         courseID: "CSCI0312",
-    //         catalogID: "CSCI0312A-F23",
-    //         courseDescription: "...",
-    //         semester: "F23",
-    //         crn: "12345",
-    //         section: "A",
-    //         isLinkedSection: false,
-    //         times: [
-    //             ["0", [{
-    //                 day: "Monday",
-    //                 start: 8 * 60,
-    //                 end: 9 * 60 + 15,
-
-    //             }, {
-    //                 day: "Wednesday",
-    //                 start: 8 * 60,
-    //                 end: 9 * 60 + 15,
-
-    //             }]],
-
-    //         ]
-    //     }]
-
-    // })
-
-    // const schedules: Schedule[] = [
-    //     {
-    //         id: 1,
-    //         userID: session?.user?.id ?? null,
-    //         name: "Schedule 1",
-    //         courses: [
-    // {
-    //     courseName: "Software Engineering",
-    //     courseID: "CSCI0312",
-    //     catalogID: "CSCI0312A-F23",
-    //     courseDescription: "...",
-    //     semester: "F23",
-    //     crn: "12345",
-    //     section: "A",
-    //     isLinkedSection: false,
-    //     times: [
-    //         ["0", [{
-    //             day: "Monday",
-    //             start: 8 * 60,
-    //             end: 9 * 60 + 15,
-
-    //         }, {
-    //             day: "Wednesday",
-    //             start: 8 * 60,
-    //             end: 9 * 60 + 15,
-
-    //         }]],
-
-    //     ],
-
-
-
-    //             }
-    //         ],
-    //         semester: term,
-    // }];
-
-
-    // get schedule difficulties
-
-    console.log(JSON.stringify(schedules));
-
 
     return {
         props: {
@@ -145,6 +66,32 @@ export async function getServerSideProps(context) {
         },
     }
 }
+
+
+async function addCourseToSchedule(course: CatalogCourse, schedule: Schedule): Promise<CatalogCourse[]> {
+
+    const res = await fetch(`/api/schedules`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            schedule: schedule,
+            courses: [{
+                courseID: course.catalogCourseID,
+                add: true,
+                drop: false,
+            }],
+        }),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    return data;
+
+}
+
+
 
 interface ScheduleProps {
     term: string;
@@ -169,9 +116,6 @@ function Schedule({
 
 }: ScheduleProps) {
 
-    // const session = a
-    // const { bookmarks, schedules } = await useSchedule(session, term);
-    const router = useRouter();
 
     const [userTerm, setUserTerm] = useState<string>(term);
     const [userSchedules, setUserSchedules] = useState<Schedule[]>(schedules ?? []);
@@ -179,7 +123,18 @@ function Schedule({
     const [newScheduleModalOpen, setNewScheduleModalOpen] = useState<boolean>(false);
     const [deleteScheduleModalOpen, setDeleteScheduleModalOpen] = useState<boolean>(false);
     const [addCourseModalOpen, setAddCourseModalOpen] = useState<boolean>(false);
+    const [scheduleModifiedRecently, setScheduleModifiedRecently] = useState<boolean>(false); // Used to force a refresh of the schedule courses
 
+    const selectedScheduleCourses = useScheduleCourses(
+        selectedSchedule?.id,
+        scheduleModifiedRecently,
+        setScheduleModifiedRecently
+    );
+
+    const scheduleWithCourses = {
+        ...selectedSchedule,
+        courses: selectedScheduleCourses,
+    };
 
     /* Update selected schedule when term changes. Try to select the first schedule in the new term. */
     useEffect(() => {
@@ -191,7 +146,11 @@ function Schedule({
     }, [userTerm, userSchedules]);
 
 
-    console.log(bookmarks, schedules);
+    const addCourseToScheduleWrapper = useCallback(async (course: CatalogCourse, schedule: Schedule) => {
+        const newScheduleCourses = await addCourseToSchedule(course, schedule);
+        setScheduleModifiedRecently(true);
+
+    }, []);
 
 
 
@@ -256,7 +215,7 @@ function Schedule({
                                     _hover={{
                                         textDecoration: "dotted",
                                     }}
-                                    defaultValue={term}
+                                    // defaultValue={term}
 
                                     onChange={(e) => {
                                         setSelectedSchedule(null);
@@ -291,7 +250,7 @@ function Schedule({
                                     }}
                                     placeholder={"Select Schedule"}
                                     disabled={userSchedules.length === 0}
-                                    defaultValue={selectedSchedule?.id ?? null}
+                                    // defaultValue={selectedSchedule?.id ?? null}
                                     value={selectedSchedule?.id ?? null}
                                     onChange={(e) => {
                                         setSelectedSchedule(userSchedules.find((schedule) => schedule.id === parseInt(e.target.value)) ?? null);
@@ -368,7 +327,7 @@ function Schedule({
                                     </Tooltip>
                                 </div>
                             </div>
-                            <CourseScheduleInfo courses={selectedSchedule?.courses} />
+                            <CourseScheduleInfo courses={scheduleWithCourses?.courses} />
 
 
                         </div>
@@ -395,6 +354,15 @@ function Schedule({
                             flexDirection: "column",
                             height: "100%"
                         }}>
+                            <div
+                                style={{
+                                    height: "30%"
+                                }}
+                            >
+                                <ScheduleInfoDisplay catalogEntries={scheduleWithCourses?.courses} />
+
+
+                            </div>
                             <div style={{
                                 display: "flex",
                                 alignItems: "flex-end",
@@ -402,7 +370,8 @@ function Schedule({
                                 flexGrow: 1,
 
                             }}>
-                                <ScheduleCalendar schedule={selectedSchedule} />
+
+                                <ScheduleCalendar schedule={scheduleWithCourses} />
                             </div>
                         </div>
 
@@ -411,6 +380,7 @@ function Schedule({
                 </SidebarLayout>
                 <EditScheduleButton
                     onClick={() => setAddCourseModalOpen(true)}
+                    schedule={selectedSchedule}
                 />
 
 
@@ -452,7 +422,7 @@ function Schedule({
             <AddCourseToScheduleModal
                 isOpen={addCourseModalOpen}
                 onClose={() => setAddCourseModalOpen(false)}
-                onCourseAdded={() => { }}
+                onCourseAdded={addCourseToScheduleWrapper}
                 schedule={selectedSchedule}
             />
 

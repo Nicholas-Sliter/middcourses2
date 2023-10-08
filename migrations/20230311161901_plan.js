@@ -55,7 +55,7 @@ exports.up = function (knex) {
         // })
         .createTable('PlanCourse', function (table) {
 
-            table.string('catalogCourseID').primary();
+            table.string('catalogCourseID');
             table.foreign('catalogCourseID').references('CatalogCourse.catalogCourseID');
 
             table.string('courseID').notNullable();

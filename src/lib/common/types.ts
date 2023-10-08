@@ -145,7 +145,7 @@ export interface extended_department extends Department {
 export interface CatalogCourse {
   courseName: string;
   courseID: string;
-  catalogID: string;
+  catalogCourseID: string;
   courseDescription: string;
   semester: string;
   crn: string;
@@ -156,5 +156,7 @@ export interface CatalogCourse {
   //   start: number;
   //   end: number;
   // }[]>;
-  times: [string, { day: string; start: number; end: number; }[]][];
+  // times: [string, { day: string; start: number; end: number; }[]][];
+  // times: Record<string, { day: string; start: number; end: number; }[]>;
+  times: Record<string, Array<{ day: string; start: number; end: number; }>>;
 };

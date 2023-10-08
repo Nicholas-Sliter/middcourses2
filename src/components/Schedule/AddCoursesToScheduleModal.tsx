@@ -2,9 +2,13 @@ import { useState } from "react";
 import { CatalogCourse, Schedule, public_course } from "../../lib/common/types";
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useToast, Select, FormLabel, Input } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import styles from "./AddCoursesToScheduleModal.module.scss";
+import AddCourseToScheduleItemProps from "./AddCourseToScheduleItemProps";
+import React from "react";
+import AddByBookmark from "./AddByBookmark";
 
 
-const AddByBookmark = () => null;
+// const AddByBookmark = () => null;
 const AddBySearch = () => null;
 // const AddBySubject = () => null;
 const AddByRecommendation = () => null;
@@ -18,12 +22,12 @@ interface ITab {
     id: AddCourseTabs;
     name: string;
     content: JSX.Element;
+    hidden?: boolean;
 }
-// const tabs: AddCourseTabs[] = ["bookmark", "search", "recommendation", "filter", "hasOpenings"];
 const tabs: ITab[] = [
     {
         id: "bookmark",
-        name: "Bookmark",
+        name: "Bookmarks",
         content: <AddByBookmark />
     },
     {
@@ -33,38 +37,38 @@ const tabs: ITab[] = [
     },
     {
         id: "recommendation",
-        name: "Recommendation",
+        name: "Recommendations",
         content: <AddByRecommendation />
     },
     {
         id: "filter",
         name: "Filter",
-        content: <AddByFilter />
+        content: <AddByFilter />,
+        hidden: true
     },
     {
         id: "hasOpenings",
         name: "Has Openings",
-        content: <AddByHasOpenings />
+        content: <AddByHasOpenings />,
+        hidden: true
     },
 ];
-// const tabFunctions: { [key in AddCourseTabs]: () => JSX.Element } = {
-//     bookmark: AddByBookmark,
-//     search: AddBySearch,
-//     recommendation: AddByRecommendation,
-//     filter: AddByFilter,
-//     hasOpenings: AddByHasOpenings,
-// };
 
-const AddCourseTabs = () => {
-    const [tab, setTab] = useState<AddCourseTabs>("bookmark");
+const INITIAL_TAB = "bookmark";
 
+const AddCourseTabs = ({ schedule, onCourseAdded }: AddCourseToScheduleItemProps) => {
+    const [tab, setTab] = useState<AddCourseTabs>(INITIAL_TAB);
+    const visibleTabs = tabs.filter((t) => !(t?.hidden ?? false));
 
     return (
-        <Tabs tabIndex={tabs.findIndex((t) => t.id === tab)}>
+        <Tabs
+            isLazy
+            tabIndex={visibleTabs.findIndex((t) => t.id === tab)}
+            className={styles.tabBarContainer}
+        >
             <TabList>
                 {
-                    tabs.map((tab) => (
-                        // eslint-disable-next-line react/jsx-key
+                    visibleTabs.map((tab) => (
                         <Tab key={`${tab.id}-header`} onClick={() => setTab(tab.id)}>{tab.name}</Tab>
                     ))
                 }
@@ -72,10 +76,9 @@ const AddCourseTabs = () => {
 
             <TabPanels>
                 {
-                    tabs.map((tab) => (
-                        // eslint-disable-next-line react/jsx-key
-                        <TabPanel>
-                            {tab.content}
+                    visibleTabs.map((tab) => (
+                        <TabPanel key={tab.id}>
+                            {React.cloneElement(tab.content, { schedule, onCourseAdded })}
                         </TabPanel>
                     ))
                 }
@@ -108,6 +111,10 @@ function AddCourseToScheduleModal({
         return null;
     }
 
+    if (!schedule) {
+        return null;
+    }
+
 
     return (
         <Modal
@@ -116,13 +123,13 @@ function AddCourseToScheduleModal({
             size="xl"
         >
             <ModalOverlay />
-            <ModalContent className>
+            <ModalContent className={styles.modalContentContainer}>
                 <ModalHeader>
-                    ...
-                    <ModalCloseButton className />
+                    {`Add to Schedule: `}<span>{schedule.name}</span>
+                    < ModalCloseButton className />
                 </ModalHeader>
                 <ModalBody>
-                    <AddCourseTabs />
+                    <AddCourseTabs schedule={schedule} onCourseAdded={onCourseAdded} />
                 </ModalBody>
             </ModalContent>
         </Modal>
