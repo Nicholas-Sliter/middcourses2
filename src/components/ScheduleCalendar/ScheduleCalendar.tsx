@@ -35,15 +35,6 @@ const calendarComponents = {
 };
 
 
-function beginsWithIndex(arr: string[], str: string) {
-    arr.forEach((item, index) => {
-        if (str.startsWith(item)) {
-            return index;
-        }
-    });
-
-    return -1;
-}
 
 
 

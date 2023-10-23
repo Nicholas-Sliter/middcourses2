@@ -33,12 +33,14 @@ const tabs: ITab[] = [
     {
         id: "search",
         name: "Search",
-        content: <AddBySearch />
+        content: <AddBySearch />,
+        hidden: true
     },
     {
         id: "recommendation",
         name: "Recommendations",
-        content: <AddByRecommendation />
+        content: <AddByRecommendation />,
+        hidden: true
     },
     {
         id: "filter",
@@ -94,7 +96,7 @@ const AddCourseTabs = ({ schedule, onCourseAdded }: AddCourseToScheduleItemProps
 interface AddCourseToScheduleModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onCourseAdded: (course: CatalogCourse, schedule: Schedule) => void;
+    onCourseAdded: (coursesToDrop: CatalogCourse[], coursesToAdd: CatalogCourse[], schedule: Schedule) => void;
     schedule: Schedule;
 };
 

@@ -6,22 +6,24 @@ interface CourseScheduleInfoProps {
     courses: CatalogCourse[];
 }
 
-function wordBoundString(str: string) {
-    return `\\b${str}\\b`;
+
+function getAbbreviatedCourseType(course: CatalogCourse) {
+    const typeMap: Record<string, string> = {
+        "Lecture": "Lect",
+        "Lab": "Lab",
+        "Discussion": "Disc",
+        "Fieldwork": "Field",
+        "Field": "Field",
+        "Screening": "Screen",
+        "Seminar": "Sem",
+        "Studio": "Studio",
+        "Tutorial": "Tut",
+        "Other": "Other",
+    };
+
+    return typeMap[course.type] ?? "Other";
 }
 
-function getCourseType(course: CatalogCourse) {
-    if (course.isLinkedSection) {
-        if (course.courseName.toLowerCase().match(wordBoundString("lab"))) return "Lab";
-        if (course.courseName.toLowerCase().match(wordBoundString("discussion"))) return "Disc";
-        if (course.courseName.toLowerCase().match(wordBoundString("field"))) return "Field";
-        if (course.courseName.toLowerCase().match(wordBoundString("fieldwork"))) return "Field";
-        return "Other";
-    }
-
-    return "Lect"; //Main
-
-}
 
 
 function CourseScheduleInfo({ courses }: CourseScheduleInfoProps) {
@@ -66,7 +68,7 @@ function CourseScheduleInfo({ courses }: CourseScheduleInfoProps) {
                                 return (
                                     <div className={styles.courseLine} key={subcourse.catalogCourseID}>
                                         <div>
-                                            <div className={styles.courseType}>{getCourseType(subcourse)}</div>
+                                            <div className={styles.courseType}>{getAbbreviatedCourseType(subcourse)}</div>
                                             <div className={styles.courseIdentifier}>{subcourse.courseID} {subcourse.section}</div>
                                         </div>
                                         <span className={styles.courseControls}>

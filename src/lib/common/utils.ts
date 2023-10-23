@@ -1,4 +1,4 @@
-import { public_course, public_review } from "./types";
+import { CatalogCourse, public_course, public_review } from "./types";
 
 /**
  * Get the current graduation year of first semester freshmen based on the current date.
@@ -604,36 +604,82 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
 
 }
 
+// export function checkForTimeConflicts(times: { day: string, start: number, end: number }[]): boolean {
 
-export function checkForTimeConflicts(times: { day: string, start: number, end: number }[]): boolean {
+//   // Push each time onto a master time object, if there is an overlap, then there is a conflict
 
-  // Push each time onto a master time object, if there is an overlap, then there is a conflict
+//   const masterTimeObject: Record<string, { start: number, end: number }[]> = {};
 
+//   for (const time of times) {
+//     const { day, start, end } = time;
+
+//     if (!masterTimeObject[day]) {
+//       masterTimeObject[day] = [];
+//     }
+
+//     /* Check for conflicts */
+//     if (masterTimeObject[day].length > 0) {
+//       for (const time of masterTimeObject[day]) {
+//         const { start: masterStart, end: masterEnd } = time;
+
+//         if (start < masterEnd && end > masterStart) {
+//           return true;
+//         }
+//       }
+//     }
+
+//     masterTimeObject[day].push({ start, end });
+//   }
+
+//   return false;
+// }
+
+export function checkForTimeConflicts(times: Array<CatalogCourse['times']>): boolean {
+
+  console.log(times);
+  /* Flatten intervals into an object of days with an array of intervals */
   const masterTimeObject: Record<string, { start: number, end: number }[]> = {};
 
-  for (const time of times) {
+  const flatTimes = times.reduce((acc, time) => [...acc, ...Object.values(time)], []).flat();
+  console.log(flatTimes);
+
+
+  flatTimes.forEach((time) => {
+
     const { day, start, end } = time;
 
     if (!masterTimeObject[day]) {
       masterTimeObject[day] = [];
     }
 
-    /* Check for conflicts */
-    if (masterTimeObject[day].length > 0) {
-      for (const time of masterTimeObject[day]) {
-        const { start: masterStart, end: masterEnd } = time;
+    masterTimeObject[day].push({ start, end });
+  });
 
-        if (start < masterEnd && end > masterStart) {
-          return true;
-        }
+  /* sort intervals by start time */
+  for (const day in masterTimeObject) {
+    masterTimeObject[day].sort((a, b) => a.start - b.start);
+  }
+
+  console.log(masterTimeObject)
+
+  /* Check for conflicts */
+  for (const day in masterTimeObject) {
+    const intervals = masterTimeObject[day];
+
+    for (let i = 0; i < intervals.length - 1; i++) {
+      const intervalA = intervals[i];
+      const intervalB = intervals[i + 1];
+
+      if (intervalA.end >= intervalB.start) {
+        return true;
       }
     }
-
-    masterTimeObject[day].push({ start, end });
   }
 
   return false;
+
 }
+
 
 /** Parse a course ID from a raw catalog course ID
  * Example: CSCI1005A-W23 -> {code: CSCI1005, section: A, term: W23}
@@ -676,3 +722,36 @@ export function parseMaybeInt(input: string | number): number {
   return parseInt(input);
 
 }
+
+function wordBoundString(str: string) {
+  return `\\b${str}\\b`;
+}
+
+
+// export function getCourseType(course: CatalogCourse) {
+//   if (course.isLinkedSection) {
+//     if (course.courseName.toLowerCase().match(wordBoundString("lab"))) return "Lab";
+//     if (course.courseName.toLowerCase().match(wordBoundString("discussion"))) return "Disc";
+//     if (course.courseName.toLowerCase().match(wordBoundString("field"))) return "Field";
+//     if (course.courseName.toLowerCase().match(wordBoundString("fieldwork"))) return "Field";
+//     return "Other";
+//   }
+
+//   return "Lect"; //Main
+// }
+
+
+// export function getCourseTypeFull(course: CatalogCourse) {
+//   if (course.isLinkedSection) {
+//     if (course.courseName.toLowerCase().match(wordBoundString("lab"))) return "Lab";
+//     if (course.courseName.toLowerCase().match(wordBoundString("discussion"))) return "Discussion";
+//     if (course.courseName.toLowerCase().match(wordBoundString("field"))) return "Fieldwork";
+//     if (course.courseName.toLowerCase().match(wordBoundString("fieldwork"))) return "Fieldwork";
+//     if (course.courseName.toLowerCase().match(wordBoundString("screening"))) return "Screening";
+
+//     return "Other";
+//   }
+
+//   return "Lecture"; //Main
+
+// }

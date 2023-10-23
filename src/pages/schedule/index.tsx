@@ -44,9 +44,9 @@ export async function getServerSideProps(context) {
     const mobileUserAgent = context.req.headers["user-agent"].toLowerCase().includes("mobile");
 
 
-    const userBookmarks = await getAllUserBookmarks(session);
+    // const userBookmarks = await getAllUserBookmarks(session);
 
-    const bookmarkedCourses = await getAllBookmarksInSemester(session, term);
+    // const bookmarkedCourses = await getAllBookmarksInSemester(session, term);
 
     const schedules = await getSchedulePlansForSemesters(session, currentTerms);
 
@@ -54,9 +54,6 @@ export async function getServerSideProps(context) {
         props: {
             term: term,
             currentTerms: currentTerms,
-
-            courses: bookmarkedCourses,
-            bookmarks: userBookmarks,
 
             schedules: JSON.parse(JSON.stringify(schedules)),
 
@@ -67,8 +64,20 @@ export async function getServerSideProps(context) {
     }
 }
 
+async function handleCourseScheduleChange(coursesToDrop: CatalogCourse[], coursesToAdd: CatalogCourse[], schedule: Schedule): Promise<CatalogCourse[]> {
 
-async function addCourseToSchedule(course: CatalogCourse, schedule: Schedule): Promise<CatalogCourse[]> {
+    const dropObjs = coursesToDrop.map((course) => ({
+        courseID: course.catalogCourseID,
+        add: false,
+        drop: true,
+    }));
+
+    const addObjs = coursesToAdd.map((course) => ({
+        courseID: course.catalogCourseID,
+        add: true,
+        drop: false,
+    }));
+
 
     const res = await fetch(`/api/schedules`, {
         method: "PATCH",
@@ -77,12 +86,34 @@ async function addCourseToSchedule(course: CatalogCourse, schedule: Schedule): P
         },
         body: JSON.stringify({
             schedule: schedule,
-            courses: [{
+            courses: [...dropObjs, ...addObjs]
+        })
+    });
+
+    const data = await res.json();
+    console.log(data);
+    return data;
+
+
+
+
+}
+
+async function addCoursesToSchedule(courses: CatalogCourse[], schedule: Schedule): Promise<CatalogCourse[]> {
+
+    const res = await fetch(`/api/schedules`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            schedule: schedule,
+            courses: courses.map((course) => ({
                 courseID: course.catalogCourseID,
                 add: true,
                 drop: false,
-            }],
-        }),
+            }))
+        })
     });
 
     const data = await res.json();
@@ -96,8 +127,6 @@ async function addCourseToSchedule(course: CatalogCourse, schedule: Schedule): P
 interface ScheduleProps {
     term: string;
     currentTerms: string[];
-    courses: CatalogCourse[];
-    bookmarks: any[];
     schedules: Schedule[];
     authorized: boolean;
     mobileUserAgent: boolean;
@@ -108,8 +137,6 @@ interface ScheduleProps {
 function Schedule({
     term,
     currentTerms,
-    courses,
-    bookmarks,
     schedules,
     authorized,
     mobileUserAgent,
@@ -146,12 +173,18 @@ function Schedule({
     }, [userTerm, userSchedules]);
 
 
-    const addCourseToScheduleWrapper = useCallback(async (course: CatalogCourse, schedule: Schedule) => {
-        const newScheduleCourses = await addCourseToSchedule(course, schedule);
+    // const addCourseToScheduleWrapper = useCallback(async (courses: CatalogCourse[], schedule: Schedule) => {
+    //     const newScheduleCourses = await addCoursesToSchedule(courses, schedule);
+    //     setScheduleModifiedRecently(true);
+
+    // }, []);
+
+
+    const handleCourseScheduleChangeWrapper = useCallback(async (coursesToDrop: CatalogCourse[], coursesToAdd: CatalogCourse[], schedule: Schedule) => {
+        const newScheduleCourses = await handleCourseScheduleChange(coursesToDrop, coursesToAdd, schedule);
         setScheduleModifiedRecently(true);
 
     }, []);
-
 
 
     return (
@@ -354,7 +387,7 @@ function Schedule({
                             flexDirection: "column",
                             height: "100%"
                         }}>
-                            <div
+                            {/* <div
                                 style={{
                                     height: "30%"
                                 }}
@@ -362,7 +395,7 @@ function Schedule({
                                 <ScheduleInfoDisplay catalogEntries={scheduleWithCourses?.courses} />
 
 
-                            </div>
+                            </div> */}
                             <div style={{
                                 display: "flex",
                                 alignItems: "flex-end",
@@ -380,7 +413,7 @@ function Schedule({
                 </SidebarLayout>
                 <EditScheduleButton
                     onClick={() => setAddCourseModalOpen(true)}
-                    schedule={selectedSchedule}
+                    schedule={scheduleWithCourses}
                 />
 
 
@@ -422,8 +455,8 @@ function Schedule({
             <AddCourseToScheduleModal
                 isOpen={addCourseModalOpen}
                 onClose={() => setAddCourseModalOpen(false)}
-                onCourseAdded={addCourseToScheduleWrapper}
-                schedule={selectedSchedule}
+                onCourseAdded={handleCourseScheduleChangeWrapper}
+                schedule={scheduleWithCourses}
             />
 
 

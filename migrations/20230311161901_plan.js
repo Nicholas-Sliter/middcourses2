@@ -38,21 +38,13 @@ exports.up = function (knex) {
             // A: This is defintly easier to do in JS by quering the time field.
 
             table.boolean("isLinkedSection").defaultTo(false); /* If true, this is a lab or discussion section or similar */
+            table.string("type"); /* Lecture, lab, discussion, etc. */
 
             table.specificType('instructors', 'text ARRAY'); /* List of instructor IDs for this section */
             table.specificType('requirements', 'text ARRAY'); /* List of requirements this course satisfies, eg. SOC or DED */
 
         })
-        // /**
-        //  * LinkedCourse is a table that contains a mapping between a course and a linked section like a lab or discussion.
-        //  */
-        // .createTable("LinkedCourse", function (table) {
-        //     table.string('courseID').notNullable();
-        //     table.foreign('courseID').references('Course.courseID');
 
-        //     table.string('linkedCatalogCourseID').notNullable();
-        //     table.foreign('linkedCatalogCourseID').references('CatalogCourses.catalogCourseID');
-        // })
         .createTable('PlanCourse', function (table) {
 
             table.string('catalogCourseID');
@@ -72,7 +64,6 @@ exports.up = function (knex) {
 exports.down = function (knex) {
 
     return knex.schema
-        // .dropTable('LinkedCourse')
         .dropTable('PlanCourse')
         .dropTable('Plan')
         .dropTable('CatalogCourse');

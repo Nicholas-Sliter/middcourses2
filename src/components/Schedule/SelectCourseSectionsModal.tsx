@@ -1,23 +1,48 @@
-import { CatalogCourse, Schedule, public_course } from "../../lib/common/types";
+import { CatalogCourse, CatalogCourseWithInstructors, Schedule, public_course } from "../../lib/common/types";
+import AddCourseSectionsSelector from "./AddCourseSectionsSelector";
 
 interface SelectCourseSectionsProps {
     schedule: Schedule;
     course: public_course;
-    catalogEntries: CatalogCourse[];
-    onCourseAdded: (schedule: Schedule, course: CatalogCourse) => void;
-
+    catalogEntries: CatalogCourseWithInstructors[];
+    onCourseAdded: (coursesToDrop: CatalogCourse[], coursesToAdd: CatalogCourse[], schedule: Schedule) => void;
+    isOpen: boolean;
 };
 
 
-function SelectCourseSections({
+function SelectCourseSectionsModal({
     schedule,
     course,
     catalogEntries,
-    onCourseAdded
+    onCourseAdded,
+    isOpen,
 }: SelectCourseSectionsProps) {
+
+    if (!isOpen) {
+        return null;
+    }
+
+    if (!schedule) {
+        return null;
+    }
+
+
+
+
+    return (
+        <div>
+            <p>{course.courseName}</p>
+            <AddCourseSectionsSelector
+                course={course}
+                catalogEntries={catalogEntries}
+                onCourseAdded={onCourseAdded}
+                schedule={schedule}
+            />
+        </div>
+    );
 
 
 
 }
 
-export default SelectCourseSections;
+export default SelectCourseSectionsModal;

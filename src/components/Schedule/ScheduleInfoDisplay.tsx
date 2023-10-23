@@ -6,7 +6,6 @@ interface ScheduleInfoDisplayProps {
 }
 
 
-
 const getHoursInClassTime = (catalogEntries: CatalogCourse[], courseID: string) => {
     return catalogEntries.reduce((totalTime, catalogEntry) => {
         if (catalogEntry.courseID !== courseID) {
@@ -21,8 +20,9 @@ const getHoursInClassTime = (catalogEntries: CatalogCourse[], courseID: string) 
 }
 
 const getAverageNumericProperty = (courses: public_course[], property: string) => {
+    if (!courses || courses.length === 0) return 0;
     return courses.reduce((acc, course) => {
-        return acc + course[property];
+        return acc + course?.[property];
     }, 0) / courses.length;
 }
 
@@ -41,8 +41,8 @@ function ScheduleInfoDisplay({
 
     const { courses, loading } = useCourses(Array.from(courseIDs));
 
-    const outOfClassHours = courses.reduce((acc, course) => {
-        return acc + course.avgHours;
+    const outOfClassHours = courses?.reduce((acc, course) => {
+        return acc + course?.avgHours;
     }, 0);
 
     const courseHours = Array.from(courseIDs).map(courseID => {

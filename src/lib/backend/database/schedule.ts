@@ -1,6 +1,6 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { CustomSession, full_review, public_instructor, public_review, Schedule } from "../../common/types";
+import { CatalogCourse, CustomSession, full_review, public_instructor, public_review, Schedule } from "../../common/types";
 import { Knex } from "knex";
 import { parseCourseTimeString, checkForTimeConflicts, parseRawCourseID } from "../../common/utils";
 import Course from "catalog.js/lib/classes/Course.js";
@@ -165,7 +165,7 @@ export async function upsertCatalogCourses(transaction: Knex.Transaction, rawCat
 
             section: parseRawCourseID(course.code)?.section,
             isLinkedSection: isLinkedCourse(course?.type?.text),
-
+            type: course.type.text,
 
             instructors: course.instructors.map(instructor => instructor.id),
             requirements: filterAcceptedRequirementList(course.requirements.map(requirement => requirement.text)),
@@ -311,7 +311,7 @@ export async function removeCoursesFromSchedule(session: CustomSession, schedule
         return false;
     }
 
-    if (!courses) {
+    if (!courses.length) {
         return false;
     }
 
@@ -319,14 +319,15 @@ export async function removeCoursesFromSchedule(session: CustomSession, schedule
         .where({ id: scheduleID })
         .andWhere({ userID: session.user.id })
         .select("*")
-        .leftJoin("PlanCourse", "PlanCourse.planID", "Plan.id")
-        .whereIn("PlanCourse.courseID", courses);
+        .leftJoin("PlanCourse", "PlanCourse.planID", "Plan.id");
 
-    const deletedCourses = scheduleCourses.map(course => course.courseID);
+    const deletedCourses = scheduleCourses
+        .map(course => course.catalogCourseID)
+        .filter(catalogCourseID => courses.includes(catalogCourseID));
 
     const deleted = await knex("PlanCourse")
         .where({ planID: scheduleID })
-        .whereIn("courseID", deletedCourses)
+        .whereIn("catalogCourseID", deletedCourses)
         .del();
 
     return deleted > 0;
@@ -356,11 +357,11 @@ export async function addCoursesToSchedule(session: CustomSession, scheduleID: s
         return null; /* Schedule does not exist or user does not have access */
     }
 
-    const resolvedCourses = await knex("CatalogCourse")
+    const resolvedCourses: CatalogCourse[] = await knex("CatalogCourse")
         .whereIn("catalogCourseID", courses)
         .select("*");
 
-    const existingScheduleCourses = await knex("PlanCourse")
+    const existingScheduleCourses: CatalogCourse[] = await knex("PlanCourse")
         .where({ planID: scheduleID })
         .leftJoin("CatalogCourse", "CatalogCourse.catalogCourseID", "PlanCourse.catalogCourseID")
         .select("*");
@@ -399,8 +400,13 @@ export async function addCoursesToSchedule(session: CustomSession, scheduleID: s
 
 
     /* Make sure courses do not have a time conflict with schedule */
-    const parsedCourseTimes = [...resolvedCourses, ...existingScheduleCourses].map(course => parseCourseTimeString(course.time)).flat();
-    if (checkForTimeConflicts(parsedCourseTimes)) {
+    // const parsedCourseTimes = [...resolvedCourses, ...existingScheduleCourses].flat();
+    const courseTimes: Array<CatalogCourse['times']> = [...resolvedCourses, ...existingScheduleCourses].map(course => {
+        return course.times
+    });
+
+    if (checkForTimeConflicts(courseTimes)) {
+        console.log("Time conflict");
         return null;
     }
 
@@ -440,9 +446,51 @@ export async function getScheduleCourses(session: CustomSession, planID: string)
 
     const scheduleCourses = await knex("Plan")
         .where({ id: planID, userID: session.user.id })
-        .select("*")
+        .select([
+            "PlanCourse.courseID",
+            "PlanCourse.catalogCourseID",
+            "CatalogCourse.crn",
+            "CatalogCourse.section",
+            "CatalogCourse.isLinkedSection",
+            "CatalogCourse.type",
+            "CatalogCourse.times",
+            "CatalogCourse.instructors",
+            "CatalogCourse.requirements",
+            "Course.courseName",
+            "Course.courseDescription"
+        ])
         .leftJoin("PlanCourse", "PlanCourse.planID", "Plan.id")
-        .leftJoin("CatalogCourse", "CatalogCourse.catalogCourseID", "PlanCourse.catalogCourseID");
+        .leftJoin("CatalogCourse", "CatalogCourse.catalogCourseID", "PlanCourse.catalogCourseID")
+        .leftJoin("Course", "Course.courseID", "PlanCourse.courseID")
+        .whereRaw("\"PlanCourse\".\"courseID\" IS NOT NULL");
 
-    return scheduleCourses;
+    if (!scheduleCourses || scheduleCourses.length === 0) {
+        return [];
+    }
+
+    const instructorIds = scheduleCourses.map(course => course.instructors).flat();
+    const instructors = await knex("Instructor")
+        .whereIn("instructorID", instructorIds)
+        .select([
+            "instructorID",
+            "slug",
+            "name",
+            "departmentID"
+        ]);
+
+    const instructorMap = instructors.reduce((map, instructor) => {
+        map[instructor.instructorID] = instructor;
+        return map;
+    }, {});
+
+    const res = scheduleCourses.map(course => {
+        return {
+            ...course,
+            instructors: course.instructors.map(instructorID => instructorMap[instructorID]),
+        }
+    });
+
+    return res;
+
+
 }

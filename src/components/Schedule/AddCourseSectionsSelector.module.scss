@@ -1,0 +1,161 @@
+@import "src/styles/common/variables";
+
+
+
+.sectionRadioGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    :global(.chakra-radio) {
+        width: 100%;
+        margin: 0;
+    }
+
+    :global(.chakra-radio__label) {
+        width: 100%;
+        margin: 0.5rem;
+    }
+
+    :global(.chakra-radio__control) {
+        border: 1px solid #e0e0e0;
+        // box-shadow: ;
+    }
+}
+
+
+
+.courseSectionSelectorCard {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    // padding: 0.5rem;
+
+
+    header {
+        padding: 0.5rem;
+        background-color: var(--chakra-colors-blackAlpha-100);
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+            display: inline-block;
+        }
+
+        p {
+            font-size: 0.8rem;
+            // font-weight: 600;
+            // text-decoration: underline;
+            color: #666;
+            margin: 0;
+            display: inline-block;
+            margin-left: 0.5rem;
+            margin-right: 0.2rem;
+        }
+
+        span {
+            font-size: 0.8rem;
+            // text-decoration: underline;
+            color: #666;
+            margin: 0;
+            margin-left: 0.5rem;
+            display: inline-block;
+        }
+    }
+
+    .content {
+        padding: 0.5rem;
+    }
+
+
+    .timesString {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #666;
+    }
+
+
+
+}
+
+.courseSectionSelected {
+    outline: 2px solid #3182ce !important;
+
+}
+
+
+.conflictWarning {
+    margin-left: 1.5rem !important;
+    margin-right: 0.5rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 1rem !important;
+    border-radius: 0.5rem;
+    width: unset !important;
+
+
+}
+
+.linkedSectionSeparator {
+    margin-left: 1.5rem !important;
+    margin-right: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    border: 1px solid #e0e0e0;
+
+}
+
+.addCoursesButton {
+    width: 14rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5rem;
+    background-color: $logo-blue;
+    color: $white;
+    border: $border-light;
+    border-radius: $border-radius-small;
+    font-size: 1rem;
+    font-weight: bold;
+    // outline: none;           
+
+    /* Center */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:hover {
+        border: $border-blue;
+        background-color: $offwhite;
+        transition: background-color 0.3s ease-in-out;
+        cursor: pointer;
+        color: $black;
+    }
+
+    &:disabled {
+        background-color: $grey-light;
+        color: #bebebe;
+        border: $border-light;
+        cursor: not-allowed;
+    }
+}
+
+.inSchedule {
+    text-transform: uppercase;
+    font-size: 0.5rem;
+    font-weight: 600;
+
+    float: right;
+
+    &[data-selected="true"] {
+        span {
+            color: #3182ce;
+        }
+    }
+
+    &[data-selected="false"] {
+        span {
+            color: #e53e3e;
+            text-decoration: line-through;
+        }
+    }
+}

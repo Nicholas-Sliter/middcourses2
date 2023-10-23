@@ -1,6 +1,6 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { CatalogCourse, CustomSession, full_review, public_course, public_instructor, public_review } from "../../common/types";
+import { CatalogCourse, CatalogCourseWithInstructors, CustomSession, full_review, public_course, public_instructor, public_review } from "../../common/types";
 import { Knex } from "knex";
 import { parseStringToInt } from "../utils";
 import { parseMaybeInt } from "../../common/utils";
@@ -135,7 +135,7 @@ export async function getAllBookmarksInSemester(session: CustomSession, semester
 export async function getAllBookmarkedCatalogCoursesInSemester(session: CustomSession, semester: string): Promise<Record<string, {
     course: public_course,
     instructors: public_instructor[],
-    catalogEntries: CatalogCourse[],
+    catalogEntries: CatalogCourseWithInstructors[],
 }>> {
     if (!session?.user) {
         return {};
@@ -165,7 +165,7 @@ export async function getAllBookmarkedCatalogCoursesInSemester(session: CustomSe
         return map;
     }, {} as Record<number, public_instructor>);
 
-    const coursesByCode: Record<string, { course: public_course, instructors: public_instructor[], catalogEntries: CatalogCourse[] }> = {};
+    const coursesByCode: Record<string, { course: public_course, instructors: public_instructor[], catalogEntries: CatalogCourseWithInstructors[] }> = {};
     catalogEntries.forEach((course) => {
         if (!coursesByCode[course.courseID]) {
             coursesByCode[course.courseID] = {
@@ -174,7 +174,17 @@ export async function getAllBookmarkedCatalogCoursesInSemester(session: CustomSe
                 catalogEntries: []
             };
         }
-        coursesByCode[course.courseID].catalogEntries.push(course);
+
+        /* Override instructor IDs with instructor objects */
+        const instructorObjects = course.instructors.map((instructorID) => {
+            return instructorMap[instructorID];
+        });
+
+
+        coursesByCode[course.courseID].catalogEntries.push({
+            ...course,
+            instructors: instructorObjects
+        });
 
         course.instructors.forEach((instructorID) => {
             /* check if instructor is already in the list */
@@ -196,6 +206,7 @@ export async function getAllBookmarkedCatalogCoursesInSemester(session: CustomSe
         }
         coursesByCode[course.courseID].course = course;
     });
+
 
     return coursesByCode;
 

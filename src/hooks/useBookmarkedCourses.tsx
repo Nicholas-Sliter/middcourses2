@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { CatalogCourse, public_course } from "../lib/common/types";
+import { CatalogCourse, CatalogCourseWithInstructors, public_course } from "../lib/common/types";
 
 
 function useBookmarkedCourses(semester: string) {
-    const [bookmarks, setBookmarks] = useState<Record<string, { course: public_course, catalogEntries: CatalogCourse[] }>>({});
+    const [bookmarks, setBookmarks] = useState<Record<string, { course: public_course, catalogEntries: CatalogCourseWithInstructors[] }>>({});
     const abortController = new AbortController();
 
     useEffect(() => {
