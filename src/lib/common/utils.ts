@@ -634,6 +634,11 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
 //   return false;
 // }
 
+export function sanitizeDayString(dirtyDay: string): string {
+  return dirtyDay.toLowerCase().trim();
+}
+
+
 export function checkForTimeConflicts(times: Array<CatalogCourse['times']>): boolean {
 
   /* Flatten intervals into an object of days with an array of intervals */
@@ -644,7 +649,9 @@ export function checkForTimeConflicts(times: Array<CatalogCourse['times']>): boo
 
   flatTimes.forEach((time) => {
 
-    const { day, start, end } = time;
+    const { day: dirtyDay, start, end } = time;
+
+    const day = sanitizeDayString(dirtyDay);
 
     if (!masterTimeObject[day]) {
       masterTimeObject[day] = [];
