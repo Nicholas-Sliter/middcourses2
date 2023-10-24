@@ -83,15 +83,7 @@
     }
 
     .courseControls {
-        // font-size: 0.875rem;
-        // font-weight: 400;
-        // line-height: 1.5;
-        // padding: 0.2rem;
-        color: #333;
-        // border: 1px solid #e6e6e6;
-        // border-radius: 4px;
         border-left: 1px solid #e6e6e6;
-
 
         button {
             border: none;
@@ -104,6 +96,17 @@
             padding-top: 0.3rem;
             padding-bottom: 0.3rem;
             color: #333;
+
+
+            &:disabled {
+                color: #999;
+
+                &:hover {
+                    background-color: transparent;
+
+                }
+            }
+
 
             svg {
                 height: 100%;

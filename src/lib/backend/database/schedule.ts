@@ -1,6 +1,6 @@
 import knex from "./knex";
 import { reviewInfo } from "./common";
-import { CatalogCourse, CustomSession, full_review, public_instructor, public_review, Schedule } from "../../common/types";
+import { CatalogCourse, CatalogCourseWithInstructors, CustomSession, full_review, public_instructor, public_review, Schedule } from "../../common/types";
 import { Knex } from "knex";
 import { parseCourseTimeString, checkForTimeConflicts, parseRawCourseID } from "../../common/utils";
 import Course from "catalog.js/lib/classes/Course.js";
@@ -341,7 +341,7 @@ export async function addCoursesToSchedule(session: CustomSession, scheduleID: s
         return null;
     }
 
-    if (!courses) {
+    if (!courses.length) {
         return null;
     }
 
@@ -493,4 +493,60 @@ export async function getScheduleCourses(session: CustomSession, planID: string)
     return res;
 
 
+}
+
+
+export async function getCatalogCourses(session: CustomSession, semester: string, courseID: string): Promise<CatalogCourseWithInstructors[]> {
+    if (!session?.user) {
+        return null;
+    }
+
+    if (!courseID) {
+        return null;
+    }
+
+    const scheduleCourses = await knex("CatalogCourse")
+        .whereRaw(`"semester" = ? AND "CatalogCourse"."courseID" = ?`, [semester, courseID])
+        .select([
+            "CatalogCourse.courseID",
+            "CatalogCourse.catalogCourseID",
+            "CatalogCourse.crn",
+            "CatalogCourse.section",
+            "CatalogCourse.isLinkedSection",
+            "CatalogCourse.type",
+            "CatalogCourse.times",
+            "CatalogCourse.instructors",
+            "CatalogCourse.requirements",
+            "Course.courseName",
+            "Course.courseDescription"
+        ])
+        .leftJoin("Course", "Course.courseID", "CatalogCourse.courseID");
+
+    if (!scheduleCourses || scheduleCourses.length === 0) {
+        return [];
+    }
+
+    const instructorIds = scheduleCourses.map(course => course.instructors).flat();
+    const instructors = await knex("Instructor")
+        .whereIn("instructorID", instructorIds)
+        .select([
+            "instructorID",
+            "slug",
+            "name",
+            "departmentID"
+        ]);
+
+    const instructorMap = instructors.reduce((map, instructor) => {
+        map[instructor.instructorID] = instructor;
+        return map;
+    }, {});
+
+    const res = scheduleCourses.map(course => {
+        return {
+            ...course,
+            instructors: course.instructors.map(instructorID => instructorMap[instructorID]),
+        }
+    });
+
+    return res;
 }

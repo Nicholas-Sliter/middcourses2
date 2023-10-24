@@ -14,7 +14,7 @@ import ScheduleCalendar from "../../components/ScheduleCalendar";
 import PageTitle from "../../components/common/PageTitle";
 import SidebarLayout from "../../layouts/SidebarLayout";
 import { CatalogCourse, CustomSession, Schedule, public_course } from "../../lib/common/types";
-import { getCurrentTerm, getNextTerm } from "../../lib/common/utils";
+import { catalogCourseIDToCourseID, getCurrentTerm, getNextTerm } from "../../lib/common/utils";
 import { getAllBookmarksInSemester, getAllUserBookmarks } from "../../lib/backend/database/bookmark";
 import { Button, Select, Tooltip } from "@chakra-ui/react";
 import { convertTermToFullString } from "../../lib/frontend/utils";
@@ -32,6 +32,7 @@ import { FiDelete } from "react-icons/fi";
 import { MdOutlineAdd, MdOutlineDelete } from "react-icons/md";
 import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal, ScheduleInfoDisplay } from "../../components/Schedule";
 import useScheduleCourses from "../../hooks/useScheduleCourses";
+import SelectCourseSectionsModal from "../../components/Schedule/SelectCourseSectionsModal";
 
 export async function getServerSideProps(context) {
 
@@ -151,6 +152,7 @@ function Schedule({
     const [deleteScheduleModalOpen, setDeleteScheduleModalOpen] = useState<boolean>(false);
     const [addCourseModalOpen, setAddCourseModalOpen] = useState<boolean>(false);
     const [scheduleModifiedRecently, setScheduleModifiedRecently] = useState<boolean>(false); // Used to force a refresh of the schedule courses
+    const [courseChangeSectionModalCourseID, setCourseChangeSectionModalCourseID] = useState<string>(null);
 
     const selectedScheduleCourses = useScheduleCourses(
         selectedSchedule?.id,
@@ -173,18 +175,13 @@ function Schedule({
     }, [userTerm, userSchedules]);
 
 
-    // const addCourseToScheduleWrapper = useCallback(async (courses: CatalogCourse[], schedule: Schedule) => {
-    //     const newScheduleCourses = await addCoursesToSchedule(courses, schedule);
-    //     setScheduleModifiedRecently(true);
-
-    // }, []);
-
 
     const handleCourseScheduleChangeWrapper = useCallback(async (coursesToDrop: CatalogCourse[], coursesToAdd: CatalogCourse[], schedule: Schedule) => {
         const newScheduleCourses = await handleCourseScheduleChange(coursesToDrop, coursesToAdd, schedule);
         setScheduleModifiedRecently(true);
 
     }, []);
+
 
 
     return (
@@ -218,14 +215,17 @@ function Schedule({
                             >
                                 <h1
                                     style={{
-                                        display: "inline-block",
-                                        verticalAlign: "bottom",
-
+                                        fontSize: '1.5rem',
+                                        fontWeight: 400,
+                                        lineHeight: 1.5,
+                                        color: '#333',
+                                        marginBottom: 0,
+                                        width: '100%'
                                     }}
                                 >Schedule</h1>
                                 <Select
-                                    width={"50%"}
-                                    maxWidth={"12rem"}
+                                    width={"100%"}
+                                    maxWidth={"16rem"}
                                     display={"inline"}
                                     verticalAlign={"bottom"}
                                     style={{
@@ -235,8 +235,8 @@ function Schedule({
                                         display: "inline",
                                         textDecoration: "underline",
                                         cursor: "pointer",
-                                        fontSize: "1.4rem",
-                                        paddingTop: "0.1rem",
+                                        fontSize: "1rem",
+                                        paddingTop: "1.3rem",
                                         verticalAlign: "bottom",
                                         paddingLeft: "0.5rem",
                                         // paddingRight: "0.5rem",
@@ -360,23 +360,16 @@ function Schedule({
                                     </Tooltip>
                                 </div>
                             </div>
-                            <CourseScheduleInfo courses={scheduleWithCourses?.courses} />
+                            <CourseScheduleInfo
+                                courses={scheduleWithCourses?.courses}
+                                schedule={scheduleWithCourses}
+                                onCourseAdded={handleCourseScheduleChangeWrapper}
+                                onChangeSection={(courseID) => setCourseChangeSectionModalCourseID(courseID)}
+                            />
 
 
                         </div>
 
-                        <br />
-
-                        {/* <h2>Bookmarked Courses</h2>
-                        <ul>
-                            {bookmarks.map((bookmark) => {
-                                return (
-                                    <li key={bookmark}>
-                                        {bookmark}
-                                    </li>
-                                )
-                            })}
-                        </ul> */}
 
 
                     </SidebarLayout.Sidebar>
@@ -457,6 +450,14 @@ function Schedule({
                 onClose={() => setAddCourseModalOpen(false)}
                 onCourseAdded={handleCourseScheduleChangeWrapper}
                 schedule={scheduleWithCourses}
+            />
+
+            <SelectCourseSectionsModal
+                isOpen={!!courseChangeSectionModalCourseID}
+                onClose={() => setCourseChangeSectionModalCourseID(null)}
+                onCourseAdded={handleCourseScheduleChangeWrapper}
+                schedule={scheduleWithCourses}
+                course={scheduleWithCourses?.courses?.find((course) => course.catalogCourseID === courseChangeSectionModalCourseID)}
             />
 
 

@@ -1,9 +1,13 @@
 import { MdFindReplace, MdInfoOutline, MdOutlineDelete } from "react-icons/md";
-import { CatalogCourse } from "../../lib/common/types";
+import { CatalogCourse, Schedule } from "../../lib/common/types";
 import styles from './CourseScheduleInfo.module.scss';
+import { Tooltip } from "@chakra-ui/react";
 
 interface CourseScheduleInfoProps {
     courses: CatalogCourse[];
+    schedule: Schedule;
+    onCourseAdded: (coursesToDrop: CatalogCourse[], coursesToAdd: CatalogCourse[], schedule: Schedule) => void;
+    onChangeSection: (courseID: string) => void;
 }
 
 
@@ -26,35 +30,37 @@ function getAbbreviatedCourseType(course: CatalogCourse) {
 
 
 
-function CourseScheduleInfo({ courses }: CourseScheduleInfoProps) {
+function CourseScheduleInfo({ courses, schedule, onCourseAdded, onChangeSection }: CourseScheduleInfoProps) {
 
     if (!courses || courses.length === 0) {
         return null;
     }
 
     /* Group courses by courseID, with primary course as non-lab */
-    const groupedCourses = courses.reduce((acc, course) => {
-        const courseID = course.courseID;
-        const isLab = course.isLinkedSection;
+    const groupedCourses = courses
+        .sort((a, b) => a.courseName.localeCompare(b.courseName))
+        .reduce((acc, course) => {
+            const courseID = course.courseID;
+            const isLab = course.isLinkedSection;
 
-        if (!acc[courseID]) {
-            acc[courseID] = {
-                course,
-                subcourses: [],
-            };
-        }
+            if (!acc[courseID]) {
+                acc[courseID] = {
+                    course,
+                    subcourses: [],
+                };
+            }
 
-        if (isLab) {
-            acc[courseID].subcourses.push(course);
-        }
+            if (isLab) {
+                acc[courseID].subcourses.push(course);
+            }
 
-        if (!isLab && acc[courseID].course.isLinkedSection) {
-            acc[courseID].course = course;
-        }
+            if (!isLab && acc[courseID].course.isLinkedSection) {
+                acc[courseID].course = course;
+            }
 
-        return acc;
+            return acc;
 
-    }, {} as { [courseID: string]: { course: CatalogCourse, subcourses: CatalogCourse[] } });
+        }, {} as { [courseID: string]: { course: CatalogCourse, subcourses: CatalogCourse[] } });
 
 
     return (
@@ -71,11 +77,21 @@ function CourseScheduleInfo({ courses }: CourseScheduleInfoProps) {
                                             <div className={styles.courseType}>{getAbbreviatedCourseType(subcourse)}</div>
                                             <div className={styles.courseIdentifier}>{subcourse.courseID} {subcourse.section}</div>
                                         </div>
-                                        <span className={styles.courseControls}>
-                                            <button><MdOutlineDelete /></button>
-                                            <button><MdFindReplace /></button>
-                                            <button><MdInfoOutline /></button>
-                                        </span>
+                                        {(!subcourse.isLinkedSection) && <span className={styles.courseControls}>
+                                            <Tooltip label="Remove course">
+                                                <button
+                                                    disabled={subcourse.isLinkedSection}
+                                                    onClick={() => onCourseAdded([course, ...subcourses], [], schedule)}
+                                                >
+                                                    <MdOutlineDelete /></button>
+                                            </Tooltip>
+                                            <Tooltip label="Change sections">
+                                                <button
+                                                    onClick={() => onChangeSection(subcourse.catalogCourseID)}
+                                                ><MdFindReplace /></button>
+                                            </Tooltip>
+                                            {/* <button><MdInfoOutline /></button> */}
+                                        </span>}
                                     </div>
                                 );
                             })}

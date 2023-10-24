@@ -636,12 +636,10 @@ export function parseCourseTimeString(timeString: string): { day: string, start:
 
 export function checkForTimeConflicts(times: Array<CatalogCourse['times']>): boolean {
 
-  console.log(times);
   /* Flatten intervals into an object of days with an array of intervals */
   const masterTimeObject: Record<string, { start: number, end: number }[]> = {};
 
   const flatTimes = times.reduce((acc, time) => [...acc, ...Object.values(time)], []).flat();
-  console.log(flatTimes);
 
 
   flatTimes.forEach((time) => {
@@ -660,7 +658,6 @@ export function checkForTimeConflicts(times: Array<CatalogCourse['times']>): boo
     masterTimeObject[day].sort((a, b) => a.start - b.start);
   }
 
-  console.log(masterTimeObject)
 
   /* Check for conflicts */
   for (const day in masterTimeObject) {
@@ -755,3 +752,9 @@ function wordBoundString(str: string) {
 //   return "Lecture"; //Main
 
 // }
+
+
+export function catalogCourseIDToCourseID(catalogCourseID: string) {
+  const courseID = catalogCourseID.split("-")[0].slice(0, -1);
+  return courseID;
+}

@@ -90,7 +90,7 @@ export interface Schedule {
   name: string;
   userID: string;
   semester: string;
-  courses: CatalogCourse[];
+  courses: CatalogCourseWithInstructors[];
 }
 
 

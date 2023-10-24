@@ -135,14 +135,16 @@ handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
     const coursesToAdd = courses.filter((course) => course.add && !course.drop).map((course) => course.courseID);
 
     await removeCoursesFromSchedule(session, schedule.id, coursesToDrop);
-    const updatedSchedule = await addCoursesToSchedule(session, schedule.id, coursesToAdd);
+    await addCoursesToSchedule(session, schedule.id, coursesToAdd);
 
-    if (!updatedSchedule) {
-        return res.status(500).end("Internal Server Error");
-    }
+    const updated = await getSchedulePlan(session, schedule.id);
+
+    // if (!updatedSchedule) {
+    //     return res.status(500).end("Internal Server Error");
+    // }
 
 
-    return res.status(200).end(JSON.stringify(updatedSchedule));
+    return res.status(200).end(JSON.stringify(updated));
 });
 
 

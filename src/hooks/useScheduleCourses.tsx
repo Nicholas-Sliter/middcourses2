@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { CatalogCourse, public_course } from "../lib/common/types";
+import { CatalogCourse, CatalogCourseWithInstructors, public_course } from "../lib/common/types";
 
 const usePrevious = (value) => {
     const ref = useRef();
@@ -11,7 +11,7 @@ const usePrevious = (value) => {
 
 function useScheduleCourses(planID: number | null, refresh: boolean = false, updateRefresh: (refresh: boolean) => void) {
     const previousPlanID = usePrevious(planID);
-    const [scheduleCourses, setScheduleCourses] = useState<CatalogCourse[]>([]);
+    const [scheduleCourses, setScheduleCourses] = useState<CatalogCourseWithInstructors[]>([]);
     const abortController = new AbortController();
 
     useEffect(() => {

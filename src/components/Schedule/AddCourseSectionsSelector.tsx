@@ -28,7 +28,7 @@ const scheduleHasOverlapForSectionTimes = (schedule: Schedule, catalogEntry: Cat
     }
 
     const times = catalogEntry.times;
-    const scheduleTimes = Object.values(schedule.courses).map((course) => {
+    const scheduleTimes = schedule.courses.map((course) => {
         return course.times;
     });
 
@@ -46,17 +46,14 @@ const getConflictingSections = (schedule: Schedule, catalogEntry: CatalogCourse)
 
 
     const times = catalogEntry.times;
-    const scheduleTimes = Object.values(schedule.courses).map((course) => {
-        return course.times;
-    });
 
-    const conflictingSections = scheduleTimes
-        .filter((time) => {
-            const hasOverlap = checkForTimeConflicts([times, time]);
-            return hasOverlap;
-        });
 
-    return Array.from(new Set(conflictingSections.map((time) => time.catalogCourseID)));
+    const conflictingSections = schedule.courses
+        .filter((course) => course.catalogCourseID !== catalogEntry.catalogCourseID)
+        .filter((course) => checkForTimeConflicts([times, course.times]))
+        .map((course) => course.catalogCourseID);
+
+    return Array.from(new Set(conflictingSections));
 }
 
 
@@ -317,7 +314,7 @@ function AddCourseSectionsSelector({
                     {sectionData.map((data) => {
                         const { catalogEntry, hasOverlap, overlappingSections } = data;
                         const isDisabled = hasOverlap && catalogEntry.catalogCourseID !== defaultSection;
-                        const conflictingSectionsString = `Conflicts with ${overlappingSections.map((id) => id.split("-")[0]).join(", ")}`;
+                        const conflictingSectionsString = `Conflicts with ${overlappingSections.map((id) => id?.split("-")?.[0])?.join(", ")}`;
                         const isSelected = selectedSections?.catalogCourseID === catalogEntry.catalogCourseID;
                         return (
                             <>
@@ -342,7 +339,7 @@ function AddCourseSectionsSelector({
                         {subsectionsData.map((data) => {
                             const { catalogEntry, hasOverlap, overlappingSections } = data;
                             const isDisabled = hasOverlap && catalogEntry.catalogCourseID !== defaultSubSection;
-                            const conflictingSectionsString = `Conflicts with ${overlappingSections.map((id) => id.split("-")[0]).join(", ")}`;
+                            const conflictingSectionsString = `Conflicts with ${overlappingSections.map((id) => id?.split("-")?.[0])?.join(", ")}`;
 
                             const isSelected = selectedSubsections?.catalogCourseID === catalogEntry.catalogCourseID;
 
