@@ -8,6 +8,8 @@ import React from "react";
 import Requirement from "catalog.js/lib/classes/Requirement";
 import { combind } from "../../lib/frontend/utils";
 import ScheduleCalendarEvent from "./ScheduleCalendarEvent";
+import Image from "next/image";
+import scheduleImage from "/public/images/plan-schedule.svg";
 
 interface ScheduleCalendarProps {
     schedule: Schedule;
@@ -45,11 +47,13 @@ function ScheduleCalendar({
     const courses = schedule?.courses ?? [];
     const semester = schedule?.semester;
 
-    if (!schedule) {
+
+    if (!semester) {
         return (
             <div className={styles.placeholder} style={{ height: '100%', width: '100%' }}>
+                <Image src={scheduleImage} alt="add a course to get started" />
                 <div className={styles.placeholderText}>
-                    No schedule selected, please select a schedule from the sidebar or create a new one.
+                    Get started by creating a new schedule or selecting an existing one
                 </div>
             </div>
         );
@@ -59,8 +63,9 @@ function ScheduleCalendar({
     if (!schedule?.courses || schedule.courses.length === 0) {
         return (
             <div className={styles.placeholder} style={{ height: '100%', width: '100%' }}>
+                <Image src={scheduleImage} alt="add a course to get started" />
                 <div className={styles.placeholderText}>
-                    No courses found for {schedule?.name ?? "this semester"}
+                    Your schedule is empty, add a course to your schedule to get started
                 </div>
             </div>
         );

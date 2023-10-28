@@ -15,6 +15,44 @@
     background-color: #ffffff !important;
     border: $border-light !important;
 
+    min-width: 26rem !important;
+    min-height: 19rem !important;
+
     position: relative;
 
+    max-width: 50% !important;
+    // max-height: 25% !important;
+    height: fit-content !important;
+
+
+    div a {
+        border: none !important;
+        background-color: transparent !important;
+        box-shadow: none;
+        cursor: pointer;
+        outline: none;
+        border-radius: 0;
+
+        &:hover {
+            background-color: transparent !important;
+            box-shadow: none;
+        }
+
+
+        &>div {
+
+            &>p {
+                line-clamp: 8 !important;
+                -webkit-line-clamp: 8 !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                height: fit-content !important;
+                width: 100% !important;
+                -webkit-box-orient: vertical;
+                display: -webkit-box !important;
+            }
+
+        }
+
+    }
 }

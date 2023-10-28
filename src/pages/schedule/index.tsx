@@ -20,7 +20,7 @@ import { Button, Select, Tooltip } from "@chakra-ui/react";
 import { convertTermToFullString } from "../../lib/frontend/utils";
 import useSchedule from "../../hooks/useSchedule";
 import { useRouter } from "next/router";
-import { getSchedulePlansForSemester, getSchedulePlansForSemesters } from "../../lib/backend/database/schedule";
+import { getAvailableTermsForSchedulePlanning, getSchedulePlansForSemester, getSchedulePlansForSemesters } from "../../lib/backend/database/schedule";
 import { BsJustify } from "react-icons/bs";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import AddButton from "../../components/common/AddButton";
@@ -30,14 +30,14 @@ import CourseCard from "../../components/CourseCard";
 import CourseScheduleInfo from "../../components/CourseScheduleInfo";
 import { FiDelete } from "react-icons/fi";
 import { MdOutlineAdd, MdOutlineDelete } from "react-icons/md";
-import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal, ScheduleInfoDisplay } from "../../components/Schedule";
+import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal, ScheduleInfoDisplay, ScheduleSidebar } from "../../components/Schedule";
 import useScheduleCourses from "../../hooks/useScheduleCourses";
 import SelectCourseSectionsModal from "../../components/Schedule/SelectCourseSectionsModal";
 
 export async function getServerSideProps(context) {
 
     const session = await getSession(context) as CustomSession;
-    const currentTerms = [getCurrentTerm(), getNextTerm()];
+    const currentTerms = await getAvailableTermsForSchedulePlanning();
     const term = (context.query.term ?? currentTerms[0]) as string;
 
     const authorized = session?.user?.authorized ?? false;
@@ -193,185 +193,22 @@ function Schedule({
             <BrowserView renderDefault={!mobileUserAgent}>
                 <SidebarLayout>
                     <SidebarLayout.Sidebar>
-                        <div
-                            style={{
-                                marginLeft: "1rem",
-                                marginRight: "1rem",
-                                overflow: "hidden",
-                                overflowX: "hidden",
-                                boxSizing: "border-box",
-                            }}
-
-                        >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "left",
-                                    alignItems: "center", overflow: "hidden",
-                                    overflowX: "hidden",
-                                    boxSizing: "border-box",
-
-                                }}
-                            >
-                                <h1
-                                    style={{
-                                        fontSize: '1.5rem',
-                                        fontWeight: 400,
-                                        lineHeight: 1.5,
-                                        color: '#333',
-                                        marginBottom: 0,
-                                        width: '100%'
-                                    }}
-                                >Schedule</h1>
-                                <Select
-                                    width={"100%"}
-                                    maxWidth={"16rem"}
-                                    display={"inline"}
-                                    verticalAlign={"bottom"}
-                                    style={{
-                                        outline: "none",
-                                        // maxWidth: '9rem',
-                                        border: "none",
-                                        display: "inline",
-                                        textDecoration: "underline",
-                                        cursor: "pointer",
-                                        fontSize: "1rem",
-                                        paddingTop: "1.3rem",
-                                        verticalAlign: "bottom",
-                                        paddingLeft: "0.5rem",
-                                        // paddingRight: "0.5rem",
-                                        margin: "0",
-                                        // hover: {
-                                        //     textDecoration: "dashed",
-                                        // }
-                                    }}
-                                    _hover={{
-                                        textDecoration: "dotted",
-                                    }}
-                                    // defaultValue={term}
-
-                                    onChange={(e) => {
-                                        setSelectedSchedule(null);
-                                        setUserTerm(e.target.value);
-                                    }}
-                                >
-                                    <option value={currentTerms[0]}>{convertTermToFullString(currentTerms[0])}</option>
-                                    <option value={currentTerms[1]}>{convertTermToFullString(currentTerms[1])}</option>
-                                </Select>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    // paddingTop: "0.1rem",
-                                    // paddingBottom: "0.1rem",
-                                    height: "2.5rem",
-
-                                    padding: '0.1rem',
-
-                                }}
-                            >
-                                <Select
-                                    style={{
-                                        margin: 0,
-                                        // border: "1px solid #ccc",
-                                        // display: "inline-block",
-                                        border: "1px solid #ccc",
-                                        // outline: "1px solid #ccc",
-                                        borderRadius: "0.5rem",
-
-                                        // height: "2.5rem",
-                                    }}
-                                    placeholder={"Select Schedule"}
-                                    disabled={userSchedules.length === 0}
-                                    // defaultValue={selectedSchedule?.id ?? null}
-                                    value={selectedSchedule?.id ?? null}
-                                    onChange={(e) => {
-                                        setSelectedSchedule(userSchedules.find((schedule) => schedule.id === parseInt(e.target.value)) ?? null);
-                                    }}
-                                >
-                                    {/* <option value="schedule1">Schedule 1</option>
-                                    <option value="schedule2">Schedule 2</option> */}
-                                    {userSchedules
-                                        .filter((schedule) => {
-                                            return (schedule.semester === userTerm);
-                                        })
-                                        .map((schedule) => {
-                                            return (
-                                                <option key={schedule.id} value={schedule.id}>{schedule.name}</option>
-                                            )
-                                        }
-                                        )}
-
-                                </Select>
-                                <div
-                                    style={{
-
-                                        marginLeft: "0.5rem",
-                                        display: "flex",
-                                        // justifyContent: "center",
-                                        // alignItems: "center",
-                                        flexDirection: "row",
-                                        flexWrap: "nowrap",
-                                        // border: "none",
-                                        outline: "1px solid #ccc",
-                                        borderRadius: "0.5rem",
-                                        // height: "2.5rem",
-                                        boxSizing: "border-box",
-                                        padding: "0",
-                                    }}
-                                >
-                                    <Tooltip label="Delete Schedule">
-                                        <Button
-                                            style={{
-                                                // height: "2.5rem",
-                                                padding: "0",
-                                                border: "none",
-                                                backgroundColor: "transparent",
-                                                // fontSize: "1.5rem",
-                                                cursor: "pointer",
-                                                borderRight: "1px solid #ccc",
-                                                borderTopRightRadius: "0",
-                                                borderBottomRightRadius: "0",
-
-                                            }}
-                                            disabled={!selectedSchedule}
-                                            onClick={() => setDeleteScheduleModalOpen(true)}
-                                        >
-
-                                            <MdOutlineDelete />
-                                        </Button>
-                                    </Tooltip>
-                                    <Tooltip label="Create New Schedule">
-                                        <Button
-                                            onClick={() => setNewScheduleModalOpen(true)}
-                                            style={{
-                                                padding: "0",
-                                                border: "none",
-                                                backgroundColor: "transparent",
-                                                // borderLeft: "1px solid #ccc",
-                                                // fontSize: "1.5rem",
-                                                cursor: "pointer",
-                                                borderTopLeftRadius: "0",
-                                                borderBottomLeftRadius: "0",
-                                            }}
-                                        >
-                                            <MdOutlineAdd />
-                                        </Button>
-                                    </Tooltip>
-                                </div>
-                            </div>
-                            <CourseScheduleInfo
-                                courses={scheduleWithCourses?.courses}
-                                schedule={scheduleWithCourses}
-                                onCourseAdded={handleCourseScheduleChangeWrapper}
-                                onChangeSection={(courseID) => setCourseChangeSectionModalCourseID(courseID)}
-                            />
-
-
-                        </div>
+                        <ScheduleSidebar
+                            setSelectedSchedule={setSelectedSchedule}
+                            selectedSchedule={selectedSchedule}
+                            userSchedules={userSchedules}
+                            scheduleWithCourses={scheduleWithCourses}
+                            setNewScheduleModalOpen={setNewScheduleModalOpen}
+                            setDeleteScheduleModalOpen={setDeleteScheduleModalOpen}
+                            setUserTerm={setUserTerm}
+                            userTerm={userTerm}
+                            currentTerms={currentTerms}
+                            handleCourseScheduleChangeWrapper={handleCourseScheduleChangeWrapper}
+                            setCourseChangeSectionModalCourseID={setCourseChangeSectionModalCourseID}
 
 
 
+                        />
                     </SidebarLayout.Sidebar>
                     <SidebarLayout.Main>
                         <div style={{
@@ -433,7 +270,7 @@ function Schedule({
                         label: convertTermToFullString(term),
                     }
                 })}
-                defaultSemester={term}
+                defaultSemester={userTerm}
 
             />
             <DeleteScheduleConfirmation

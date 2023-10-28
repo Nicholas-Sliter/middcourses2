@@ -74,8 +74,9 @@ export function getCurrentTerm() {
 }
 
 
-export function getNextTerm() {
-  const term = getCurrentTerm();
+export function getNextTerm(term?: string) {
+
+  if (!term) term = getCurrentTerm();
 
   const year = parseInt(term.slice(1, 3));
   const semester = term.slice(0, 1);

@@ -420,8 +420,8 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
 
     const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses as CourseObject[], semester);
 
-    const [currentSemester, nextSemester] = [getCurrentTerm(), getNextTerm()];
-    const shouldUpdateCatalogCourses = (semester === currentSemester) || (semester === nextSemester);
+    const updateSemesters = [getCurrentTerm(), getNextTerm(), getNextTerm(getNextTerm())];
+    const shouldUpdateCatalogCourses = updateSemesters.includes(semester);
 
     const trx = await knex.transaction();
 

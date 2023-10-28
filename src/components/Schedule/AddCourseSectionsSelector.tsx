@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CatalogCourse, CatalogCourseWithInstructors, Schedule, public_course } from "../../lib/common/types";
 import { Radio, RadioGroup, Checkbox, CheckboxGroup, Stack, Alert, AlertIcon } from '@chakra-ui/react'
-import { checkForTimeConflicts, toTitleCase } from "../../lib/common/utils";
+import { checkForTimeConflicts, sanitizeDayString, toTitleCase } from "../../lib/common/utils";
 import styles from "./AddCourseSectionsSelector.module.scss";
 import { combind as combine } from "../../lib/frontend/utils";
 
@@ -76,7 +76,7 @@ const SectionDisplay = (catalogEntry: CatalogCourseWithInstructors, isSelected: 
         return null;
     }
     const weekdays = Object.values(catalogEntry.times).flat()?.reduce((acc, time) => {
-        return [...acc, time.day]
+        return [...acc, sanitizeDayString(time.day)]
     }, []);
 
     const uniqueDays = [...new Set(weekdays)];
@@ -88,7 +88,7 @@ const SectionDisplay = (catalogEntry: CatalogCourseWithInstructors, isSelected: 
 
     const timeToDayMap = new Map<string, string[]>();
     Object.values(catalogEntry.times).flat().forEach((time) => {
-        const day = time.day;
+        const day = sanitizeDayString(time.day);
         const timeString = `${minuteToTime(time.start)}-${minuteToTime(time.end)}`;
         if (timeToDayMap.has(timeString)) {
             timeToDayMap.get(timeString)?.push(day);
@@ -99,7 +99,7 @@ const SectionDisplay = (catalogEntry: CatalogCourseWithInstructors, isSelected: 
 
     const daysWithSameTimes = [...timeToDayMap.entries()].map(([time, days]) => {
         const daysString = toTitleCase(days.join(", "));
-        return `${daysString}(${time})`;
+        return `${daysString} (${time})`;
     });
 
     const courseIdWithoutSemester = catalogEntry.catalogCourseID.split("-")[0];

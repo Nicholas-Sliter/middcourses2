@@ -2,7 +2,7 @@ import knex from "./knex";
 import { reviewInfo } from "./common";
 import { CatalogCourse, CatalogCourseWithInstructors, CustomSession, full_review, public_instructor, public_review, Schedule } from "../../common/types";
 import { Knex } from "knex";
-import { parseCourseTimeString, checkForTimeConflicts, parseRawCourseID } from "../../common/utils";
+import { parseCourseTimeString, checkForTimeConflicts, parseRawCourseID, getCurrentTerm, getNextTerm, sortCoursesByTerm, compareTerm } from "../../common/utils";
 import Course from "catalog.js/lib/classes/Course.js";
 import Meeting from "catalog.js/lib/classes/Meeting";
 
@@ -236,6 +236,23 @@ export async function getSchedulePlansForSemesters(session: CustomSession, semes
     return schedules;
 
 };
+
+export async function getAvailableTermsForSchedulePlanning(): Promise<string[]> {
+
+
+    const upcomingTerms = [getCurrentTerm(), getNextTerm(), getNextTerm(getNextTerm())];
+    console.log("Upcoming terms: ", upcomingTerms);
+
+    const terms = await knex("CatalogCourse")
+        .select("semester")
+        .whereIn("semester", upcomingTerms)
+        .distinct();
+
+    console.log("Terms: ", terms);
+
+    return terms.map(term => term.semester).sort(compareTerm);
+
+}
 
 
 export async function createPlan(session: CustomSession, schedule: Omit<Schedule, "id">): Promise<Schedule> {

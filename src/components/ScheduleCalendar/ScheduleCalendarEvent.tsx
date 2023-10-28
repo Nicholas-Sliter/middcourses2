@@ -33,11 +33,8 @@ function ScheduleCalendarEventPopupWrapper({ event, children }: ScheduleCalendar
                     {/* <PopoverHeader>Header</PopoverHeader>
                     <PopoverCloseButton /> */}
                     <PopoverBody>
-                        {/* <Button colorScheme='blue'>Button</Button> */}
                         <GetCourseWrapper courseID={event.resource.courseID}>
                             <CourseCard course={null} size="large" />
-
-                            {/* <CourseCard course={null} /> */}
 
                         </GetCourseWrapper>
                     </PopoverBody>
