@@ -51,7 +51,7 @@ function ScheduleCalendar({
     if (!semester) {
         return (
             <div className={styles.placeholder} style={{ height: '100%', width: '100%' }}>
-                <Image src={scheduleImage} alt="add a course to get started" />
+                <img className={styles.placeholderImage} src={"/images/plan-schedule.svg"} alt="add a course to get started" />
                 <div className={styles.placeholderText}>
                     Get started by creating a new schedule or selecting an existing one
                 </div>
@@ -63,7 +63,7 @@ function ScheduleCalendar({
     if (!schedule?.courses || schedule.courses.length === 0) {
         return (
             <div className={styles.placeholder} style={{ height: '100%', width: '100%' }}>
-                <Image src={scheduleImage} alt="add a course to get started" />
+                <img className={styles.placeholderImage} src={"/images/plan-schedule.svg"} alt="add a course to get started" />
                 <div className={styles.placeholderText}>
                     Your schedule is empty, add a course to your schedule to get started
                 </div>

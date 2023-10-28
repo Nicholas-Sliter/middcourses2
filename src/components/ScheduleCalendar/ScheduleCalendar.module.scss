@@ -12,9 +12,20 @@
     width: 100%;
     height: 100%;
 
-    img {
-        width: 100%;
-        height: 100%;
+    .placeholderImage {
+
+        width: 100% !important;
+
+        display: block;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        min-height: 20rem;
+        min-width: 20rem;
+
+        max-height: 600px;
+        max-width: 600px;
 
     }
 

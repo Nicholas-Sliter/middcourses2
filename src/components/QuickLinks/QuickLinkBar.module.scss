@@ -1,6 +1,5 @@
 .container {
 
-    // width: min(100%, max(60%, 400px));
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -32,6 +31,7 @@
     flex-wrap: nowrap;
 
     width: 50%;
+    max-width: 600px;
 
     padding-top: 0.5rem;
 
