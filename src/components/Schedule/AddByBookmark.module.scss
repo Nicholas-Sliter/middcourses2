@@ -1,0 +1,23 @@
+.accordionButton {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 0.25rem 0.25rem 0 0;
+
+    &:hover {
+        cursor: pointer;
+
+    }
+
+    span {
+        flex: 1 1 0%;
+        text-align: left;
+
+    }
+
+    .icon {
+        // float: right;
+    }
+
+
+}

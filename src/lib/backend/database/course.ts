@@ -5,6 +5,7 @@ import { getReviewByCourseIDWithVotes } from "./review";
 import { getReviewRelevanceScore, is100LevelCourse, isFYSECourse } from "../../common/utils";
 import { Knex } from "knex";
 import { getCourseCodes, getCourseCodesCTE } from "./alias";
+import { isBookmarked } from "./bookmark";
 
 export async function getCourse(id: string) {
     return await knex("Course")
@@ -163,7 +164,7 @@ async function getCourseReviews(id: string, session: CustomSession, authorized: 
 }
 
 
-export async function getCoursesInformation(ids: string[]) {
+export async function getCoursesInformation(ids: string[]): Promise<public_course[]> {
     return await knex("Course")
         .whereIn("Course.courseID", ids)
         .select(["Course.courseName", "Course.courseID", "Course.courseDescription"]);
@@ -184,7 +185,7 @@ async function getCourseInfo(id: string) {
         .select(["Department.departmentName"]);
 }
 
-export async function optimizedSSRCoursePage(id: string, session: CustomSession) {
+export async function optimizedSSRCoursePage(id: string, session: CustomSession, excludeReviews?: boolean) {
 
     const COURSE_MIN_AVG_COUNT = 3; // require 3 reviews to show avgs
 
@@ -194,7 +195,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
         is100LevelCourse(id) ||
         isFYSECourse(id);
 
-    const outputFormatter = (results, reviews) => {
+    const outputFormatter = (results, reviews, bookmarked) => {
         if (!results) {
             return null;
         }
@@ -225,6 +226,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             numReviews: reviews.length,
             topTags: [] as string[],
             aliases: aliases,
+            bookmarked: bookmarked,
 
         }
 
@@ -289,15 +291,19 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession)
             output.avgAgain = null;
         }
 
+        if (excludeReviews) {
+            output.reviews = [];
+        }
+
         return output;
 
     }
 
-    const [mainQuery, reviewQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized)]);
+    const [mainQuery, reviewQuery, bookmarkedQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized), isBookmarked(session, id)]);
     if (!mainQuery?.length) {
         return null;
     }
-    return (outputFormatter(mainQuery, reviewQuery));
+    return (outputFormatter(mainQuery, reviewQuery, bookmarkedQuery));
 
 }
 

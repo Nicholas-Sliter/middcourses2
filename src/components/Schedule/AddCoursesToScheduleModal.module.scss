@@ -1,0 +1,56 @@
+.modalContentContainer {
+    width: 100%;
+
+
+    &>header {
+        span {
+            text-decoration: underline;
+        }
+
+        button {
+            outline: none;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+    }
+
+
+
+}
+
+
+.tabBarContainer {
+    background: transparent;
+    border: none;
+
+    /* Tabs List */
+    &>div[role=tablist] {
+        border: none;
+        border-bottom: 1px solid #ccc;
+
+        /* Tab */
+        &>button {
+
+            background: transparent;
+            outline: none;
+            outline-offset: 0;
+            border: none;
+            box-sizing: border-box;
+            margin: 0;
+            margin-bottom: 0px;
+
+            border-radius: 5px 5px 0 0;
+            padding: 0.5rem 1rem;
+
+
+            /* Active Tab */
+            &[aria-selected=true] {
+                background-color: var(--chakra-colors-blackAlpha-100);
+            }
+        }
+
+
+    }
+
+}

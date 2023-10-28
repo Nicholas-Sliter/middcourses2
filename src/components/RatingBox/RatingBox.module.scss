@@ -2,26 +2,34 @@
 @import "../../styles/common/_mixins.scss";
 
 .container {
-    margin: 0.45rem;
-    display: inline-block;
+    box-sizing: border-box;
+
+    max-height: 5rem;
+    max-width: 4rem;
+    min-width: 3.6rem;
+    width: 18%;
 
 
     .box {
         display: flex;
         flex-direction: column;
-        padding: 1rem;
+        // padding: 1rem;
+        box-sizing: border-box;
+
         outline: $border-light;
         box-shadow: $shadow-small-light;
         border-radius: $border-radius-small;
 
-        height: 2rem;
-        width: 2rem;
+        aspect-ratio: 1/1;
+
+
         align-items: center;
         text-align: center;
         vertical-align: middle;
         justify-content: center;
 
         font-size: 1.6rem;
+        // font-size: 150%;
         font-weight: 550;
 
         background-color: red;
@@ -74,37 +82,6 @@
 }
 
 
-.ratingBar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 0 0 0.5rem 0;
-    height: 6rem;
-
-    .ratingBox {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 1rem;
-        min-width: 5rem;
-        height: 6rem;
-        border: 1px solid #e6e6e6;
-        border-radius: 0.5rem;
-
-        .rating {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .ratingLabel {
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
-    }
-}
-
 
 
 /* Mobile wrap 1st threshold */
@@ -113,8 +90,9 @@
 
         .box {
             padding: 0.88rem;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
+
     }
 }
 

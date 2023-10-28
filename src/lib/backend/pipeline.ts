@@ -13,10 +13,11 @@ import { reconcileInstructors, upsertCourseInstructors, upsertInstructors } from
 import { Knex } from "knex";
 import knex from "./database/knex";
 import Semaphore from './semaphore';
-import { departmentCodeChangedMapping, slugify } from "../common/utils";
+import { departmentCodeChangedMapping, getCurrentSemester, getCurrentTerm, getNextTerm, slugify } from "../common/utils";
 import { getDepartmentByName, getMostFrequentlyTaughtDepartment } from "./database/departments";
 import { backupReviews, getTransactionReviewCount, reconcileReviews } from "./database/review";
 import { reconileAliases, upsertAliases } from "./database/alias";
+import { upsertCatalogCourses } from "./database/schedule";
 
 
 export { };
@@ -90,21 +91,44 @@ function formatCourse(rawCourse: CourseObject): Course {
 
 
 
-async function getSemesterData(semester: string) {
+async function getSemesterData(semester: string, getLabTypeCourses = false, departmentID?: string) {
 
-    const searchParameters = [
-        new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
+    const searchParameters = [];
+
+
+    if (!getLabTypeCourses) {
+
+        searchParameters.push(...[new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
         // new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(), // Skip labs
         // new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(), // Skip discussion
+        // new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
         // new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(), // Skip drills
         // new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(), // Skip drills
-        //new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),   // Skip PE
+        // new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),   // Skip PE
         // new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(), // Skip Pre-Lab
-        // new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
         new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
+
         new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
         new Param("search", "Search").getObject(),
-    ];
+        ]);
+    } else {
+        searchParameters.push(...[
+            new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(), // Skip labs
+            new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(), // Skip discussion
+            new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
+
+            new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+            new Param("search", "Search").getObject(),
+        ]);
+    }
+
+    /* Granular department-specific search */
+    /* This allows us to bypass the catalog server failing on large requests */
+    /* See #289 */
+    if (departmentID) {
+        searchParameters.push(new Param("department", `topic%2Fsubject%2F${departmentID}`).getObject());
+    }
+
 
 
     const S = new catalogScraper({
@@ -125,6 +149,19 @@ async function getSemesterData(semester: string) {
 
 async function fetchInstructorData(instructorID: string, name: string, semaphore: Semaphore) {
 
+
+    /* This is the best we can do for now */
+    let firstName = name.split(' ')[0];
+    let lastName = name.split(' ')[1];
+
+    /* try searching by first name only if name has multiple parts */
+    let shouldUseLastName = true;
+    if (name.split(' ').length > 2) {
+        console.log(`Name has more than 2 parts: ${name}, using first name (${firstName}) only`);
+        shouldUseLastName = false;
+    }
+
+
     const formattedInstructor: Instructor = {
         name: name,
         instructorID: instructorID,
@@ -135,10 +172,10 @@ async function fetchInstructorData(instructorID: string, name: string, semaphore
 
     await semaphore.acquire();
 
-    const I = new directoryScraper('', instructorID);
+    const I = new directoryScraper('', instructorID, firstName, shouldUseLastName ? lastName : "");
 
     await new Promise((resolve) =>                  /* Stagger requests */
-        setTimeout(resolve, Math.random() * 500)
+        setTimeout(resolve, Math.random() * 800)
     );
 
     try {
@@ -174,6 +211,7 @@ async function fetchInstructorData(instructorID: string, name: string, semaphore
 
         }
     } catch (e) {
+        console.log(`Failed to fetch instructor data for ${name}:${instructorID}`);
         console.log(e);
     }
 
@@ -397,12 +435,14 @@ function parseAliasID(aliasID: string): string {
 }
 
 
-async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '') {
+async function updateSemester(semester: string, doReconciliation: boolean = false, forceUpdate: boolean = false, forceUpdateVerification: string = '', departmentID?: string) {
 
-    const catalogCourses: CourseObject[] = await getSemesterData(semester);
+    const catalogCourses = await getSemesterData(semester, false, departmentID);
 
-    const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses, semester);
+    const { courses, instructors, courseInstructors, aliases } = await processCatalog(catalogCourses as CourseObject[], semester);
 
+    const updateSemesters = [getCurrentTerm(), getNextTerm(), getNextTerm(getNextTerm())];
+    const shouldUpdateCatalogCourses = updateSemesters.includes(semester);
 
     const trx = await knex.transaction();
 
@@ -411,6 +451,10 @@ async function updateSemester(semester: string, doReconciliation: boolean = fals
         await upsertInstructors(trx, instructors);
         await upsertCourseInstructors(trx, courseInstructors);
         await upsertAliases(trx, aliases);
+        if (shouldUpdateCatalogCourses) {
+            const catalogLabCourses = await getSemesterData(semester, true, departmentID); /* this gets us lab-like courses */
+            await upsertCatalogCourses(trx, [...catalogCourses, ...catalogLabCourses], semester);
+        }
 
     } catch (e) {
         await trx.rollback();

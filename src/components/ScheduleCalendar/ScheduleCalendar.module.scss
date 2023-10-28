@@ -1,0 +1,32 @@
+.calendar {
+
+    font-family: Montserrat, Roboto, Helvetica, sans-serif;
+    padding-bottom: 1rem;
+
+
+}
+
+
+
+.placeholder {
+    width: 100%;
+    height: 100%;
+
+    img {
+        width: 100%;
+        height: 100%;
+
+    }
+
+    .placeholderText {
+
+        width: 60%;
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #646464;
+        text-align: center;
+    }
+
+}

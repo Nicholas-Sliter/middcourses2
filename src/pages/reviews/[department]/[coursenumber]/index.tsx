@@ -98,6 +98,7 @@ export async function getServerSideProps(context) {
       mobileUserAgent: mobileUserAgent,
       metaDescription: metaDescription,
       canonicalURL: canonicalURL,
+      bookmarked: data.bookmarked
     }
   }
 }
@@ -115,6 +116,7 @@ interface CoursePageProps {
   mobileUserAgent: boolean;
   metaDescription: string;
   canonicalURL: string;
+  bookmarked: boolean;
 }
 
 export default function CoursePage({
@@ -129,15 +131,55 @@ export default function CoursePage({
   mobileUserAgent,
   metaDescription,
   canonicalURL,
+  bookmarked
 }: CoursePageProps) {
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>(Array.from(new Set(instructors.map(instructor => instructor.instructorID))));
   const [filteredReviews, setFilteredReviews] = useState<public_review[]>(reviews);
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(bookmarked); /* Need local state for update without reload */
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const toast = useToast();
 
+  const showBookmark = signedIn;
+
   course.departmentName = departmentName;
+
+
+  const bookmarkToast = (data: {
+    error: boolean,
+    message: string,
+    bookmarkAdded: boolean,
+    bookmarkRemoved: boolean
+  }) => {
+
+    toast({
+      title: data.message,
+      status: data.error ? 'error' : 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+
+  };
+
+  const setIsBookmarkedWrapper = (data: {
+    error: boolean,
+    message: string,
+    bookmarkAdded: boolean,
+    bookmarkRemoved: boolean
+  }) => {
+
+    if (data.bookmarkAdded) {
+      setIsBookmarked(true);
+    }
+
+    if (data.bookmarkRemoved) {
+      setIsBookmarked(false);
+    }
+
+    bookmarkToast(data);
+  };
+
 
   const filterInstructorToast = () => {
     if (toast.isActive('filterInstructorToast')) {
@@ -278,7 +320,13 @@ export default function CoursePage({
         <SidebarLayout>
           <SidebarLayout.Sidebar>
             <div>
-              <CourseCard course={course} style={{ borderBottom: "none" }} />
+              <CourseCard
+                course={course}
+                style={{ borderBottom: "none" }}
+                showBookmark={showBookmark}
+                isBookmarked={isBookmarked}
+                setBookmarked={setIsBookmarkedWrapper}
+              />
               <InstructorBar
                 instructors={instructors}
                 selected={selectedInstructorIDs}
@@ -312,7 +360,12 @@ export default function CoursePage({
 
       <MobileView renderDefault={mobileUserAgent}>
         <div>
-          <CourseCard course={course} />
+          <CourseCard
+            course={course}
+            showBookmark={showBookmark}
+            isBookmarked={isBookmarked}
+            setBookmarked={setIsBookmarkedWrapper}
+          />
           <InstructorBar
             instructors={instructors}
             selected={selectedInstructorIDs}

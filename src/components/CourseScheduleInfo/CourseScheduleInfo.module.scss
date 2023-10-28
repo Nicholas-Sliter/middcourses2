@@ -1,0 +1,124 @@
+@import '/src/styles/common/variables';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.courseTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+
+    &:first-of-type {
+        margin-top: 1rem;
+    }
+}
+
+.subcourseList {
+    margin-left: 1rem;
+    box-sizing: border-box;
+}
+
+.courseLine {
+
+    margin-bottom: 0.45rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    color: #333;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    height: 2rem;
+    overflow: hidden;
+
+    box-sizing: border-box;
+    background-color: #fafafa;
+
+
+
+
+    .courseType {
+        font-weight: 600;
+        background-color: #eeeeee;
+        // background-color: #7fb2e0;
+
+        font-size: 0.70rem;
+        vertical-align: top;
+        // padding: 0.2rem;
+        // line-height: 1.5;
+        // color: #333;
+        // border: 1px solid #e6e6e6;
+        // border-radius: 4px;
+        display: inline-flex;
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+        color: #3a3a3a;
+        // color: #fafafa;
+        align-items: center;
+        height: 100%;
+        min-width: 2rem;
+        justify-content: center;
+
+
+    }
+
+    .courseIdentifier {
+        font-size: 0.875rem;
+        font-weight: 400;
+        vertical-align: top;
+        // line-height: 1.5;
+        // padding: 0.2rem;
+        color: #333;
+        // border: 1px solid #e6e6e6;
+        // border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        margin-left: 0.2rem;
+        height: 100%;
+    }
+
+    .courseControls {
+        border-left: 1px solid #e6e6e6;
+
+        button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            height: 100%;
+            width: 1.5rem + 0.5rem;
+            padding: 0;
+            padding-top: 0.3rem;
+            padding-bottom: 0.3rem;
+            color: #333;
+
+
+            &:disabled {
+                color: #999;
+
+                &:hover {
+                    background-color: transparent;
+
+                }
+            }
+
+
+            svg {
+                height: 100%;
+                width: 100%;
+            }
+
+            &:hover {
+                background-color: #eeeeee;
+            }
+
+        }
+
+    }
+
+}

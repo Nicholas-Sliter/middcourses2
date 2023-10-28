@@ -1,0 +1,20 @@
+.modalContentContainer {
+    width: 100%;
+
+
+    &>header {
+        span {
+            text-decoration: underline;
+        }
+
+        button {
+            outline: none;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+    }
+
+
+
+}

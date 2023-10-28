@@ -85,6 +85,15 @@ export interface User {
 }
 
 
+export interface Schedule {
+  id: number;
+  name: string;
+  userID: string;
+  semester: string;
+  courses: CatalogCourseWithInstructors[];
+}
+
+
 export interface CustomSession extends Session {
 
   user: {
@@ -132,3 +141,21 @@ export interface extended_department extends Department {
 
 }
 
+
+export interface CatalogCourse {
+  courseName: string;
+  courseID: string;
+  catalogCourseID: string;
+  courseDescription: string;
+  semester: string;
+  crn: string;
+  section: string;
+  isLinkedSection: boolean;
+  type: string;
+  times: Record<string, Array<{ day: string; start: number; end: number; }>>;
+};
+
+
+export interface CatalogCourseWithInstructors extends CatalogCourse {
+  instructors: public_instructor[];
+}

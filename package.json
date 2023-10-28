@@ -1,6 +1,6 @@
 {
   "name": "middcourses",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -20,11 +20,11 @@
     "@nivo/radar": "^0.80.0",
     "@trendyol-js/react-carousel": "^3.0.0",
     "bad-words": "^3.0.4",
-    "catalog.js": "^1.1.0",
-    "clarity-js": "^0.7.10",
+    "catalog.js": "^1.2.0",
+    "clarity-js": "^0.7.14",
     "dejunk.js": "^0.4.4",
     "departments.js": "^1.1.1",
-    "directory.js": "^2.0.0",
+    "directory.js": "^3.2.2",
     "framer-motion": "^6.2.8",
     "fuse.js": "^6.5.3",
     "knex": "^0.95.15",
@@ -33,6 +33,7 @@
     "next-connect": "^0.11.1",
     "pg": "^8.7.3",
     "react": "17.0.2",
+    "react-big-calendar": "^1.8.1",
     "react-dom": "17.0.2",
     "react-gtm-module": "^2.0.11",
     "react-hook-form": "^7.27.1",
@@ -53,6 +54,6 @@
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "sqlite3": "^5.0.2",
-    "typescript": "^4.5.5"
+    "typescript": "^4.9.5"
   }
 }

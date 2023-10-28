@@ -1,0 +1,57 @@
+.container {
+
+    // width: min(100%, max(60%, 400px));
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    /*hide scrollbar*/
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    /*hide scrollbar for chrome*/
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+
+
+}
+
+
+
+
+.innerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    width: 50%;
+
+    padding-top: 0.5rem;
+
+
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
+@media screen and (max-width: 600px) {
+    .innerContainer {
+        flex-wrap: wrap;
+        width: 60%;
+
+        &>a {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+        }
+    }
+
+}
