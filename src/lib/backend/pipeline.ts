@@ -14,7 +14,7 @@ import { Knex } from "knex";
 import knex from "./database/knex";
 import Semaphore from './semaphore';
 import { departmentCodeChangedMapping, getCurrentSemester, getCurrentTerm, getNextTerm, slugify } from "../common/utils";
-import { getDepartmentByName } from "./database/departments";
+import { getDepartmentByName, getMostFrequentlyTaughtDepartment } from "./database/departments";
 import { backupReviews, getTransactionReviewCount, reconcileReviews } from "./database/review";
 import { reconileAliases, upsertAliases } from "./database/alias";
 import { upsertCatalogCourses } from "./database/schedule";
@@ -170,7 +170,14 @@ async function fetchInstructorData(instructorID: string, name: string, semaphore
         await I.init();
 
         if (I.person) {
-            const department = (await getDepartmentByName(I.person.department ?? "")) ?? null;
+            let department = (await getDepartmentByName(I.person.department ?? "")) ?? null;
+            if (!department) {
+                console.log(`Could not find department for ${instructorID}: ${I.person.department}`);
+                department = await getMostFrequentlyTaughtDepartment(instructorID) ?? null;
+                if (department) {
+                    console.log(`Using most frequently taught department for ${instructorID}: ${department.departmentID}`);
+                }
+            }
 
             /* Check if name is consistent */
             const directoryName = I.person.firstName + " " + I.person.lastName;
