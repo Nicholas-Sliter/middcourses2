@@ -22,7 +22,7 @@ const minuteToTime = (minute: number) => {
     return `${hourString}:${minuteString}${ampm}`;
 }
 
-const scheduleHasOverlapForSectionTimes = (schedule: Schedule, catalogEntry: CatalogCourse) => {
+const scheduleHasOverlapForSectionTimes = (schedule: Schedule, catalogEntry: CatalogCourse | CatalogCourseWithInstructors) => {
     if (!schedule.courses || !catalogEntry.times) {
         return false;
     }
@@ -39,7 +39,7 @@ const scheduleHasOverlapForSectionTimes = (schedule: Schedule, catalogEntry: Cat
     return hasOverlap;
 };
 
-const getConflictingSections = (schedule: Schedule, catalogEntry: CatalogCourse) => {
+const getConflictingSections = (schedule: Schedule, catalogEntry: CatalogCourse | CatalogCourseWithInstructors) => {
     if (!schedule.courses || !catalogEntry.times) {
         return [];
     }
@@ -144,13 +144,13 @@ const SectionDisplay = (catalogEntry: CatalogCourseWithInstructors, isSelected: 
 
 
 interface SectionDisplay {
-    catalogEntry: CatalogCourse;
+    catalogEntry: CatalogCourseWithInstructors;
     hasOverlap: boolean;
     overlappingSections: string[];
 }
 
 
-const getSectionsData = (schedule: Schedule, catalogEntries: CatalogCourse[]): SectionDisplay[] => {
+const getSectionsData = (schedule: Schedule, catalogEntries: CatalogCourseWithInstructors[]): SectionDisplay[] => {
     const sectionsData: SectionDisplay[] = catalogEntries.map((catalogEntry) => {
         const hasOverlap = scheduleHasOverlapForSectionTimes(schedule, catalogEntry);
         const conflictingSections = (hasOverlap) ? getConflictingSections(schedule, catalogEntry) : [];
