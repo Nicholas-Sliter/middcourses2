@@ -50,7 +50,7 @@ function SelectCourseSectionsModal({
             <ModalContent className={styles.modalContentContainer}>
                 <ModalHeader>
                     <p>{course.courseName}</p>
-                    < ModalCloseButton className />
+                    < ModalCloseButton />
                 </ModalHeader>
                 <ModalBody>
                     {(!loading) && <AddCourseSectionsSelector

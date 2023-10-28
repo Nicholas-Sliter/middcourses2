@@ -349,7 +349,7 @@ export async function removeCoursesFromSchedule(session: CustomSession, schedule
 };
 
 
-export async function addCoursesToSchedule(session: CustomSession, scheduleID: string, courses: string[]): Promise<Record<string, boolean>> {
+export async function addCoursesToSchedule(session: CustomSession, scheduleID: string, courses: string[]): Promise<CatalogCourse[]> {
 
     if (!session?.user) {
         return null;

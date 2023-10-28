@@ -13,6 +13,7 @@ import {
 import { Schedule } from "../../lib/common/types";
 import ScheduleAPI from "../../lib/interfaces/ScheduleAPI";
 import styles from './DeleteScheduleConfirmation.module.scss';
+import { useRef } from "react";
 
 
 interface DeleteScheduleConfirmationProps {
@@ -24,6 +25,7 @@ interface DeleteScheduleConfirmationProps {
 
 function DeleteScheduleConfirmation({ schedule, isOpen, onClose, onDeleted }: DeleteScheduleConfirmationProps) {
 
+    const cancelRef = useRef();
 
     const toast = useToast();
 
@@ -66,6 +68,7 @@ function DeleteScheduleConfirmation({ schedule, isOpen, onClose, onDeleted }: De
             isOpen={isOpen}
             onClose={onClose}
             isCentered
+            leastDestructiveRef={cancelRef}
         >
             <AlertDialogOverlay className={styles.container}>
                 <AlertDialogContent className={styles.content}>
@@ -78,7 +81,7 @@ function DeleteScheduleConfirmation({ schedule, isOpen, onClose, onDeleted }: De
                     </AlertDialogBody>
 
                     <AlertDialogFooter>
-                        <Button onClick={onClose}>
+                        <Button ref={cancelRef} onClick={onClose}>
                             Cancel
                         </Button>
                         <Button colorScheme="red" onClick={onSubmit} ml={3}>

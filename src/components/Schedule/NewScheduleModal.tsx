@@ -104,42 +104,44 @@ function NewScheduleModal({
         //     });
     };
 
-   return (
+    return (
         <Modal
             isOpen={isOpen}
             onClose={onClose}
             size="md"
         >
             <ModalOverlay />
-            <ModalContent className={styles.container}> 
+            <ModalContent className={styles.container}>
                 <ModalHeader>
                     Create New Schedule
                     <ModalCloseButton className={styles.closeButton} />
                 </ModalHeader>
                 <ModalBody>
                     <form onSubmit={onSubmit}>
-                        <Question>
-                            <FormLabel htmlFor="semester">Semester</FormLabel>
-                            <Select
-                                className={styles.selectSemester}
-                                name="semester"
-                                id="semester"
-                                defaultValue={defaultSemester} >
-                                {semesterOptions?.map((option) => (
-                                    <option key={option.value} value={option.value}>{option.label}</option>
-                                ))}
-                            </Select>
+                        <Question label={undefined} htmlFor={undefined}>
+                            <>
+                                <FormLabel htmlFor="semester">Semester</FormLabel>
+                                <Select
+                                    className={styles.selectSemester}
+                                    name="semester"
+                                    id="semester"
+                                    defaultValue={defaultSemester} >
+                                    {semesterOptions?.map((option) => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                                </Select>
 
 
-                            <FormLabel htmlFor="name">Schedule Name</FormLabel>
-                            <Input
-                                className={styles.inputName}
-                                name="name"
-                                id="name"
-                                placeholder="My Schedule"
+                                <FormLabel htmlFor="name">Schedule Name</FormLabel>
+                                <Input
+                                    className={styles.inputName}
+                                    name="name"
+                                    id="name"
+                                    placeholder="My Schedule"
 
 
-                            />
+                                />
+                            </>
                         </Question>
                         <button
                             className={styles.submitButton}

@@ -28,29 +28,34 @@ const tabs: ITab[] = [
     {
         id: "bookmark",
         name: "Bookmarks",
+        //@ts-ignore 
         content: <AddByBookmark />
     },
     {
         id: "search",
         name: "Search",
+        //@ts-ignore 
         content: <AddBySearch />,
         hidden: true
     },
     {
         id: "recommendation",
         name: "Recommendations",
+        //@ts-ignore 
         content: <AddByRecommendation />,
         hidden: true
     },
     {
         id: "filter",
         name: "Filter",
+        //@ts-ignore 
         content: <AddByFilter />,
         hidden: true
     },
     {
         id: "hasOpenings",
         name: "Has Openings",
+        //@ts-ignore 
         content: <AddByHasOpenings />,
         hidden: true
     },
@@ -128,7 +133,7 @@ function AddCourseToScheduleModal({
             <ModalContent className={styles.modalContentContainer}>
                 <ModalHeader>
                     {`Add to Schedule: `}<span>{schedule.name}</span>
-                    < ModalCloseButton className />
+                    < ModalCloseButton />
                 </ModalHeader>
                 <ModalBody>
                     <AddCourseTabs schedule={schedule} onCourseAdded={onCourseAdded} />
