@@ -149,6 +149,19 @@ async function getSemesterData(semester: string, getLabTypeCourses = false, depa
 
 async function fetchInstructorData(instructorID: string, name: string, semaphore: Semaphore) {
 
+
+    /* This is the best we can do for now */
+    let firstName = name.split(' ')[0];
+    let lastName = name.split(' ')[1];
+
+    /* try searching by first name only if name has multiple parts */
+    let shouldUseLastName = true;
+    if (name.split(' ').length > 2) {
+        console.log(`Name has more than 2 parts: ${name}, using first name (${firstName}) only`);
+        shouldUseLastName = false;
+    }
+
+
     const formattedInstructor: Instructor = {
         name: name,
         instructorID: instructorID,
@@ -159,10 +172,10 @@ async function fetchInstructorData(instructorID: string, name: string, semaphore
 
     await semaphore.acquire();
 
-    const I = new directoryScraper('', instructorID);
+    const I = new directoryScraper('', instructorID, firstName, shouldUseLastName ? lastName : "");
 
     await new Promise((resolve) =>                  /* Stagger requests */
-        setTimeout(resolve, Math.random() * 500)
+        setTimeout(resolve, Math.random() * 800)
     );
 
     try {
@@ -198,6 +211,7 @@ async function fetchInstructorData(instructorID: string, name: string, semaphore
 
         }
     } catch (e) {
+        console.log(`Failed to fetch instructor data for ${name}:${instructorID}`);
         console.log(e);
     }
 

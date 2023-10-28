@@ -8,7 +8,7 @@
  * Includes estimated workload and time commitment. (IE, in-class hours + out of class hours)
  */
 
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { BrowserView, MobileView } from "../../components/DeviceViews";
 import ScheduleCalendar from "../../components/ScheduleCalendar";
 import PageTitle from "../../components/common/PageTitle";
@@ -144,6 +144,8 @@ function Schedule({
 
 }: ScheduleProps) {
 
+    const { data: session } = useSession() as { data: CustomSession };
+
 
     const [userTerm, setUserTerm] = useState<string>(term);
     const [userSchedules, setUserSchedules] = useState<Schedule[]>(schedules ?? []);
@@ -181,6 +183,19 @@ function Schedule({
         setScheduleModifiedRecently(true);
 
     }, []);
+
+
+    if (!session?.user) {
+        return (
+            <>
+                <PageTitle
+                    pageTitle="Schedule Planner"
+
+                />
+                <p>You must be logged in to view this page.</p>
+            </>
+        );
+    }
 
 
 
