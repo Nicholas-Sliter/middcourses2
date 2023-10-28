@@ -414,6 +414,24 @@ export async function addCoursesToSchedule(session: CustomSession, scheduleID: s
     }
 
 
+    /* Ensure there are no more than 5 main courses in schedule */
+    const totalMainCourses = existingMainCourses.length + mainCourses.length - alreadyInScheduleMain.length;
+    if (totalMainCourses > 5) {
+        console.log("Too many main courses");
+        return null;
+    }
+
+
+    /* Ensure there are no more than 6 linked courses in schedule */
+    const linkedCourses = resolvedCourses.filter(course => course.isLinkedSection);
+    const existingLinkedCourses = existingScheduleCourses.filter(course => course.isLinkedSection);
+
+    const totalLinkedCourses = existingLinkedCourses.length + linkedCourses.length;
+    if (totalLinkedCourses > 6) {
+        console.log("Too many linked courses");
+        return null;
+    }
+
 
 
     /* Make sure courses do not have a time conflict with schedule */
