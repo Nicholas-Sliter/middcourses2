@@ -74,7 +74,7 @@ function DeleteScheduleConfirmation({ schedule, isOpen, onClose, onDeleted }: De
                     </AlertDialogHeader>
 
                     <AlertDialogBody>
-                        Are you sure? You can't undo this action afterwards.
+                        Are you sure? You cannot undo this action.
                     </AlertDialogBody>
 
                     <AlertDialogFooter>
