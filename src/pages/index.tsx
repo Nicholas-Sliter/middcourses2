@@ -14,6 +14,7 @@ import HowItWorks from "../components/HowItWorks";
 import CourseCardRow from "../components/CourseCardRow";
 import { getTopValueForDifficultyCourses } from "../lib/backend/database/rankings";
 import Link from "next/link";
+import { QuickLinkBar } from "../components/QuickLinks";
 
 
 export default function Home() {
@@ -60,10 +61,12 @@ export default function Home() {
     <>
       <PageTitle pageTitle="Home" canonicalURL={canonicalURL} />
       <section className={styles.pageTop}>
+        {/* <QuickLinkBar /> */}
         <SearchBar showResultDropdown />
-        <Link href={"/browse/courses"} passHref>
+        {/* <Link href={"/browse/courses"} passHref>
           <a style={{ fontWeight: "bold" }}>or browse course rankings</a>
-        </Link>
+        </Link> */}
+        <QuickLinkBar />
         <div style={{ height: '10rem' }}></div>
         {/* <div style={{ maxWidth: "80%", margin: "0 auto" }}>
           <FlexGroup>

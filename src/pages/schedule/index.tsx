@@ -16,7 +16,7 @@ import SidebarLayout from "../../layouts/SidebarLayout";
 import { CatalogCourse, CustomSession, Schedule, public_course } from "../../lib/common/types";
 import { catalogCourseIDToCourseID, getCurrentTerm, getNextTerm } from "../../lib/common/utils";
 import { getAllBookmarksInSemester, getAllUserBookmarks } from "../../lib/backend/database/bookmark";
-import { Button, Select, Tooltip } from "@chakra-ui/react";
+import { Spacer } from "@chakra-ui/react";
 import { convertTermToFullString } from "../../lib/frontend/utils";
 import useSchedule from "../../hooks/useSchedule";
 import { useRouter } from "next/router";
@@ -205,9 +205,6 @@ function Schedule({
                             currentTerms={currentTerms}
                             handleCourseScheduleChangeWrapper={handleCourseScheduleChangeWrapper}
                             setCourseChangeSectionModalCourseID={setCourseChangeSectionModalCourseID}
-
-
-
                         />
                     </SidebarLayout.Sidebar>
                     <SidebarLayout.Main>
@@ -251,8 +248,32 @@ function Schedule({
 
 
             <MobileView renderDefault={mobileUserAgent}>
-                <p>The schedule planner requires a larger display</p>
+                {/* <p>The schedule planner requires a larger display</p> */}
+                {/* <CourseScheduleInfo
+                    courses={scheduleWithCourses?.courses}
+                    schedule={scheduleWithCourses}
+                    onCourseAdded={handleCourseScheduleChangeWrapper}
+                    onChangeSection={(courseID) => setCourseChangeSectionModalCourseID(courseID)}
+                /> */}<ScheduleSidebar
+                    setSelectedSchedule={setSelectedSchedule}
+                    selectedSchedule={selectedSchedule}
+                    userSchedules={userSchedules}
+                    scheduleWithCourses={scheduleWithCourses}
+                    setNewScheduleModalOpen={setNewScheduleModalOpen}
+                    setDeleteScheduleModalOpen={setDeleteScheduleModalOpen}
+                    setUserTerm={setUserTerm}
+                    userTerm={userTerm}
+                    currentTerms={currentTerms}
+                    handleCourseScheduleChangeWrapper={handleCourseScheduleChangeWrapper}
+                    setCourseChangeSectionModalCourseID={setCourseChangeSectionModalCourseID}
+                />
+                <EditScheduleButton
+                    onClick={() => setAddCourseModalOpen(true)}
+                    schedule={scheduleWithCourses}
+                />
 
+                <Spacer style={{ height: '3rem' }} />
+                <ScheduleCalendar schedule={scheduleWithCourses} />
 
 
             </MobileView>

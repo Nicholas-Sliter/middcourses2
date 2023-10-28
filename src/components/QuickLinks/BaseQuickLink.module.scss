@@ -1,0 +1,91 @@
+.quickLinkContainer {
+
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+
+
+    height: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    color: #333;
+    text-decoration: none;
+
+    &>div {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        height: 1.5rem;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+
+
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    &:hover {
+        border: 1px solid #0D395F;
+
+        &>.iconContainer>svg {
+            fill: #0D395F;
+            color: #0D395F;
+        }
+    }
+
+    .iconContainer {
+        display: inline-block;
+
+        margin-right: 0.5rem;
+
+        svg {
+            display: block;
+
+        }
+    }
+
+
+}
+
+
+
+
+.textContainer {
+    display: inline;
+
+    font-size: 0.7rem;
+    font-weight: 500;
+
+    margin: 0;
+
+    h3 {
+        margin: 0;
+        display: inline;
+        white-space: nowrap;
+    }
+
+
+
+}
+
+
+
+.available {
+    cursor: pointer;
+
+
+}
+
+.unavailable {
+
+    cursor: not-allowed;
+    opacity: 0.8;
+    color: #333;
+}
