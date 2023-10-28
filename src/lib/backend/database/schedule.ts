@@ -241,14 +241,11 @@ export async function getAvailableTermsForSchedulePlanning(): Promise<string[]> 
 
 
     const upcomingTerms = [getCurrentTerm(), getNextTerm(), getNextTerm(getNextTerm())];
-    console.log("Upcoming terms: ", upcomingTerms);
 
     const terms = await knex("CatalogCourse")
         .select("semester")
         .whereIn("semester", upcomingTerms)
         .distinct();
-
-    console.log("Terms: ", terms);
 
     return terms.map(term => term.semester).sort(compareTerm);
 
