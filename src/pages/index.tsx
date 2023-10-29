@@ -28,7 +28,7 @@ export default function Home() {
     // need more reviews toast
     if (session?.user && !session?.user?.authorized && !toast.isActive(reviewid)) {
       toast({
-        title: "To view course reviews you must submit at least 2 reviews.",
+        title: "To view course reviews for 200+ level courses you must submit at least 2 reviews every six months.",
         status: "info",
         duration: 100000,
         isClosable: true,
