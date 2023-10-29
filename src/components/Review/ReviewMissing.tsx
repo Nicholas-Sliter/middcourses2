@@ -21,10 +21,10 @@ function ReviewMissing({ reason, context }: ReviewMissingProps) {
     const no_reviews = reason === "No reviews";
 
     const no_login_text = "You must be logged in to view reviews";
-    const no_auth_text = `You must review 2 courses before viewing ${context ?? ""} reviews`;
+    const no_auth_text = `You must have at least 2 recent reviews before viewing ${context ?? ""} reviews`;
     const no_reviews_text = `There are no ${context ?? ""} reviews yet, be the first to write one!`;
 
-    const reasontText = no_login ?
+    const reasonText = no_login ?
         no_login_text : no_auth ?
             no_auth_text : no_reviews ?
                 no_reviews_text : "Something went wrong";
@@ -32,7 +32,7 @@ function ReviewMissing({ reason, context }: ReviewMissingProps) {
     return (
         <div className={styles.missingFallback}>
             <FiXCircle />
-            <h4>{reasontText}</h4>
+            <h4>{reasonText}</h4>
         </div>
     );
 
