@@ -6,6 +6,7 @@ import { getReviewsByInstructorEmail, getReviewsByUserID } from "../../lib/backe
 import { CustomSession, public_instructor, public_review } from "../../lib/common/types";
 import useIsMount from "../../hooks/useIsMount";
 import AddReview from "../../components/AddReview";
+import { Alert, AlertDescription, AlertIcon, AlertTitle } from "@chakra-ui/react";
 
 
 export async function getServerSideProps(context) {
@@ -73,10 +74,34 @@ export default function Reviews({ reviews, instructors, isSignedIn }: ReviewsPro
   const studentTitle = "Your Reviews:";
   const instructorTitle = "Reviews of Your Courses:";
 
+  const shouldShowNotAuthorizedWarning = !isInstructor && !session?.user?.authorized;
+
+
+  const howManyReviewsInPastSixMonths = reviews.filter((review) => {
+    const currentDate = new Date().getTime();
+    const sixMonthsMs = 1000 * 60 * 60 * 24 * 30 * 6;
+    return new Date(review.reviewDate).getTime() > (currentDate - sixMonthsMs);
+  }).length;
+
 
   return (
     <div style={{ padding: "1rem" }}>
       <h2>{isInstructor ? instructorTitle : studentTitle}</h2>
+      {shouldShowNotAuthorizedWarning && <>
+        <Alert status="warning" style={{ maxWidth: '40rem', width: '90%' }} >
+          <AlertIcon />
+          <div>
+            <AlertTitle>You cannot view 200+ level course reviews</AlertTitle>
+            <AlertDescription>
+              You have reviewed {howManyReviewsInPastSixMonths} courses in the past six months.
+              Students must review at least 2 courses every six months to view 200+ level course reviews. You can still view 100 level course reviews.
+            </AlertDescription>
+          </div>
+        </Alert>
+
+      </>}
+
+
       <ReviewList
         reviews={reviews}
         identifyCourse
