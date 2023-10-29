@@ -1,7 +1,7 @@
 import knex from "./knex";
 import { uuidv4 } from "../utils";
 import { Scraper } from "directory.js";
-import { checkIfFirstSemester } from "../../common/utils";
+import { checkIfFirstSemester, parseMaybeInt } from "../../common/utils";
 import { public_review, User } from "../../common/types";
 import { reviewInfo } from "./common";
 
@@ -136,7 +136,7 @@ export async function __getAllFullUsers() {
 
 export async function updateUserPermissions(id: string) {
 
-    const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 30 * 5; /* Temporarily set to 5 months */
+    const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 30 * 6;
     const currentDate = new Date();
 
     const SIX_MONTHS_AGO = new Date(currentDate.getTime() - SIX_MONTHS_MS);
@@ -161,12 +161,12 @@ export async function updateUserPermissions(id: string) {
 
     let bool = false;
     if (user.userType === "student") {
-        if (userReviews[0].reviewCount >= 2) {
+        if (parseMaybeInt(userReviews[0].reviewCount) >= 2) {
             bool = true;
         }
     }
 
-    if (user.usertType === "faculty" || user.admin) {
+    if (user.userType === "faculty" || user.admin) {
         bool = true;
     }
 
