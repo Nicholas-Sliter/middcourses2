@@ -88,7 +88,7 @@ export default function Reviews({ reviews, instructors, isSignedIn }: ReviewsPro
     <div style={{ padding: "1rem" }}>
       <h2>{isInstructor ? instructorTitle : studentTitle}</h2>
       {shouldShowNotAuthorizedWarning && <>
-        <Alert status="warning" style={{ maxWidth: '40rem', width: '90%' }} >
+        <Alert status="warning" style={{ maxWidth: '42rem', width: '90%', marginLeft: 'auto', marginRight: 'auto', borderRadius: '0.5rem' }} >
           <AlertIcon />
           <div>
             <AlertTitle>You cannot view 200+ level course reviews</AlertTitle>
