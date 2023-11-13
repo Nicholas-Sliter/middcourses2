@@ -45,12 +45,21 @@ export const DEPARTMENT_PADDING_PREFIX = "_";
 const PROFANE_EXEMPTIONS = [
   "hell",
   "wang", // Wang is a common Chinese last name and is not profane see #252
+  "teets" // See Prof. Jessica Teets
 ];
 
 /* Determine if a string contains profanity */
 export function containsProfanity(str: string) {
   const filter = new Filter();
   filter.removeWords(...PROFANE_EXEMPTIONS);
+
+  return filter.isProfane(str);
+}
+
+
+export function containsProfanityExcludingInstructorName(str: string, instructorName: string) {
+  const filter = new Filter();
+  filter.removeWords(...PROFANE_EXEMPTIONS, ...instructorName.split(" "));
 
   return filter.isProfane(str);
 }

@@ -5,6 +5,7 @@ import {
   checkIfCourseExistsByInstructorAndSemester,
   checkReviewByUserAndCourse,
   getCourseByID,
+  getInstructorByID,
   getReviewsByCourseID,
   updateUserCheck,
 } from "../../../../../../lib/backend/database-utils";
@@ -12,6 +13,7 @@ import { getSession } from "next-auth/react";
 import {
   canWriteReviews,
   containsProfanity,
+  containsProfanityExcludingInstructorName,
   isQualityReview,
   uuidv4,
 } from "../../../../../../lib/backend/utils";
@@ -183,7 +185,12 @@ const handler = nc({
     }
 
     if (containsProfanity(req.body.content)) {
-      return res.status(400).json({ message: "Review contains profanity" });
+
+      const instructorName = (await getInstructorByID(req.body.instructor))?.name;
+
+      if (!instructorName || containsProfanityExcludingInstructorName(req.body.content, instructorName)) {
+        return res.status(400).json({ message: "Review contains profanity" });
+      }
     }
 
     if (!isQualityReview(req.body.content, course.courseDescription)) {
