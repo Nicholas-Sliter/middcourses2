@@ -5,6 +5,7 @@ import knexInitializer from "knex";
 import { uuidv4 } from "./utils";
 import { Scraper } from "directory.js";
 import { checkIfFirstSemester, departmentNameMapping } from "../common/utils";
+import { public_instructor } from "../common/types";
 
 export const knex = knexInitializer(
   knexConfig[process.env.NODE_ENV || "development"]
@@ -151,7 +152,7 @@ export async function getReviewsByUserID(id: string): Promise<any> {
  * @returns A promise that resolves to an instructor object or null if it doesn't exist.
  *
  */
-export async function getInstructorByID(id: string): Promise<any> {
+export async function getInstructorByID(id: string): Promise<public_instructor> {
   const instructor = await knex("Instructor")
     .where({
       instructorID: id,
