@@ -5,6 +5,7 @@ import CourseSearchResult from "./SearchResult/CourseSearchResult";
 import { Menu } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import useSearchAdvanced from "../../hooks/useSearchAdvanced";
+import { public_course } from "../../lib/common/types";
 
 interface SearchBarAdvancedProps {
   showResultDropdown?: boolean;
