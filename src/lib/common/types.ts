@@ -1,5 +1,8 @@
 import type { Session } from "next-auth";
 import { isInMajorMinorText } from "./utils";
+
+export type Maybe<T> = T | null | undefined;
+
 export interface public_review {
   reviewID: string;
   courseID: string;
