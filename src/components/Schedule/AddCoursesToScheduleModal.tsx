@@ -6,10 +6,11 @@ import styles from "./AddCoursesToScheduleModal.module.scss";
 import AddCourseToScheduleItemProps from "./AddCourseToScheduleItemProps";
 import React from "react";
 import AddByBookmark from "./AddByBookmark";
+import AddBySearch from "./AddBySearch";
 
 
 // const AddByBookmark = () => null;
-const AddBySearch = () => null;
+// const AddBySearch = () => null;
 // const AddBySubject = () => null;
 const AddByRecommendation = () => null;
 const AddByFilter = () => null;
@@ -36,7 +37,7 @@ const tabs: ITab[] = [
         name: "Search",
         //@ts-ignore 
         content: <AddBySearch />,
-        hidden: true
+        hidden: false
     },
     {
         id: "recommendation",

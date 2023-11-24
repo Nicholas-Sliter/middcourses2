@@ -6,6 +6,7 @@ import { getReviewRelevanceScore, is100LevelCourse, isFYSECourse } from "../../c
 import { Knex } from "knex";
 import { getCourseCodes, getCourseCodesCTE } from "./alias";
 import { isBookmarked } from "./bookmark";
+import { searchCourses } from "../database-utils";
 
 export async function getCourse(id: string) {
     return await knex("Course")
@@ -315,4 +316,43 @@ export async function getCourseIDByTerms(terms: string[]) {
         .distinct("courseID");
 }
 
+export async function getCoursesInSemesters(courseIds: string[], semesters: string[]) {
+    return await knex("CourseInstructor")
+        .whereIn("courseID", courseIds)
+        .whereIn("term", semesters)
+        .select("courseID")
+        .distinct("courseID");
+}
 
+
+async function filterByFunIfDefined<T>(data: T, filterCondition: boolean, filterFun: (data: T) => Promise<T>) {
+    if (filterCondition) {
+        return filterFun(data);
+    }
+    return data;
+}
+
+export async function advancedCourseSearch(query: string, filters: {
+    departments?: string[];
+    semesters?: string[];
+    requirements?: string[];
+}) {
+
+    let results: Array<public_course> = [];
+
+    const { departments, semesters, requirements } = filters;
+
+    results = (await searchCourses(query));
+
+    results = await filterByFunIfDefined(results, semesters?.length > 0, async (results) => {
+        const courseIds = results.map((result) => result.courseID);
+        const courseIdsInSemesters = await getCoursesInSemesters(courseIds, semesters);
+        const courseIdsInSemestersSet = new Set(courseIdsInSemesters.map((result) => result.courseID));
+        return results.filter((result) => courseIdsInSemestersSet.has(result.courseID));
+    });
+
+
+    return results;
+
+
+}

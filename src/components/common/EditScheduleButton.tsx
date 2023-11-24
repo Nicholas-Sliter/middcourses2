@@ -4,7 +4,7 @@
  */
 
 import { Button, Portal, Tooltip } from "@chakra-ui/react";
-import { RiEditFill } from "react-icons/ri";
+import { RiAddBoxFill, RiEditFill } from "react-icons/ri";
 import { useSession } from "next-auth/react";
 
 import styles from "../../styles/components/common/AddButton.module.scss";
@@ -14,11 +14,13 @@ import { Schedule } from "../../lib/common/types";
 interface EditScheduleButtonProps {
     onClick: () => void;
     schedule: Schedule;
+    shouldRippleAnimate?: boolean; // Ripple animation to draw attention to the button
 }
 
 
-export default function EditScheduleButton({ onClick, schedule }: EditScheduleButtonProps) {
+export default function EditScheduleButton({ onClick, schedule, shouldRippleAnimate }: EditScheduleButtonProps) {
     const { data: session, status } = useSession() as any;
+    const isDisabled = !schedule;
 
     if (status === "loading") {
         return null;
@@ -28,16 +30,20 @@ export default function EditScheduleButton({ onClick, schedule }: EditScheduleBu
         return null;
     }
 
+
+
     return (
         <Portal>
             <div className={styles.container}>
-                <Tooltip label="Edit schedule" placement="top">
+                <Tooltip label="Add or edit schedule" placement="top">
                     <Button
-                        title="Edit schedule"
+                        title="Add to schedule"
                         onClick={onClick}
+                        disabled={isDisabled}
                     >
-                        <RiEditFill />
-                        <span className={styles.expandedText}>Edit</span>
+                        {/* <RiEditFill /> */}
+                        <RiAddBoxFill />
+                        <span className={styles.expandedText}>Add</span>
                     </Button>
                 </Tooltip>
             </div>

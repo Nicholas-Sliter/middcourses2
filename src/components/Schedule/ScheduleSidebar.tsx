@@ -37,6 +37,19 @@ function ScheduleSidebar({
 }: ScheduleSidebarProps) {
 
 
+    const hasCreatedScheduleInTerm = userSchedules
+        .filter((schedule) => {
+            return (schedule.semester === userTerm)
+        }
+        ).length > 0;
+
+    const hasAlreadySelectedSchedule = selectedSchedule?.id !== undefined;
+    const showCreateScheduleText = !hasCreatedScheduleInTerm && !hasAlreadySelectedSchedule;
+    const showSelectScheduleText = hasCreatedScheduleInTerm && !hasAlreadySelectedSchedule;
+
+
+    const selectSchedulePlaceholder = showCreateScheduleText ? "Create schedule" : showSelectScheduleText ? "Select a schedule" : "";
+
 
     return (
         <div
@@ -71,6 +84,7 @@ function ScheduleSidebar({
                 >Schedule</h1>
                 <div className={styles.termSelect}>
                     <Select
+                        defaultValue={userTerm}
                         onChange={(e) => {
                             setUserTerm(e.target.value);
                         }}
@@ -98,8 +112,8 @@ function ScheduleSidebar({
                         border: "1px solid #ccc",
                         borderRadius: "0.5rem",
                     }}
-                    placeholder={"Select Schedule"}
-                    disabled={userSchedules.length === 0}
+                    placeholder={selectSchedulePlaceholder}
+                    disabled={showCreateScheduleText}
                     value={selectedSchedule?.id ?? null}
                     onChange={(e) => {
                         setSelectedSchedule(userSchedules.find((schedule) => schedule.id === parseInt(e.target.value)) ?? null);

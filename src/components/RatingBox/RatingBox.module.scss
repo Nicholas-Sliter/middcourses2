@@ -10,17 +10,17 @@
     width: 18%;
 
 
+
     .box {
         display: flex;
         flex-direction: column;
-        // padding: 1rem;
         box-sizing: border-box;
 
         outline: $border-light;
         box-shadow: $shadow-small-light;
         border-radius: $border-radius-small;
-
-        aspect-ratio: 1/1;
+        aspect-ratio: 1;
+        -webkit-aspect-ratio: 1;
 
 
         align-items: center;
@@ -29,11 +29,8 @@
         justify-content: center;
 
         font-size: 1.6rem;
-        // font-size: 150%;
         font-weight: 550;
 
-        background-color: red;
-        background-color: cadetblue;
         background-color: darkgray;
 
         @include noselect();
@@ -41,8 +38,6 @@
         span {
             mix-blend-mode: luminosity;
             color: #ece7f2;
-            //-webkit-text-stroke-width: 0.5px;
-            //-webkit-text-stroke-color: #e6e6e6;
         }
 
         .suffix {

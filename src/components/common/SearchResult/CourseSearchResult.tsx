@@ -8,11 +8,13 @@ import styles from "../../../styles/components/common/SearchBar.module.scss";
 interface CourseSearchResultProps {
   compact?: boolean;
   course: public_course;
+  onClick?: () => void;
 }
 
 export default function CourseSearchResult({
   course,
   compact = true,
+  onClick,
 }: CourseSearchResultProps) {
 
 
@@ -24,6 +26,10 @@ export default function CourseSearchResult({
       icon={<FaBook />}
       onClick={(e) => {
         e.preventDefault();
+        if (onClick) {
+          onClick();
+          return;
+        }
         router.push(
           `/reviews/${course.courseID
             .substring(0, 4)

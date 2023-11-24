@@ -2,6 +2,8 @@ import { MdFindReplace, MdInfoOutline, MdOutlineDelete } from "react-icons/md";
 import { CatalogCourse, Schedule } from "../../lib/common/types";
 import styles from './CourseScheduleInfo.module.scss';
 import { Tooltip } from "@chakra-ui/react";
+import Link from "next/link";
+import { getLinkFromCourseID } from "../../lib/frontend/utils";
 
 interface CourseScheduleInfoProps {
     courses: CatalogCourse[];
@@ -68,7 +70,11 @@ function CourseScheduleInfo({ courses, schedule, onCourseAdded, onChangeSection 
             {Object.values(groupedCourses).map(({ course, subcourses }) => {
                 return (
                     <div key={course.courseID}>
-                        <div className={styles.courseTitle}>{course.courseName}</div>
+                        <div className={styles.courseTitle}>
+                            <Link passHref href={getLinkFromCourseID(course.courseID)}>
+                                <a>{course.courseName}</a>
+                            </Link>
+                        </div>
                         <div className={styles.subcourseList}>
                             {[course, ...subcourses].map((subcourse) => {
                                 return (

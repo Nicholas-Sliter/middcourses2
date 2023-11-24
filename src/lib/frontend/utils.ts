@@ -1,5 +1,6 @@
 import { public_instructor } from "../common/types";
 import Fuse from "fuse.js";
+import { parseCourseID } from "../common/utils";
 
 //eslint-disable-next-line no-unused-vars
 export const DEFAULT_VALIDATOR = (_t: string) => {
@@ -227,4 +228,11 @@ export function combind(arr: string[]) {
     }
     return acc;
   }, "");
+}
+
+
+export function getLinkFromCourseID(courseID: string) {
+  const { courseNumber, department } = parseCourseID(courseID);
+
+  return `/reviews/${department.toLowerCase()}/${courseNumber}`;
 }

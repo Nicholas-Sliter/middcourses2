@@ -14,25 +14,17 @@ import ScheduleCalendar from "../../components/ScheduleCalendar";
 import PageTitle from "../../components/common/PageTitle";
 import SidebarLayout from "../../layouts/SidebarLayout";
 import { CatalogCourse, CustomSession, Schedule, public_course } from "../../lib/common/types";
-import { catalogCourseIDToCourseID, getCurrentTerm, getNextTerm } from "../../lib/common/utils";
-import { getAllBookmarksInSemester, getAllUserBookmarks } from "../../lib/backend/database/bookmark";
-import { Spacer } from "@chakra-ui/react";
+import { Spacer, useToast } from "@chakra-ui/react";
 import { convertTermToFullString } from "../../lib/frontend/utils";
-import useSchedule from "../../hooks/useSchedule";
-import { useRouter } from "next/router";
 import { getAvailableTermsForSchedulePlanning, getSchedulePlansForSemester, getSchedulePlansForSemesters } from "../../lib/backend/database/schedule";
-import { BsJustify } from "react-icons/bs";
 import { useCallback, useEffect, useReducer, useState } from "react";
-import AddButton from "../../components/common/AddButton";
-import AddToScheduleButton from "../../components/common/EditScheduleButton";
+
 import EditScheduleButton from "../../components/common/EditScheduleButton";
-import CourseCard from "../../components/CourseCard";
-import CourseScheduleInfo from "../../components/CourseScheduleInfo";
-import { FiDelete } from "react-icons/fi";
-import { MdOutlineAdd, MdOutlineDelete } from "react-icons/md";
+
 import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal, ScheduleInfoDisplay, ScheduleSidebar } from "../../components/Schedule";
 import useScheduleCourses from "../../hooks/useScheduleCourses";
 import SelectCourseSectionsModal from "../../components/Schedule/SelectCourseSectionsModal";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export async function getServerSideProps(context) {
 
@@ -146,10 +138,13 @@ function Schedule({
 
     const { data: session } = useSession() as { data: CustomSession };
 
+    const [lastScheduleID, setLastScheduleID] = useLocalStorage<string>("lastScheduleID", null);
+    const defaultSchedule = schedules?.find((schedule) => schedule.id === Number(lastScheduleID)) ?? null;
+    const defaultTerm = defaultSchedule?.semester ?? term;
 
-    const [userTerm, setUserTerm] = useState<string>(term);
+    const [userTerm, setUserTerm] = useState<string>(defaultTerm);
     const [userSchedules, setUserSchedules] = useState<Schedule[]>(schedules ?? []);
-    const [selectedSchedule, setSelectedSchedule] = useState<Schedule>(schedules?.[0] ?? null);
+    const [selectedSchedule, setSelectedSchedule] = useState<Schedule>(defaultSchedule ?? null);
     const [newScheduleModalOpen, setNewScheduleModalOpen] = useState<boolean>(false);
     const [deleteScheduleModalOpen, setDeleteScheduleModalOpen] = useState<boolean>(false);
     const [addCourseModalOpen, setAddCourseModalOpen] = useState<boolean>(false);
@@ -167,14 +162,30 @@ function Schedule({
         courses: selectedScheduleCourses,
     };
 
+    /* Update LocalStorage when schedules change */
+    useEffect(() => {
+        if (selectedSchedule) {
+            setLastScheduleID(`${selectedSchedule?.id}` ?? "");
+        }
+    }, [selectedSchedule, setLastScheduleID]);
+
+
     /* Update selected schedule when term changes. Try to select the first schedule in the new term. */
     useEffect(() => {
+
+        if (selectedSchedule?.semester === userTerm) {
+            return;
+        }
+
         const newSchedule = userSchedules
             .filter((schedule) => schedule.semester === userTerm)
-            .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
+            .sort((a, b) => (a.id > b.id) ? 1 : -1)
             ?.[0] ?? null;
         setSelectedSchedule(newSchedule);
-    }, [userTerm, userSchedules]);
+    }, [userTerm, userSchedules, selectedSchedule]);
+
+
+    const scheduleChangedToast = useToast();
 
 
 
@@ -182,7 +193,17 @@ function Schedule({
         const newScheduleCourses = await handleCourseScheduleChange(coursesToDrop, coursesToAdd, schedule);
         setScheduleModifiedRecently(true);
 
-    }, []);
+        scheduleChangedToast({
+            title: "Schedule updated",
+            description: "Your schedule has been updated.",
+            status: "success",
+            duration: 1200,
+            isClosable: true,
+            position: "bottom"
+        });
+
+
+    }, [scheduleChangedToast]);
 
 
     if (!session?.user) {
