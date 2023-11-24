@@ -1,5 +1,5 @@
 import { CustomSession, public_course } from "../common/types";
-import { getCurrentTerm, getNextTerm } from "../common/utils";
+import { getCurrentTerm, getNextTerm, isFYSECourse } from "../common/utils";
 import { getCourseIDByTerms, getCoursesInformation } from "./database/course";
 import {
     getBaseCourseAverages, getChallengingCourses, getEasiestGoodCourses,
@@ -169,7 +169,9 @@ async function getCourseRankings(session?: CustomSession) {
 
     const threshold = 3;
 
-    const aggregateData = await getBaseCourseAverages(threshold);
+    const aggregateData = (await getBaseCourseAverages(threshold))
+        .filter(course => !isFYSECourse(course.courseID))
+        .filter(course => course.numReviews >= threshold);
 
     const rankedCourses = Object.fromEntries(Object.keys(recommendationTypeMap).map((key) => ([key, {
         courses: [],
@@ -231,7 +233,7 @@ async function getCourseRankings(session?: CustomSession) {
     });
 
 
-    Object.entries(rankedCourses).forEach(([key, value]) => {
+    Object.entries(rankedCourses).forEach(([_, value]) => {
         value.courses = value.courses.map((course) => ({
             ...course,
             ...courseInfoMap.get(course.courseID),

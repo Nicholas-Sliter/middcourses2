@@ -77,22 +77,23 @@ export async function getBaseCourseAverages(threshold: number = 3) {
         .from("Base")
         .select("*");
 
-    const courseAverages: CourseAverages[] = aggregateData.map((data) => {
-        return {
-            courseID: data.courseID,
-            avgRating: parseFloat(data.avgRating),
-            avgValue: parseFloat(data.avgValue),
-            avgDifficulty: parseFloat(data.avgDifficulty),
-            avgHours: parseFloat(data.avgHours),
-            avgAgain: parseFloat(data.avgAgain),
-            avgInstructorEffectiveness: parseFloat(data.avgInstructorEffectiveness),
-            avgInstructorAccommodationLevel: parseFloat(data.avgInstructorAccommodationLevel),
-            avgInstructorEnthusiasm: parseFloat(data.avgInstructorEnthusiasm),
-            avgInstructorAgain: parseFloat(data.avgInstructorAgain),
-            avgInstructorEnjoyed: parseFloat(data.avgInstructorEnjoyed),
-            numReviews: parseInt(data.numReviews)
-        }
-    });
+    const courseAverages: CourseAverages[] = aggregateData
+        .map((data) => {
+            return {
+                courseID: data.courseID,
+                avgRating: parseFloat(data.avgRating),
+                avgValue: parseFloat(data.avgValue),
+                avgDifficulty: parseFloat(data.avgDifficulty),
+                avgHours: parseFloat(data.avgHours),
+                avgAgain: parseFloat(data.avgAgain),
+                avgInstructorEffectiveness: parseFloat(data.avgInstructorEffectiveness),
+                avgInstructorAccommodationLevel: parseFloat(data.avgInstructorAccommodationLevel),
+                avgInstructorEnthusiasm: parseFloat(data.avgInstructorEnthusiasm),
+                avgInstructorAgain: parseFloat(data.avgInstructorAgain),
+                avgInstructorEnjoyed: parseFloat(data.avgInstructorEnjoyed),
+                numReviews: parseInt(data.numReviews)
+            }
+        });
 
 
 
@@ -599,12 +600,16 @@ export function getTopRatedCourses(aggregateData: CourseAverages[], limit: numbe
 
 export function getNecessaryCourses(aggregateData: CourseAverages[], limit: number = 5) {
 
+    const necessarySortValue = (course: CourseAverages) => {
+        return course.avgValue ^ 2 * course.avgRating * course.avgAgain;
+    }
+
     const courses = aggregateData
         .filter((course) => {
             return course.avgValue >= 7 && course.avgAgain >= 0.7 && course.avgRating >= 6.5;
         })
         .sort((a, b) => {
-            return (b.avgValue * b.avgRating * b.avgAgain) - (a.avgValue * a.avgRating * a.avgAgain)
+            return necessarySortValue(b) - necessarySortValue(a);
         })
         .slice(0, limit)
         .map((course) => {
