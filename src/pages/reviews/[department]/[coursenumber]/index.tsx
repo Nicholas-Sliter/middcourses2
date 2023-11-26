@@ -94,6 +94,7 @@ export async function getServerSideProps(context) {
       instructors: dedupedInstructors,
       reviews: JSON.parse(JSON.stringify(data.reviews)),
       authorized: authorized,
+      alreadyReviewed: data.hasReviewedCourseBefore,
       signedIn: signedIn,
       mobileUserAgent: mobileUserAgent,
       metaDescription: metaDescription,
@@ -117,6 +118,7 @@ interface CoursePageProps {
   metaDescription: string;
   canonicalURL: string;
   bookmarked: boolean;
+  alreadyReviewed: boolean;
 }
 
 export default function CoursePage({
@@ -131,13 +133,17 @@ export default function CoursePage({
   mobileUserAgent,
   metaDescription,
   canonicalURL,
-  bookmarked
+  bookmarked,
+  alreadyReviewed
 }: CoursePageProps) {
 
   const [selectedInstructorIDs, setSelectedInstructorIDs] = useState<string[]>(Array.from(new Set(instructors.map(instructor => instructor.instructorID))));
   const [filteredReviews, setFilteredReviews] = useState<public_review[]>(reviews);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(bookmarked); /* Need local state for update without reload */
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const shouldHideAddReviewButton = alreadyReviewed;
+  const shouldHideAddReviewButtonTooltip = shouldHideAddReviewButton ? "You have already reviewed this course" : null;
 
   const toast = useToast();
 
@@ -354,7 +360,7 @@ export default function CoursePage({
               requireAuth={!is100LevelCourse(course.courseID)} />
           </SidebarLayout.Main>
         </SidebarLayout>
-        <AddButton onClick={() => { onOpen() }}></AddButton>
+        <AddButton onClick={() => { onOpen() }} disabled={shouldHideAddReviewButton} disabledTooltip={shouldHideAddReviewButtonTooltip}></AddButton>
         <AddReview isOpen={isOpen} onClose={onClose} course={course} instructors={instructors} />
       </BrowserView>
 

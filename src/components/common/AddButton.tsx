@@ -10,7 +10,14 @@ import { useToast } from "@chakra-ui/react";
 
 import styles from "../../styles/components/common/AddButton.module.scss";
 
-export default function AddButton({ onClick }) {
+interface AddButtonProps {
+  onClick: () => void;
+  disabled?: boolean;
+  disabledTooltip?: string;
+}
+
+
+export default function AddButton({ onClick, disabled, disabledTooltip }: AddButtonProps) {
   const { data: session, status } = useSession() as any;
   const toast = useToast();
 
@@ -36,19 +43,25 @@ export default function AddButton({ onClick }) {
   //if unathenticated, button shows toast message
   onClick = status === "unauthenticated" ? signInToast : onClick;
 
+  const tooltip = disabledTooltip ? disabledTooltip : "Write a review";
+
+
   return (
     <Portal>
-      <div className={styles.container}>
-        <Tooltip label="Write a review" placement="top">
-          <Button
-            // title="Add a review"
-            onClick={onClick}
-          >
-            <RiEditFill />
-            <span className={styles.expandedText}>Review</span>
-          </Button>
-        </Tooltip>
-      </div>
+      <Tooltip label={tooltip} placement="left">
+        <div className={styles.container}>
+          <Tooltip label={tooltip} placement="top">
+            <Button
+              // title="Add a review"
+              onClick={onClick}
+              disabled={disabled}
+            >
+              <RiEditFill />
+              <span className={styles.expandedText}>Review</span>
+            </Button>
+          </Tooltip>
+        </div>
+      </Tooltip>
     </Portal>
   );
 }
