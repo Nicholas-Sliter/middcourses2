@@ -186,6 +186,19 @@ async function getCourseInfo(id: string) {
         .select(["Department.departmentName"]);
 }
 
+
+export async function userReviewExistsForCourse(userID: string, courseID: string) {
+    if (!userID || !courseID) {
+        return false;
+    }
+
+    const result = await knex("Review")
+        .where("reviewerID", userID)
+        .andWhere("courseID", courseID)
+        .first();
+    return !!result;
+}
+
 export async function optimizedSSRCoursePage(id: string, session: CustomSession, excludeReviews?: boolean) {
 
     const COURSE_MIN_AVG_COUNT = 3; // require 3 reviews to show avgs
@@ -196,7 +209,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession,
         is100LevelCourse(id) ||
         isFYSECourse(id);
 
-    const outputFormatter = (results, reviews, bookmarked) => {
+    const outputFormatter = (results, reviews, bookmarked, reviewed) => {
         if (!results) {
             return null;
         }
@@ -228,6 +241,7 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession,
             topTags: [] as string[],
             aliases: aliases,
             bookmarked: bookmarked,
+            hasReviewedCourseBefore: reviewed
 
         }
 
@@ -300,11 +314,11 @@ export async function optimizedSSRCoursePage(id: string, session: CustomSession,
 
     }
 
-    const [mainQuery, reviewQuery, bookmarkedQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized), isBookmarked(session, id)]);
+    const [mainQuery, reviewQuery, bookmarkedQuery, hasReviewedQuery] = await Promise.all([getCourseInfo(id), getCourseReviews(id, session, authorized), isBookmarked(session, id), userReviewExistsForCourse(session?.user?.id, id)]);
     if (!mainQuery?.length) {
         return null;
     }
-    return (outputFormatter(mainQuery, reviewQuery, bookmarkedQuery));
+    return (outputFormatter(mainQuery, reviewQuery, bookmarkedQuery, hasReviewedQuery));
 
 }
 
