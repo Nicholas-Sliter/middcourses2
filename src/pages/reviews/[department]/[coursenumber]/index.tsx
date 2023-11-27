@@ -387,7 +387,7 @@ export default function CoursePage({
               requireAuth={!is100LevelCourse(course.courseID)} />
           </div>
         </div>
-        <AddButton onClick={() => { onOpen() }}></AddButton>
+        <AddButton onClick={() => { onOpen() }} disabled={shouldHideAddReviewButton} disabledTooltip={shouldHideAddReviewButtonTooltip}></AddButton>
         <AddReview isOpen={isOpen} onClose={onClose} course={course} instructors={instructors} />
 
       </MobileView>
