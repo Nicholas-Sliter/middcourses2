@@ -75,7 +75,7 @@ export default function AddReview({
 
   const toast = useToast();
 
-  useSetAnalyticsFlag('used_add_review_modal', isOpen, isOpen);
+  useSetAnalyticsFlag('add_review_modal_used', isOpen, isOpen);
 
   const selectedTerm = watch("semester");
 

@@ -35,7 +35,8 @@ function RecommendationBar({
     statusData
 }: RecommendationBarProps) {
 
-    useSetAnalyticsFlag('recommendation_bar_used', true);
+    useSetAnalyticsFlag('recommendation_bar_seen', true);
+    useSetAnalyticsFlag('recommendation_bar_used', true, data?.length > 0);
     useSetAnalyticsFlag('recommendation_bar_course_count', data?.length, data?.length > 0);
     useSetAnalyticsFlag('recommendation_bar_error', message, error);
 
