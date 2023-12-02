@@ -54,9 +54,9 @@ export default function SearchBarAdvanced({ showResultDropdown = false, filters,
       <input
         type="text"
         draggable={false}
-        placeholder="Search for courses or instructors"
+        placeholder="Search for courses"
         value={query}
-        data-clarity-mask="false"
+        data-clarity-unmask="true"
         onChange={(e) => {
           setQuery(e.target.value);
         }}

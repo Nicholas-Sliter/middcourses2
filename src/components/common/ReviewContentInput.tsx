@@ -16,6 +16,7 @@ export default function ReviewContentInput({ onChange, value, className }) {
         value={value}
         placeholder={descriptionText}
         onChange={e => onChange(e.target.value)}
+        data-clarity-unmask="true"
       ></Textarea>
       <CharacterCount
         className={className}

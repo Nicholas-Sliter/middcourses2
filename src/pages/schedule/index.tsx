@@ -25,6 +25,7 @@ import { AddCourseToScheduleModal, DeleteScheduleConfirmation, NewScheduleModal,
 import useScheduleCourses from "../../hooks/useScheduleCourses";
 import SelectCourseSectionsModal from "../../components/Schedule/SelectCourseSectionsModal";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import useSetAnalyticsFlag from "../../hooks/useSetAnalyticsFlag";
 
 export async function getServerSideProps(context) {
 
@@ -161,6 +162,10 @@ function Schedule({
         ...selectedSchedule,
         courses: selectedScheduleCourses,
     };
+
+    useSetAnalyticsFlag('schedule_planned_used', true, !!session?.user);
+    useSetAnalyticsFlag('schedule_planned_term', userTerm, !!session?.user);
+    useSetAnalyticsFlag('schedule_planned_schedule_count', userSchedules.length, !!session?.user);
 
     /* Update LocalStorage when schedules change */
     useEffect(() => {

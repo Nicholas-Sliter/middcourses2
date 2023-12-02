@@ -1,6 +1,7 @@
 import { BsBookmark, BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
 import styles from "./Bookmark.module.scss";
 import { Tooltip } from "@chakra-ui/react";
+import { setAnalyticsFlag } from "../../../lib/frontend/utils";
 
 interface BookmarkProps {
     courseID: string;
@@ -40,6 +41,7 @@ function Bookmark({ courseID, isBookmarked, setBookmarked }: BookmarkProps) {
 
     const handleClick = async () => {
         const data = await bookmarkCourse(courseID, isBookmarked);
+        setAnalyticsFlag('bookmark_clicked', 'true');
         if (setBookmarked) {
             // if (data.bookmarkAdded) {
             //     setBookmarked(true);
