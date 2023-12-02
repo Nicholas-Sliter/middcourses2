@@ -52,7 +52,7 @@ export default function SearchBar({ showResultDropdown = false }) {
         draggable={false}
         placeholder="Search for courses or instructors"
         value={query}
-        data-clarity-mask="false"
+        data-clarity-unmask="true"
         onChange={(e) => {
           setQuery(e.target.value);
         }}

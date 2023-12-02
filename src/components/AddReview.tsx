@@ -38,6 +38,7 @@ import { courseTags } from "../lib/common/utils";
 import TagBar from "./TagBar";
 import { ErrorMessage } from '@hookform/error-message';
 import FormErrorMessage from "./common/FormErrorMessage";
+import useSetAnalyticsFlag from "../hooks/useSetAnalyticsFlag";
 
 interface AddReviewProps {
   course: public_course;
@@ -73,6 +74,8 @@ export default function AddReview({
   const [submitDebounce, setSubmitDebounce] = useState(false);
 
   const toast = useToast();
+
+  useSetAnalyticsFlag('used_add_review_modal', isOpen, isOpen);
 
   const selectedTerm = watch("semester");
 

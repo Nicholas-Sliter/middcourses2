@@ -1,6 +1,7 @@
 import { public_instructor } from "../common/types";
 import Fuse from "fuse.js";
 import { parseCourseID } from "../common/utils";
+import { clarity } from "react-microsoft-clarity";
 
 //eslint-disable-next-line no-unused-vars
 export const DEFAULT_VALIDATOR = (_t: string) => {
@@ -235,4 +236,19 @@ export function getLinkFromCourseID(courseID: string) {
   const { courseNumber, department } = parseCourseID(courseID);
 
   return `/reviews/${department.toLowerCase()}/${courseNumber}`;
+}
+
+
+export function setAnalyticsFlag(key: string, value?: string | null) {
+  if (!value) {
+    return;
+  }
+
+  if (window && !window.location.hostname.includes("localhost") && clarity.hasStarted()) {
+    clarity.setTag(key, value);
+  }
+
+  if (window && window.location.hostname.includes("localhost")) {
+    console.log(`setAnalyticsFlag: ${key}=${value}`);
+  }
 }

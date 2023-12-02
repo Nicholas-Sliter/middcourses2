@@ -4,7 +4,7 @@ import styles from "../../styles/components/common/Question.module.scss";
 export default function Question({ children, label, htmlFor }) {
   return (
     <>
-      <FormLabel className={styles.container} htmlFor={htmlFor}>
+      <FormLabel data-clarity-unmask="true" className={styles.container} htmlFor={htmlFor}>
         <h5 className={styles.question}>
           {label}
         </h5>

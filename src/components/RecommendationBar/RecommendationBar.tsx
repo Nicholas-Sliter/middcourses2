@@ -6,6 +6,7 @@ import { public_course, public_instructor } from "../../lib/common/types";
 import CourseCardRow from "../CourseCardRow";
 import CourseRankLogo from "../CourseRankLogo";
 import styles from "./RecommendationBar.module.scss";
+import useSetAnalyticsFlag from "../../hooks/useSetAnalyticsFlag";
 
 
 interface RecommendationBarProps {
@@ -33,6 +34,10 @@ function RecommendationBar({
     message,
     statusData
 }: RecommendationBarProps) {
+
+    useSetAnalyticsFlag('recommendation_bar_used', true);
+    useSetAnalyticsFlag('recommendation_bar_course_count', data?.length, data?.length > 0);
+    useSetAnalyticsFlag('recommendation_bar_error', message, error);
 
     const Fallback = () => {
 
