@@ -43,14 +43,11 @@ export default function AddButton({ onClick, disabled, disabledTooltip }: AddBut
   //if unathenticated, button shows toast message
   onClick = status === "unauthenticated" ? signInToast : onClick;
 
-  const tooltip = disabledTooltip ? disabledTooltip : "Write a review";
-
-
   return (
     <Portal>
-      <Tooltip label={tooltip} placement="left">
+      <Tooltip hidden={!disabled} label={disabledTooltip} placement="left">
         <div className={styles.container}>
-          <Tooltip label={tooltip} placement="top">
+          <Tooltip hidden={disabled} label="Add a review" placement="top">
             <Button
               // title="Add a review"
               onClick={onClick}
