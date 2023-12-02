@@ -25,18 +25,16 @@ import {
   valueMapping,
   standardMapping,
   convertTermToFullString,
+  setAnalyticsFlag,
 } from "../lib/frontend/utils";
 import Question from "./common/Question";
 import QuestionSlider from "./common/QuestionSlider";
-import CharacterCount from "./common/CharacterCount";
 import { areWeTwoThirdsThroughSemester, compareTerm, isInMajorMinorText, isNeitherText, isSemesterTooOld, parseCourseID, primaryComponents } from "../lib/common/utils";
 import QuestionNumberInput from "./common/QuestionNumberInput";
 import { useState, useEffect } from "react";
-import { RiContactsBookLine } from "react-icons/ri";
 import ReviewContentInput from "./common/ReviewContentInput";
 import { courseTags } from "../lib/common/utils";
 import TagBar from "./TagBar";
-import { ErrorMessage } from '@hookform/error-message';
 import FormErrorMessage from "./common/FormErrorMessage";
 import useSetAnalyticsFlag from "../hooks/useSetAnalyticsFlag";
 
@@ -285,9 +283,13 @@ export default function AddReview({
       }),
     });
 
+    setAnalyticsFlag("add_review_submit", 'true');
+    setAnalyticsFlag("add_review_edit", edit ? 'true' : 'false');
+
     if (!res.ok) {
       //throw new Error(`${res.status} ${res.statusText}`);
-      console.log("Error submitting review");
+      console.error("Error submitting review");
+      setAnalyticsFlag("add_review_error", 'true');
       const data = await res.json();
       toast({
         title: "Error submitting review",
