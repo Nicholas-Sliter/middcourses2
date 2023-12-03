@@ -173,6 +173,13 @@ function Schedule({
     }, [selectedSchedule]);
 
 
+    /* Auto-show create schedule modal if no schedules exist */
+    useEffect(() => {
+        if (userSchedules.length === 0) {
+            setNewScheduleModalOpen(true);
+        }
+    }, [userSchedules.length]);
+
     const scheduleChangedToast = useToast();
 
 

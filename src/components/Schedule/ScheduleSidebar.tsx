@@ -114,7 +114,7 @@ function ScheduleSidebar({
                     }}
                     placeholder={selectSchedulePlaceholder}
                     disabled={showCreateScheduleText}
-                    value={selectedSchedule?.id ?? null}
+                    value={selectedSchedule?.id ?? ''}
                     onChange={(e) => {
                         setSelectedSchedule(userSchedules.find((schedule) => schedule.id === parseInt(e.target.value)) ?? null);
                     }}
