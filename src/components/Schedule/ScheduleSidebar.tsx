@@ -84,7 +84,7 @@ function ScheduleSidebar({
                 >Schedule</h1>
                 <div className={styles.termSelect}>
                     <Select
-                        defaultValue={userTerm}
+                        value={userTerm}
                         onChange={(e) => {
                             setUserTerm(e.target.value);
                         }}
