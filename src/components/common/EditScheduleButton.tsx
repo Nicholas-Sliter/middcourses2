@@ -20,7 +20,7 @@ interface EditScheduleButtonProps {
 
 export default function EditScheduleButton({ onClick, schedule, shouldRippleAnimate }: EditScheduleButtonProps) {
     const { data: session, status } = useSession() as any;
-    const isDisabled = !schedule;
+    const isDisabled = !schedule?.id;
 
     if (status === "loading") {
         return null;
