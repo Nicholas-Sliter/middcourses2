@@ -24,15 +24,15 @@ function AddByBookmark({
                 {Object.keys(bookmarkedCourses).map((courseId) => {
                     const course = bookmarkedCourses[courseId];
                     return (
-                        <AccordionItem key={courseId}>
+                        <AccordionItem key={`${courseId}-item`} >
                             <h3>
                                 <AccordionButton className={styles.accordionButton}>
                                     <span>{courseId} - {course.course.courseName}</span>
                                     <AccordionIcon className={styles.icon} />
                                 </AccordionButton>
                             </h3>
-                            <AccordionPanel>
-                                <div key={courseId}>
+                            <AccordionPanel key={`${courseId}-panel`}>
+                                <div key={`${courseId}-selector`}>
                                     <AddCourseSectionsSelector
                                         course={course.course}
                                         catalogEntries={course.catalogEntries}

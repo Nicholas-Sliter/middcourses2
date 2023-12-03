@@ -84,7 +84,7 @@ function ScheduleSidebar({
                 >Schedule</h1>
                 <div className={styles.termSelect}>
                     <Select
-                        defaultValue={userTerm}
+                        value={userTerm}
                         onChange={(e) => {
                             setUserTerm(e.target.value);
                         }}
@@ -114,7 +114,7 @@ function ScheduleSidebar({
                     }}
                     placeholder={selectSchedulePlaceholder}
                     disabled={showCreateScheduleText}
-                    value={selectedSchedule?.id ?? null}
+                    value={selectedSchedule?.id ?? ''}
                     onChange={(e) => {
                         setSelectedSchedule(userSchedules.find((schedule) => schedule.id === parseInt(e.target.value)) ?? null);
                     }}

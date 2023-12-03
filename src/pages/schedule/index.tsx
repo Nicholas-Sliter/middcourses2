@@ -93,31 +93,6 @@ async function handleCourseScheduleChange(coursesToDrop: CatalogCourse[], course
 
 }
 
-async function addCoursesToSchedule(courses: CatalogCourse[], schedule: Schedule): Promise<CatalogCourse[]> {
-
-    const res = await fetch(`/api/schedules`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            schedule: schedule,
-            courses: courses.map((course) => ({
-                courseID: course.catalogCourseID,
-                add: true,
-                drop: false,
-            }))
-        })
-    });
-
-    const data = await res.json();
-    console.log(data);
-    return data;
-
-}
-
-
-
 interface ScheduleProps {
     term: string;
     currentTerms: string[];
@@ -125,7 +100,6 @@ interface ScheduleProps {
     authorized: boolean;
     mobileUserAgent: boolean;
 }
-
 
 
 function Schedule({
@@ -187,8 +161,24 @@ function Schedule({
             .sort((a, b) => (a.id > b.id) ? 1 : -1)
             ?.[0] ?? null;
         setSelectedSchedule(newSchedule);
-    }, [userTerm, userSchedules, selectedSchedule]);
 
+        // we only want to run this when the term changes
+    }, [userTerm]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    /* Update term when schedule changes */
+    useEffect(() => {
+        if (selectedSchedule) {
+            setUserTerm(selectedSchedule.semester);
+        }
+    }, [selectedSchedule]);
+
+
+    /* Auto-show create schedule modal if no schedules exist */
+    useEffect(() => {
+        if (userSchedules.length === 0) {
+            setNewScheduleModalOpen(true);
+        }
+    }, [userSchedules.length]);
 
     const scheduleChangedToast = useToast();
 
@@ -255,15 +245,6 @@ function Schedule({
                             flexDirection: "column",
                             height: "100%"
                         }}>
-                            {/* <div
-                                style={{
-                                    height: "30%"
-                                }}
-                            >
-                                <ScheduleInfoDisplay catalogEntries={scheduleWithCourses?.courses} />
-
-
-                            </div> */}
                             <div style={{
                                 display: "flex",
                                 alignItems: "flex-end",
@@ -289,13 +270,7 @@ function Schedule({
 
 
             <MobileView renderDefault={mobileUserAgent}>
-                {/* <p>The schedule planner requires a larger display</p> */}
-                {/* <CourseScheduleInfo
-                    courses={scheduleWithCourses?.courses}
-                    schedule={scheduleWithCourses}
-                    onCourseAdded={handleCourseScheduleChangeWrapper}
-                    onChangeSection={(courseID) => setCourseChangeSectionModalCourseID(courseID)}
-                /> */}<ScheduleSidebar
+                <ScheduleSidebar
                     setSelectedSchedule={setSelectedSchedule}
                     selectedSchedule={selectedSchedule}
                     userSchedules={userSchedules}
