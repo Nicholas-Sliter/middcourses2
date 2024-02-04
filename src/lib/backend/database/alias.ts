@@ -117,6 +117,10 @@ export async function upsertAliases(transaction: Knex.Transaction, aliases: { al
         console.log(`Invalid alias: ${alias.aliasID} - ${alias.courseID} - ${alias.term}`)
     }
 
+    if (aliasesToInsert.length === 0) {
+        console.log("No valid aliases to insert");
+        return;
+    }
 
     await transaction("Alias")
         .insert(aliasesToInsert)
