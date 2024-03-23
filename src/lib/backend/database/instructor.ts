@@ -157,6 +157,53 @@ export async function optimizedSSRInstructorPage(slug: string, session: CustomSe
 }
 
 
+export async function incrementSlugUntilUniqueWithInstructorID(transaction: Knex.Transaction, slug: string, instructorID: string) {
+    let newSlug = slug;
+    let i = 1;
+
+    while (true) {
+        const existingInstructor = await transaction("Instructor")
+            .where("slug", newSlug)
+            .select(["instructorID", "slug"])
+            .first();
+
+        if (!existingInstructor || existingInstructor.instructorID === instructorID) {
+            return newSlug;
+        }
+
+        newSlug = `${slug}-${i}`;
+        i++;
+    }
+}
+
+
+export async function findInstructorsWithConflictingSlugs(transaction: Knex.Transaction, instructors: {
+    name: string;
+    slug: string;
+    instructorID: string;
+    email: string;
+    departmentID: string;
+}[]): Promise<{
+    slug: string;
+    instructorID: string;
+}[]> {
+    const existingInstructors = await transaction("Instructor")
+        .select("slug")
+        .whereIn("slug", instructors.map((i) => i.slug))
+        .select(["instructorID", "slug"]);
+
+    const conflictingInstructors = existingInstructors.flatMap((i) => {
+        const existingId = instructors.find((instructor) => instructor.slug === i.slug)?.instructorID;
+
+        if (existingId !== i.instructorID) {
+            return i;
+        }
+
+        return [];
+    });
+
+    return conflictingInstructors;
+}
 
 
 export async function upsertInstructors(transaction: Knex.Transaction, instructors: {
@@ -167,7 +214,27 @@ export async function upsertInstructors(transaction: Knex.Transaction, instructo
     departmentID: string;
 }[]) {
 
+    if (instructors.length === 0) {
+        console.info('upsertInstructors: No instructors to upsert');
+        return;
+    }
+
     try {
+
+        const conflictingInstructors = await findInstructorsWithConflictingSlugs(transaction, instructors);
+        if (conflictingInstructors.length > 0) {
+            console.warn(`Conflicting instructors found: ${conflictingInstructors.map(i => i.slug).join(", ")}`);
+
+            for (const existingInstructor of conflictingInstructors) {
+                const newInstructor = instructors.find((i) => i.slug === existingInstructor.slug);
+                console.log(`   Resolving conflict for ${existingInstructor.slug} - id (${existingInstructor.instructorID}) does not match insertion id (${newInstructor.instructorID})`);
+
+                const newSlug = await incrementSlugUntilUniqueWithInstructorID(transaction, newInstructor.slug, newInstructor.instructorID);
+
+                console.log(`   Resolved conflict for ${newInstructor.slug} to ${newSlug}`);
+                newInstructor.slug = newSlug;
+            };
+        }
 
         return transaction("Instructor")
             .insert(instructors)
