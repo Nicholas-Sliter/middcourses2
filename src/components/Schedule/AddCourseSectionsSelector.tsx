@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CatalogCourse, CatalogCourseWithInstructors, Schedule, public_course } from "../../lib/common/types";
-import { Radio, RadioGroup, Checkbox, CheckboxGroup, Stack, Alert, AlertIcon } from '@chakra-ui/react'
+import { Radio, RadioGroup, Stack, Alert, AlertIcon } from '@chakra-ui/react'
 import { checkForTimeConflicts, sanitizeDayString, toTitleCase } from "../../lib/common/utils";
 import styles from "./AddCourseSectionsSelector.module.scss";
 import { combind as combine } from "../../lib/frontend/utils";
@@ -235,7 +235,7 @@ function AddCourseSectionsSelector({
 
     let sectionsToAddString = "";
     const coursesToAdd = [selectedSections, selectedSubsections]
-        .filter(course => course !== null)
+        .filter(course => Boolean(course))
         .filter((course) => ![defaultSection, defaultSubSection].includes(course?.catalogCourseID))
     if (selectedSections && coursesToAdd.length) {
         sectionsToAddString = "Add ".concat(coursesToAdd

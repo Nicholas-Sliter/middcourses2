@@ -1,6 +1,5 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
 import useBookmarkedCourses from "../../hooks/useBookmarkedCourses";
-import { CatalogCourse } from "../../lib/common/types";
 import AddCourseSectionsSelector from "./AddCourseSectionsSelector";
 import AddCourseToScheduleItemProps from "./AddCourseToScheduleItemProps";
 import styles from "./AddByBookmark.module.scss";
