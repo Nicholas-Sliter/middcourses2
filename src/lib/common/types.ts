@@ -2,6 +2,12 @@ import type { Session } from "next-auth";
 
 export type Maybe<T> = T | null | undefined;
 
+
+export enum VoteType {
+  UP = 1,
+  DOWN = -1
+}
+
 export interface public_review {
   reviewID: string;
   courseID: string;
@@ -31,7 +37,7 @@ export interface public_review {
   instructorEnjoyed: boolean;
 
   votes?: number;
-  userVoteType?: 1 | -1;
+  userVoteType?: VoteType;
   editable?: boolean;
 }
 

@@ -1,4 +1,4 @@
-import { CatalogCourse, public_course, public_review } from "./types";
+import { CatalogCourse, VoteType, public_course, public_review } from "./types";
 
 /**
  * Get the current graduation year of first semester freshmen based on the current date.
@@ -462,16 +462,16 @@ export function getReviewRelevanceScore(review: public_review): number {
 
   /* Review Order is Personalized */
   const baseScore = 10;
-  const lowEffortRatingPenalty = -10;
+  const lowEffortRatingPenalty = -15;
   const overlyNegativeRatingPenalty = -10;
   const negativeRatingPenalty = -100;
   const positiveRatingBonus = 5;
 
-  let score = baseScore + (votes * 3);
+  let score = baseScore + (votes * 5);
 
-  if (userVoteType === -1) {
+  if (userVoteType === VoteType.DOWN) {
     score += negativeRatingPenalty;
-  } else if (userVoteType === 1) {
+  } else if (userVoteType === VoteType.UP) {
     score += positiveRatingBonus;
   }
 
@@ -496,7 +496,7 @@ export function getReviewRelevanceScore(review: public_review): number {
   const oneWeek = 1000 * 60 * 60 * 24 * 7;
   const numberOfWeeksAgo = Math.floor((today.getTime() - reviewAsDate.getTime()) / oneWeek);
 
-  const weekAgePenalty = -0.1; // Lose 5.2 points per year
+  const weekAgePenalty = -0.05;
 
   const recentReviewThreshold = 4;
   const recentReviewBonus = 15;
@@ -506,7 +506,7 @@ export function getReviewRelevanceScore(review: public_review): number {
   }
 
   /* Slightly prioritize positive reviews */
-  score += (review.rating / 5)
+  score += (review.rating / 4)
 
 
   /* Penalize reviews with no tags */
