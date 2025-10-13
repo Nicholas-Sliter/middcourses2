@@ -11,21 +11,24 @@ import { formatTermObj } from "../../common/utils";
 
 export default async function getBaseData() {
   //use previous 4 terms
-  const terms = ["S21", "F21", "W22", "S22", "F22", "W23"];
+  // const terms = ["S21", "F21", "W22", "S22", "F22", "W23"];
+  const terms = ["W26"];
 
-  const scrapers = [];
+  const scrapers: any[] = [];
 
   const searchParameters = [
-    new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(),
-    //new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(), //
-    new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
-    new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-LCT").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-LAB").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-DSC").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-DR1").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-IND").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-PE").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-SCR").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-SEM").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-SNR").getObject(),
+    new Param("days_mode", "inclusive").getObject(),
+    new Param("time_start", "0").getObject(),
+    new Param("time_end", "86400").getObject(),
     new Param("search", "Search").getObject(),
   ];
 
@@ -135,22 +138,32 @@ export default async function getBaseData() {
 
 
   //get department list using departmentsScraper
-  const departments = [];
+  // TODO: Fix departments scraper - currently has term format issues
+  interface RawDepartment {
+    code: string;
+    name: string;
+  }
+  
+  const departments: RawDepartment[] = [];
   console.log("getting departments");
-  terms.forEach(async (term) => {
+  await Promise.all(terms.map(async (term) => {
+    // Ensure term is a string and in the correct format (e.g., "W26")
+    const termString = term.toString();
+    console.log("Using term for departments:", termString);
+    
     const DS = new departmentsScraper({
-      term,
+      term: termString,
       DEPARTMENT_PADDING_PREFIX,
     });
 
     await DS.init();
     departments.push(...DS.departments);
-  });
+  }));
 
   //dedupe departments by department code
   console.log("deduping departments");
-  const dedupedDepartments = departments.reduce((acc, cur) => {
-    const department = acc.find((d) => d.departmentID === cur.departmentID);
+  const dedupedDepartments = departments.reduce((acc: RawDepartment[], cur) => {
+    const department = acc.find((d) => d.code === cur.code);
     if (department) {
       const index = acc.indexOf(department);
       acc[index] = cur;
@@ -158,7 +171,7 @@ export default async function getBaseData() {
       acc.push(cur);
     }
     return acc;
-  }, []);
+  }, [] as RawDepartment[]);
 
   //format departments obj to match database
   console.log("formatting departments");
@@ -194,4 +207,11 @@ export default async function getBaseData() {
     "./src/lib/backend/data/departments.json",
     JSON.stringify(formattedDepartments, null, 2)
   );
+}
+
+//runner block
+if (import.meta.url === `file://${process.argv[1]}`) {
+  getBaseData()
+    .then(() => console.log("Done!"))
+    .catch(console.error);
 }
