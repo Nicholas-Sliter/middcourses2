@@ -98,26 +98,26 @@ async function getSemesterData(semester: string, getLabTypeCourses = false, depa
 
     if (!getLabTypeCourses) {
 
-        searchParameters.push(...[new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
-        // new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(), // Skip labs
-        // new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(), // Skip discussion
-        // new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
-        // new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(), // Skip drills
-        // new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(), // Skip drills
-        // new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),   // Skip PE
-        // new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(), // Skip Pre-Lab
-        new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
+        searchParameters.push(...[new Param("type%5B%5D", "genera%3Aoffering-LCT").getObject(),
+        // new Param("type%5B%5D", "genera%3Aoffering-LAB").getObject(), // Skip labs
+        // new Param("type%5B%5D", "genera%3Aoffering-DSC").getObject(), // Skip discussion
+        // new Param("type%5B%5D", "genera%3Aoffering-SCR").getObject(), // Skip screenings
+        // new Param("type%5B%5D", "genera%3Aoffering-DR1").getObject(), // Skip drills
+        // new Param("type%5B%5D", "genera%3Aoffering-DR2").getObject(), // Skip drills
+        // new Param("type%5B%5D", "genera%3Aoffering-PE").getObject(),   // Skip PE
+        // new Param("type%5B%5D", "genera%3Aoffering-PLB").getObject(), // Skip Pre-Lab
+        new Param("type%5B%5D", "genera%3Aoffering-SEM").getObject(),
 
-        new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+        new Param("location%5B%5D", "resource-place-campus-M").getObject(),
         new Param("search", "Search").getObject(),
         ]);
     } else {
         searchParameters.push(...[
-            new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(), // Skip labs
-            new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(), // Skip discussion
-            new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(), // Skip screenings
+            new Param("type%5B%5D", "genera%3Aoffering-LAB").getObject(), // Skip labs
+            new Param("type%5B%5D", "genera%3Aoffering-DSC").getObject(), // Skip discussion
+            new Param("type%5B%5D", "genera%3Aoffering-SCR").getObject(), // Skip screenings
 
-            new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+            new Param("location%5B%5D", "resource-place-campus-M").getObject(),
             new Param("search", "Search").getObject(),
         ]);
     }
@@ -126,7 +126,7 @@ async function getSemesterData(semester: string, getLabTypeCourses = false, depa
     /* This allows us to bypass the catalog server failing on large requests */
     /* See #289 */
     if (departmentID) {
-        searchParameters.push(new Param("department", `topic%2Fsubject%2F${departmentID}`).getObject());
+        searchParameters.push(new Param("department", `topic-subject-${departmentID}`).getObject());
     }
 
 

@@ -16,16 +16,16 @@ export default async function getBaseData() {
   const scrapers = [];
 
   const searchParameters = [
-    new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(),
-    //new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(), //
-    new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(),
-    new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
-    new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-LCT").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-LAB").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-DSC").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-DR1").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-DR2").getObject(),
+    //new Param("type%5B%5D", "genera%3Aoffering-PE").getObject(), //
+    new Param("type%5B%5D", "genera%3Aoffering-PLB").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-SCR").getObject(),
+    new Param("type%5B%5D", "genera%3Aoffering-SEM").getObject(),
+    new Param("location%5B%5D", "resource-place-campus-M").getObject(),
     new Param("search", "Search").getObject(),
   ];
 
