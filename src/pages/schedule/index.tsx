@@ -28,10 +28,9 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import useSetAnalyticsFlag from "../../hooks/useSetAnalyticsFlag";
 
 export async function getServerSideProps(context) {
-
     const session = await getSession(context) as CustomSession;
     const currentTerms = await getAvailableTermsForSchedulePlanning();
-    const term = (context.query.term ?? currentTerms[0]) as string;
+    const term = (context?.query?.term ?? currentTerms[0]) as string;
 
     const authorized = session?.user?.authorized ?? false;
 
