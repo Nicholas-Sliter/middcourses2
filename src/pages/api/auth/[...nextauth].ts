@@ -20,8 +20,6 @@ import {
 import { CustomSession } from "../../../lib/common/types";
 
 async function signIn({ profile, user, account }) {
-  console.log("Sign-in attempt:", { profile, user, account });
-
   if (account.provider === "credentials" && user.isAdminOverrideSession) {
     console.log("Admin override sign-in successful for user:", user.email);
     return true; // Allow sign-in for admin override sessions without further checks
@@ -104,7 +102,6 @@ export default NextAuth({
         role: { label: "Role", type: "text" },
       },
       async authorize(credentials, req) {
-        console.log("Attempting admin sign in with credentials:", JSON.stringify(credentials));
         const { email, apiKey, role } = credentials;
 
         if (!email || !apiKey || !role) {
