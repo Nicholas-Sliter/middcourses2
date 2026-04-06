@@ -263,6 +263,12 @@ export async function reconcileInstructors(transaction: Knex.Transaction) {
 
     const instructorsWithNoCourseIDs = instructorsWithNoCourse.map((instructor: any) => instructor.instructorID);
     console.log(`Found ${instructorsWithNoCourseIDs.length} instructors to remove.`)
+
+    // Temp fix
+    await transaction("Instructor")
+        .whereIn("instructorID", ['389D002F396CF6568D23AC3816DC3D74'])
+        .del();
+
     await transaction("Instructor")
         .whereIn("instructorID", instructorsWithNoCourseIDs)
         .del();
