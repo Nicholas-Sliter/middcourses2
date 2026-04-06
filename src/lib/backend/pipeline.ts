@@ -18,6 +18,7 @@ import { getDepartmentByName, getMostFrequentlyTaughtDepartment } from "./databa
 import { backupReviews, getTransactionReviewCount, reconcileReviews } from "./database/review";
 import { reconileAliases, upsertAliases } from "./database/alias";
 import { upsertCatalogCourses } from "./database/schedule";
+import path from "path";
 
 
 export { };
@@ -137,8 +138,8 @@ async function getSemesterData(semester: string, getLabTypeCourses = false, depa
         filepath: null,
     });
 
-
-    await S.scrapeFromFile('../../../catalog/catalog-MCUG-F26.xml');
+    const filePath = path.resolve("catalog/catalog-MCUG-F26.xml");
+    await S.scrapeFromFile(filePath);
     await S.parse();
 
     return S.catalog.courses;
