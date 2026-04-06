@@ -306,7 +306,8 @@ async function processCatalog(catalogCourses: CourseObject[], semester: string):
 
 
     /* Aliases */
-    const aliases: Alias[] = [];
+    // const aliases: Alias[] = [];
+    const uniqueAliases = new Map<string, Alias>();
 
     catalogCourses.forEach((course) => {
         if (course.alias) {
@@ -322,10 +323,12 @@ async function processCatalog(catalogCourses: CourseObject[], semester: string):
                     aliasID: course.courseNumber,
                     term: semester
                 };
-                aliases.push(alias);
+                uniqueAliases.set(alias.aliasID, alias);
             });
         }
     });
+
+    const aliases = Object.values(Object.fromEntries(uniqueAliases));
 
 
     return {
