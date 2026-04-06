@@ -177,13 +177,18 @@ export async function upsertCatalogCourses(transaction: Knex.Transaction, rawCat
 
     /* Remove null values */
     const nonNullCourses = catalogCoursesToInsert.filter(course => course !== null);
+    const uniqueCourseIDsMap = new Map<string, typeof catalogCoursesToInsert[0]>();
+    nonNullCourses.forEach(course => {
+        uniqueCourseIDsMap.set(course.courseID, course);
+    });
 
+    const uniqueCourseIDs = Array.from(uniqueCourseIDsMap.values());
 
-    console.log(`Inserting ${nonNullCourses.length} catalog courses`)
+    console.log(`Inserting ${uniqueCourseIDs.length} catalog courses`)
 
     /* Insert into database */
     const res: any = await transaction("CatalogCourse")
-        .insert(nonNullCourses)
+        .insert(uniqueCourseIDs)
         .onConflict("catalogCourseID")
         .merge();
 
