@@ -242,6 +242,7 @@ export async function upsertInstructors(transaction: Knex.Transaction, instructo
             .merge();
 
     } catch (err) {
+        console.error("Error in upsertInstructors:", err);
         throw err; /* Handle rollback upstream */
     }
 
@@ -264,11 +265,6 @@ export async function reconcileInstructors(transaction: Knex.Transaction) {
     const instructorsWithNoCourseIDs = instructorsWithNoCourse.map((instructor: any) => instructor.instructorID);
     console.log(`Found ${instructorsWithNoCourseIDs.length} instructors to remove.`)
 
-    // Temp fix
-    await transaction("Instructor")
-        .whereIn("instructorID", ['389D002F396CF6568D23AC3816DC3D74', '21F8C82628AB43CF30A4962D5E73EB43'])
-        .del();
-
     await transaction("Instructor")
         .whereIn("instructorID", instructorsWithNoCourseIDs)
         .del();
@@ -287,10 +283,6 @@ export async function upsertCourseInstructors(transaction: Knex.Transaction, cou
     try {
 
         /* This method is necessary as we don't have a unique constraint over the necessary columns */
-        await transaction("CourseInstructor")
-            .whereIn("instructorID", ['389D002F396CF6568D23AC3816DC3D74', '21F8C82628AB43CF30A4962D5E73EB43'])
-            .del();
-
         const ci = await transaction("CourseInstructor")
             .select("courseID", "instructorID", "term");
 
@@ -309,6 +301,7 @@ export async function upsertCourseInstructors(transaction: Knex.Transaction, cou
         }
     }
     catch (err) {
+        console.error("Error in upsertCourseInstructors:", err);
         throw err; /* Handle rollback upstream */
     }
 

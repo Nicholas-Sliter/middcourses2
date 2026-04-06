@@ -23,6 +23,7 @@ export async function upsertCourses(transaction: Knex.Transaction, courses: publ
             .onConflict("courseID")
             .merge();
     } catch (e) {
+        console.error("Error in upsertCourses:", e);
         throw e; /* Handle rollback upstream */
     }
 
@@ -143,6 +144,7 @@ export async function reconcileCourseInstructors(transaction: Knex.Transaction, 
             term
         }
     });
+
 
 
 
