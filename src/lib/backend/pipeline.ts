@@ -138,7 +138,7 @@ async function getSemesterData(semester: string, getLabTypeCourses = false, depa
     });
 
 
-    await S.scrape();
+    await S.scrapeFromFile('/catalog/catalog-MCUG-F26.xml');
     await S.parse();
 
     return S.catalog.courses;
