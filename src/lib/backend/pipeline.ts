@@ -138,8 +138,9 @@ async function getSemesterData(semester: string, getLabTypeCourses = false, depa
         filepath: null,
     });
 
-    const filePath = path.resolve("catalog/catalog-MCUG-F26.xml");
-    await S.scrapeFromFile(filePath);
+    // const filePath = path.resolve("catalog/catalog-MCUG-F26.xml");
+    // await S.scrapeFromFile(filePath);
+    await S.scrape();
     await S.parse();
 
     return S.catalog.courses;
